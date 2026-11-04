@@ -1,0 +1,36 @@
+[
+  {
+    "event": "protocol_frozen",
+    "sha256": "5792d5f95013fd47b8c36a54ee43cab1bc6a445c1102f0c879c0279e30fecfb4"
+  },
+  {
+    "event": "scenario_selection_finished",
+    "scenario": "A",
+    "candidate": "01_tree_347f3936"
+  },
+  {
+    "event": "scenario_selection_finished",
+    "scenario": "B",
+    "candidate": "75_forest_e81a70e9"
+  },
+  {
+    "event": "scenario_selection_finished",
+    "scenario": "B_contexto",
+    "candidate": "80_forest_2ca7331d"
+  },
+  {
+    "event": "all_selections_frozen"
+  },
+  {
+    "event": "test_evaluated",
+    "scenario": "A"
+  },
+  {
+    "event": "test_evaluated",
+    "scenario": "B"
+  },
+  {
+    "event": "test_evaluated",
+    "scenario": "B_contexto"
+  }
+]

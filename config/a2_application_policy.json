@@ -1,0 +1,21 @@
+{
+  "version": "A2-application-coverage-v1",
+  "minimum_train_pattern_support": 30,
+  "support_alternatives": [
+    1,
+    10,
+    30
+  ],
+  "requirements": [
+    "at least one observed predictor",
+    "same availability pattern in development",
+    "at least 30 development rows with pattern",
+    "no novel observed categorical value"
+  ],
+  "reason": "The at-least-one-field demonstration gave scores to records with unavailable support. This coverage guard rejects unsupported patterns without using their unknown labels or retuning test performance.",
+  "threshold_limit": "30 is an operational support requirement, not an empirically optimal clinical threshold. Alternative coverage counts are published; no accuracy can be estimated without labels.",
+  "estimation_limit": "Accepted coverage is necessary screening only, not evidence of reliable individual prediction.",
+  "model_selection_unchanged": true,
+  "no_test_metrics_used": true,
+  "no_pseudolabel_training": true
+}

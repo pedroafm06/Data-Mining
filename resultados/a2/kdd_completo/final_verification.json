@@ -1,0 +1,64 @@
+{
+  "complete_academic_KDD": true,
+  "submitted_A1_unchanged": true,
+  "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
+  "protocol_sha256": "5792d5f95013fd47b8c36a54ee43cab1bc6a445c1102f0c879c0279e30fecfb4",
+  "tests": {
+    "passed": 111,
+    "latest_run_seconds": 50.06
+  },
+  "notebook": {
+    "executed_code_cells": 5,
+    "errors": 0,
+    "personal_absolute_paths": false
+  },
+  "integrated_pdf": {
+    "pages": 7,
+    "language": "pt-BR",
+    "all_pages_rendered_and_visually_inspected": true
+  },
+  "model_reapplication": {
+    "A": {
+      "max_abs_prediction_difference": 0.0,
+      "identical_classes": true,
+      "confusion_counts_verified": {
+        "tn": 1310,
+        "fp": 40,
+        "fn": 111,
+        "tp": 881
+      }
+    },
+    "B": {
+      "max_abs_prediction_difference": 2.220446049250313e-16,
+      "identical_classes": true,
+      "confusion_counts_verified": {
+        "tn": 927,
+        "fp": 423,
+        "fn": 379,
+        "tp": 613
+      }
+    },
+    "B_contexto": {
+      "max_abs_prediction_difference": 2.220446049250313e-16,
+      "identical_classes": true,
+      "confusion_counts_verified": {
+        "tn": 1085,
+        "fp": 265,
+        "fn": 318,
+        "tp": 674
+      }
+    }
+  },
+  "test_membership_preserved": true,
+  "stages": [
+    "domain and objective",
+    "selection and exploration",
+    "cleaning",
+    "transformation",
+    "mining",
+    "evaluation",
+    "interpretation",
+    "coverage-aware academic application and documentation"
+  ],
+  "claims_limit": "Academic complete technical process. No SIGAA submission or clinical validation. Unknown later rubric may add delivery requirements."
+}

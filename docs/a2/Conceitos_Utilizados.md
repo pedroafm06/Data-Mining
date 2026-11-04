@@ -4,7 +4,7 @@ A escolha de uma técnica depende do problema que ela resolve. A revisão não a
 
 | Conceito | Decisão aplicada e motivo |
 |---|---|
-| Processo KDD | Separar seleção e entendimento, limpeza, transformação, mineração, avaliação e interpretação. A revisão atual conclui a preparação; a modelagem com essa versão ainda falta. |
+| Processo KDD | Separar seleção e entendimento, limpeza, transformação, mineração, avaliação e interpretação. A preparação revisada foi integrada à mineração, avaliação, interpretação e aplicação. |
 | Tipos, escalas e unidades | ID é identificador nominal; medidas têm unidades explícitas; códigos de achados não viram quantidades; datas mantêm seus estados e candidatos. Isso evita operações aritméticas sem significado. |
 | Análise univariada | Contagens, faltantes, quartis, média, mediana, desvio, amplitude e assimetria descrevem as medidas observadas antes de imputar. Estimativas não são apresentadas como medições. |
 | Ausência e sentinelas | Zeros usados como sentinela e erros de planilha são tratados conforme a variável. SOPRO Ausente é achado registrado e permanece distinto de campo vazio. |
@@ -28,4 +28,16 @@ O mascaramento artificial de 20% das medidas disponíveis, repetido cinco vezes,
 
 Welch e V de Cramér são complementos estatísticos explicitados. Eles ajudam a descrever diferenças e associações, sem substituir o raciocínio sobre qualidade, suporte, tamanho do efeito e construção do alvo. Testes em milhares de registros podem produzir p-valores pequenos para diferenças pouco relevantes.
 
-Min-Max, PCA, seleção automática, outros encodings e reamostragem de classes não foram acrescentados para acumular técnicas. Sua utilidade deverá ser examinada na modelagem conforme a tarefa e o protocolo. Os conceitos de validação cruzada, controle de complexidade, matriz de confusão, precisão, recall e curvas de avaliação pertencem à continuação; resultados antigos estão identificados no histórico.
+Min-Max, PCA, seleção automática, outros encodings e reamostragem de classes não foram acrescentados para acumular técnicas. Sua utilidade deverá ser examinada na modelagem conforme a tarefa e o protocolo. Os conceitos de validação cruzada, controle de complexidade, matriz de confusão, precisão, recall e curvas de avaliação foram aplicados à versão atual; resultados da preparação anterior estão identificados no histórico.
+
+## Mineração, avaliação e interpretação executadas
+
+A pergunta do KDD foi convertida em classificação supervisionada do rótulo registrado. A árvore relaciona particionamento, pureza dos nós e controle de complexidade: Gini/entropia, profundidade, suporte mínimo e poda foram comparados. Não basta reduzir o erro de treino; a configuração deve funcionar em validação. A regressão logística testou uma fronteira linear regularizada e a floresta comparou agregação de árvores; são complementos técnicos, sem atribuir às aulas a explicação integral dos algoritmos.
+
+A separação desenvolvimento/teste, a estratificação e o agrupamento candidato controlam fontes distintas de otimismo. Cinco folds selecionaram entre 81 configurações por cenário; a validação aninhada 3x3 repetiu a busca em cada treino externo. Medianas, vocabulários e escalas foram reajustados nos treinos, e a escolha global/idade também participou da busca. A árvore simples venceu por critério e desempate em A; isso não prova uma combinação universalmente melhor.
+
+A redução manual testou ausência de IMC, HDA2 e PPA e a retirada de indicadores; PCA95 foi aplicada em cada treino da melhor logística. PCA perdeu desempenho frente à mesma logística nos três cenários: preservar variância não assegura preservar discriminação. Sobre/subamostragem alteraram somente o treino; pesos de classe usaram n/(2n_classe). Essas estratégias não melhoraram todas as configurações, portanto não foram impostas apenas pela existência de desbalanceamento.
+
+Matriz de confusão, precisão, recall, especificidade, F1 e acurácia balanceada expõem os tipos de erro. ROC e precisão-recall mostram o efeito do limiar, mantido em 0,5. Average precision e Brier são complementos; intervalos por componentes candidatos são condicionados aos modelos. Não se transforma DP dos folds em IC ou score em diagnóstico.
+
+Interpretamos permutações de variáveis originais e regras de árvores com suportes reais. A importância é exploratória, posterior à seleção, e não causal. A aplicação aos não rotulados revelou mudança no padrão de informação disponível: a regra inicial de pelo menos um campo foi rejeitada. Cobertura com suportes1/10/30 foi comparada; a política operacional exige30 e mantém abstenções. Essa iteração e a documentação das hipóteses rejeitadas também integram o KDD.

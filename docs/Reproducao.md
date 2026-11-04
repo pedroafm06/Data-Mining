@@ -1,8 +1,10 @@
-# Reprodução da preparação atual
+# Reprodução da A2 completa
 
-Execute os comandos a partir da raiz clonada do repositório. O CSV não é incluído no Git; obtenha-o pelo material da disciplina e confira [o hash da entrada](../dados/README.md).
+A execução segue: entendimento e seleção documentados -> preparação revisada -> busca de modelos -> avaliação -> interpretação -> aplicação com verificação de cobertura -> relatório. Os comandos usam as mesmas funções dos notebooks, sem uma segunda implementação estatística.
 
-## Ambiente
+## Entrada e ambiente
+
+Obtenha a base pelo material da disciplina. O hash esperado está no [guia de dados](../dados/README.md). O CSV não é distribuído pelo Git. O padrão é `dados/raw/UCMF_raw.csv`; `--source` aceita outro caminho.
 
 ```bash
 python -m venv .venv
@@ -10,36 +12,51 @@ source .venv/bin/activate
 python -m pip install -e ".[dev]"
 ```
 
-`requirements.lock` registra as versões da execução original em Python 3.14/macOS. A instalação pelos extras resolve dependências da plataforma atual. Para reproduzir o ambiente macOS registrado, use `python -m pip install -r requirements.lock` e depois `python -m pip install -e . --no-deps`. Diferenças de versões precisam ser registradas.
+`requirements.lock` registra Python3.14/macOS. Para reproduzir esse ambiente, use `python -m pip install -r requirements.lock` e `python -m pip install -e . --no-deps`. Os extras permitem resolver dependências em outras plataformas; diferenças precisam ser registradas.
 
-## Preparação, relatório e notebook
+## Processo completo
 
 ```bash
-python tools/run_preprocessing.py --source dados/raw/UCMF_raw.csv
-python tools/build_preprocessing_report.py --source dados/raw/UCMF_raw.csv
-python tools/build_preprocessing_notebook.py
+python tools/run_full_kdd.py
+python tools/build_full_kdd_notebook.py
 python -m pytest -q
 ```
 
-O notebook chama as mesmas funções da biblioteca. Para manter o CSV em outra pasta:
+A busca principal compara81 configurações por cenário em cinco folds. A avaliação aninhada repete a busca em3x3 folds no desenvolvimento. A execução registrada da mineração levou aproximadamente nove minutos; o tempo depende da máquina. Candidatos, decisões, parâmetros e seeds são registrados antes da avaliação do teste histórico.
+
+Para entrada externa:
 
 ```bash
 export KDD_SOURCE="/caminho/para/UCMF_raw.csv"
-python tools/run_preprocessing.py --source "$KDD_SOURCE"
-python tools/build_preprocessing_report.py --source "$KDD_SOURCE"
-python tools/build_preprocessing_notebook.py
+python tools/run_full_kdd.py --source "$KDD_SOURCE"
+python tools/build_full_kdd_notebook.py --source "$KDD_SOURCE"
 ```
 
-O comando de preparação permite `--partitions` para informar a partição e `--output-dir` para escolher outra pasta de artefatos. O padrão é `config/particoes_referencia.csv` e `artifacts/a2_preprocessing/`. Use os mesmos parâmetros ao gerar o relatório. `--help` documenta as opções de cada ferramenta.
+O notebook completo permite reutilizar uma execução concluída compatível. A compatibilidade exige fonte, protocolo, código de ajuste e hashes dos artefatos; os modelos são reaplicados e as métricas conferidas. Para executar essa mesma opção pelo terminal:
 
-O relatório vai para `docs/a2/`, e o notebook para `notebooks/01_preprocessamento_a2.ipynb`. Os geradores sobrescrevem somente as respectivas saídas da revisão; não alteram os documentos históricos da A1.
+```bash
+python tools/run_full_kdd.py --reuse-mining
+```
 
-## Saídas locais
+Reutilizar não muda hiperparâmetros pelo teste. A aplicação e os relatórios são regenerados sem novo treinamento. `--skip-preparation` é uma opção técnica para quem já possui a preparação local correspondente.
 
-`base_semantica.csv` preserva as 21 variáveis tratadas; `base_para_transformacao.csv` aplica a política de qualidade anterior à imputação. `proveniencia.csv` e `alteracoes.csv` permitem rastrear as decisões. Essas saídas contêm informação por registro e permanecem fora do Git.
+## Componentes isolados
 
-As três matrizes principais são `matriz_unidades.csv`, `matriz_padronizada.csv` e `matriz_log_peso_padronizada.csv`. Os sufixos identificam desenvolvimento, teste, quarentena e não rotulados. `mapa_linhas.csv` contém ID, partição e y na mesma ordem. Alvos e IDs separados acompanham cada matriz. O objeto `transformador_preprocessamento.joblib` guarda os parâmetros ajustados e pode reaplicar as representações.
+```bash
+python tools/run_preprocessing.py
+python tools/build_preprocessing_report.py
+python tools/build_preprocessing_notebook.py
+python tools/run_application.py
+python tools/build_full_kdd_report.py
+python tools/export_aggregates.py
+```
 
-A exportação é conferida contra a reaplicação do objeto salvo. Os indicadores e one-hot permanecem 0/1; cada categórica tem exatamente uma categoria ativa. O manifesto relaciona entrada, configuração, código e saídas. Imputação é estimativa: não a interprete como medida clínica registrada.
+As duas últimas ferramentas consomem resultados já produzidos. O relatório completo exporta agregados da mineração e da aplicação para `resultados/a2/kdd_completo/`. O gerador da preparação exporta apenas seu relatório; `export_aggregates.py` copia os diagnósticos agregados dessa etapa.
 
-Os testes unitários usam exemplos pequenos e não exigem a base clínica. Testes de integração com arquivos locais podem ser pulados em um clone sem dados; a execução completa requer a entrada e os artefatos gerados.
+## Saídas e limites
+
+`artifacts/a2_preprocessing/` contém base semântica, base da política, proveniência, intervenções, matrizes e transformadores. `artifacts/a2_mining/` contém os experimentos congelados, auditoria de252 ajustes internos de pré-processamento, predições e modelos. `artifacts/a2_application/` registra a revisão de cobertura e as demonstrações por linha; `artifacts/a2_kdd/` registra ambiente e reaplicação dos modelos. Todas essas pastas permanecem locais.
+
+O relatório integrado e as decisões estão em `docs/a2/`; o notebook completo é `notebooks/02_kdd_completo_a2.ipynb`. A A1 histórica não é reescrita. O notebook da preparação é um componente do processo completo.
+
+Em clone sem dados ou artefatos, testes dependentes desses arquivos são pulados explicitamente; os testes unitários usam exemplos pequenos. A validação integral requer a fonte e uma execução completa. Os resultados são acadêmicos, sujeitos às hipóteses documentadas sobre rótulos, grupos candidatos e exploração prévia.

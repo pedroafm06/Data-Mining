@@ -1,0 +1,40 @@
+{
+  "complete": true,
+  "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
+  "protocol_sha256": "5792d5f95013fd47b8c36a54ee43cab1bc6a445c1102f0c879c0279e30fecfb4",
+  "frozen_outputs_verified": 52,
+  "models_reapplied": {
+    "A": {
+      "max_abs_prediction_difference": 0.0,
+      "identical_classes": true,
+      "confusion_counts_verified": {
+        "tn": 1310,
+        "fp": 40,
+        "fn": 111,
+        "tp": 881
+      }
+    },
+    "B": {
+      "max_abs_prediction_difference": 2.220446049250313e-16,
+      "identical_classes": true,
+      "confusion_counts_verified": {
+        "tn": 927,
+        "fp": 423,
+        "fn": 379,
+        "tp": 613
+      }
+    },
+    "B_contexto": {
+      "max_abs_prediction_difference": 2.220446049250313e-16,
+      "identical_classes": true,
+      "confusion_counts_verified": {
+        "tn": 1085,
+        "fp": 265,
+        "fn": 318,
+        "tp": 674
+      }
+    }
+  },
+  "test_membership_unchanged": true,
+  "no_new_model_selection": true
+}

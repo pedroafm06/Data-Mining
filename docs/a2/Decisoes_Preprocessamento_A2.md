@@ -2,7 +2,7 @@
 
 
 
-Esta revisão integra a A2 e termina antes da modelagem. A A1 avaliada é a versão já entregue; suas cópias históricas permanecem preservadas. As transformações foram aplicadas e exportadas, com parâmetros ajustados somente no desenvolvimento já separado. Não foi treinado nenhum classificador nesta rodada.
+Esta revisão integra a A2 e termina antes da modelagem. A A1 avaliada é a versão já entregue; suas cópias históricas permanecem preservadas. As transformações foram aplicadas e exportadas, com parâmetros ajustados somente no desenvolvimento já separado. Este relatório cobre a preparação; os modelos atuais são apresentados no relatório integrado da A2.
 
 
 
@@ -408,7 +408,7 @@ O mascaramento artificial verifica reconstrução de valores disponíveis; não 
 
 
 
-A matriz de desenvolvimento já transformada não serve para selecionar modelos por CV interna sem reajustar o transformador em cada fold. A população já foi explorada em etapas anteriores e o teste não é inteiramente virgem de exploração. Esta revisão da A2 não recalcula os experimentos anteriores; após mudanças na idade esses resultados não descrevem automaticamente a base nova.
+A matriz de desenvolvimento já transformada não serve para selecionar modelos por CV interna sem reajustar o transformador em cada fold. A população já foi explorada em etapas anteriores e o teste não é inteiramente virgem de exploração. Os experimentos históricos não representam a preparação nova; os resultados atuais foram recalculados e constam do relatório integrado da A2.
 
 
 

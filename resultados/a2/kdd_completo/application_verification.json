@@ -1,0 +1,8 @@
+{
+  "complete": true,
+  "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
+  "models_unchanged": true,
+  "uses_test_metrics_for_policy_selection": false,
+  "reports_historical_test_coverage": true,
+  "no_pseudolabel_training": true
+}

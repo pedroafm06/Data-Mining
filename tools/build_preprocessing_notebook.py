@@ -11,7 +11,7 @@ def build(execute=True, source=None):
     n=nbformat.v4.new_notebook()
     n.cells=[nbformat.v4.new_markdown_cell('''# A2: revisão da limpeza e da transformação
 
-Todas as revisões posteriores à A1 entregue integram a **A2**. Esta execução termina **antes da modelagem**; o KDD completo ainda precisa das próximas etapas. Cada decisão é explicada no registro `docs/a2/Decisoes_Preprocessamento_A2.md`.
+Todas as revisões posteriores à A1 entregue integram a **A2**. Esta execução termina **antes da modelagem**; o restante do KDD é executado em `02_kdd_completo_a2.ipynb`. Cada decisão é explicada no registro `docs/a2/Decisoes_Preprocessamento_A2.md`.
 
 Sequência: tipos e escalas → ausências e formatos → consistência → criação de idade/IMC → comparação de alternativas → ajuste do pré-processamento no desenvolvimento → aplicação e conferência.
 
@@ -28,7 +28,7 @@ from kdd_revision.preprocessing_report import generate
 SOURCE = Path(os.environ.get("KDD_SOURCE", str(PROJECT / "dados/raw/UCMF_raw.csv"))).expanduser()
 if not SOURCE.is_file():
     raise FileNotFoundError("Coloque UCMF_raw.csv em dados/raw/ ou defina KDD_SOURCE antes de iniciar o Jupyter.")
-print("Escopo: pré-processamento da A2. Modelagem e avaliação com esta preparação permanecem pendentes.")'''),
+print("Escopo: pré-processamento da A2. Modelagem e avaliação atuais estão no notebook 02_kdd_completo_a2.ipynb.")'''),
       nbformat.v4.new_markdown_cell('''## Preparação e escolha das imputações
 
 Preservamos as 21 variáveis e os valores originais na auditoria. Comparamos mediana global, por idade e por idade/sexo por mascaramento de medidas disponíveis somente no desenvolvimento, sem usar o alvo. Grupos precisam de suporte mínimo e usam fallback. A quarentena conserva a linha na base, retirando-a apenas do ajuste.

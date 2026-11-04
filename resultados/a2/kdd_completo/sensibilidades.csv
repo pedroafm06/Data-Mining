@@ -1,0 +1,29 @@
+scenario,variant,candidate,mean_cv_balanced_accuracy,sd_cv_balanced_accuracy,pooled_cv,status
+A,principal,01_tree_347f3936,0.9194065368854568,0.006933687411331738,0.9194086054218717,fixed selected candidate; exploratory after selection; no test-based reselection
+A,suspeitos_preservados,01_tree_347f3936,0.9194065368854568,0.006933687411331738,0.9194086054218717,fixed selected candidate; exploratory after selection; no test-based reselection
+A,sem_indicadores,01_tree_347f3936,0.9194065368854568,0.006933687411331738,0.9194086054218717,fixed selected candidate; exploratory after selection; no test-based reselection
+A,sem_IMC,01_tree_347f3936,0.9194065368854568,0.006933687411331738,0.9194086054218717,fixed selected candidate; exploratory after selection; no test-based reselection
+A,sem_HDA2,01_tree_347f3936,0.9194065368854568,0.006933687411331738,0.9194086054218717,fixed selected candidate; exploratory after selection; no test-based reselection
+A,sem_IMC_HDA2,01_tree_347f3936,0.9194065368854568,0.006933687411331738,0.9194086054218717,fixed selected candidate; exploratory after selection; no test-based reselection
+A,sem_PPA,01_tree_347f3936,0.9194065368854568,0.006933687411331738,0.9194086054218717,fixed selected candidate; exploratory after selection; no test-based reselection
+A,sobreamostragem,01_tree_347f3936,0.9194065368854568,0.006933687411331738,0.9194086054218717,fixed selected candidate; exploratory after selection; no test-based reselection
+A,subamostragem,01_tree_347f3936,0.9194065368854568,0.006933687411331738,0.9194086054218717,fixed selected candidate; exploratory after selection; no test-based reselection
+A,PCA95_melhor_logistica,63_logistic_27b7892f,0.9173711139277675,0.008407541220658213,,exploratory development only; compare to same logistic candidate without PCA
+B,principal,75_forest_e81a70e9,0.6340587052007821,0.009242155962921444,0.634061677171855,fixed selected candidate; exploratory after selection; no test-based reselection
+B,suspeitos_preservados,75_forest_e81a70e9,0.634656419382832,0.011810853757086553,0.6346585320738884,fixed selected candidate; exploratory after selection; no test-based reselection
+B,sem_indicadores,75_forest_e81a70e9,0.6267208711320957,0.009498538228033593,0.6267253600079783,fixed selected candidate; exploratory after selection; no test-based reselection
+B,sem_IMC,75_forest_e81a70e9,0.6365535621032196,0.012705283468374134,0.6365564666376733,fixed selected candidate; exploratory after selection; no test-based reselection
+B,sem_IMC_HDA2,75_forest_e81a70e9,0.6365535621032196,0.012705283468374134,0.6365564666376733,fixed selected candidate; exploratory after selection; no test-based reselection
+B,sobreamostragem,75_forest_e81a70e9,0.6334150163248824,0.012350688267491894,0.6334174580257461,fixed selected candidate; exploratory after selection; no test-based reselection
+B,subamostragem,75_forest_e81a70e9,0.6292647964265503,0.010022517685538856,0.6292681679846872,fixed selected candidate; exploratory after selection; no test-based reselection
+B,PCA95_melhor_logistica,72_logistic_753b06f2,0.6155057902339456,0.010818902909896962,,exploratory development only; compare to same logistic candidate without PCA
+B_contexto,principal,80_forest_2ca7331d,0.7127991852019482,0.015102736390521175,0.7128036697638722,fixed selected candidate; exploratory after selection; no test-based reselection
+B_contexto,suspeitos_preservados,80_forest_2ca7331d,0.7114085398761845,0.013583913249921763,0.7114132359485219,fixed selected candidate; exploratory after selection; no test-based reselection
+B_contexto,sem_indicadores,80_forest_2ca7331d,0.7110783936682117,0.014817011453150319,0.71108378924047,fixed selected candidate; exploratory after selection; no test-based reselection
+B_contexto,sem_IMC,80_forest_2ca7331d,0.7103485847813971,0.016373121824064855,0.7103529031080384,fixed selected candidate; exploratory after selection; no test-based reselection
+B_contexto,sem_HDA2,80_forest_2ca7331d,0.7115530339189456,0.015930578245713985,0.7115579457480088,fixed selected candidate; exploratory after selection; no test-based reselection
+B_contexto,sem_IMC_HDA2,80_forest_2ca7331d,0.7101333646666519,0.015394090497178435,0.7101381633926688,fixed selected candidate; exploratory after selection; no test-based reselection
+B_contexto,sem_PPA,80_forest_2ca7331d,0.711226625313947,0.014773258757666082,0.7112318404740481,fixed selected candidate; exploratory after selection; no test-based reselection
+B_contexto,sobreamostragem,80_forest_2ca7331d,0.7128074262370186,0.015190124483061309,0.7128116611656847,fixed selected candidate; exploratory after selection; no test-based reselection
+B_contexto,subamostragem,80_forest_2ca7331d,0.7112817657776012,0.014397240898784826,0.711286541853121,fixed selected candidate; exploratory after selection; no test-based reselection
+B_contexto,PCA95_melhor_logistica,46_logistic_281102e5,0.7071066533069266,0.014991418371261053,,exploratory development only; compare to same logistic candidate without PCA

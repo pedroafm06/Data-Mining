@@ -1,7 +1,7 @@
 {
-  "etapa": "A2: revisão de limpeza e transformação",
+  "etapa": "A2: processo completo do KDD",
   "A1": "A avaliação incide sobre a versão já entregue.",
-  "classificadores_com_preparacao_atual": "pendentes",
+  "classificadores_com_preparacao_atual": "executados e avaliados; escolhas congeladas antes do teste histórico",
   "conceitos": [
     {
       "conceito": "Processo KDD",
@@ -103,5 +103,25 @@
     "mascaramento artificial para diagnóstico de imputação",
     "Welch",
     "V de Cramér"
+  ],
+  "conceitos_executados_na_continuacao": [
+    "classificação supervisionada",
+    "complexidade e sobreajuste",
+    "árvore de decisão",
+    "hold-out",
+    "estratificação e grupos candidatos",
+    "CV5-fold",
+    "nested CV3x3",
+    "tuning com81 configurações por cenário",
+    "pipeline com ajuste em cada treino",
+    "pesos de classe",
+    "sobre/subamostragem aleatória",
+    "PCA95 em treino",
+    "matriz de confusão",
+    "precisão/recall/especificidade/F1/BA",
+    "curvas ROC e precisão-recall",
+    "interpretação de padrões",
+    "aplicação e abstenção por cobertura",
+    "documentação e uso do conhecimento"
   ]
 }

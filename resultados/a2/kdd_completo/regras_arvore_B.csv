@@ -1,0 +1,10 @@
+leaf,rule,n_development,normal,anormal,observed_anormal_fraction,note
+2,Peso <= 8.85 AND IDADE <= 0.0383038,413,93,320,0.774818401937046,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+3,Peso <= 8.85 AND IDADE > 0.0383038,1669,673,996,0.5967645296584781,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+8,Peso > 8.85 AND FC <= 98.5 AND SEXO__002 <= 0.5 AND Peso <= 28.85 AND FC <= 89.5,1804,1206,598,0.33148558758314856,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+11,Peso > 8.85 AND FC <= 98.5 AND SEXO__002 <= 0.5 AND Peso <= 28.85 AND FC > 89.5 AND PA DIASTOLICA__imputado <= 0.5 AND Peso <= 15.55,188,68,120,0.6382978723404256,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+12,Peso > 8.85 AND FC <= 98.5 AND SEXO__002 <= 0.5 AND Peso <= 28.85 AND FC > 89.5 AND PA DIASTOLICA__imputado <= 0.5 AND Peso > 15.55,447,249,198,0.4429530201342282,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+13,Peso > 8.85 AND FC <= 98.5 AND SEXO__002 <= 0.5 AND Peso <= 28.85 AND FC > 89.5 AND PA DIASTOLICA__imputado > 0.5,967,624,343,0.35470527404343327,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+14,Peso > 8.85 AND FC <= 98.5 AND SEXO__002 <= 0.5 AND Peso > 28.85,1968,1413,555,0.2820121951219512,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+15,Peso > 8.85 AND FC <= 98.5 AND SEXO__002 > 0.5,234,220,14,0.05982905982905983,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+16,Peso > 8.85 AND FC > 98.5,1671,848,823,0.49251944943147813,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"

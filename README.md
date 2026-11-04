@@ -1,33 +1,36 @@
-# Mineração de Dados — KDD
+# Mineração de Dados - A2: processo completo do KDD
 
-Trabalho da disciplina INF0414, UFG, 2026/2. Estudo da base UCMF de atendimentos pediátricos, com 12.873 registros e 21 variáveis. Grupo: Antônio Henrique Queiroz Villar Lopes, João Vitor Fernandes Ferreira, Mateus Nery Bailão e Pedro Augusto Ferreira Matos. Professor: Rogério Lopes Salvini.
+Trabalho da disciplina INF0414, UFG, 2026/2. Base UCMF: 12.873 registros e 21 variáveis. Grupo: Antônio Henrique Queiroz Villar Lopes, João Vitor Fernandes Ferreira, Mateus Nery Bailão e Pedro Augusto Ferreira Matos. Professor: Rogério Lopes Salvini.
 
-**A A1 avaliada é a que já foi entregue. Todas as melhorias e etapas novas integram a A2**, conforme orientação do professor comunicada em 04/11/2026. A A2 tem como objetivo concluir o processo KDD; sua descrição detalhada ainda será complementada. Este repositório registra o estado atual do trabalho.
+**A A2 aproveita e melhora a A1 e completa o KDD inteiro.** A A1 avaliada continua sendo a versão já entregue. A versão atual inclui entendimento do domínio e dos dados, seleção, limpeza, transformação, mineração, avaliação, interpretação e aplicação/documentação do conhecimento. A descrição formal posterior da A2 poderá acrescentar exigências de entrega e apresentação.
 
-| Material | Estado | Onde começar |
-|---|---|---|
-| A1 entregue | Preservada, sem alterações | [Relatório original](docs/a1_entregue/Relatorio_A1_Entregue.pdf) · [apresentação original](docs/a1_entregue/Apresentacao_A1_Entregue.pdf) |
-| A2: revisão da limpeza e transformação | Executada e verificada | [Relatório](docs/a2/Relatorio_Preprocessamento_A2.pdf) · [decisões por variável](docs/a2/Decisoes_Preprocessamento_A2.md) · [notebook](notebooks/01_preprocessamento_a2.ipynb) |
-| Modelagem e avaliação anteriores | Histórico exploratório, com preparação antiga | [Histórico e limitações](docs/historico/README.md) |
-| A2: modelagem e avaliação com a base atual | Pendente | [Continuação do KDD](docs/a2/Continuidade_KDD.md) |
+## Começar pela A2 completa
 
-A preparação atual preserva todas as linhas, corrige a idade relativa quando há evidência suficiente e separa valores observados, suspeitos e estimados. As representações aplicadas têm 93 atributos: sete medidas, sete indicadores de imputação e 79 colunas one-hot. Há versões em unidades originais, padronizada e com log1p somente no peso seguido de padronização. As alternativas de imputação e de qualidade também foram exportadas localmente. Nenhum classificador foi treinado com essa preparação nesta revisão.
+- [Relatório integrado em PDF](docs/a2/Relatorio_A2_KDD_Completo.pdf) · [versão em texto](docs/a2/Relatorio_A2_KDD_Completo.md).
+- [Decisões, alternativas e justificativas](docs/a2/Decisoes_KDD_Completo.md) · [registro estruturado das microdecisões](docs/a2/Registro_Microdecisoes.csv).
+- [Notebook completo executado](notebooks/02_kdd_completo_a2.ipynb).
+- [Conceitos utilizados](docs/a2/Conceitos_Utilizados.md) · [estado e verificação](docs/a2/Estado_e_Verificacao.md).
+- [Resultados, parâmetros por fold e finais](resultados/a2/kdd_completo/).
 
-## Organização
+O relatório de [pré-processamento](docs/a2/Relatorio_Preprocessamento_A2.pdf), suas [decisões por variável](docs/a2/Decisoes_Preprocessamento_A2.md) e o [notebook da preparação](notebooks/01_preprocessamento_a2.ipynb) são componentes da A2 completa. A [A1 entregue](docs/a1_entregue/README.md) permanece preservada byte a byte. Os [experimentos com a preparação anterior](docs/historico/README.md) estão separados dos resultados atuais.
 
-- `src/kdd_revision/preprocessing/`: preparação atual da A2 e transformações.
-- `notebooks/`: execução comentada da preparação atual.
-- `docs/a1_entregue/`: documentos históricos preservados por hash.
-- `docs/a2/`: relatório atual, decisões, conceitos e continuidade.
-- `docs/historico/`: relatórios dos experimentos com a preparação anterior.
-- `resultados/a2/preprocessamento/`: tabelas e diagnósticos agregados da revisão atual.
-- `config/`: políticas explícitas, esquema e partições de referência.
-- `tests/`: regras de limpeza, prevenção de vazamento, alinhamento e reprodutibilidade.
-- `dados/` e `artifacts/`: entrada e saídas locais excluídas do Git.
+## O que foi executado
 
-## Reproduzir a preparação da A2
+A revisão preserva todas as linhas e os originais, separa erro, suspeita e estimativa, corrige idade relativa quando defensável e aplica representações numéricas explícitas. A mineração compara **81 configurações em cada um de três cenários**, com mediana global/etária e demais parâmetros aprendidos dentro de cada treino de fold. Há CV5-fold, avaliação aninhada3x3 no desenvolvimento e avaliação secundária no teste histórico, já explorado anteriormente.
 
-Requer Python 3.11 ou superior. A execução verificada usou Python 3.14 e as versões de `requirements.lock`. O lock registra o ambiente macOS utilizado; a instalação pelos extras abaixo é a opção portável.
+Foram testados controle majoritário, árvores com diferentes critérios/complexidades/poda/pesos, logística com regularização e representações alternativas, e florestas complementares. Redução, indicadores, qualidade, PCA e sobre/subamostragem foram contestados no desenvolvimento. Os resultados incluem métricas, curvas, intervalos, subgrupos, interpretação e aplicação aos não rotulados. A hipótese inicial de cobertura da aplicação foi rejeitada e substituída por uma regra de suporte explicitada; previsões não viram rótulos de treino.
+
+| Cenário | Informação disponível | BA nested no desenvolvimento | BA no teste histórico |
+|---|---|---:|---:|
+| A | Medidas, achados e contexto | 0,9191 | 0,9292 |
+| B | Sete medidas e SEXO | 0,6309 | 0,6523 |
+| B_contexto | A sem PULSOS, B2 e SOPRO | 0,7096 | 0,7416 |
+
+Esses números classificam o rótulo registrado. Não são validação clínica ou estimativa de desempenho em pacientes novos. A diferença entre cenários não prova causalidade; o relatório mostra suportes, erros, alternativas, instabilidade da seleção e limites de cobertura.
+
+## Reproduzir
+
+Requer Python 3.11 ou superior. A execução registrada usou Python3.14 e as versões de `requirements.lock` em macOS.
 
 ```bash
 python -m venv .venv
@@ -35,23 +38,26 @@ source .venv/bin/activate
 python -m pip install -e ".[dev]"
 ```
 
-Obtenha a base do material da disciplina e coloque `UCMF_raw.csv` em `dados/raw/`. O [guia de dados](dados/README.md) registra o hash esperado. Em seguida:
+Coloque a cópia da base fornecida pela disciplina em `dados/raw/UCMF_raw.csv`; [origem e hash esperados](dados/README.md). Em seguida:
 
 ```bash
-python tools/run_preprocessing.py
-python tools/build_preprocessing_report.py
-python tools/build_preprocessing_notebook.py
+python tools/run_full_kdd.py
+python tools/build_full_kdd_notebook.py
 python -m pytest -q
 ```
 
-Para usar a base guardada em outro local, passe `--source /caminho/UCMF_raw.csv` ao primeiro comando e defina `KDD_SOURCE` com esse caminho para executar o notebook. O gerador de relatório também aceita `--source`. As instruções completas estão no [guia de reprodução](docs/Reproducao.md).
+O primeiro comando refaz a busca. O notebook reutiliza uma busca concluída somente após verificar compatibilidade e reaplicar os modelos; num clone sem artefatos, ele executa a busca. Para atualizar aplicação e relatório reutilizando explicitamente modelos compatíveis:
 
-As matrizes completas, seus subconjuntos, alvos, IDs, proveniência e objetos de transformação são gerados em `artifacts/a2_preprocessing/`. As matrizes não incluem ID nem alvo; os arquivos auxiliares preservam a ordem das linhas. A transformação aprende somente com 9.361 registros de desenvolvimento e aplica os mesmos parâmetros ao teste histórico (2.342), a uma quarentena de equivalência e aos 1.169 registros sem alvo.
+```bash
+python tools/run_full_kdd.py --reuse-mining
+```
 
-## Conceitos e limites
+`--source /caminho/UCMF_raw.csv` permite entrada externa. `KDD_SOURCE` é reconhecido pelos notebooks; seus geradores também aceitam `--source`. As instruções detalhadas estão no [guia de reprodução](docs/Reproducao.md).
 
-Os [conceitos utilizados](docs/a2/Conceitos_Utilizados.md) são explicitados junto da sua finalidade. A melhor regra foi procurada comparando alternativas, sem alegar ótimo universal. A guarda antropométrica é uma hipótese operacional de curadoria, sem estabelecer faixas clínicas de normalidade. O mascaramento artificial não comprova o mecanismo das ausências reais.
+## Organização e rastreabilidade
 
-Antes de comparar modelos, imputação, vocabulário e escala precisam ser ajustados novamente em cada fold. A matriz de desenvolvimento já transformada serve para inspeção e aplicação, mas não autoriza seleção por validação cruzada com parâmetros aprendidos uma única vez. O teste histórico já passou por exploração; os resultados anteriores não validam a preparação atual. Formação do alvo, unidade paciente/consulta e disponibilidade temporal dos achados continuam exigindo esclarecimento.
+`src/kdd_revision/preprocessing/` implementa a preparação atual; `mining.py` e `full_kdd.py` implementam a busca e avaliação; `application.py` verifica cobertura; `reproduction.py` confere a execução salva. `config/a2_kdd_protocol.json` congela candidatos, critérios e seeds; `a2_application_policy.json` registra a revisão independente da cobertura. As decisões de limpeza, os parâmetros efetivos dos estimadores e as fontes didáticas verificadas também estão em `config/`.
 
-A base clínica, a auditoria por linha e os modelos serializados não são distribuídos pelo Git. A lista de partições contém apenas identificadores e grupos candidatos para reproduzir a separação histórica, sem medidas clínicas. Materiais didáticos e referências de terceiros permanecem nas respectivas fontes.
+`artifacts/` guarda localmente bases, proveniência, matrizes, predições, modelos e manifestos. `resultados/` contém apenas agregados e parâmetros de ajuste. Dados clínicos por registro e objetos serializados não são distribuídos pelo Git. A partição de referência contém apenas IDs e grupos candidatos para reproduzir a separação histórica.
+
+A qualidade foi explorada na coorte completa; nested CV não desfaz essa exploração. Grupos candidatos não comprovam identidade de pacientes. A1 preservada, teste explorado e decisões operacionais são explicitados, sem alegação de ótimo universal ou de submissão no SIGAA.

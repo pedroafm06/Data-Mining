@@ -1,0 +1,23 @@
+{
+  "A": {
+    "n_unlabeled": 1169,
+    "n_scored": 430,
+    "n_abstained": 739,
+    "n_p_ge_half": 415,
+    "not_used_for_training": true
+  },
+  "B": {
+    "n_unlabeled": 1169,
+    "n_scored": 425,
+    "n_abstained": 744,
+    "n_p_ge_half": 193,
+    "not_used_for_training": true
+  },
+  "B_contexto": {
+    "n_unlabeled": 1169,
+    "n_scored": 427,
+    "n_abstained": 742,
+    "n_p_ge_half": 119,
+    "not_used_for_training": true
+  }
+}

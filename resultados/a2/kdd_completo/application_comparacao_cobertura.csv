@@ -1,0 +1,10 @@
+scenario,minimum_pattern_support,n_accepted,n_abstained,n_unknown_category
+A,1,308,861,0
+A,10,21,1148,0
+A,30,19,1150,0
+B,1,425,744,0
+B,10,394,775,0
+B,30,380,789,0
+B_contexto,1,412,757,0
+B_contexto,10,341,828,0
+B_contexto,30,294,875,0

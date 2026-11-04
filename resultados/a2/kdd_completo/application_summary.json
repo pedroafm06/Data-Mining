@@ -1,0 +1,118 @@
+{
+  "A": {
+    "n_unlabeled": 1169,
+    "n_scored": 19,
+    "n_abstained": 1150,
+    "n_p_ge_half": 6,
+    "status_counts": {
+      "sem_preditor_disponivel": 739,
+      "padrao_ausencia_baixo_suporte": 289,
+      "padrao_ausencia_nao_observado": 122,
+      "cobertura_compativel": 19
+    },
+    "model_sha256": "922aec954a790e0e94f478b807327401ae2d4488241c310fb49dd054817ff859",
+    "minimum_pattern_support": 30,
+    "historical_test_coverage_diagnostic": {
+      "n_total": 2342,
+      "n_accepted": 2008,
+      "coverage": 0.8573868488471392,
+      "accepted_metrics": {
+        "n": 2008,
+        "prevalence": 0.42828685258964144,
+        "tn": 1117,
+        "fp": 31,
+        "fn": 95,
+        "tp": 765,
+        "recall": 0.8895348837209303,
+        "specificity": 0.9729965156794426,
+        "precision": 0.9610552763819096,
+        "f1": 0.9239130434782609,
+        "balanced_accuracy": 0.9312656997001865,
+        "roc_auc": 0.9491228425573291,
+        "average_precision": 0.9387417116107031,
+        "brier": 0.055475410590579796,
+        "accuracy": 0.9372509960159362
+      },
+      "status": "secondary post-freeze description; not used to choose the coverage policy"
+    },
+    "not_used_for_training": true,
+    "model_unchanged": true
+  },
+  "B": {
+    "n_unlabeled": 1169,
+    "n_scored": 380,
+    "n_abstained": 789,
+    "n_p_ge_half": 158,
+    "status_counts": {
+      "sem_preditor_disponivel": 744,
+      "cobertura_compativel": 380,
+      "padrao_ausencia_baixo_suporte": 45
+    },
+    "model_sha256": "058067da1932909a707fa3e1453ea428b518936a23ef42d48e932fd83227ea4a",
+    "minimum_pattern_support": 30,
+    "historical_test_coverage_diagnostic": {
+      "n_total": 2342,
+      "n_accepted": 2272,
+      "coverage": 0.9701110162254484,
+      "accepted_metrics": {
+        "n": 2272,
+        "prevalence": 0.4212147887323944,
+        "tn": 902,
+        "fp": 413,
+        "fn": 373,
+        "tp": 584,
+        "recall": 0.6102403343782654,
+        "specificity": 0.6859315589353612,
+        "precision": 0.5857572718154463,
+        "f1": 0.5977482088024565,
+        "balanced_accuracy": 0.6480859466568133,
+        "roc_auc": 0.6921630094043887,
+        "average_precision": 0.6305754493530691,
+        "brier": 0.2211399094056999,
+        "accuracy": 0.6540492957746479
+      },
+      "status": "secondary post-freeze description; not used to choose the coverage policy"
+    },
+    "not_used_for_training": true,
+    "model_unchanged": true
+  },
+  "B_contexto": {
+    "n_unlabeled": 1169,
+    "n_scored": 294,
+    "n_abstained": 875,
+    "n_p_ge_half": 81,
+    "status_counts": {
+      "sem_preditor_disponivel": 742,
+      "cobertura_compativel": 294,
+      "padrao_ausencia_baixo_suporte": 118,
+      "padrao_ausencia_nao_observado": 15
+    },
+    "model_sha256": "3b7b8ac3a8220efd764e58a3184a184efad49bf44786fc696b35b6169e9c3716",
+    "minimum_pattern_support": 30,
+    "historical_test_coverage_diagnostic": {
+      "n_total": 2342,
+      "n_accepted": 2011,
+      "coverage": 0.85866780529462,
+      "accepted_metrics": {
+        "n": 2011,
+        "prevalence": 0.4286424664346096,
+        "tn": 925,
+        "fp": 224,
+        "fn": 269,
+        "tp": 593,
+        "recall": 0.6879350348027842,
+        "specificity": 0.8050478677110531,
+        "precision": 0.7258261933904528,
+        "f1": 0.7063728409767719,
+        "balanced_accuracy": 0.7464914512569186,
+        "roc_auc": 0.8156719552359663,
+        "average_precision": 0.766112218184542,
+        "brier": 0.17721145330379443,
+        "accuracy": 0.7548483341621084
+      },
+      "status": "secondary post-freeze description; not used to choose the coverage policy"
+    },
+    "not_used_for_training": true,
+    "model_unchanged": true
+  }
+}

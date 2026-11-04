@@ -1,0 +1,46 @@
+[
+  {
+    "arquivo_local_da_disciplina": "Introdução à Mineração de Dados/slides aula01 - fundamentos.pdf",
+    "sha256": "c46a09a04b50e6823bc414274207f74e411f99b5a891ca3fa42f88403e2777a9"
+  },
+  {
+    "arquivo_local_da_disciplina": "Análise:Exploração de dados/slides aula02 - dados.pdf",
+    "sha256": "7e57772f70271d3650b441eccfa90b51c271c7d8f3931b6b3970183538b12e14"
+  },
+  {
+    "arquivo_local_da_disciplina": "Análise:Exploração de dados/slides aula03 - exploração dados.pdf",
+    "sha256": "34015bd97511ee224a808399c8030948fe82c1bbe7b2508d45cc1e2a6e7f005f"
+  },
+  {
+    "arquivo_local_da_disciplina": "Limpeza dos dados/slides aula04 - limpeza dados.pdf",
+    "sha256": "e70138c3e73409b9684a59edf10efc183319e85dba3a7a54f28e803f4e9f027f"
+  },
+  {
+    "arquivo_local_da_disciplina": "Transformação dos dados/slides aula05 - transformação de atributos (0).pdf",
+    "sha256": "a7bc1246952ffec75828aeab18d6e608ba980cb3cc2f109003b54b5c91e41419"
+  },
+  {
+    "arquivo_local_da_disciplina": "Transformação dos dados/slides - redução de dados.pdf",
+    "sha256": "1183abc7ebfcfb5a16d700214484f3f923313ef3dd7efe3591bddbe979e596c1"
+  },
+  {
+    "arquivo_local_da_disciplina": "Transformação dos dados/slides - desbalanceamento dados.pdf",
+    "sha256": "073fc1a210600e159b8e8487034966fe845c849636cc81d8e2e0d8101cd7be68"
+  },
+  {
+    "arquivo_local_da_disciplina": "Transformação dos dados/slides - criação dados.pdf",
+    "sha256": "bf2dbcb9b46023a793c905634e20e165ff20467b7f7c0e85e662413141dd68c8"
+  },
+  {
+    "arquivo_local_da_disciplina": "Avaliação de experimentos/slides - experimentação e avaliação (parte 1).pdf",
+    "sha256": "0e112a46b69078a656dd8281126544b673234acf09bf39f8d810a12c853628ee"
+  },
+  {
+    "arquivo_local_da_disciplina": "Avaliação de experimentos/slides - experimentação e avaliação (parte 2).pdf",
+    "sha256": "faf394c3dbbd465e37386ecd81c7e54475d563dc10f6ae0e038a90ef032c10e5"
+  },
+  {
+    "arquivo_local_da_disciplina": "Avaliações/Descrição das avaliações (SIGAA 03-11-2026).pdf",
+    "sha256": "781e243cbbe4a1d280726a55fef6aa850acf02c7058a3dd58e29921be39d8d2c"
+  }
+]

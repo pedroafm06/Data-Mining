@@ -1,0 +1,22 @@
+{
+  "complete": true,
+  "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
+  "protocol_sha256": "5792d5f95013fd47b8c36a54ee43cab1bc6a445c1102f0c879c0279e30fecfb4",
+  "n_development": 9361,
+  "n_test": 2342,
+  "extra_group_quarantine": 0,
+  "groups_crossing_fit_test": 0,
+  "n_candidates_per_scenario": 81,
+  "n_preprocessing_fits_audited": 252,
+  "all_selections_frozen_before_test": true,
+  "nested_cv_complete": true,
+  "n_scopes_scenarios": 3,
+  "source_preserved": true,
+  "elapsed_seconds": 549.76,
+  "limits": [
+    "preparation decisions previously explored globally",
+    "historical test previously explored",
+    "candidate groups are not confirmed patient identities",
+    "no clinical validation"
+  ]
+}

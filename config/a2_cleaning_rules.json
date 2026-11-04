@@ -1,0 +1,130 @@
+{
+  "categorical_maps": {
+    "SEXO": {
+      "m": "M",
+      "masculino": "M",
+      "f": "F",
+      "feminino": "F"
+    },
+    "NORMAL X ANORMAL": {
+      "normal": "Normal",
+      "anormal": "Anormal"
+    },
+    "SOPRO": {
+      "ausente": "Ausente",
+      "sistolico": "Sistolico",
+      "diastolico": "Diastolico",
+      "continuo": "Continuo",
+      "sistolico e diastolico": "Sistolico e diastolico"
+    },
+    "PULSOS": {
+      "normais": "Normais",
+      "amplos": "Amplos",
+      "diminuidos": "Diminuidos",
+      "femorais diminuidos": "Femorais diminuidos",
+      "outro": "Outro"
+    },
+    "B2": {
+      "normal": "Normal",
+      "hiperfonetica": "Hiperfonetica",
+      "desdob fixo": "Desdob fixo",
+      "unica": "Unica",
+      "outro": "Outro"
+    }
+  },
+  "sentinels_by_column": {
+    "PPA": [
+      "#value!",
+      "nao calculado"
+    ],
+    "DN": [
+      "???",
+      "??????"
+    ],
+    "SEXO": [
+      "indeterminado"
+    ]
+  },
+  "month_names": {
+    "jan": 1,
+    "janeiro": 1,
+    "fev": 2,
+    "fevereiro": 2,
+    "mar": 3,
+    "marco": 3,
+    "abr": 4,
+    "abril": 4,
+    "mai": 5,
+    "maio": 5,
+    "jun": 6,
+    "junho": 6,
+    "jul": 7,
+    "julho": 7,
+    "ago": 8,
+    "agosto": 8,
+    "set": 9,
+    "setembro": 9,
+    "out": 10,
+    "outubro": 10,
+    "nov": 11,
+    "novembro": 11,
+    "dez": 12,
+    "dezembro": 12
+  },
+  "historical_alert_envelopes_not_clinical_ranges": {
+    "Peso": [
+      1.0,
+      150.0
+    ],
+    "Altura": [
+      40.0,
+      200.0
+    ],
+    "IMC": [
+      8.0,
+      60.0
+    ],
+    "FC": [
+      40.0,
+      220.0
+    ],
+    "PA SISTOLICA": [
+      50.0,
+      200.0
+    ],
+    "PA DIASTOLICA": [
+      30.0,
+      130.0
+    ]
+  },
+  "date_policy": {
+    "short_year_centuries": [
+      1900,
+      2000
+    ],
+    "excel_base": "1899-12-30",
+    "supported_serial_format": "five digits, optional .0 suffix",
+    "numeric_order": "day/month/year",
+    "full_cell_match": true
+  },
+  "relative_age": {
+    "minimum_inclusive": 0,
+    "maximum_exclusive": 20,
+    "max_candidate_day_difference": 1,
+    "leap_anniversary_nonleap": "February 28",
+    "fallback_order": [
+      "compatible calendar age",
+      "explicit literal",
+      "valid original unverified",
+      "missing"
+    ]
+  },
+  "operational_quality": {
+    "Peso": "upper-tail >150 not removed by univariate threshold; joint triad guard takes precedence",
+    "Altura": "30<=cm<40 retained for age<0.25 or unknown unless joint triad guard",
+    "FC": "all positive <=500 retained with flags; >500 operational curation trigger, not physiological maximum",
+    "PA DIASTOLICA": "positive values retained unless PAS<=PAD",
+    "IMC": "observed-parent pair ratio outside5-100 quarantines both parents and derivative; historical-only outside5-100 or joint triad contradiction quarantined as hypothesis"
+  },
+  "note": "Rules are curation hypotheses and explicit conventions, not proof of clinical normality. Originals are preserved; modeling sensitivity tests the preserved-suspect alternative."
+}

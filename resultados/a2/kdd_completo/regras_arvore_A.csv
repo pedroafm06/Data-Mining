@@ -1,0 +1,9 @@
+leaf,rule,n_development,normal,anormal,observed_anormal_fraction,note
+3,SOPRO__000 <= 0.5 AND HDA 1__008 <= 0.5 AND PA DIASTOLICA__imputado <= 0.5,1016,40,976,0.9606299212598425,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+4,SOPRO__000 <= 0.5 AND HDA 1__008 <= 0.5 AND PA DIASTOLICA__imputado > 0.5,1765,30,1735,0.9830028328611898,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+6,SOPRO__000 <= 0.5 AND HDA 1__008 > 0.5 AND FC <= 89,200,58,142,0.71,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+7,SOPRO__000 <= 0.5 AND HDA 1__008 > 0.5 AND FC > 89,566,39,527,0.931095406360424,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+10,SOPRO__000 > 0.5 AND B2__002 <= 0.5 AND IDADE <= 3.24633,55,7,48,0.8727272727272727,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+11,SOPRO__000 > 0.5 AND B2__002 <= 0.5 AND IDADE > 3.24633,64,21,43,0.671875,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+13,SOPRO__000 > 0.5 AND B2__002 > 0.5 AND FC <= 115.5,5136,4740,396,0.07710280373831775,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"
+14,SOPRO__000 > 0.5 AND B2__002 > 0.5 AND FC > 115.5,559,459,100,0.17889087656529518,"actual observed counts, distinct from class-weighted node probabilities; descriptive training pattern"

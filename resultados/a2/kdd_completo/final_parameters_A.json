@@ -1,0 +1,775 @@
+{
+  "candidate": {
+    "kind": "tree",
+    "params": {
+      "criterion": "gini",
+      "max_depth": 3,
+      "min_samples_leaf": 50,
+      "class_weight": null
+    },
+    "imputation": "global",
+    "representation": "units",
+    "name": "01_tree_347f3936"
+  },
+  "transformer": {
+    "n_fit": 9361,
+    "fit_ids_sha256": "a328db1edad905317c100f62ddd8a453e0346e5a1645df85d7e2ba19641a9f76",
+    "features": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "PULSOS",
+      "PPA",
+      "B2",
+      "SOPRO",
+      "HDA 1",
+      "HDA2",
+      "SEXO",
+      "MOTIVO1",
+      "MOTIVO2"
+    ],
+    "numeric": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC"
+    ],
+    "categorical": [
+      "PULSOS",
+      "PPA",
+      "B2",
+      "SOPRO",
+      "HDA 1",
+      "HDA2",
+      "SEXO",
+      "MOTIVO1",
+      "MOTIVO2"
+    ],
+    "global_medians": {
+      "Peso": 16.0,
+      "Altura": 99.0,
+      "IMC": 16.741071428571427,
+      "IDADE": 3.808219178082192,
+      "PA SISTOLICA": 100.0,
+      "PA DIASTOLICA": 60.0,
+      "FC": 92.0
+    },
+    "age_medians": {
+      "Peso": {},
+      "Altura": {},
+      "IMC": {},
+      "IDADE": {},
+      "PA SISTOLICA": {},
+      "PA DIASTOLICA": {},
+      "FC": {}
+    },
+    "age_bins": [
+      0,
+      0.25,
+      0.5,
+      1,
+      2,
+      5,
+      10,
+      15,
+      20
+    ],
+    "min_count": 30,
+    "age_group_columns": [],
+    "log_columns": [
+      "Peso"
+    ],
+    "vocabularies": {
+      "PULSOS": [
+        "Amplos",
+        "Diminuidos",
+        "Femorais diminuidos",
+        "Normais",
+        "Outro",
+        "__AUSENTE__",
+        "__DESCONHECIDO__"
+      ],
+      "PPA": [
+        "has-1 pad",
+        "has-1 pas",
+        "has-2 pad",
+        "has-2 pas",
+        "normal",
+        "pre-hipertensao pad",
+        "pre-hipertensao pas",
+        "__AUSENTE__",
+        "__DESCONHECIDO__"
+      ],
+      "B2": [
+        "Desdob fixo",
+        "Hiperfonetica",
+        "Normal",
+        "Outro",
+        "Unica",
+        "__AUSENTE__",
+        "__DESCONHECIDO__"
+      ],
+      "SOPRO": [
+        "Ausente",
+        "Continuo",
+        "Diastolico",
+        "Sistolico",
+        "Sistolico e diastolico",
+        "__AUSENTE__",
+        "__DESCONHECIDO__"
+      ],
+      "HDA 1": [
+        "assintomatico",
+        "cianose",
+        "desmaio/tontura",
+        "dispneia",
+        "dor precordial",
+        "ganho de peso",
+        "outro",
+        "palpitacao",
+        "__AUSENTE__",
+        "__DESCONHECIDO__"
+      ],
+      "HDA2": [
+        "assintomatico",
+        "cianose",
+        "desmaio/tontura",
+        "dispneia",
+        "dor precordial",
+        "ganho de peso",
+        "outro",
+        "palpitacao",
+        "__AUSENTE__",
+        "__DESCONHECIDO__"
+      ],
+      "SEXO": [
+        "F",
+        "M",
+        "__AUSENTE__",
+        "__DESCONHECIDO__"
+      ],
+      "MOTIVO1": [
+        "1 - cardiopatia ja estabelecida",
+        "2 - check-up",
+        "5 - parecer cardiologico",
+        "6 - suspeita de cardiopatia",
+        "7 - outro",
+        "__AUSENTE__",
+        "__DESCONHECIDO__"
+      ],
+      "MOTIVO2": [
+        "1 - cardiopatia adquirida",
+        "1 - cardiopatia congenica",
+        "5 - atividade fisica",
+        "5 - cirurgia",
+        "5 - uso de cisaprida",
+        "6 - alteracoes de pulso/perfusao",
+        "6 - cansaco",
+        "6 - cardiopatia na familia",
+        "6 - cianose",
+        "6 - cianose e dispneia",
+        "6 - dispneia",
+        "6 - dor precordial",
+        "6 - has/dislipidemia/obesidade",
+        "6 - palpitacao/taquicardia/arritmia",
+        "6 - sopro",
+        "outro",
+        "__AUSENTE__",
+        "__DESCONHECIDO__"
+      ]
+    },
+    "means": {
+      "Peso": 19.985215254780474,
+      "Altura": 100.34739878218139,
+      "IMC": 17.157890737654554,
+      "IDADE": 4.927924544978509,
+      "PA SISTOLICA": 100.75793184488836,
+      "PA DIASTOLICA": 61.21044760175195,
+      "FC": 95.09475483388528
+    },
+    "scales_ddof0": {
+      "Peso": 15.000555748673772,
+      "Altura": 29.299594147270728,
+      "IMC": 3.050617122838476,
+      "IDADE": 4.3390207907876475,
+      "PA SISTOLICA": 7.709856271432877,
+      "PA DIASTOLICA": 6.154280206230838,
+      "FC": 17.400075491765772
+    },
+    "log_means": {
+      "Peso": 2.8148290457872176,
+      "Altura": 100.34739878218139,
+      "IMC": 17.157890737654554,
+      "IDADE": 4.927924544978509,
+      "PA SISTOLICA": 100.75793184488836,
+      "PA DIASTOLICA": 61.21044760175195,
+      "FC": 95.09475483388528
+    },
+    "log_scales_ddof0": {
+      "Peso": 0.6923269061853405,
+      "Altura": 29.299594147270728,
+      "IMC": 3.050617122838476,
+      "IDADE": 4.3390207907876475,
+      "PA SISTOLICA": 7.709856271432877,
+      "PA DIASTOLICA": 6.154280206230838,
+      "FC": 17.400075491765772
+    },
+    "dictionary": [
+      {
+        "name": "Peso",
+        "source": "Peso",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "Altura",
+        "source": "Altura",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "IMC",
+        "source": "IMC",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "IDADE",
+        "source": "IDADE",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "PA SISTOLICA",
+        "source": "PA SISTOLICA",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "PA DIASTOLICA",
+        "source": "PA DIASTOLICA",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "FC",
+        "source": "FC",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "Peso__imputado",
+        "source": "Peso",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "Altura__imputado",
+        "source": "Altura",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "IMC__imputado",
+        "source": "IMC",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "IDADE__imputado",
+        "source": "IDADE",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "PA SISTOLICA__imputado",
+        "source": "PA SISTOLICA",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "PA DIASTOLICA__imputado",
+        "source": "PA DIASTOLICA",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "FC__imputado",
+        "source": "FC",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "PULSOS__000",
+        "source": "PULSOS",
+        "category": "Amplos",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PULSOS__001",
+        "source": "PULSOS",
+        "category": "Diminuidos",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PULSOS__002",
+        "source": "PULSOS",
+        "category": "Femorais diminuidos",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PULSOS__003",
+        "source": "PULSOS",
+        "category": "Normais",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PULSOS__004",
+        "source": "PULSOS",
+        "category": "Outro",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PULSOS__005",
+        "source": "PULSOS",
+        "category": "__AUSENTE__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PULSOS__006",
+        "source": "PULSOS",
+        "category": "__DESCONHECIDO__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PPA__000",
+        "source": "PPA",
+        "category": "has-1 pad",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PPA__001",
+        "source": "PPA",
+        "category": "has-1 pas",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PPA__002",
+        "source": "PPA",
+        "category": "has-2 pad",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PPA__003",
+        "source": "PPA",
+        "category": "has-2 pas",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PPA__004",
+        "source": "PPA",
+        "category": "normal",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PPA__005",
+        "source": "PPA",
+        "category": "pre-hipertensao pad",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PPA__006",
+        "source": "PPA",
+        "category": "pre-hipertensao pas",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PPA__007",
+        "source": "PPA",
+        "category": "__AUSENTE__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "PPA__008",
+        "source": "PPA",
+        "category": "__DESCONHECIDO__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "B2__000",
+        "source": "B2",
+        "category": "Desdob fixo",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "B2__001",
+        "source": "B2",
+        "category": "Hiperfonetica",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "B2__002",
+        "source": "B2",
+        "category": "Normal",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "B2__003",
+        "source": "B2",
+        "category": "Outro",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "B2__004",
+        "source": "B2",
+        "category": "Unica",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "B2__005",
+        "source": "B2",
+        "category": "__AUSENTE__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "B2__006",
+        "source": "B2",
+        "category": "__DESCONHECIDO__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SOPRO__000",
+        "source": "SOPRO",
+        "category": "Ausente",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SOPRO__001",
+        "source": "SOPRO",
+        "category": "Continuo",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SOPRO__002",
+        "source": "SOPRO",
+        "category": "Diastolico",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SOPRO__003",
+        "source": "SOPRO",
+        "category": "Sistolico",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SOPRO__004",
+        "source": "SOPRO",
+        "category": "Sistolico e diastolico",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SOPRO__005",
+        "source": "SOPRO",
+        "category": "__AUSENTE__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SOPRO__006",
+        "source": "SOPRO",
+        "category": "__DESCONHECIDO__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA 1__000",
+        "source": "HDA 1",
+        "category": "assintomatico",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA 1__001",
+        "source": "HDA 1",
+        "category": "cianose",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA 1__002",
+        "source": "HDA 1",
+        "category": "desmaio/tontura",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA 1__003",
+        "source": "HDA 1",
+        "category": "dispneia",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA 1__004",
+        "source": "HDA 1",
+        "category": "dor precordial",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA 1__005",
+        "source": "HDA 1",
+        "category": "ganho de peso",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA 1__006",
+        "source": "HDA 1",
+        "category": "outro",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA 1__007",
+        "source": "HDA 1",
+        "category": "palpitacao",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA 1__008",
+        "source": "HDA 1",
+        "category": "__AUSENTE__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA 1__009",
+        "source": "HDA 1",
+        "category": "__DESCONHECIDO__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA2__000",
+        "source": "HDA2",
+        "category": "assintomatico",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA2__001",
+        "source": "HDA2",
+        "category": "cianose",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA2__002",
+        "source": "HDA2",
+        "category": "desmaio/tontura",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA2__003",
+        "source": "HDA2",
+        "category": "dispneia",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA2__004",
+        "source": "HDA2",
+        "category": "dor precordial",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA2__005",
+        "source": "HDA2",
+        "category": "ganho de peso",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA2__006",
+        "source": "HDA2",
+        "category": "outro",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA2__007",
+        "source": "HDA2",
+        "category": "palpitacao",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA2__008",
+        "source": "HDA2",
+        "category": "__AUSENTE__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "HDA2__009",
+        "source": "HDA2",
+        "category": "__DESCONHECIDO__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SEXO__000",
+        "source": "SEXO",
+        "category": "F",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SEXO__001",
+        "source": "SEXO",
+        "category": "M",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SEXO__002",
+        "source": "SEXO",
+        "category": "__AUSENTE__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SEXO__003",
+        "source": "SEXO",
+        "category": "__DESCONHECIDO__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO1__000",
+        "source": "MOTIVO1",
+        "category": "1 - cardiopatia ja estabelecida",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO1__001",
+        "source": "MOTIVO1",
+        "category": "2 - check-up",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO1__002",
+        "source": "MOTIVO1",
+        "category": "5 - parecer cardiologico",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO1__003",
+        "source": "MOTIVO1",
+        "category": "6 - suspeita de cardiopatia",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO1__004",
+        "source": "MOTIVO1",
+        "category": "7 - outro",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO1__005",
+        "source": "MOTIVO1",
+        "category": "__AUSENTE__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO1__006",
+        "source": "MOTIVO1",
+        "category": "__DESCONHECIDO__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__000",
+        "source": "MOTIVO2",
+        "category": "1 - cardiopatia adquirida",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__001",
+        "source": "MOTIVO2",
+        "category": "1 - cardiopatia congenica",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__002",
+        "source": "MOTIVO2",
+        "category": "5 - atividade fisica",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__003",
+        "source": "MOTIVO2",
+        "category": "5 - cirurgia",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__004",
+        "source": "MOTIVO2",
+        "category": "5 - uso de cisaprida",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__005",
+        "source": "MOTIVO2",
+        "category": "6 - alteracoes de pulso/perfusao",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__006",
+        "source": "MOTIVO2",
+        "category": "6 - cansaco",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__007",
+        "source": "MOTIVO2",
+        "category": "6 - cardiopatia na familia",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__008",
+        "source": "MOTIVO2",
+        "category": "6 - cianose",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__009",
+        "source": "MOTIVO2",
+        "category": "6 - cianose e dispneia",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__010",
+        "source": "MOTIVO2",
+        "category": "6 - dispneia",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__011",
+        "source": "MOTIVO2",
+        "category": "6 - dor precordial",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__012",
+        "source": "MOTIVO2",
+        "category": "6 - has/dislipidemia/obesidade",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__013",
+        "source": "MOTIVO2",
+        "category": "6 - palpitacao/taquicardia/arritmia",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__014",
+        "source": "MOTIVO2",
+        "category": "6 - sopro",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__015",
+        "source": "MOTIVO2",
+        "category": "outro",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__016",
+        "source": "MOTIVO2",
+        "category": "__AUSENTE__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "MOTIVO2__017",
+        "source": "MOTIVO2",
+        "category": "__DESCONHECIDO__",
+        "kind": "one_hot_binary"
+      }
+    ],
+    "binary_columns_scaled": false,
+    "target_received": false,
+    "imputed_BMI_not_recomputed_from_imputed_parents": true,
+    "cv_warning": "Refit this transformer inside every training fold for future CV; do not CV a once-transformed development matrix."
+  }
+}
