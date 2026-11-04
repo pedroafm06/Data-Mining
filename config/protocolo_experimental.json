@@ -1,0 +1,22 @@
+{
+  "version": "2026-11-04-v1",
+  "purpose": "Academic prediction of recorded Normal/Anormal label; not clinical validation",
+  "positive_label": "Anormal",
+  "eligibility": "elegivel_principal",
+  "primary_quality_policy": "mask_suspect",
+  "scenarios": ["A", "B", "B_contexto"],
+  "same_population_and_partitions": true,
+  "groups": "split_group candidate equivalence, not confirmed patient identity",
+  "outer_split": {"method": "StratifiedGroupKFold", "n_splits": 5, "shuffle": true, "random_state": 42, "heldout_fold": 0},
+  "inner_cv": {"method": "StratifiedGroupKFold", "n_splits": 5, "shuffle": true, "random_state": 43},
+  "selection_metric": "mean_inner_balanced_accuracy",
+  "selection_tie_break": "candidate order: simpler first",
+  "threshold": 0.5,
+  "candidate_budget": {"dummy": "most_frequent", "logistic": {"C": [0.1, 1.0], "class_weight": [null, "balanced"], "max_iter": 3000}, "tree": {"max_depth": [3, 6], "min_samples_leaf": [20, 50]}, "forest": {"n_estimators": 150, "max_depth": 8, "min_samples_leaf": 10, "class_weight": null, "n_jobs": 2}},
+  "sensitivity_development_only": ["conservative quality", "no numeric missing indicators", "without IMC", "without PPA where present", "log1p when selected estimator is logistic"],
+  "temporal_secondary": {"date": "meta_Atendimento_hypothesis_2003_2010", "cutoff": "2009-01-01", "pre_cutoff": "train", "post_cutoff": "evaluate", "remove_crossing_groups_from_train": true, "retune": false, "status": "hypothetical chronology; secondary robustness evaluation, no independent external validation"},
+  "bootstrap": {"unit": "candidate split_group", "n_resamples": 500, "random_state": 44, "interpretation": "conditional on fitted model and candidate groups; not full training or selection uncertainty"},
+  "prior_exploration": "The full source was explored in A1. This holdout is reserved for modeling from this protocol, not untouched by prior exploration.",
+  "clinical_derivatives": "No unverified percentiles or diagnostic reclassification; historical PPA only where scenario permits.",
+  "test_policy": "Freeze selected candidates for every scenario before first access to heldout metrics. No test-driven changes."
+}

@@ -1,0 +1,115 @@
+{
+  "n_source": 12873,
+  "n_fit": 9361,
+  "n_test": 2342,
+  "n_unlabeled": 1169,
+  "n_quarantine": 1,
+  "mask_counts_by_numeric": {
+    "Peso": 16,
+    "Altura": 18,
+    "IMC": 14,
+    "IDADE": 0,
+    "PA SISTOLICA": 3,
+    "PA DIASTOLICA": 1,
+    "FC": 8
+  },
+  "imputation_choices": {
+    "Peso": {
+      "method": "age_band",
+      "MAE_global": 11.99735428945645,
+      "MAE_age": 5.423451211525868,
+      "MAE_age_sex": 5.370451866404716,
+      "relative_MAE_gain_age": 0.5479460653844221,
+      "repetitions_improved": 5,
+      "relative_extra_gain_sex": 0.009772254428788485,
+      "sex_used": false,
+      "reason": "Fixed-band age conditioning with sufficient observed support"
+    },
+    "Altura": {
+      "method": "age_band",
+      "MAE_global": 29.57739672642245,
+      "MAE_age": 9.129384255650818,
+      "MAE_age_sex": 9.054014029618083,
+      "relative_MAE_gain_age": 0.6913391553660555,
+      "repetitions_improved": 5,
+      "relative_extra_gain_sex": 0.008255784171433356,
+      "sex_used": false,
+      "reason": "Fixed-band age conditioning with sufficient observed support"
+    },
+    "IMC": {
+      "method": "age_band",
+      "MAE_global": 2.534368743437181,
+      "MAE_age": 2.274274435819133,
+      "MAE_age_sex": 2.266346091846986,
+      "relative_MAE_gain_age": 0.10262686055120018,
+      "repetitions_improved": 5,
+      "relative_extra_gain_sex": 0.0034860981802714575,
+      "sex_used": false,
+      "reason": "Fixed-band age conditioning with sufficient observed support"
+    },
+    "IDADE": {
+      "method": "global",
+      "reason": "Do not use imputed age to construct its own stratum"
+    },
+    "PA SISTOLICA": {
+      "method": "global",
+      "MAE_global": 7.8033980582524265,
+      "MAE_age": 7.610800970873787,
+      "MAE_age_sex": 7.629004854368932,
+      "relative_MAE_gain_age": 0.02468118195956437,
+      "repetitions_improved": 4,
+      "relative_extra_gain_sex": -0.0023918485800391576,
+      "sex_used": false,
+      "reason": "Parsimony: retain simple median; age effect insufficient or BP deliberately kept simple"
+    },
+    "PA DIASTOLICA": {
+      "method": "global",
+      "MAE_global": 5.7591737545565005,
+      "MAE_age": 5.642527339003645,
+      "MAE_age_sex": 5.642527339003645,
+      "relative_MAE_gain_age": 0.020254019156926484,
+      "repetitions_improved": 5,
+      "relative_extra_gain_sex": 0.0,
+      "sex_used": false,
+      "reason": "Parsimony: retain simple median; age effect insufficient or BP deliberately kept simple"
+    },
+    "FC": {
+      "method": "age_band",
+      "MAE_global": 13.262948207171315,
+      "MAE_age": 9.621513944223107,
+      "MAE_age_sex": 9.614456459874788,
+      "relative_MAE_gain_age": 0.2745569240012016,
+      "repetitions_improved": 5,
+      "relative_extra_gain_sex": 0.0007335107956224496,
+      "sex_used": false,
+      "reason": "Fixed-band age conditioning with sufficient observed support"
+    }
+  },
+  "log_columns": [
+    "Peso"
+  ],
+  "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
+  "partition_sha256": "3b1df4f17faa263b6cb42e3a7ff7fde7352483ed3f61d27f4f886a420e633c26",
+  "models_fitted": false,
+  "relative_age_requires_cohort_assumption": true,
+  "diagnostic_limit": "Artificial masking of observed development values is not evidence for the true missingness mechanism.",
+  "future_cv": "Refit imputers, vocabularies and scales inside every future training fold; frozen exported development matrix is not CV-ready.",
+  "etapa": "A2: limpeza e transformação; modelagem com esta preparação pendente",
+  "representacoes": {
+    "units": {
+      "n_rows": 12873,
+      "n_columns": 93,
+      "sha256": "050bca55bab60f3236867b89f217d927e4605b9eadd5274f0adfca778519c61d"
+    },
+    "standard": {
+      "n_rows": 12873,
+      "n_columns": 93,
+      "sha256": "efb828593f54e145a35b75e8f1206a86b49281e03efe2c12bc321523d18f52bc"
+    },
+    "log_weight_standard": {
+      "n_rows": 12873,
+      "n_columns": 93,
+      "sha256": "89e7d5b47e44a71e842a313caeff71bec06fabf800cd199ab046120919565794"
+    }
+  }
+}

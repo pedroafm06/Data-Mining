@@ -1,0 +1,128 @@
+{
+  "original_columns": [
+    "ID",
+    "Peso",
+    "Altura",
+    "IMC",
+    "Atendimento",
+    "DN",
+    "IDADE",
+    "Convenio",
+    "PULSOS",
+    "PA SISTOLICA",
+    "PA DIASTOLICA",
+    "PPA",
+    "NORMAL X ANORMAL",
+    "B2",
+    "SOPRO",
+    "FC",
+    "HDA 1",
+    "HDA2",
+    "SEXO",
+    "MOTIVO1",
+    "MOTIVO2"
+  ],
+  "numeric_predictors": [
+    "Peso",
+    "Altura",
+    "IMC",
+    "IDADE",
+    "PA SISTOLICA",
+    "PA DIASTOLICA",
+    "FC"
+  ],
+  "categorical_columns": [
+    "Convenio",
+    "PULSOS",
+    "PPA",
+    "NORMAL X ANORMAL",
+    "B2",
+    "SOPRO",
+    "HDA 1",
+    "HDA2",
+    "SEXO",
+    "MOTIVO1",
+    "MOTIVO2"
+  ],
+  "scenarios": {
+    "A": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "PULSOS",
+      "PPA",
+      "B2",
+      "SOPRO",
+      "HDA 1",
+      "HDA2",
+      "SEXO",
+      "MOTIVO1",
+      "MOTIVO2"
+    ],
+    "B": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "SEXO"
+    ],
+    "B_contexto": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "PPA",
+      "HDA 1",
+      "HDA2",
+      "SEXO",
+      "MOTIVO1",
+      "MOTIVO2"
+    ]
+  },
+  "exclude_from_X": [
+    "ID",
+    "DN",
+    "Atendimento",
+    "NORMAL X ANORMAL",
+    "meta_*",
+    "flag_*"
+  ],
+  "suspect_envelopes_not_clinical_truth": {
+    "Peso": [
+      1.0,
+      150.0
+    ],
+    "Altura": [
+      40.0,
+      200.0
+    ],
+    "IMC": [
+      8.0,
+      60.0
+    ],
+    "FC": [
+      40.0,
+      220.0
+    ],
+    "PA SISTOLICA": [
+      50.0,
+      200.0
+    ],
+    "PA DIASTOLICA": [
+      30.0,
+      130.0
+    ]
+  },
+  "primary_policy": "mask_suspect",
+  "sensitivity_policy": "conservative"
+}

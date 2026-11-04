@@ -1,0 +1,27 @@
+# Ambientes, caches e arquivos locais
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+*.egg-info/
+build/
+dist/
+.DS_Store
+.ipynb_checkpoints/
+kernel-*
+.env
+.env.*
+!.env.example
+work/
+# Dados clínicos e saídas por registro ficam locais
+dados/*
+!dados/README.md
+!dados/raw/
+dados/raw/*
+!dados/raw/README.md
+artifacts/
+*.joblib
+*.pkl
+*.pickle
+*.zip

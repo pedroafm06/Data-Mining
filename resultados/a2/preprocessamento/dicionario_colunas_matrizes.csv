@@ -1,0 +1,94 @@
+name,source,kind,category
+Peso,Peso,continuous_measurement,
+Altura,Altura,continuous_measurement,
+IMC,IMC,continuous_measurement,
+IDADE,IDADE,continuous_measurement,
+PA SISTOLICA,PA SISTOLICA,continuous_measurement,
+PA DIASTOLICA,PA DIASTOLICA,continuous_measurement,
+FC,FC,continuous_measurement,
+Peso__imputado,Peso,binary_missing_or_masked,
+Altura__imputado,Altura,binary_missing_or_masked,
+IMC__imputado,IMC,binary_missing_or_masked,
+IDADE__imputado,IDADE,binary_missing_or_masked,
+PA SISTOLICA__imputado,PA SISTOLICA,binary_missing_or_masked,
+PA DIASTOLICA__imputado,PA DIASTOLICA,binary_missing_or_masked,
+FC__imputado,FC,binary_missing_or_masked,
+PULSOS__000,PULSOS,one_hot_binary,Amplos
+PULSOS__001,PULSOS,one_hot_binary,Diminuidos
+PULSOS__002,PULSOS,one_hot_binary,Femorais diminuidos
+PULSOS__003,PULSOS,one_hot_binary,Normais
+PULSOS__004,PULSOS,one_hot_binary,Outro
+PULSOS__005,PULSOS,one_hot_binary,__AUSENTE__
+PULSOS__006,PULSOS,one_hot_binary,__DESCONHECIDO__
+PPA__000,PPA,one_hot_binary,has-1 pad
+PPA__001,PPA,one_hot_binary,has-1 pas
+PPA__002,PPA,one_hot_binary,has-2 pad
+PPA__003,PPA,one_hot_binary,has-2 pas
+PPA__004,PPA,one_hot_binary,normal
+PPA__005,PPA,one_hot_binary,pre-hipertensao pad
+PPA__006,PPA,one_hot_binary,pre-hipertensao pas
+PPA__007,PPA,one_hot_binary,__AUSENTE__
+PPA__008,PPA,one_hot_binary,__DESCONHECIDO__
+B2__000,B2,one_hot_binary,Desdob fixo
+B2__001,B2,one_hot_binary,Hiperfonetica
+B2__002,B2,one_hot_binary,Normal
+B2__003,B2,one_hot_binary,Outro
+B2__004,B2,one_hot_binary,Unica
+B2__005,B2,one_hot_binary,__AUSENTE__
+B2__006,B2,one_hot_binary,__DESCONHECIDO__
+SOPRO__000,SOPRO,one_hot_binary,Ausente
+SOPRO__001,SOPRO,one_hot_binary,Continuo
+SOPRO__002,SOPRO,one_hot_binary,Diastolico
+SOPRO__003,SOPRO,one_hot_binary,Sistolico
+SOPRO__004,SOPRO,one_hot_binary,Sistolico e diastolico
+SOPRO__005,SOPRO,one_hot_binary,__AUSENTE__
+SOPRO__006,SOPRO,one_hot_binary,__DESCONHECIDO__
+HDA 1__000,HDA 1,one_hot_binary,assintomatico
+HDA 1__001,HDA 1,one_hot_binary,cianose
+HDA 1__002,HDA 1,one_hot_binary,desmaio/tontura
+HDA 1__003,HDA 1,one_hot_binary,dispneia
+HDA 1__004,HDA 1,one_hot_binary,dor precordial
+HDA 1__005,HDA 1,one_hot_binary,ganho de peso
+HDA 1__006,HDA 1,one_hot_binary,outro
+HDA 1__007,HDA 1,one_hot_binary,palpitacao
+HDA 1__008,HDA 1,one_hot_binary,__AUSENTE__
+HDA 1__009,HDA 1,one_hot_binary,__DESCONHECIDO__
+HDA2__000,HDA2,one_hot_binary,assintomatico
+HDA2__001,HDA2,one_hot_binary,cianose
+HDA2__002,HDA2,one_hot_binary,desmaio/tontura
+HDA2__003,HDA2,one_hot_binary,dispneia
+HDA2__004,HDA2,one_hot_binary,dor precordial
+HDA2__005,HDA2,one_hot_binary,ganho de peso
+HDA2__006,HDA2,one_hot_binary,outro
+HDA2__007,HDA2,one_hot_binary,palpitacao
+HDA2__008,HDA2,one_hot_binary,__AUSENTE__
+HDA2__009,HDA2,one_hot_binary,__DESCONHECIDO__
+SEXO__000,SEXO,one_hot_binary,F
+SEXO__001,SEXO,one_hot_binary,M
+SEXO__002,SEXO,one_hot_binary,__AUSENTE__
+SEXO__003,SEXO,one_hot_binary,__DESCONHECIDO__
+MOTIVO1__000,MOTIVO1,one_hot_binary,1 - cardiopatia ja estabelecida
+MOTIVO1__001,MOTIVO1,one_hot_binary,2 - check-up
+MOTIVO1__002,MOTIVO1,one_hot_binary,5 - parecer cardiologico
+MOTIVO1__003,MOTIVO1,one_hot_binary,6 - suspeita de cardiopatia
+MOTIVO1__004,MOTIVO1,one_hot_binary,7 - outro
+MOTIVO1__005,MOTIVO1,one_hot_binary,__AUSENTE__
+MOTIVO1__006,MOTIVO1,one_hot_binary,__DESCONHECIDO__
+MOTIVO2__000,MOTIVO2,one_hot_binary,1 - cardiopatia adquirida
+MOTIVO2__001,MOTIVO2,one_hot_binary,1 - cardiopatia congenica
+MOTIVO2__002,MOTIVO2,one_hot_binary,5 - atividade fisica
+MOTIVO2__003,MOTIVO2,one_hot_binary,5 - cirurgia
+MOTIVO2__004,MOTIVO2,one_hot_binary,5 - uso de cisaprida
+MOTIVO2__005,MOTIVO2,one_hot_binary,6 - alteracoes de pulso/perfusao
+MOTIVO2__006,MOTIVO2,one_hot_binary,6 - cansaco
+MOTIVO2__007,MOTIVO2,one_hot_binary,6 - cardiopatia na familia
+MOTIVO2__008,MOTIVO2,one_hot_binary,6 - cianose
+MOTIVO2__009,MOTIVO2,one_hot_binary,6 - cianose e dispneia
+MOTIVO2__010,MOTIVO2,one_hot_binary,6 - dispneia
+MOTIVO2__011,MOTIVO2,one_hot_binary,6 - dor precordial
+MOTIVO2__012,MOTIVO2,one_hot_binary,6 - has/dislipidemia/obesidade
+MOTIVO2__013,MOTIVO2,one_hot_binary,6 - palpitacao/taquicardia/arritmia
+MOTIVO2__014,MOTIVO2,one_hot_binary,6 - sopro
+MOTIVO2__015,MOTIVO2,one_hot_binary,outro
+MOTIVO2__016,MOTIVO2,one_hot_binary,__AUSENTE__
+MOTIVO2__017,MOTIVO2,one_hot_binary,__DESCONHECIDO__

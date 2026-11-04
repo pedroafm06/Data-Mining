@@ -1,0 +1,107 @@
+{
+  "etapa": "A2: revisão de limpeza e transformação",
+  "A1": "A avaliação incide sobre a versão já entregue.",
+  "classificadores_com_preparacao_atual": "pendentes",
+  "conceitos": [
+    {
+      "conceito": "Processo KDD",
+      "aplicacao": "Separar seleção e entendimento, limpeza, transformação, mineração, avaliação e interpretação. A revisão atual conclui a preparação; a modelagem com essa versão ainda falta.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Tipos, escalas e unidades",
+      "aplicacao": "ID é identificador nominal; medidas têm unidades explícitas; códigos de achados não viram quantidades; datas mantêm seus estados e candidatos. Isso evita operações aritméticas sem significado.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Análise univariada",
+      "aplicacao": "Contagens, faltantes, quartis, média, mediana, desvio, amplitude e assimetria descrevem as medidas observadas antes de imputar. Estimativas não são apresentadas como medições.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Ausência e sentinelas",
+      "aplicacao": "Zeros usados como sentinela e erros de planilha são tratados conforme a variável. SOPRO Ausente é achado registrado e permanece distinto de campo vazio.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Inconsistência léxica",
+      "aplicacao": "Padronizar grafias e converter formatos completos, preservando os originais; não juntar descrições diferentes de MOTIVO2 por terem o mesmo prefixo.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Inconsistência de domínio, lógica e temporal",
+      "aplicacao": "Rejeitar casos demonstráveis, como medida negativa, e sinalizar hipóteses de qualidade. PAS≤PAD é uma contradição relacional; sem saber o campo errado, a política mascara o par. Datas ambíguas não recebem século por conveniência.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Valores atípicos",
+      "aplicacao": "Um extremo pode ser real. Envelopes históricos geram alertas; o bloqueio operacional conjunto não é faixa de normalidade clínica. Alternativas preservam suspeitas para comparação.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Objetos repetidos e duplicação",
+      "aplicacao": "Todas as linhas são mantidas. Igualdade de atributos é equivalência candidata, não prova de identidade. Um candidato que cruza desenvolvimento/teste é retirado somente do ajuste, conservando o teste histórico.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Criação de atributos",
+      "aplicacao": "Idade relativa deriva de pares de datas compatíveis sob hipótese pediátrica; IMC deriva de peso e altura observados utilizáveis. Intervalo, hipótese e origem são registrados.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Imputação por mediana",
+      "aplicacao": "Comparar mediana global, por idade e por idade/sexo somente no desenvolvimento. Usar grupo etário para Peso, Altura, FC e IMC; global para IDADE, PAS e PAD. Grupos precisam de 30 observados e têm fallback global.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Discretização",
+      "aplicacao": "Faixas fixas de idade condicionam as medianas. A idade permanece contínua na matriz; idade imputada não forma seu próprio grupo.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Indicadores de ausência",
+      "aplicacao": "Sete indicadores binários distinguem valores imputados de medidas disponíveis, sem afirmar que toda ausência tenha o mesmo motivo.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "One-hot encoding",
+      "aplicacao": "Categorias nominais, ausência e categoria inédita recebem indicadores distintos, sem criar ordem. Vocabulários são aprendidos só no desenvolvimento.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Padronização Z-score",
+      "aplicacao": "Aplicada somente às medidas contínuas em uma representação separada, com média/desvio do desenvolvimento. Indicadores e one-hot permanecem 0/1.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Transformação logarítmica",
+      "aplicacao": "Uma alternativa aplica log1p apenas ao Peso antes de padronizar. Assimetria, suporte e significado orientam a escolha; log não é aplicado indiscriminadamente.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Redução manual de atributos",
+      "aplicacao": "ID, datas e convênio ficam fora de X principal. A alternativa reduzida também retira IMC e HDA2; a visão completa permanece disponível.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Correlação e análise bivariada",
+      "aplicacao": "Pearson, Spearman, contingências e comparação das distribuições descrevem associações. Aumentar correlação não é objetivo da limpeza, e associação não demonstra causa.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Separação desenvolvimento/teste e vazamento",
+      "aplicacao": "Medianas, vocabulários e escalas são aprendidos no desenvolvimento e aplicados aos demais registros. O alvo não escolhe a transformação. Na futura validação cruzada, todo ajuste precisa ser repetido dentro de cada fold.",
+      "estado": "aplicado_na_preparacao_A2"
+    },
+    {
+      "conceito": "Codificação do alvo",
+      "aplicacao": "Normal=0 e Anormal=1; rótulos ausentes/duvidosos não são imputados e ficam fora dos experimentos supervisionados. ID e y são arquivos auxiliares separados de X.",
+      "estado": "aplicado_na_preparacao_A2"
+    }
+  ],
+  "complementos": [
+    "mascaramento artificial para diagnóstico de imputação",
+    "Welch",
+    "V de Cramér"
+  ]
+}

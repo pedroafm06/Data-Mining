@@ -1,0 +1,71 @@
+variable,category,Anormal,Normal
+PULSOS,Amplos,46,7
+PULSOS,Diminuidos,16,2
+PULSOS,Femorais diminuidos,36,3
+PULSOS,Normais,4813,6697
+PULSOS,Outro,26,10
+PULSOS,__AUSENTE__,23,25
+PPA,__AUSENTE__,4225,5400
+PPA,has-1 pad,8,18
+PPA,has-1 pas,19,29
+PPA,has-2 pad,6,15
+PPA,has-2 pas,41,32
+PPA,normal,619,1171
+PPA,pre-hipertensao pad,26,47
+PPA,pre-hipertensao pas,16,32
+B2,Desdob fixo,134,15
+B2,Hiperfonetica,289,6
+B2,Normal,4382,6694
+B2,Outro,67,9
+B2,Unica,75,2
+B2,__AUSENTE__,13,18
+SOPRO,Ausente,720,6539
+SOPRO,Continuo,38,9
+SOPRO,Diastolico,9,0
+SOPRO,Sistolico,4183,180
+SOPRO,Sistolico e diastolico,3,0
+SOPRO,__AUSENTE__,7,16
+HDA 1,__AUSENTE__,1075,2065
+HDA 1,assintomatico,3047,3486
+HDA 1,cianose,143,115
+HDA 1,desmaio/tontura,45,110
+HDA 1,dispneia,287,252
+HDA 1,dor precordial,169,337
+HDA 1,ganho de peso,31,56
+HDA 1,outro,57,67
+HDA 1,palpitacao,106,256
+HDA2,__AUSENTE__,4790,6512
+HDA2,assintomatico,1,0
+HDA2,cianose,42,20
+HDA2,desmaio/tontura,17,32
+HDA2,dispneia,39,43
+HDA2,dor precordial,18,47
+HDA2,ganho de peso,5,14
+HDA2,outro,18,23
+HDA2,palpitacao,30,53
+SEXO,F,1955,2574
+SEXO,M,2701,3801
+SEXO,__AUSENTE__,304,369
+MOTIVO1,1 - cardiopatia ja estabelecida,809,321
+MOTIVO1,2 - check-up,183,500
+MOTIVO1,5 - parecer cardiologico,1332,3850
+MOTIVO1,6 - suspeita de cardiopatia,2436,1695
+MOTIVO1,7 - outro,129,170
+MOTIVO1,__AUSENTE__,71,208
+MOTIVO2,1 - cardiopatia adquirida,48,42
+MOTIVO2,1 - cardiopatia congenica,752,266
+MOTIVO2,5 - atividade fisica,154,434
+MOTIVO2,5 - cirurgia,660,2187
+MOTIVO2,5 - uso de cisaprida,6,3
+MOTIVO2,6 - alteracoes de pulso/perfusao,2,3
+MOTIVO2,6 - cansaco,4,2
+MOTIVO2,6 - cardiopatia na familia,8,24
+MOTIVO2,6 - cianose,57,80
+MOTIVO2,6 - cianose e dispneia,1,2
+MOTIVO2,6 - dispneia,80,136
+MOTIVO2,6 - dor precordial,109,260
+MOTIVO2,6 - has/dislipidemia/obesidade,65,164
+MOTIVO2,6 - palpitacao/taquicardia/arritmia,149,248
+MOTIVO2,6 - sopro,1744,541
+MOTIVO2,__AUSENTE__,779,1911
+MOTIVO2,outro,342,441

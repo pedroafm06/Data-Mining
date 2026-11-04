@@ -1,0 +1,31 @@
+{
+  "source_preserved": true,
+  "n_rows_preserved": true,
+  "unique_IDs": true,
+  "fit_development_only": true,
+  "no_candidate_overlap_after_quarantine": true,
+  "target_used": false,
+  "models_fitted": false,
+  "matrix_retransform": {
+    "units": {
+      "n_rows": 12873,
+      "n_columns": 93,
+      "max_abs_export_delta": 0.0,
+      "finite": true
+    },
+    "standard": {
+      "n_rows": 12873,
+      "n_columns": 93,
+      "max_abs_export_delta": 0.0,
+      "finite": true
+    },
+    "log_weight_standard": {
+      "n_rows": 12873,
+      "n_columns": 93,
+      "max_abs_export_delta": 0.0,
+      "finite": true
+    }
+  },
+  "binary_columns_unchanged": true,
+  "frozen_partitions_preserved": true
+}

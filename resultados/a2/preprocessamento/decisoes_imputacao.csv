@@ -1,0 +1,8 @@
+variable,method,MAE_global,MAE_age,MAE_age_sex,relative_MAE_gain_age,repetitions_improved,relative_extra_gain_sex,sex_used,reason
+Peso,age_band,11.99735428945645,5.423451211525868,5.370451866404716,0.5479460653844221,5.0,0.009772254428788485,False,Fixed-band age conditioning with sufficient observed support
+Altura,age_band,29.57739672642245,9.129384255650818,9.054014029618083,0.6913391553660555,5.0,0.008255784171433356,False,Fixed-band age conditioning with sufficient observed support
+IMC,age_band,2.534368743437181,2.274274435819133,2.266346091846986,0.10262686055120018,5.0,0.0034860981802714575,False,Fixed-band age conditioning with sufficient observed support
+IDADE,global,,,,,,,,Do not use imputed age to construct its own stratum
+PA SISTOLICA,global,7.8033980582524265,7.610800970873787,7.629004854368932,0.02468118195956437,4.0,-0.0023918485800391576,False,Parsimony: retain simple median; age effect insufficient or BP deliberately kept simple
+PA DIASTOLICA,global,5.7591737545565005,5.642527339003645,5.642527339003645,0.020254019156926484,5.0,0.0,False,Parsimony: retain simple median; age effect insufficient or BP deliberately kept simple
+FC,age_band,13.262948207171315,9.621513944223107,9.614456459874788,0.2745569240012016,5.0,0.0007335107956224496,False,Fixed-band age conditioning with sufficient observed support

@@ -1,0 +1,337 @@
+{
+  "data": "2026-11-04",
+  "regra": "Priorizar os conceitos explicitamente abordados nos materiais e explicar o uso; métodos adicionais são complementares.",
+  "escopo": "Conferência dos dez PDFs vigentes de slides disponíveis localmente; não equivale a verificar a fala completa do professor.",
+  "conceitos": [
+    {
+      "conceito": "Processo KDD",
+      "como_usado": "Organização em entendimento, preparação, transformação, modelagem, avaliação e interpretação.",
+      "por_que": "Cada etapa precisa produzir uma saída justificável para a próxima.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "prepare.py; analysis.py; transforms.py; experiments.py"
+    },
+    {
+      "conceito": "Tipos e escalas dos atributos",
+      "como_usado": "Separação explícita entre medidas numéricas, categorias nominais, identificador, datas e alvo.",
+      "por_que": "Evita fazer contas sem significado com códigos ou impor ordem às categorias.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "schema.py"
+    },
+    {
+      "conceito": "Análise univariada",
+      "como_usado": "Contagem, ausência, frequências, média, mediana, quartis e dispersão de cada variável.",
+      "por_que": "Conhecer distribuição e qualidade antes de decidir o tratamento.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "analysis.py: variable_profiles e categorical_frequencies"
+    },
+    {
+      "conceito": "Visualização dos dados",
+      "como_usado": "Gráficos de distribuição, barras de ausência, boxplots e dispersões.",
+      "por_que": "Inspecionar padrões e casos suspeitos junto com os números.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "analysis.py: run_analysis"
+    },
+    {
+      "conceito": "Dados ausentes e imputação",
+      "como_usado": "Sentinelas são reconhecidas por coluna; numéricas recebem mediana do treino e categóricas recebem categoria desconhecida.",
+      "por_que": "Preservar a distinção entre valor não registrado e categoria válida.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "prepare.py; transforms.py: build_preprocessor"
+    },
+    {
+      "conceito": "Ausência como informação",
+      "como_usado": "Indicadores de ausência nas medidas e comparação com a alternativa sem indicadores.",
+      "por_que": "A falta de medida pode estar relacionada ao processo de coleta e à classe.",
+      "papel": "principal",
+      "situacao": "implementado e comparado em sensibilidade",
+      "implementacao": "transforms.py; experiments.py",
+      "ressalva": "A associação observada não comprova o mecanismo causal da ausência."
+    },
+    {
+      "conceito": "Inconsistência léxica",
+      "como_usado": "Padronização de espaços, caixa, acentos e grafias documentadas.",
+      "por_que": "Unir grafias da mesma categoria sem juntar significados diferentes.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "prepare.py: normalize_text e prepare_dataframe"
+    },
+    {
+      "conceito": "Inconsistência de domínio, lógica e temporal",
+      "como_usado": "Verificação de valores impossíveis, relação entre pressões, datas e idade.",
+      "por_que": "Separar erro comprovado de suspeita; preservar o dado e a razão da intervenção.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "prepare.py",
+      "ressalva": "Um valor raro ou um par antropométrico discrepante não revela sozinho qual campo está errado."
+    },
+    {
+      "conceito": "Duplicados e repetidos",
+      "como_usado": "Identificação de equivalências candidatas, sem remoção automática; separação de candidatos informativos na partição.",
+      "por_que": "Evitar dar peso excessivo a repetições e reduzir risco de vazamento sem presumir identidade.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "prepare.py; experiments.py: make_splits",
+      "ressalva": "A ideia de duplicação é do conteúdo; a implementação por grupos candidatos é uma precaução complementar."
+    },
+    {
+      "conceito": "Ruído e outlier",
+      "como_usado": "Flags de valores suspeitos e comparação entre mascarar ou conservar os suspeitos.",
+      "por_que": "Um outlier não deve ser declarado erro apenas por ser diferente.",
+      "papel": "principal",
+      "situacao": "implementado e comparado em sensibilidade",
+      "implementacao": "prepare.py: safe_model_frame"
+    },
+    {
+      "conceito": "Comparação antes e depois da limpeza",
+      "como_usado": "Tabelas completas por versão e correlações calculadas com os mesmos IDs em cada par.",
+      "por_que": "Distinguir alteração de valores de alteração das pessoas presentes na análise.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "analysis.py: paired_correlations"
+    },
+    {
+      "conceito": "Correlação de Pearson e Spearman",
+      "como_usado": "Relação entre altura, peso e idade com número de pares e interpretação descritiva.",
+      "por_que": "Descrever associação linear e associação pela ordem sem afirmar causalidade.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "analysis.py: paired_correlations"
+    },
+    {
+      "conceito": "Análise bivariada e contingência",
+      "como_usado": "Comparações das medidas por classe e tabelas de categorias contra o alvo.",
+      "por_que": "Examinar que atributos se relacionam com o resultado registrado.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "analysis.py: bivariate_numeric e bivariate_categorical",
+      "ressalva": "A família do teste t é abordada; a versão Welch usada é um complemento identificado abaixo."
+    },
+    {
+      "conceito": "Codificação do alvo",
+      "como_usado": "Normal=0 e Anormal=1; rótulos ausentes ou duvidosos não são imputados.",
+      "por_que": "Tornar explícita a classe positiva e evitar fabricar respostas.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "experiments.py: run_experiments"
+    },
+    {
+      "conceito": "One-hot encoding",
+      "como_usado": "Cada categoria nominal vira uma coluna indicadora ajustada apenas no treino.",
+      "por_que": "Não criar uma ordem artificial entre categorias sem ordem.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "transforms.py: build_preprocessor"
+    },
+    {
+      "conceito": "Padronização Z-score",
+      "como_usado": "Medidas são padronizadas no pipeline dos modelos lineares, usando média e desvio do treino.",
+      "por_que": "Colocar medidas de escalas diferentes em uma representação comparável.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "transforms.py; experiments.py: build_model",
+      "ressalva": "Z-score não torna qualquer distribuição normal nem elimina a influência dos extremos."
+    },
+    {
+      "conceito": "Transformação logarítmica",
+      "como_usado": "Alternativa log1p comparada no desenvolvimento quando o modelo escolhido é logístico.",
+      "por_que": "Examinar se comprimir magnitudes ajuda a representação.",
+      "papel": "principal",
+      "situacao": "sensibilidade; não aplicada universalmente",
+      "implementacao": "transforms.py: _nonnegative_log1p; experiments.py",
+      "ressalva": "Não é requisito de todo classificador; a versão usa log1p para preservar zeros válidos."
+    },
+    {
+      "conceito": "Criação de atributos",
+      "como_usado": "Recálculo aritmético de IMC com peso/altura utilizáveis e idade a partir de informação explícita confiável.",
+      "por_que": "Combinar atributos existentes para melhorar sua representação e registrar a origem.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "prepare.py",
+      "ressalva": "Percentis clínicos não foram inventados quando a referência completa não foi validada."
+    },
+    {
+      "conceito": "Redução manual e relevância dos atributos",
+      "como_usado": "ID, datas, metadados e convênio ficam fora dos modelos principais; o bloco sem IMC é comparado.",
+      "por_que": "Considerar a tarefa, a disponibilidade da informação e a redundância em vez de excluir mecanicamente.",
+      "papel": "principal",
+      "situacao": "implementado e comparado em sensibilidade",
+      "implementacao": "schema.py; experiments.py"
+    },
+    {
+      "conceito": "Desbalanceamento e pesos de classe",
+      "como_usado": "Prevalência é publicada; pesos de classe entram como alternativa de treinamento.",
+      "por_que": "Evitar favorecer a classe majoritária sem fabricar exemplos sintéticos desnecessariamente.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "experiments.py: candidates",
+      "ressalva": "Não há obrigação de transformar a distribuição em 50/50; o teste mantém sua distribuição."
+    },
+    {
+      "conceito": "Hold-out e validação cruzada k-fold",
+      "como_usado": "Separação de desenvolvimento e teste; cinco folds internos para comparar candidatos.",
+      "por_que": "Escolher configurações usando validação e avaliar o modelo em dados separados.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "experiments.py: make_splits e cross_validate_candidate"
+    },
+    {
+      "conceito": "Vazamento de dados e pipeline",
+      "como_usado": "Imputação, categorias, escala e modelo são ajustados novamente em cada treino de fold.",
+      "por_que": "O teste não pode informar o aprendizado nem a escolha dos hiperparâmetros.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "transforms.py; experiments.py"
+    },
+    {
+      "conceito": "Tuning e complexidade do modelo",
+      "como_usado": "Busca pequena de hiperparâmetros; árvore com profundidade e tamanho mínimo de folha controlados.",
+      "por_que": "Comparar generalização e controlar sobreajuste sem escolher pelo resultado do teste.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "experiments.py: candidates e select_from_development",
+      "ressalva": "A árvore aparece nos materiais como exemplo de complexidade e seleção embutida, não como prova de cobertura integral do algoritmo."
+    },
+    {
+      "conceito": "Matriz de confusão e métricas",
+      "como_usado": "Publicação de TN, FP, FN, TP, recall, precisão, F1 e acurácia balanceada.",
+      "por_que": "Mostrar os tipos de erro e medir as classes separadamente.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "experiments.py: metric_dict"
+    },
+    {
+      "conceito": "Limiar de decisão",
+      "como_usado": "Limiar 0,5 fixado antes da avaliação; não reajustado para melhorar o teste.",
+      "por_que": "Distinguir probabilidade/score de decisão e reconhecer o compromisso entre falsos positivos e negativos.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "experiments.py: metric_dict"
+    },
+    {
+      "conceito": "Curvas ROC e Precision-Recall",
+      "como_usado": "Curvas em diferentes limiares e ROC-AUC; leitura junto à prevalência e matriz de confusão.",
+      "por_que": "Comparar discriminação e o compromisso entre precisão e recall.",
+      "papel": "principal",
+      "situacao": "implementado",
+      "implementacao": "experiments.py: create_figures"
+    },
+    {
+      "conceito": "Discretização",
+      "como_usado": "Faixas de idade usadas para relatar erros de subgrupos; idade contínua permanece como entrada principal.",
+      "por_que": "Comparar comportamento por intervalo sem perder a medida original.",
+      "papel": "principal",
+      "situacao": "aplicada à análise de subgrupos, não à matriz principal",
+      "implementacao": "experiments.py: subgroup_summary"
+    },
+    {
+      "conceito": "Teste t de Welch e efeitos com intervalos",
+      "como_usado": "Comparação exploratória das médias por classe sem impor variâncias iguais; efeitos e intervalos publicados.",
+      "por_que": "Evitar usar teste de médias para afirmar diferença de medianas e expor magnitude/incerteza.",
+      "papel": "complementar",
+      "situacao": "implementado",
+      "implementacao": "analysis.py: bivariate_numeric",
+      "ressalva": "Teste t de Student consta do material; Welch e os detalhes dos intervalos não foram localizados como explicação nos slides disponíveis."
+    },
+    {
+      "conceito": "V de Cramér",
+      "como_usado": "Tamanho de associação descritivo em tabelas categóricas, com verificação das esperadas para o teste qui-quadrado.",
+      "por_que": "Não resumir a associação apenas pelo p-valor.",
+      "papel": "complementar",
+      "situacao": "implementado",
+      "implementacao": "analysis.py: bivariate_categorical"
+    },
+    {
+      "conceito": "Regressão logística",
+      "como_usado": "Candidato linear regularizado, comparado pelo mesmo protocolo.",
+      "por_que": "Fornecer uma referência de modelo simples e interpretável.",
+      "papel": "complementar",
+      "situacao": "implementado",
+      "implementacao": "experiments.py: candidates",
+      "ressalva": "Não foi localizada explicação do método nos slides disponíveis."
+    },
+    {
+      "conceito": "Random Forest",
+      "como_usado": "Candidato adicional com orçamento fixo e mesmas partições.",
+      "por_que": "Comparar uma combinação de árvores sem alterar o protocolo de avaliação.",
+      "papel": "complementar",
+      "situacao": "implementado",
+      "implementacao": "experiments.py: candidates",
+      "ressalva": "Random Forest é citado como exemplo de hiperparâmetro; isso não equivale a uma explicação do método nas aulas disponíveis."
+    },
+    {
+      "conceito": "Controle majoritário",
+      "como_usado": "Predição fixa da classe majoritária e comparação com os modelos.",
+      "por_que": "Verificar se o modelo supera uma regra sem informação dos atributos.",
+      "papel": "complementar",
+      "situacao": "implementado",
+      "implementacao": "experiments.py: candidates e run_experiments"
+    },
+    {
+      "conceito": "Grupos candidatos na validação",
+      "como_usado": "Equivalências informativas ficam no mesmo lado das partições.",
+      "por_que": "Precaução contra avaliações otimistas causadas por registros equivalentes.",
+      "papel": "complementar",
+      "situacao": "implementado",
+      "implementacao": "experiments.py: make_splits",
+      "ressalva": "Não estabelece identidade de paciente; a ideia de vazamento por duplicação está nos materiais, este mecanismo específico é extensão operacional."
+    },
+    {
+      "conceito": "Bootstrap por grupos para intervalos",
+      "como_usado": "Reamostragem das previsões finais por grupos candidatos, sem reajustar o modelo.",
+      "por_que": "Descrever incerteza condicional da métrica do modelo fixado.",
+      "papel": "complementar",
+      "situacao": "implementado",
+      "implementacao": "experiments.py: bootstrap_group_ci",
+      "ressalva": "Bootstrap é apresentado como estimação OOB/.632; usá-lo em intervalos por grupos é aplicação adicional, não o mesmo experimento da aula."
+    },
+    {
+      "conceito": "Average precision, Brier e importância por permutação",
+      "como_usado": "Métricas e interpretação adicionais, separadas das métricas centrais.",
+      "por_que": "Complementar descrição de scores e investigar atributos; não substituir a matriz de confusão.",
+      "papel": "complementar",
+      "situacao": "implementado",
+      "implementacao": "experiments.py",
+      "ressalva": "AP não é a área trapezoidal PR-AUC; não foi localizada explicação desses três procedimentos nos slides disponíveis."
+    },
+    {
+      "conceito": "Sensibilidades e cenário temporal sob hipótese",
+      "como_usado": "Comparação de políticas somente no desenvolvimento e avaliação temporal secundária identificada como hipotética.",
+      "por_que": "Examinar dependência das conclusões às escolhas e à cobertura das datas.",
+      "papel": "complementar",
+      "situacao": "implementado",
+      "implementacao": "experiments.py",
+      "ressalva": "Não constitui seleção puramente prospectiva nem confirmação das datas abreviadas."
+    }
+  ],
+  "abordados_mas_nao_aplicados": [
+    {
+      "conceito": "Ordinal encoding de PPA",
+      "motivo": "Os rótulos históricos misturam gravidade e origem; one-hot evita atribuir uma ordem/distância não confirmada."
+    },
+    {
+      "conceito": "Min-Max, frequency/target/binary/hash/cyclic encoding",
+      "motivo": "Constam dos materiais, mas não são necessários para a primeira matriz; datas e convênio não são preditores principais e target encoding exige cuidados adicionais."
+    },
+    {
+      "conceito": "PCA, Select K Best, RFE e RFECV",
+      "motivo": "Foram apresentados nos materiais, mas a dimensão é pequena e a interpretação clínica é prioritária; não aplicar somente para acumular técnicas."
+    },
+    {
+      "conceito": "SMOTE, sobre/subamostragem e boosting",
+      "motivo": "O desbalanceamento não é extremo; primeiro comparar pesos e métricas adequadas sem alterar a distribuição do teste."
+    },
+    {
+      "conceito": "BoW, TF-IDF e extração de séries/imagens",
+      "motivo": "O experimento atual usa atributos tabulares já estruturados; não há corpus, série de medições ou imagens apropriados para essa etapa."
+    },
+    {
+      "conceito": "Nested CV completa e OOB/.632",
+      "motivo": "O desenho atual usa hold-out reservado mais CV interna; não confundir esse desenho com avaliação externa por nested CV nem com bootstrap OOB."
+    }
+  ]
+}

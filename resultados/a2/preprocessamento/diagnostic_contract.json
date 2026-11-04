@@ -1,0 +1,21 @@
+{
+  "n_development": 9361,
+  "uses_target": false,
+  "fits_models": false,
+  "accesses_test_predictors": false,
+  "age_bands": [
+    0,
+    0.25,
+    0.5,
+    1,
+    2,
+    5,
+    10,
+    15,
+    20
+  ],
+  "minimum_observed_per_group": 30,
+  "masking_repetitions": 5,
+  "masked_fraction_of_observed": 0.2,
+  "limitation": "Artificial masking among observed development values, not the real missing-data mechanism. Re-run after any cleaning/age change."
+}

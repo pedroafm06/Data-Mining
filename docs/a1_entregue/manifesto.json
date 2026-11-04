@@ -1,0 +1,15 @@
+{
+  "status": "Entregas históricas da A1, preservadas byte a byte. A avaliação da A1 incide sobre a versão já entregue.",
+  "files": [
+    {
+      "file": "Relatorio_A1_Entregue.pdf",
+      "sha256": "bde03b25adac8c628145b55e377bfccd7c7b346ba0b0200a78e6a748949adf8d",
+      "bytes": 457365
+    },
+    {
+      "file": "Apresentacao_A1_Entregue.pdf",
+      "sha256": "73f31da1a603eb6b0fed91d7b1799390b885b5edf5efa72b4fe7d08532f509b6",
+      "bytes": 3288594
+    }
+  ]
+}

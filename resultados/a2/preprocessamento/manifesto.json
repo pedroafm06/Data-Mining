@@ -1,0 +1,24 @@
+{
+  "scope": "Aggregate diagnostics of current A2 preprocessing; no clinical rows",
+  "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
+  "files_sha256": {
+    "imputation_alternatives.csv": "5c96f73ec2d87f940a0b5a63d134307bb155583f784783ae89642c8ae15497e8",
+    "bmi_coherence_alternatives.csv": "84902e562e20fd917076b7c04cf013d181eea8de3101acd2c12e8e655f7173d5",
+    "transform_profiles.csv": "99af51dd2b46575a07942db6c72be4999bef6897b235d0ded48140f8aa884803",
+    "diagnostic_contract.json": "d1633cfbee4a0f0c2c6c0db54237eb86807fdaa192289b2e44552dc961865962",
+    "perfil_21_variaveis.csv": "cbbd4584c9e9144f7ed219f219620190c7c20ada3c920cd22f067f2cd0b4e261",
+    "categorias_completas.csv": "44ff10cd51f75a272c8d314b85bdd97ed99ea8da16e43707cada80d63a4466ed",
+    "decisoes_21_variaveis.csv": "96ef07b0f8aac54a94dac589fbe901c33457a5178bb4cfee65e6b7e4bd68c4b7",
+    "decisoes_21_variaveis.json": "db4241e57c622cde93bab9432b451d8983a27362928bb3162ec2270238425b0c",
+    "bivariadas_numericas.csv": "8f09a2c7cbae35dd1ac5dec8103026eeb2ba0001e319b80cea7880016ae6df21",
+    "bivariadas_categoricas.csv": "fffb6d435f6a8a248505d0a98c75d39017169474dff2dfaea5519414d80c0da2",
+    "contingencias.csv": "0905a439d98700711137a3eb541db268758687b921dc4424c6a53760ca90952f",
+    "altura_idade_pareada.png": "c89a116b40c351966da89fd4ce38ed55296e1dd98d02a9af9f523c3f789995ac",
+    "comparacao_imputacoes_resumo.csv": "dd3c75dc41d2adc12cc99cbe446df2282e0cb74c4c208b3d113e0d2236841797",
+    "decisoes_imputacao.csv": "9eee0734f06b95f198b7d0e6912abc9fa88f216e15ec0201ca028f1d1d4cd9eb",
+    "dicionario_colunas_matrizes.csv": "46f0718a94fd5901dd67aef9c81df0e0bedfd81117e5d6436a5e10c5b540ead5",
+    "verification.json": "34d1e5ed130af5c99c3f36868d7dafa1d5877879a968739532d5aaf0cc2fd0e0",
+    "resumo.json": "0add8dd1ffdd64d4678cc0bc2f6d55bbc9a5ecb717428d74926cc94a91c17739"
+  },
+  "self_excluded": true
+}

@@ -1,0 +1,233 @@
+[
+  {
+    "variavel": "ID",
+    "tipo": "Identificador nominal",
+    "limpeza": "Preservar para rastreio; retirar de X.",
+    "transformacao": "Não deduplicar pessoas por coincidência de atributos.",
+    "alternativas_e_julgamento": "Ordinal/OHE do ID permitiria memorizar identidade; apagar o ID impediria auditoria.",
+    "incerteza": "Unicidade não esclarece paciente versus atendimento.",
+    "ausentes_pre_imputacao": 0,
+    "percentual_ausente": 0.0,
+    "valores_distintos": 12873
+  },
+  {
+    "variavel": "Peso",
+    "tipo": "Quantitativa, kg",
+    "limpeza": "Invalidar não numérico/negativo; zero é sentinela; marcar extremos.",
+    "transformacao": "Na matriz: mediana por faixa etária com mínimo de 30 observados e fallback global. Indicador 0/1; Z-score somente na representação reescalada. Log1p apenas na alternativa Log-Peso.",
+    "alternativas_e_julgamento": "Mediana global mistura lactentes e adolescentes. Sexo acrescenta pouco. Log só nesta coluna, em alternativa separada.",
+    "incerteza": "Imputação estima, não mede; envelope histórico é hipótese de qualidade.",
+    "ausentes_pre_imputacao": 2944,
+    "percentual_ausente": 22.869571972345216,
+    "valores_distintos": 622
+  },
+  {
+    "variavel": "Altura",
+    "tipo": "Quantitativa, cm",
+    "limpeza": "Zero vira ausência; preservar original e sinalizar extremos sem apagar idade.",
+    "transformacao": "Na matriz: mediana por faixa etária com mínimo de 30 observados e fallback global. Indicador 0/1; Z-score somente na representação reescalada.",
+    "alternativas_e_julgamento": "Mediana geral perde estrutura etária. Não alterar para elevar correlação.",
+    "incerteza": "Não distinguir comprimento/estatura sem informação da fonte.",
+    "ausentes_pre_imputacao": 4478,
+    "percentual_ausente": 34.78598617260934,
+    "valores_distintos": 154
+  },
+  {
+    "variavel": "IMC",
+    "tipo": "Quantitativa, kg/m²",
+    "limpeza": "Calcular só com peso/altura observados utilizáveis; conservar histórico com origem.",
+    "transformacao": "Na matriz: mediana por faixa etária com mínimo de 30 observados e fallback global. Indicador 0/1; Z-score somente na representação reescalada. Não recalcular após imputar peso ou altura; resultado estimado não é medição clínica.",
+    "alternativas_e_julgamento": "Não recalcular após imputar pais: o ensaio de reconstrução mostrou perda maior.",
+    "incerteza": "Triplas contendo imputação não são medições fisicamente verificadas.",
+    "ausentes_pre_imputacao": 4850,
+    "percentual_ausente": 37.675755457158395,
+    "valores_distintos": 3488
+  },
+  {
+    "variavel": "Atendimento",
+    "tipo": "Data",
+    "limpeza": "Preservar texto, candidatos, estado e data absoluta quando inequívoca.",
+    "transformacao": "Fora de X; usar diferença de datas para idade quando defensável.",
+    "alternativas_e_julgamento": "Não forçar 19xx/20xx nem substituir data por idade presumida.",
+    "incerteza": "Idade relativa pode ser identificável mesmo quando o século absoluto não é.",
+    "ausentes_pre_imputacao": 12561,
+    "percentual_ausente": 97.5763225355395,
+    "valores_distintos": 245
+  },
+  {
+    "variavel": "DN",
+    "tipo": "Data",
+    "limpeza": "Reconhecer formatos completos; não descartar texto residual para fabricar data.",
+    "transformacao": "Derivação de idade relativa, mantendo candidatos e proveniência; fora de X.",
+    "alternativas_e_julgamento": "Não imputar nascimento nem corrigir século automaticamente.",
+    "incerteza": "O recorte pediátrico é uma hipótese explícita ao filtrar pares candidatos.",
+    "ausentes_pre_imputacao": 12741,
+    "percentual_ausente": 98.97459799580517,
+    "valores_distintos": 128
+  },
+  {
+    "variavel": "IDADE",
+    "tipo": "Quantitativa, anos",
+    "limpeza": "Guardar valor bruto inclusive negativo; priorizar idade relativa coerente com as datas.",
+    "transformacao": "Na matriz: mediana global do desenvolvimento. Indicador 0/1; Z-score somente na representação reescalada.",
+    "alternativas_e_julgamento": "Evidência dias/352 invalida tratar a coluna recebida como idade cronológica correta. Não imputar pelo corpo e criar circularidade.",
+    "incerteza": "Datas ambíguas continuam ambíguas. Idade original só como fallback identificado; faixas para imputação não usam idade já imputada.",
+    "ausentes_pre_imputacao": 1647,
+    "percentual_ausente": 12.794220461430902,
+    "valores_distintos": 5838
+  },
+  {
+    "variavel": "Convenio",
+    "tipo": "Nominal administrativa",
+    "limpeza": "Normalizar grafia sem adivinhar operadora; preservar na base semântica.",
+    "transformacao": "Fora da matriz principal por finalidade e alta cardinalidade.",
+    "alternativas_e_julgamento": "OHE de centenas de grafias aumenta dimensão; frequência/target encoding não têm necessidade demonstrada.",
+    "incerteza": "Pode refletir seleção institucional; não é variável clínica intrínseca.",
+    "ausentes_pre_imputacao": 4108,
+    "percentual_ausente": 31.91175328206323,
+    "valores_distintos": 257
+  },
+  {
+    "variavel": "PULSOS",
+    "tipo": "Nominal",
+    "limpeza": "Preservar achados raros; normalizar somente grafias equivalentes.",
+    "transformacao": "OHE com ausência e categoria inédita explícitas.",
+    "alternativas_e_julgamento": "Moda Normais inventaria exame; binarizar todos os achados perderia tipo.",
+    "incerteza": "Momento de coleta e relação com alvo ainda precisam de esclarecimento.",
+    "ausentes_pre_imputacao": 1194,
+    "percentual_ausente": 9.275227219762293,
+    "valores_distintos": 5
+  },
+  {
+    "variavel": "PA SISTOLICA",
+    "tipo": "Quantitativa, mmHg",
+    "limpeza": "Sinalizar extremos e PAS≤PAD; mascarar ambos nessa política sem escolher o culpado.",
+    "transformacao": "Na matriz: mediana global do desenvolvimento. Indicador 0/1; Z-score somente na representação reescalada.",
+    "alternativas_e_julgamento": "Não converter tudo para PPA nem derivar diagnóstico a partir de pressão imputada.",
+    "incerteza": "Mais de metade da medida está ausente; máscara artificial não valida ausência real.",
+    "ausentes_pre_imputacao": 7733,
+    "percentual_ausente": 60.07146741241358,
+    "valores_distintos": 42
+  },
+  {
+    "variavel": "PA DIASTOLICA",
+    "tipo": "Quantitativa, mmHg",
+    "limpeza": "Mesma política relacional; conservar original e motivo da intervenção.",
+    "transformacao": "Na matriz: mediana global do desenvolvimento. Indicador 0/1; Z-score somente na representação reescalada.",
+    "alternativas_e_julgamento": "Não inferir PAD por uma função arbitrária de PAS; estratificação precisa justificar o custo.",
+    "incerteza": "Mesmas ressalvas de cobertura e interpretação de PAS.",
+    "ausentes_pre_imputacao": 7741,
+    "percentual_ausente": 60.13361298842539,
+    "valores_distintos": 30
+  },
+  {
+    "variavel": "PPA",
+    "tipo": "Nominal composta histórica",
+    "limpeza": "Sentinelas Não calculado/erro de planilha viram ausentes; histórico é preservado.",
+    "transformacao": "OHE do rótulo completo, sem preencher Normal.",
+    "alternativas_e_julgamento": "Ordinal puro confundiria gravidade e componente PAS/PAD. Recalcular exigiria insumos externos integralmente verificados.",
+    "incerteza": "Não declarar diagnóstico de HAS reconstruído com dados imputados.",
+    "ausentes_pre_imputacao": 10794,
+    "percentual_ausente": 83.84991843393148,
+    "valores_distintos": 7
+  },
+  {
+    "variavel": "NORMAL X ANORMAL",
+    "tipo": "Alvo binário",
+    "limpeza": "Normal/Anormal documentados; Normais permanece em revisão; não imputar.",
+    "transformacao": "y separado: Normal=0, Anormal=1; ausente continua desconhecido.",
+    "alternativas_e_julgamento": "Alvo nunca entra em X nem orienta escolha de transformações nesta preparação da A2.",
+    "incerteza": "Produção do rótulo precisa ser esclarecida; não confundir com diagnóstico independente.",
+    "ausentes_pre_imputacao": 1169,
+    "percentual_ausente": 9.081022294725393,
+    "valores_distintos": 2
+  },
+  {
+    "variavel": "B2",
+    "tipo": "Nominal",
+    "limpeza": "Preservar categorias e raros, sem impor gravidade artificial.",
+    "transformacao": "OHE com falta de registro distinta de Normal.",
+    "alternativas_e_julgamento": "Moda e descarte por predominância apagariam achados raros.",
+    "incerteza": "Pode integrar o processo que gerou o alvo.",
+    "ausentes_pre_imputacao": 1178,
+    "percentual_ausente": 9.150936067738678,
+    "valores_distintos": 5
+  },
+  {
+    "variavel": "SOPRO",
+    "tipo": "Nominal",
+    "limpeza": "Ausente é categoria observada; valor não registrado é outra coisa.",
+    "transformacao": "OHE dos tipos, não apenas presença.",
+    "alternativas_e_julgamento": "Preencher faltante com Ausente ou selecionar só sem sopro mudaria o significado/população.",
+    "incerteza": "Esta preparação transforma o atributo; a disponibilidade em uso futuro é decisão posterior.",
+    "ausentes_pre_imputacao": 1167,
+    "percentual_ausente": 9.065485900722441,
+    "valores_distintos": 5
+  },
+  {
+    "variavel": "FC",
+    "tipo": "Quantitativa, bpm",
+    "limpeza": "Converter intervalo válido em ponto médio aproximado; rejeitar intervalo invertido.",
+    "transformacao": "Na matriz: mediana por faixa etária com mínimo de 30 observados e fallback global. Indicador 0/1; Z-score somente na representação reescalada.",
+    "alternativas_e_julgamento": "Mediana geral ignora mudança etária; percentis externos incompletos não serão inventados.",
+    "incerteza": "Ponto médio não equivale a leitura exata; contexto da aferição é desconhecido.",
+    "ausentes_pre_imputacao": 1878,
+    "percentual_ausente": 14.588673968771849,
+    "valores_distintos": 99
+  },
+  {
+    "variavel": "HDA 1",
+    "tipo": "Nominal estruturada",
+    "limpeza": "Conservar significado e distinguir vazio de Assintomático.",
+    "transformacao": "OHE com categoria ausente explícita.",
+    "alternativas_e_julgamento": "Moda criaria histórico clínico; códigos não são quantidades.",
+    "incerteza": "Temporalidade em relação ao rótulo desconhecida.",
+    "ausentes_pre_imputacao": 4270,
+    "percentual_ausente": 33.170201196302344,
+    "valores_distintos": 8
+  },
+  {
+    "variavel": "HDA2",
+    "tipo": "Nominal estruturada",
+    "limpeza": "Conservar mesmo com cobertura baixa; não copiar de HDA1.",
+    "transformacao": "OHE na matriz completa; retirada em representação reduzida documentada.",
+    "alternativas_e_julgamento": "Regra de 50% é heurística; vazio não prova que não existe segundo histórico.",
+    "incerteza": "Cobertura muito baixa limita utilidade; não foi escolhida por desempenho.",
+    "ausentes_pre_imputacao": 12466,
+    "percentual_ausente": 96.83834382039929,
+    "valores_distintos": 8
+  },
+  {
+    "variavel": "SEXO",
+    "tipo": "Nominal",
+    "limpeza": "Mapear grafias M/F documentadas; desconhecido não é sexo inferido.",
+    "transformacao": "OHE com falta/inédito explícitos, sem imputar moda.",
+    "alternativas_e_julgamento": "Binário+indicador também é válido, mas OHE mantém simetria e explicação uniforme.",
+    "incerteza": "Não inferir sexo pelo corpo nem pelo alvo; estratificar imputação por sexo exige ganho adicional.",
+    "ausentes_pre_imputacao": 1421,
+    "percentual_ausente": 11.038607939097336,
+    "valores_distintos": 2
+  },
+  {
+    "variavel": "MOTIVO1",
+    "tipo": "Nominal",
+    "limpeza": "Preservar texto completo normalizado, sem ordenar prefixos.",
+    "transformacao": "OHE; falta explícita e separação do segundo motivo.",
+    "alternativas_e_julgamento": "Não fundir com MOTIVO2 ou assumir que todo encaminhamento precede diagnóstico.",
+    "incerteza": "Algumas categorias já mencionam cardiopatia estabelecida.",
+    "ausentes_pre_imputacao": 1055,
+    "percentual_ausente": 8.195447836557134,
+    "valores_distintos": 5
+  },
+  {
+    "variavel": "MOTIVO2",
+    "tipo": "Nominal",
+    "limpeza": "Prefixos iguais com descrições diferentes não são a mesma categoria.",
+    "transformacao": "OHE da descrição completa; vazio separado de ausência clínica.",
+    "alternativas_e_julgamento": "Não mapear só pelo número nem preencher com MOTIVO1.",
+    "incerteza": "Disponibilidade temporal precisa de esclarecimento antes da modelagem futura.",
+    "ausentes_pre_imputacao": 3496,
+    "percentual_ausente": 27.15761671715995,
+    "valores_distintos": 16
+  }
+]

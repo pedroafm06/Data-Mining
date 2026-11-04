@@ -1,0 +1,14 @@
+# Continuação da A2: KDD completo
+
+A revisão atual entrega a limpeza e as transformações aplicadas. Ela integra a A2, junto com as etapas novas. A A1 avaliada continua sendo a versão já entregue. O detalhamento final das exigências da A2 ainda será informado; este plano descreve o trabalho técnico necessário sem antecipar uma rubrica.
+
+1. **Definir a tarefa e a informação disponível.** Esclarecer como foi criado NORMAL X ANORMAL, o que o ID identifica e quando cada achado/contexto está disponível. Separar classificação do registro de uma eventual proposta de triagem anterior ao exame. Manter cenários com e sem achados próximos do rótulo.
+2. **Congelar a versão de preparação e a população.** Usar a revisão atual, registrar as hipóteses de qualidade, manter as alternativas de imputação/representação e respeitar a quarentena candidata. Não comparar populações diferentes como se só o algoritmo tivesse mudado.
+3. **Congelar novo protocolo antes de avaliar modelos.** Fixar partições/grupos candidatos, orçamento de candidatos, critérios de desempate, métricas e limiar. O teste histórico já foi explorado; documentar esse limite e não tratar novas avaliações nele como independentes.
+4. **Integrar a preparação à validação.** O parser e as regras determinísticas são reaplicados; medianas, vocabulários e escalas precisam ser ajustados em cada treino de fold. Reavaliar a escolha de imputação dentro do desenho experimental para não esconder a seleção no desenvolvimento completo. Não usar a matriz pré-ajustada como entrada de uma CV que se anuncie livre de vazamento.
+5. **Comparar modelos e controles.** Começar com referência majoritária e poucos modelos justificáveis; controlar complexidade por validação. Explicitar os conceitos usados e separar técnicas centrais dos complementos. Decidir pesos de classe ou reamostragem pelo problema, sem alterar a distribuição do teste.
+6. **Avaliar erros e incerteza.** Relatar suportes, matriz de confusão, precisão, recall, especificidade, F1, acurácia balanceada e curvas apropriadas. Selecionar pelo desenvolvimento, sem ajustar pelo resultado de teste. Mostrar diferenças por subgrupos com suporte suficiente e ressalvas de dependência entre registros.
+7. **Interpretar padrões e limites.** Relacionar resultados à disponibilidade dos atributos, tamanho dos efeitos, ausências e possíveis mudanças de população. Importância e associação não demonstram causalidade nem eficácia clínica.
+8. **Fechar a entrega.** Reproduzir código/notebook, atualizar o relatório completo e preparar a apresentação conforme as orientações finais. Registrar versão, ambiente, hashes e quais resultados pertencem a cada preparação.
+
+Os experimentos anteriores são material exploratório útil para formular hipóteses, mas precisam ser refeitos com a preparação atual e o novo protocolo para integrar os resultados atuais da A2.
