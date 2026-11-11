@@ -9,7 +9,7 @@ Trabalho da disciplina INF0414, UFG, 2026/2. Base UCMF: 12.873 registros e 21 va
 - [Artigo em PDF](paper/a2_ieee_2026_11_07/output/pdf/Artigo_A2_IEEE.pdf) no formato IEEE de conferências.
 - [Apresentação editável](presentation/a2_2026_11_07/output/Apresentacao_A2_UCMF.pptx), [slides em PDF](presentation/a2_2026_11_07/output/Apresentacao_A2_UCMF.pdf) e [roteiro de 14 min 30 s com arguição](presentation/a2_2026_11_07/output/Roteiro_e_Arguicao.md).
 - [Auditoria das 21 variáveis](docs/a2/auditoria_2026_11_07/Parecer_Semantico_e_Decisoes.md), [verificação experimental](docs/a2/auditoria_2026_11_07/Verificacao_Experimental.json) e [conferência da rubrica](docs/a2/auditoria_2026_11_07/conformidade_rubrica.json).
-- [Código público e instruções de reprodução](https://github.com/pedroafm06/Data-Mining-A2).
+- [Código e instruções de reprodução da A2](#reproduzir-a-revisão-da-a2).
 
 ### Resultados da revisão
 
@@ -21,6 +21,21 @@ A revisão refez a comparação com 105 configurações por cenário e validaç�
 | STRICT4 | Regressão logística | 59,74% | 52,03% |
 
 SOPRO, B2, PULSOS, PPA, HDA1, HDA2, MOTIVO1 e MOTIVO2 ficam fora dos preditores nos dois cenários. A revisão também examina a informação contida em padrões de ausência, a dependência dos atributos por permutação e o comportamento com rótulos embaralhados. A cronologia da coleta e o critério diagnóstico de referência continuam desconhecidos. [Métricas e experimentos da revisão](resultados/a2/auditoria_2026_11_07/).
+
+## Reproduzir a revisão da A2
+
+Use o arquivo original `UCMF_raw.csv` disponibilizado na disciplina. O ambiente de referência usa Python 3.14.6 no macOS. Na raiz do repositório, execute:
+
+```sh
+python3.14 -m venv .venv
+source .venv/bin/activate
+python -m pip install -r requirements.lock
+python tools/run_rubric_audit.py --source "/caminho/para/UCMF_raw.csv"
+python tools/export_rubric_audit.py --source "/caminho/para/UCMF_raw.csv"
+python -m pytest -q
+```
+
+O programa verifica a versão da fonte pelo SHA-256 e reconstrói a partição de desenvolvimento a partir das regras e sementes. O protocolo fixa `random_state=42` nos estimadores estocásticos, 743 nos folds externos, 811 mais o índice do fold nos internos e 43 na seleção final. Dados clínicos, previsões por registro e modelos ajustados ficam em arquivos locais ignorados pelo Git. As [métricas externas](resultados/a2/auditoria_2026_11_07/family_nested_metrics.csv) e a [síntese dos resultados](resultados/a2/auditoria_2026_11_07/reviewed_results.json) estão disponíveis no repositório.
 
 ## Desenvolvimento anterior da A2
 

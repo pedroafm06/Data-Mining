@@ -1,6 +1,6 @@
 {
   "arquivo": "output/Apresentacao_A2_UCMF.pptx",
-  "sha256": "937b1dfbeb184c830ac19a0177a076002596669e4a94cd835d25c190d531f9ff",
+  "sha256": "a82f61ee9627e469d3f2530881cab0af732edd9b34a513096e91bd552fee412e",
   "slides_principais": 14,
   "slides_ocultos_de_apoio": 7,
   "notas": 21,
@@ -15,5 +15,5 @@
     "revisão visual dos slides principais exportados no LibreOffice",
     "revisão visual das páginas de apoio no gerador"
   ],
-  "pdf_principal_sha256": "b0c5939d9f7c064cb9b33c96ab5103b295bab399345cf31e6e9a73634a8b019e"
+  "pdf_principal_sha256": "a14be9ec92f55a7572102300e11fa4bce988d5408055402c1ad92c1ae84e626b"
 }

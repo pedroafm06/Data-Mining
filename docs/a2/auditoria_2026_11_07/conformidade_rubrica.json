@@ -20,7 +20,7 @@
     "artefatos_e_experimento_verificados": true,
     "ausencia_absoluta_de_vazamento_certificada": false,
     "limites": "A fonte carece de documentação sobre formação do alvo, cronologia e identificação longitudinal. A avaliação é interna ao desenvolvimento histórico.",
-    "publicacao": "https://github.com/pedroafm06/Data-Mining-A2",
+    "publicacao": "https://github.com/pedroafm06/Data-Mining",
     "apresentacao_real_e_submissao_observadas": false
   },
   "protocolo_da_revisao": {
@@ -234,7 +234,7 @@
         "Um URL existente e acesso autenticado não comprovam acesso público."
       ],
       "aceite": "Conferir o destino público sem sessão privilegiada e o rodapé na primeira página renderizada. Verificar seeds e instruções da revisão. Não publicar dados clínicos como consequência automática desse requisito.",
-      "evidencia_atual": "Rodapé clicável da primeira página. https://github.com/pedroafm06/Data-Mining-A2 verificado sem login. Sementes explícitas."
+      "evidencia_atual": "Rodapé clicável da primeira página. https://github.com/pedroafm06/Data-Mining verificado sem login. Sementes explícitas."
     },
     {
       "id": "A2-12",

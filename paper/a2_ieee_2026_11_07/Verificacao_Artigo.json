@@ -1,14 +1,14 @@
 {
   "mode": "final",
-  "created_utc": "2026-11-11T14:35:39.955322+00:00",
+  "created_utc": "2026-11-11T19:24:05.733890+00:00",
   "pdf": "output/pdf/Artigo_A2_IEEE.pdf",
-  "pdf_sha256": "ae803b85bc857be362bdf015b6583d7e83aaf48200927756ceaf109eb853d27d",
+  "pdf_sha256": "2be8f6e3822d5def44c7df8186c249c2e0b8a98a91a6968232d58839bf029c3e",
   "tectonic_sha256": "b52b5a730e2b0b33087304f7720f649603953f270a6b1c88bb031e1ae01f7f9c",
   "provenance_lock_sha256": "0042099ed61f9e6cb8e2b225c580442e52c3aba8a3e07de9a43111a78922f863",
   "source_sha256": {
     "main.tex": "bd88e702bb2aec3b0c722ade2dee46238fa37ccff7c5583abd2dc78ad515f541",
     "references.bib": "1666211ba20fd022ca22850cee2d3043c0c6b0ddac1c58094ceb3d5e091e9a59",
-    "submission_config.json": "dd0d0c901c9d6954e43eeeb61ebf7d305675cdf4edf3d26681001a18abc17fc0",
+    "submission_config.json": "026dbe3154ad41d48c1c63c44f480ac547c433ba8b7ab1e9a0dd5dae88468eec",
     "sections/01_introducao.tex": "d9177b1a403f9e7fe63ca228fd349915f4ae084bfda95920ef044ae1579660dc",
     "sections/02_dados.tex": "a8a20eb1c9430dd2a1d87092fdc5204c077f8f6f04b279e1971611dfb6176a41",
     "sections/03_metodologia.tex": "7c7f37b4b2c87cc454c1269f8f6dc6d0c5492ed1023339a17a644757468fbe3a",
@@ -26,8 +26,8 @@
   "tex_bundle_content_digest": "6ffe055852f8faf66c0acbe1a7fb27f87b869a90bad1204f3bf4d9683f597c7c",
   "source_date_epoch": "1794009600",
   "config": {
-    "public_repository_url": "https://github.com/pedroafm06/Data-Mining-A2",
-    "public_repository_checked_utc": "2026-11-11T14:30:02.096073+00:00",
+    "public_repository_url": "https://github.com/pedroafm06/Data-Mining",
+    "public_repository_checked_utc": "2026-11-11T19:24:03.069293+00:00",
     "results_file": "results/reviewed_results.json",
     "results_sha256": "4032663c4d09fd69bd29c96f75e45dec782799f550bf455169a3790bd3b5f728",
     "results_reviewed": true,
@@ -35,10 +35,10 @@
     "random_state": 42
   },
   "public_repository_check": {
-    "requested_url": "https://github.com/pedroafm06/Data-Mining-A2",
-    "checked_url": "https://api.github.com/repos/pedroafm06/Data-Mining-A2",
+    "requested_url": "https://github.com/pedroafm06/Data-Mining",
+    "checked_url": "https://api.github.com/repos/pedroafm06/Data-Mining",
     "status": 200,
-    "checked_utc": "2026-11-11T14:35:39.404878+00:00"
+    "checked_utc": "2026-11-11T19:24:04.340209+00:00"
   },
   "qa": {
     "pages": 3,

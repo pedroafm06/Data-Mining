@@ -261,7 +261,7 @@ for(let group=0;group<3;group++){
  const s=slide('Fontes e reprodução',21,{hidden:true});
  txt(s,'Fontes locais',64,160,1152,45,34,C.teal,true);
  txt(s,'Dicionário e tema do estudo UCMF\nMaterial complementar de PPA e investigação diagnóstica\nRubrica A2, protocolo congelado e manifestos de execução',64,230,1152,177,29);
- txt(s,'github.com/pedroafm06/Data-Mining-A2',64,442,1152,72,29);
+ txt(s,'github.com/pedroafm06/Data-Mining',64,442,1152,72,29);
  txt(s,'Uso de IA: Codex/OpenAI no código, nas análises e na redação. Conferência por fontes locais e saídas reproduzíveis.',64,552,1152,104,27,C.muted);
  backupNotes(s,21,'Fontes e reprodução','Fontes primárias: Tema do estudo de caso.pdf, Variáveis do conjunto de dados (SIGAA 03-11-2026).pdf, complementos Guideline for diagnostic.pdf e Explanation about the PPA variable.pdf. A1 é fonte secundária preservada. A rubrica recebida em 07/11/2026 exige artigo IEEE curto e exclusão de campos com leakage. Código e execução: src/kdd_revision/rubric_audit.py, artifacts/a2_rubric_audit/protocol_before_results.json, verification.json e manifest.json. A origem bruta permanece local e não está embutida no deck. IA generativa: Codex/OpenAI apoiou scripts, auditoria, organização metodológica e redação. O grupo deve compreender e conferir todos os resultados e responder pela entrega. Nenhuma alegação de revisão humana posterior é pressuposta.',['Politica_Atributos.json','manifest.json','verification.json']);
 }
