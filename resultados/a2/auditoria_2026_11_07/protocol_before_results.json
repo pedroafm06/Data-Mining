@@ -1,0 +1,1250 @@
+{
+  "version": "A2-rubrica-2026-11-07-v1",
+  "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
+  "source_rubric_sha256": "bf38c1c6f777f249c2af733a957a2860787446233acd2325c54c26bc1fda545a",
+  "development_only": true,
+  "historical_test_scored": false,
+  "n_development": 9361,
+  "pools": {
+    "FISIO8": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "SEXO"
+    ],
+    "STRICT4": [
+      "Peso",
+      "Altura",
+      "IDADE",
+      "SEXO"
+    ]
+  },
+  "families": [
+    "dummy",
+    "tree",
+    "logistic",
+    "forest"
+  ],
+  "candidates": [
+    {
+      "kind": "dummy",
+      "params": {},
+      "imputation": "global",
+      "representation": "units",
+      "name": "R000_dummy_20708f9d"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 2,
+        "min_samples_leaf": 50,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R001_tree_b294e31b"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 2,
+        "min_samples_leaf": 50,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R002_tree_41ceff98"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 2,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R003_tree_d21bda81"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 2,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R004_tree_92975b65"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 2,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R005_tree_7119500c"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 2,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R006_tree_dde06d67"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 2,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R007_tree_b9e97e2a"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 2,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R008_tree_5696d2b9"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 4,
+        "min_samples_leaf": 50,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R009_tree_894f14a4"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 4,
+        "min_samples_leaf": 50,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R010_tree_0bb6b3b1"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 4,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R011_tree_7933cb3c"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 4,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R012_tree_20631b0c"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 4,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R013_tree_a1d12145"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 4,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R014_tree_bf8c140d"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 4,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R015_tree_1bc7c40d"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 4,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R016_tree_2d137bd9"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 6,
+        "min_samples_leaf": 50,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R017_tree_ba6b31e5"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 6,
+        "min_samples_leaf": 50,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R018_tree_673643b0"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 6,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R019_tree_eddd3d17"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 6,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R020_tree_42c49831"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 6,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R021_tree_5213fedf"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 6,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R022_tree_36936973"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 6,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R023_tree_b3e4ece3"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 6,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R024_tree_8032a32c"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 2,
+        "min_samples_leaf": 50,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R025_tree_99936232"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 2,
+        "min_samples_leaf": 50,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R026_tree_76b31b92"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 2,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R027_tree_aafed9a3"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 2,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R028_tree_b16ce0dc"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 2,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R029_tree_5e88fb10"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 2,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R030_tree_a2fb296a"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 2,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R031_tree_be0203d9"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 2,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R032_tree_c4ba7b92"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 4,
+        "min_samples_leaf": 50,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R033_tree_481da6b1"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 4,
+        "min_samples_leaf": 50,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R034_tree_0b4068c9"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 4,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R035_tree_23c98c18"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 4,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R036_tree_c2eb3ef7"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 4,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R037_tree_249a6637"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 4,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R038_tree_22080f6c"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 4,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R039_tree_f1eb108e"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 4,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R040_tree_24d26f6b"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 6,
+        "min_samples_leaf": 50,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R041_tree_01e82c5a"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 6,
+        "min_samples_leaf": 50,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R042_tree_252c1c77"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 6,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R043_tree_5de55c00"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 6,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R044_tree_7bf8d7b0"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 6,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R045_tree_fe62a509"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 6,
+        "min_samples_leaf": 20,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R046_tree_836d8531"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 6,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R047_tree_a4a43033"
+    },
+    {
+      "kind": "tree",
+      "params": {
+        "criterion": "entropy",
+        "max_depth": 6,
+        "min_samples_leaf": 20,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R048_tree_1b4ddca8"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.01,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "standard",
+      "name": "R049_logistic_fb92b6f1"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.01,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "log_weight_standard",
+      "name": "R050_logistic_3b8425f8"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.01,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "standard",
+      "name": "R051_logistic_a68d4e03"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.01,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "log_weight_standard",
+      "name": "R052_logistic_9d66fa3a"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.01,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "standard",
+      "name": "R053_logistic_848c0d57"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.01,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "log_weight_standard",
+      "name": "R054_logistic_281102e5"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.01,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "standard",
+      "name": "R055_logistic_895ecb02"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.01,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "log_weight_standard",
+      "name": "R056_logistic_e7ee06a3"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.1,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "standard",
+      "name": "R057_logistic_c858fd94"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.1,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "log_weight_standard",
+      "name": "R058_logistic_edf398f3"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.1,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "standard",
+      "name": "R059_logistic_c4ce5170"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.1,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "log_weight_standard",
+      "name": "R060_logistic_233f44b7"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.1,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "standard",
+      "name": "R061_logistic_5906d965"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.1,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "log_weight_standard",
+      "name": "R062_logistic_89646f1f"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.1,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "standard",
+      "name": "R063_logistic_8cb6fc60"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 0.1,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "log_weight_standard",
+      "name": "R064_logistic_9c6d0549"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 1.0,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "standard",
+      "name": "R065_logistic_d2ed0ee2"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 1.0,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "log_weight_standard",
+      "name": "R066_logistic_b6a667fd"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 1.0,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "standard",
+      "name": "R067_logistic_368ed764"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 1.0,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "log_weight_standard",
+      "name": "R068_logistic_4dad49d0"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 1.0,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "standard",
+      "name": "R069_logistic_8d3e9106"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 1.0,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "log_weight_standard",
+      "name": "R070_logistic_ab530a0a"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 1.0,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "standard",
+      "name": "R071_logistic_27b7892f"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 1.0,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "log_weight_standard",
+      "name": "R072_logistic_45f5be8c"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 10.0,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "standard",
+      "name": "R073_logistic_42c7b97a"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 10.0,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "log_weight_standard",
+      "name": "R074_logistic_a901358d"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 10.0,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "standard",
+      "name": "R075_logistic_b099187e"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 10.0,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "log_weight_standard",
+      "name": "R076_logistic_e41cf8e4"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 10.0,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "standard",
+      "name": "R077_logistic_9123a5dd"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 10.0,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "log_weight_standard",
+      "name": "R078_logistic_0727a162"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 10.0,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "standard",
+      "name": "R079_logistic_6f9032fe"
+    },
+    {
+      "kind": "logistic",
+      "params": {
+        "C": 10.0,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "log_weight_standard",
+      "name": "R080_logistic_753b06f2"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 4,
+        "min_samples_leaf": 30,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R081_forest_2e45fcad"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 4,
+        "min_samples_leaf": 30,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R082_forest_080c547f"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 4,
+        "min_samples_leaf": 30,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R083_forest_ac759a5d"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 4,
+        "min_samples_leaf": 30,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R084_forest_060dcb82"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 4,
+        "min_samples_leaf": 10,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R085_forest_33dff489"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 4,
+        "min_samples_leaf": 10,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R086_forest_0cb682d5"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 4,
+        "min_samples_leaf": 10,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R087_forest_a4318fc8"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 4,
+        "min_samples_leaf": 10,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R088_forest_76249d60"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 8,
+        "min_samples_leaf": 30,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R089_forest_30c33e1f"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 8,
+        "min_samples_leaf": 30,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R090_forest_4cab0c02"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 8,
+        "min_samples_leaf": 30,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R091_forest_f5d584a1"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 8,
+        "min_samples_leaf": 30,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R092_forest_65f11b96"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 8,
+        "min_samples_leaf": 10,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R093_forest_5b574a16"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 8,
+        "min_samples_leaf": 10,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R094_forest_58f1636f"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 8,
+        "min_samples_leaf": 10,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R095_forest_e81a70e9"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 8,
+        "min_samples_leaf": 10,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R096_forest_0fe05b54"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": null,
+        "min_samples_leaf": 30,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R097_forest_f8094aaf"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": null,
+        "min_samples_leaf": 30,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R098_forest_6c5018a9"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": null,
+        "min_samples_leaf": 30,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R099_forest_d86fd6d8"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": null,
+        "min_samples_leaf": 30,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R100_forest_689a7703"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": null,
+        "min_samples_leaf": 10,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R101_forest_5cc98a9b"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": null,
+        "min_samples_leaf": 10,
+        "class_weight": null
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R102_forest_5a643ff1"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": null,
+        "min_samples_leaf": 10,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R103_forest_6cd06815"
+    },
+    {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": null,
+        "min_samples_leaf": 10,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R104_forest_2ca7331d"
+    }
+  ],
+  "outer_cv": {
+    "n_splits": 5,
+    "seed": 743
+  },
+  "inner_cv": {
+    "n_splits": 3,
+    "seed_base": 811
+  },
+  "final_selection_cv": {
+    "n_splits": 5,
+    "seed": 43
+  },
+  "criterion": "mean balanced_accuracy in inner CV; ties1e-12 listed order",
+  "threshold": 0.5,
+  "same_outer_folds_for_all_families_and_pools": true,
+  "grouping": "Frozen candidate components from c8c86e3; used only to prevent candidate equivalence crossing partitions, not as X",
+  "limitations": [
+    "target reference standard and chronology undocumented",
+    "previous cohort-wide exploration remains",
+    "group components do not establish patient identity",
+    "FISIO8 conditional on vitals not defining y; STRICT4 removes these potential cardiovascular inputs"
+  ],
+  "audit_probes": "Single-variable, raw-date/ordinal-ID and missingness probes are development-only diagnostic experiments, never admissible model candidates.",
+  "null_control": "Fixed shallow tree with permuted development labels; a null result is not proof of absence of leakage",
+  "missingness_limit": "Dropping indicators does not remove median fingerprints; single-column probes refer to prepared fields with declared lineage"
+}

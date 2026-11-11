@@ -1,0 +1,9 @@
+work/
+tmp/
+__pycache__/
+output/pdf/*-draft.pdf
+output/pdf/*.aux
+output/pdf/*.log
+output/pdf/*.bbl
+output/pdf/*.blg
+output/pdf/*.synctex.gz

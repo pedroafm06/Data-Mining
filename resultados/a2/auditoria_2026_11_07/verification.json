@@ -1,0 +1,40 @@
+{
+  "complete": true,
+  "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
+  "protocol_sha256": "463bb8b233777cce59a5140d84f836d0165f36b316296a70522c9d778674455f",
+  "n_development": 9361,
+  "historical_test_rows_used": 0,
+  "pools": {
+    "FISIO8": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "SEXO"
+    ],
+    "STRICT4": [
+      "Peso",
+      "Altura",
+      "IDADE",
+      "SEXO"
+    ]
+  },
+  "candidate_count": 105,
+  "outer_folds": 5,
+  "inner_folds": 3,
+  "families": [
+    "dummy",
+    "tree",
+    "logistic",
+    "forest"
+  ],
+  "same_outer_validation_ids_all_models": true,
+  "outer_oof_once_per_row": true,
+  "preprocessing_audits": 240,
+  "semantic_guarantee": "No certified absence of temporal/incorporation leakage without source protocol. Fields excluded as declared risk policy.",
+  "source_preserved": true,
+  "elapsed_seconds": 377.3
+}

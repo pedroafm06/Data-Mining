@@ -1,0 +1,230 @@
+{
+  "sources": {
+    "S1": {
+      "path": "../Atividades Praticas/Variáveis do conjunto de dados (SIGAA 03-11-2026).pdf",
+      "pages": "1",
+      "scope": "Dicionário oficial das21 variáveis; origem do alvo, fórmulas gerais e encaminhamento."
+    },
+    "S2": {
+      "path": "../Atividades Praticas/Tema do estudo de caso.pdf",
+      "pages": "1",
+      "scope": "Objetivo acadêmico genérico de predição/extração de conhecimento; RHP Recife; não fixa instante da previsão."
+    },
+    "S3": {
+      "path": "../Atividades Praticas/trabalho pratico (material complementar)/Guideline for diagnostic.pdf",
+      "pages": "1, diagrama e anexos I/II",
+      "scope": "PDF de imagem, revisado visualmente. Fluxograma usa sopro, B2, pulsos e cianose/ICC em investigação; não comprova protocolo de rotulagem da UCMF."
+    },
+    "S4": {
+      "path": "../Atividades Praticas/trabalho pratico (material complementar)/Explanation about the PPA variable.pdf",
+      "pages": "3-4; IMC em2",
+      "scope": "PPA/HAS vem de PAS ou PAD, dependentes de idade/altura; ilustra diagnóstico de HAS. Não relaciona HAS ao alvo binário."
+    },
+    "S5": {
+      "path": "../Avaliações/Relatorio A1 - Pre-processamento .pdf",
+      "pages": "1-5",
+      "scope": "Relatório do grupo, fonte secundária. Páginas4-5 fazem inferência de risco em MOTIVO; não substituem protocolo de coleta/rotulagem."
+    },
+    "S6": {
+      "path": "../Atividades Praticas/UCMF_raw.csv",
+      "pages": "cabeçalho + frequências agregadas",
+      "scope": "Verificação atual somente leitura:12873 registros,21 campos, UTF-8, delimitador vírgula. Nenhuma linha individual publicada."
+    },
+    "S7": {
+      "path": "config/schema.json",
+      "pages": "cenários A, B, B_contexto e exclude_from_X",
+      "scope": "Implementação atual, não prova clínica. B contém7 numéricas+SEXO; B_contexto ainda contém PPA,HDA1/2,MOTIVO1/2."
+    }
+  },
+  "variables": [
+    {
+      "variavel": "ID",
+      "significado": "Identificador anônimo; S1 diz do paciente, mas unicidade não prova identidade longitudinal.",
+      "disponibilidade_temporal": "Atribuição/timestamp desconhecidos; já existe no registro.",
+      "possivel_relacao_com_rotulo": "Nenhuma evidência de compor o diagnóstico; pode codificar ordem/coorte ou facilitar memorização.",
+      "classificacao_risco": "Identificador; risco indireto de coorte e separação entre pacientes.",
+      "recomendacao_principal": "Excluir de X; preservar metadado. Só usá-lo como chave de paciente após confirmação.",
+      "fonte_lacunas": "S1p1; S6 cabeçalho; S7 exclusões. Falta saber se identifica paciente ou atendimento."
+    },
+    {
+      "variavel": "Peso",
+      "significado": "Peso corporal medido.",
+      "disponibilidade_temporal": "Medição na ficha; não há horário nem estado antes/depois do diagnóstico/tratamento.",
+      "possivel_relacao_com_rotulo": "Associação antropométrica é plausível, sem evidência de rótulo embutido.",
+      "classificacao_risco": "Baixo risco condicionado ao instante da medição.",
+      "recomendacao_principal": "Manter na principal sob hipótese explícita de medição disponível antes da decisão.",
+      "fonte_lacunas": "S1p1; S2p1. Falta protocolo/timestamp da medição."
+    },
+    {
+      "variavel": "Altura",
+      "significado": "Estatura/comprimento medido.",
+      "disponibilidade_temporal": "Mesma lacuna temporal de Peso.",
+      "possivel_relacao_com_rotulo": "Insumo possível de IMC/PPA, não cópia documentada do alvo.",
+      "classificacao_risco": "Baixo risco condicionado; relação derivada não é leakage por si.",
+      "recomendacao_principal": "Manter na principal, com condições de disponibilidade e qualidade.",
+      "fonte_lacunas": "S1p1; S4p3. Falta protocolo/timestamp."
+    },
+    {
+      "variavel": "IMC",
+      "significado": "Índice de massa corporal; derivável de Peso/Altura².",
+      "disponibilidade_temporal": "Momento do cálculo histórico desconhecido; pode ser calculado no instante de previsão se os pais existem.",
+      "possivel_relacao_com_rotulo": "Derivado de preditores, não de y nas fontes. Redundância não prova leakage.",
+      "classificacao_risco": "Baixo risco condicionado; derivado/redundante.",
+      "recomendacao_principal": "Pode manter ou retirar por redundância. Calcular só de medidas disponíveis e nunca completar pais usando y.",
+      "fonte_lacunas": "S1p1; S4p2; S5p4. Falta saber fórmula/versão e origem do valor histórico."
+    },
+    {
+      "variavel": "Atendimento",
+      "significado": "Data da visita.",
+      "disponibilidade_temporal": "É a data do encontro; não há horários de diagnóstico/medição.",
+      "possivel_relacao_com_rotulo": "Pode revelar época, mudanças do serviço e do preenchimento. Não há alvo explícito.",
+      "classificacao_risco": "Metadado temporal/proxy de coorte.",
+      "recomendacao_principal": "Excluir de X; usar para cortes temporais/auditoria e derivar IDADE.",
+      "fonte_lacunas": "S1p1; S7 exclusões. Falta confirmar recorte de coleta e estabilidade ao longo do tempo."
+    },
+    {
+      "variavel": "DN",
+      "significado": "Data de nascimento.",
+      "disponibilidade_temporal": "Nascimento precede consulta por significado, mas há erros; instante de gravação desconhecido.",
+      "possivel_relacao_com_rotulo": "Não define o alvo; alta granularidade pode identificar/ligar registros e captar coorte.",
+      "classificacao_risco": "Metadado/quase identificador, redundante com idade e visita.",
+      "recomendacao_principal": "Excluir de X; usar só para IDADE e sensibilidade de grupos, sem assumir que DN+SEXO identifica pessoa.",
+      "fonte_lacunas": "S1p1; S5p2; S7 exclusões. Falta chave real de paciente."
+    },
+    {
+      "variavel": "IDADE",
+      "significado": "Idade do paciente na visita; pode ser derivada de Atendimento-DN.",
+      "disponibilidade_temporal": "Semântica anterior/contemporânea à consulta; instante do cálculo original desconhecido.",
+      "possivel_relacao_com_rotulo": "Não contém o veredito nas fontes; pode estar associada ao risco e ao encaminhamento.",
+      "classificacao_risco": "Baixo risco condicionado.",
+      "recomendacao_principal": "Manter; calcular na data de Atendimento, nunca pela data atual nem por data futura.",
+      "fonte_lacunas": "S1p1; S5p2. Falta fórmula original e validação dos dois insumos."
+    },
+    {
+      "variavel": "Convenio",
+      "significado": "Seguro/plano de saúde; contexto de acesso e origem do encaminhamento.",
+      "disponibilidade_temporal": "Provavelmente administrativo prévio, porém sem timestamp documentado.",
+      "possivel_relacao_com_rotulo": "Pode denunciar seleção do serviço, acesso e fluxos; não significa diagnóstico por si.",
+      "classificacao_risco": "Proxy administrativo; viés de seleção/transportabilidade.",
+      "recomendacao_principal": "Excluir da principal por objetivo/transportabilidade; auditar em grupos ou sensibilidade separada.",
+      "fonte_lacunas": "S1p1; S5p4; S6 categorias. A frase de A1 sobre origem é interpretação, não protocolo."
+    },
+    {
+      "variavel": "PULSOS",
+      "significado": "Achado da palpação: normais, amplos, diminuídos e femorais diminuídos. Não confundir com FC.",
+      "disponibilidade_temporal": "Exame clínico; ordem em relação ao laudo não documentada.",
+      "possivel_relacao_com_rotulo": "O fluxograma diagnóstico fornecido usa características dos pulsos. Pode ter integrado a decisão.",
+      "classificacao_risco": "Suspeito de incorporação ao padrão de referência; não confirmado na UCMF.",
+      "recomendacao_principal": "Excluir da principal conservadora. Reintrodução só como análise de sensibilidade com estágio de uso definido.",
+      "fonte_lacunas": "S1p1; S3p1 ramo Os Pulsos estão; S6 categorias. Falta protocolo do rótulo."
+    },
+    {
+      "variavel": "PA SISTOLICA",
+      "significado": "Pressão arterial sistólica, medida bruta.",
+      "disponibilidade_temporal": "Medição na consulta; sem ordem/horário relativo a diagnóstico ou tratamento.",
+      "possivel_relacao_com_rotulo": "É pai de PPA. Se HAS fizer parte do alvo, pode reconstruir parte do critério; isso não foi definido.",
+      "classificacao_risco": "Baixo risco condicionado, com suspeita residual de incorporação via HAS.",
+      "recomendacao_principal": "Manter no conjunto básico apenas com ressalva; executar sensibilidade sem PAS/PAD se alvo incluir HAS ou definição permanecer incerta.",
+      "fonte_lacunas": "S1p1; S4p3-4. Falta escopo clínico exato de NORMAL X ANORMAL."
+    },
+    {
+      "variavel": "PA DIASTOLICA",
+      "significado": "Pressão arterial diastólica, medida bruta.",
+      "disponibilidade_temporal": "Mesma lacuna temporal de PAS.",
+      "possivel_relacao_com_rotulo": "É pai de PPA; mesma condição de possível critério de HAS dentro do alvo.",
+      "classificacao_risco": "Baixo risco condicionado, com suspeita residual de incorporação via HAS.",
+      "recomendacao_principal": "Mesma decisão de PAS. Não alegar que excluir apenas PPA elimina toda informação diagnóstica de HAS.",
+      "fonte_lacunas": "S1p1; S4p3-4. Falta escopo do alvo e protocolo de medida."
+    },
+    {
+      "variavel": "PPA",
+      "significado": "Classificação de hipertensão arterial sistêmica derivada de PAS/PAD e contexto pediátrico.",
+      "disponibilidade_temporal": "Momento de cálculo e disponibilidade original desconhecidos; classificação é posterior às medidas.",
+      "possivel_relacao_com_rotulo": "Já é um resultado diagnóstico de HAS. Pode compor ou denunciar o alvo amplo se HAS integrar a definição; relação não documentada.",
+      "classificacao_risco": "Suspeito; diagnóstico derivado confirmado, equivalência ao alvo não confirmada.",
+      "recomendacao_principal": "Excluir da principal conservadora; se recuperar, calcular somente de insumos realmente observados, sem diagnóstico por dados imputados.",
+      "fonte_lacunas": "S1p1; S4p3-4; S6 categorias Normal/Pre-Hipertensão/HAS-1/HAS-2. Falta saber se HAS entra em y."
+    },
+    {
+      "variavel": "NORMAL X ANORMAL",
+      "significado": "Ausência ou presença de patologia cardíaca, segundo o dicionário.",
+      "disponibilidade_temporal": "Instante de adjudicação desconhecido.",
+      "possivel_relacao_com_rotulo": "É o próprio alvo. A descrição veredito do cardiologista em atividade local não é confirmada por S1.",
+      "classificacao_risco": "Alvo: vazamento direto confirmado se usado como preditor ou como insumo de transformações.",
+      "recomendacao_principal": "Usar somente como y em supervisionado; nunca X, imputação ou fabricação de rótulos.",
+      "fonte_lacunas": "S1p1; S6 categorias; S7 exclusões. Faltam examinador, exames, critério, cegamento e referência independente."
+    },
+    {
+      "variavel": "B2",
+      "significado": "Tipo da segunda bulha/som cardíaco.",
+      "disponibilidade_temporal": "Achado de ausculta; momento relativo à classificação desconhecido.",
+      "possivel_relacao_com_rotulo": "Guideline menciona B2 única, desdobrada/hiperfonética e desdobramento fixo. Pode integrar a decisão que gerou y.",
+      "classificacao_risco": "Suspeito de incorporação; possível indisponibilidade no estágio de triagem pretendido.",
+      "recomendacao_principal": "Excluir da principal conservadora; associação forte não é prova isolada.",
+      "fonte_lacunas": "S1p1; S3p1 ramo ruídos cardíacos e Anexo I; S6 categorias. Falta protocolo do rótulo."
+    },
+    {
+      "variavel": "SOPRO",
+      "significado": "Presença/tipo de sopro; categorias ausente, sistólico, contínuo, diastólico e combinado.",
+      "disponibilidade_temporal": "Achado de ausculta; sem instante relativo ao laudo.",
+      "possivel_relacao_com_rotulo": "Guideline pergunta há sopro e descreve tipos em anexos. Pode integrar referência ou ser observado antes dela.",
+      "classificacao_risco": "Suspeito de incorporação/tempo; não leakage confirmado só por alta associação.",
+      "recomendacao_principal": "Excluir da principal conservadora; só recuperar com objetivo/tempo e referência definidos.",
+      "fonte_lacunas": "S1p1; S3p1 perguntas de sopro e anexos; S6 categorias. Falta registrar quando e por quem foi avaliado."
+    },
+    {
+      "variavel": "FC",
+      "significado": "Frequência cardíaca, valor numérico, distinta do achado PULSOS.",
+      "disponibilidade_temporal": "Medição contemporânea à consulta; técnica e efeito de tratamento desconhecidos.",
+      "possivel_relacao_com_rotulo": "Pode ser indicador do estado/ritmo; não há regra de rotulagem que use FC nas fontes locais.",
+      "classificacao_risco": "Baixo risco condicionado à medição anterior ao uso.",
+      "recomendacao_principal": "Manter com hipótese temporal explícita. Não excluir apenas porque pode se associar a doença.",
+      "fonte_lacunas": "S1p1; S6 cabeçalho; S5p1-3. Falta protocolo, técnica e timestamp."
+    },
+    {
+      "variavel": "HDA 1",
+      "significado": "Histórico da doença1 no dicionário; valores reais são sintomas/assintomático/outro.",
+      "disponibilidade_temporal": "Sintomas podem ser antecedentes; momento em que o profissional os registrou é desconhecido.",
+      "possivel_relacao_com_rotulo": "Não há diagnóstico explícito nas categorias observadas. Cianose aparece no guideline; pode orientar avaliação/seleção.",
+      "classificacao_risco": "Suspeito moderado por disponibilidade/incorporação; não equivale a MOTIVO com cardiopatia estabelecida.",
+      "recomendacao_principal": "Na principal mais conservadora, excluir por incerteza temporal; sensibilidade pode mantê-la se anamnese prévia for o instante declarado.",
+      "fonte_lacunas": "S1p1; S3p1 cianose/ICC; S6 categorias. Falta saber se HDA foi codificada antes ou depois do veredito."
+    },
+    {
+      "variavel": "HDA2",
+      "significado": "Outro histórico da doença; valores reais são outro sintoma/assintomático/outro.",
+      "disponibilidade_temporal": "Mesma lacuna de HDA1; preenchimento opcional muito raro.",
+      "possivel_relacao_com_rotulo": "Sem diagnóstico explícito observado. Sintoma/ausência pode refletir intensidade da investigação, não necessariamente label leakage.",
+      "classificacao_risco": "Suspeito moderado temporal; ausência informativa/seleção.",
+      "recomendacao_principal": "Excluir da principal conservadora; baixa cobertura é justificativa adicional de utilidade, não prova de leakage.",
+      "fonte_lacunas": "S1p1; S3p1; S6:12466/12873 vazios. Falta protocolo de preenchimento."
+    },
+    {
+      "variavel": "SEXO",
+      "significado": "Sexo do paciente; M/F e grafias; Indeterminado é código histórico observado.",
+      "disponibilidade_temporal": "Característica anterior à consulta por significado; instante de cadastro não documentado.",
+      "possivel_relacao_com_rotulo": "Não traz diagnóstico explícito. É insumo de referências pediátricas/PPA; determinismo entre preditores não basta para leakage.",
+      "classificacao_risco": "Baixo risco condicionado; preenchimento pode representar coorte/qualidade.",
+      "recomendacao_principal": "Manter, sem usar alvo para preencher. Auditar códigos desconhecidos e população de aplicação.",
+      "fonte_lacunas": "S1p1; S6 categorias; S4 contexto pediátrico. Falta significado operacional de Indeterminado."
+    },
+    {
+      "variavel": "MOTIVO1",
+      "significado": "Primeiro motivo de encaminhamento à cardiologia; inclui cardiopatia já estabelecida.",
+      "disponibilidade_temporal": "Semântica é do encaminhamento, mas pode anteceder a visita e suceder diagnóstico prévio; instante de registro desconhecido.",
+      "possivel_relacao_com_rotulo": "Conteúdo diagnóstico explícito confirmado:1158 registros com Cardiopatia já estabelecida; também suspeita/parecer/check-up.",
+      "classificacao_risco": "Conteúdo diagnóstico confirmado; risco alto de denúncia do diagnóstico para primeira descoberta. Leakage de y específico ainda condicionado ao objetivo.",
+      "recomendacao_principal": "Excluir toda coluna na principal. Remover só categoria explícita pode transferir sinal à ausência/codificação e mudar população.",
+      "fonte_lacunas": "S1p1; S6 frequências. Falta saber objetivo primeira detecção versus revisão de paciente já diagnosticado."
+    },
+    {
+      "variavel": "MOTIVO2",
+      "significado": "Segundo motivo/detalhe do encaminhamento: inclui cardiopatia congênita/adquirida e sinais/suspeitas.",
+      "disponibilidade_temporal": "Mesma lacuna temporal de MOTIVO1.",
+      "possivel_relacao_com_rotulo": "Conteúdo diagnóstico explícito:1041 Cardiopatia congenica e92 Cardiopatia adquirida; inclui Sopro e HAS/dislipidemia/obesidade.",
+      "classificacao_risco": "Conteúdo diagnóstico confirmado; risco alto condicionado ao objetivo; seleção e encaminhamento também presentes.",
+      "recomendacao_principal": "Excluir toda coluna na principal; testes com ela são auxiliares de auditoria, não resultado central livre de leakage.",
+      "fonte_lacunas": "S1p1; S6 categorias/frequências. Falta ligação ao diagnóstico que originou o motivo e protocolo do alvo."
+    }
+  ]
+}

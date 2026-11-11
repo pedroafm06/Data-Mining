@@ -1,0 +1,827 @@
+{
+  "run_date": "2026-11-07",
+  "dataset": "UCMF, disponibilizado na disciplina INF0414; origem descrita como Real Hospital Português, Recife",
+  "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
+  "rubric_sha256": "bf38c1c6f777f249c2af733a957a2860787446233acd2325c54c26bc1fda545a",
+  "n_original": 12873,
+  "n_original_variables": 21,
+  "n_labelled": 11704,
+  "n_unlabelled": 1169,
+  "n_quarantine": 1,
+  "n_historical_test_not_rescored": 2342,
+  "n_development": 9361,
+  "development_class_counts": {
+    "0": 5394,
+    "1": 3967
+  },
+  "n_candidate_components": 9279,
+  "primary_pool": [
+    "Peso",
+    "Altura",
+    "IMC",
+    "IDADE",
+    "PA SISTOLICA",
+    "PA DIASTOLICA",
+    "FC",
+    "SEXO"
+  ],
+  "sensitivity_pool": [
+    "Peso",
+    "Altura",
+    "IDADE",
+    "SEXO"
+  ],
+  "metrics": [
+    {
+      "pool": "FISIO8",
+      "family": "dummy",
+      "mean_fold_BA": 0.5,
+      "sd_fold_BA": 0.0,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 5394,
+      "fp": 0,
+      "fn": 3967,
+      "tp": 0,
+      "recall": 0.0,
+      "specificity": 1.0,
+      "precision": 0.0,
+      "f1": 0.0,
+      "balanced_accuracy": 0.5,
+      "roc_auc": 0.5,
+      "average_precision": 0.4237795107360325,
+      "brier": 0.4237795107360325,
+      "accuracy": 0.5762204892639675
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "mean_fold_BA": 0.6091212393265751,
+      "sd_fold_BA": 0.003996521356862911,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 3641,
+      "fp": 1753,
+      "fn": 1812,
+      "tp": 2155,
+      "recall": 0.5432316612049407,
+      "specificity": 0.675009269558769,
+      "precision": 0.5514329580348004,
+      "f1": 0.5473015873015873,
+      "balanced_accuracy": 0.6091204653818549,
+      "roc_auc": 0.6367538449157719,
+      "average_precision": 0.5600352091974481,
+      "brier": 0.23283602129187592,
+      "accuracy": 0.6191646191646192
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "mean_fold_BA": 0.6164358872343805,
+      "sd_fold_BA": 0.012662331796315856,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 3656,
+      "fp": 1738,
+      "fn": 1765,
+      "tp": 2202,
+      "recall": 0.555079405092009,
+      "specificity": 0.6777901371894698,
+      "precision": 0.5588832487309645,
+      "f1": 0.5569748324269634,
+      "balanced_accuracy": 0.6164347711407394,
+      "roc_auc": 0.6564064544729837,
+      "average_precision": 0.566682362139382,
+      "brier": 0.23185401494856034,
+      "accuracy": 0.6257878431791475
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "mean_fold_BA": 0.6286696922570061,
+      "sd_fold_BA": 0.016778687103510735,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 3584,
+      "fp": 1810,
+      "fn": 1615,
+      "tp": 2352,
+      "recall": 0.592891353667759,
+      "specificity": 0.664441972562106,
+      "precision": 0.565112926477655,
+      "f1": 0.5786689629720753,
+      "balanced_accuracy": 0.6286666631149325,
+      "roc_auc": 0.6720529415882738,
+      "average_precision": 0.5954611059637176,
+      "brier": 0.2264072891247969,
+      "accuracy": 0.6341202862941994
+    },
+    {
+      "pool": "STRICT4",
+      "family": "dummy",
+      "mean_fold_BA": 0.5,
+      "sd_fold_BA": 0.0,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 5394,
+      "fp": 0,
+      "fn": 3967,
+      "tp": 0,
+      "recall": 0.0,
+      "specificity": 1.0,
+      "precision": 0.0,
+      "f1": 0.0,
+      "balanced_accuracy": 0.5,
+      "roc_auc": 0.5,
+      "average_precision": 0.4237795107360325,
+      "brier": 0.4237795107360325,
+      "accuracy": 0.5762204892639675
+    },
+    {
+      "pool": "STRICT4",
+      "family": "tree",
+      "mean_fold_BA": 0.5931848516828719,
+      "sd_fold_BA": 0.008926847847208175,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 4467,
+      "fp": 927,
+      "fn": 2546,
+      "tp": 1421,
+      "recall": 0.3582051928409377,
+      "specificity": 0.8281423804226918,
+      "precision": 0.6051959114139693,
+      "f1": 0.4500395882818686,
+      "balanced_accuracy": 0.5931737866318147,
+      "roc_auc": 0.6152524175392483,
+      "average_precision": 0.5437361371280077,
+      "brier": 0.23118823901787167,
+      "accuracy": 0.628992628992629
+    },
+    {
+      "pool": "STRICT4",
+      "family": "logistic",
+      "mean_fold_BA": 0.597361365356608,
+      "sd_fold_BA": 0.00822263258840526,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 3638,
+      "fp": 1756,
+      "fn": 1903,
+      "tp": 2064,
+      "recall": 0.5202924124023192,
+      "specificity": 0.6744530960326288,
+      "precision": 0.5403141361256545,
+      "f1": 0.5301142930525234,
+      "balanced_accuracy": 0.597372754217474,
+      "roc_auc": 0.6366025223481188,
+      "average_precision": 0.5577815758482103,
+      "brier": 0.23375283204445196,
+      "accuracy": 0.609122956949044
+    },
+    {
+      "pool": "STRICT4",
+      "family": "forest",
+      "mean_fold_BA": 0.5948029479101697,
+      "sd_fold_BA": 0.006180303917936876,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 3791,
+      "fp": 1603,
+      "fn": 2036,
+      "tp": 1931,
+      "recall": 0.4867658179984875,
+      "specificity": 0.7028179458657768,
+      "precision": 0.5464063384267119,
+      "f1": 0.5148646847087055,
+      "balanced_accuracy": 0.5947918819321322,
+      "roc_auc": 0.6426665943234503,
+      "average_precision": 0.5742689981673788,
+      "brier": 0.23205271167537775,
+      "accuracy": 0.6112594808246982
+    }
+  ],
+  "missing_percent_by_fisio_variable": {
+    "Peso": 18.406153188761884,
+    "Altura": 31.438948830253178,
+    "IMC": 34.56895630808674,
+    "IDADE": 7.371007371007371,
+    "PA SISTOLICA": 55.955560303386385,
+    "PA DIASTOLICA": 56.03033863903429,
+    "FC": 6.153188761884414,
+    "SEXO": 5.747249225510095
+  },
+  "variable_probes": [
+    {
+      "variable": "ID",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "ordinal_identifier_audit_only",
+      "cv_balanced_accuracy": 0.5265439785535077,
+      "missingness_BA": 0.49979313485308297,
+      "n_missing": 0.0,
+      "anormal_rate_missing": null,
+      "anormal_rate_present": 0.4237795107360325,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "Peso",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "prepared_numeric",
+      "cv_balanced_accuracy": 0.5808505777035777,
+      "missingness_BA": 0.5111931499386064,
+      "n_missing": 1723.0,
+      "anormal_rate_missing": 0.3940800928612885,
+      "anormal_rate_present": 0.4304791830322074,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "Altura",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "prepared_numeric",
+      "cv_balanced_accuracy": 0.564397917038781,
+      "missingness_BA": 0.5068208483803017,
+      "n_missing": 2943.0,
+      "anormal_rate_missing": 0.41318382602786274,
+      "anormal_rate_present": 0.42863820504830163,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "IMC",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "prepared_numeric",
+      "cv_balanced_accuracy": 0.5427297450911062,
+      "missingness_BA": 0.5040139035436867,
+      "n_missing": 3236.0,
+      "anormal_rate_missing": 0.4181087762669963,
+      "anormal_rate_present": 0.4267755102040816,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "Atendimento",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "raw_date_token_no_century_assigned_audit_only",
+      "cv_balanced_accuracy": 0.5069012530985375,
+      "missingness_BA": 0.5105012627816864,
+      "n_missing": 177.0,
+      "anormal_rate_missing": 0.15254237288135594,
+      "anormal_rate_present": 0.429006968641115,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "DN",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "raw_date_token_no_century_assigned_audit_only",
+      "cv_balanced_accuracy": 0.5055840504331293,
+      "missingness_BA": 0.5039017902515928,
+      "n_missing": 481.0,
+      "anormal_rate_missing": 0.3866943866943867,
+      "anormal_rate_present": 0.4257882882882883,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "IDADE",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "prepared_numeric",
+      "cv_balanced_accuracy": 0.5839622005759604,
+      "missingness_BA": 0.5062138056092911,
+      "n_missing": 690.0,
+      "anormal_rate_missing": 0.3826086956521739,
+      "anormal_rate_present": 0.4270557029177719,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "Convenio",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "nominal_one_hot",
+      "cv_balanced_accuracy": 0.5106524217826359,
+      "missingness_BA": 0.5075636047820923,
+      "n_missing": 2625.0,
+      "anormal_rate_missing": 0.4369523809523809,
+      "anormal_rate_present": 0.418646080760095,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "PULSOS",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "nominal_one_hot",
+      "cv_balanced_accuracy": 0.5109054594733582,
+      "missingness_BA": 0.4987328020125995,
+      "n_missing": 38.0,
+      "anormal_rate_missing": 0.4473684210526316,
+      "anormal_rate_present": 0.42368336372412313,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "PA SISTOLICA",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "prepared_numeric",
+      "cv_balanced_accuracy": 0.556324872074481,
+      "missingness_BA": 0.553205841967085,
+      "n_missing": 5238.0,
+      "anormal_rate_missing": 0.4702176403207331,
+      "anormal_rate_present": 0.36478292505457194,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "PA DIASTOLICA",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "prepared_numeric",
+      "cv_balanced_accuracy": 0.5539721052408735,
+      "missingness_BA": 0.5532131791020823,
+      "n_missing": 5245.0,
+      "anormal_rate_missing": 0.47016205910390846,
+      "anormal_rate_present": 0.36467444120505343,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "PPA",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "nominal_one_hot",
+      "cv_balanced_accuracy": 0.5269667984827365,
+      "missingness_BA": 0.5246540587582071,
+      "n_missing": 7691.0,
+      "anormal_rate_missing": 0.43843453387075804,
+      "anormal_rate_present": 0.3562874251497006,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "NORMAL X ANORMAL",
+      "role": "target_never_used_as_predictor",
+      "representation": null,
+      "cv_balanced_accuracy": null,
+      "missingness_BA": null,
+      "n_missing": null,
+      "anormal_rate_missing": null,
+      "anormal_rate_present": null,
+      "note": "Target excluded by construction; no tautological fit"
+    },
+    {
+      "variable": "B2",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "nominal_one_hot",
+      "cv_balanced_accuracy": 0.5532101648013987,
+      "missingness_BA": 0.49979313485308297,
+      "n_missing": 25.0,
+      "anormal_rate_missing": 0.36,
+      "anormal_rate_present": 0.4239502999143102,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "SOPRO",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "nominal_one_hot",
+      "cv_balanced_accuracy": 0.9105344574758816,
+      "missingness_BA": 0.49979313485308297,
+      "n_missing": 18.0,
+      "anormal_rate_missing": 0.2777777777777778,
+      "anormal_rate_present": 0.42406079417745907,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "FC",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "prepared_numeric",
+      "cv_balanced_accuracy": 0.6048625670494969,
+      "missingness_BA": 0.5093844059617166,
+      "n_missing": 576.0,
+      "anormal_rate_missing": 0.4982638888888889,
+      "anormal_rate_present": 0.4188958451906659,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "HDA 1",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "nominal_one_hot",
+      "cv_balanced_accuracy": 0.5601768913147855,
+      "missingness_BA": 0.5451616548426633,
+      "n_missing": 2526.0,
+      "anormal_rate_missing": 0.342042755344418,
+      "anormal_rate_present": 0.453986832479883,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "HDA2",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "nominal_one_hot",
+      "cv_balanced_accuracy": 0.5016509254744299,
+      "missingness_BA": 0.49900946340867963,
+      "n_missing": 9033.0,
+      "anormal_rate_missing": 0.4233366544890955,
+      "anormal_rate_present": 0.43597560975609756,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "SEXO",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "nominal_one_hot",
+      "cv_balanced_accuracy": 0.49419109208253964,
+      "missingness_BA": 0.4977477565891912,
+      "n_missing": 538.0,
+      "anormal_rate_missing": 0.43866171003717475,
+      "anormal_rate_present": 0.422872038989006,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "MOTIVO1",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "nominal_one_hot",
+      "cv_balanced_accuracy": 0.6725625219705134,
+      "missingness_BA": 0.5086406681597035,
+      "n_missing": 223.0,
+      "anormal_rate_missing": 0.24663677130044842,
+      "anormal_rate_present": 0.42810242941562704,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    },
+    {
+      "variable": "MOTIVO2",
+      "role": "exploratory_not_admissibility_proof",
+      "representation": "nominal_one_hot",
+      "cv_balanced_accuracy": 0.6868654020810732,
+      "missingness_BA": 0.5613068101043845,
+      "n_missing": 2148.0,
+      "anormal_rate_missing": 0.29329608938547486,
+      "anormal_rate_present": 0.46263690558713433,
+      "note": "Predictive association cannot prove whether this field formed y or was recorded after it. Prepared variables may retain deterministic ancestors."
+    }
+  ],
+  "collection_controls": [
+    {
+      "pool": "FISIO8",
+      "kind": "availability_masks_only",
+      "n_features": 8,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 2666,
+      "fp": 2728,
+      "fn": 1476,
+      "tp": 2491,
+      "recall": 0.6279304260146206,
+      "specificity": 0.4942528735632184,
+      "precision": 0.47729450086223413,
+      "f1": 0.5423470498584803,
+      "balanced_accuracy": 0.5610916497889195,
+      "roc_auc": 0.5750047270777388,
+      "average_precision": 0.48576355988137243,
+      "brier": 0.24288324325254976,
+      "accuracy": 0.5509026813374639
+    },
+    {
+      "pool": "STRICT4",
+      "kind": "availability_masks_only",
+      "n_features": 4,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 3777,
+      "fp": 1617,
+      "fn": 2701,
+      "tp": 1266,
+      "recall": 0.31913284597932945,
+      "specificity": 0.7002224694104561,
+      "precision": 0.43912591050988553,
+      "f1": 0.3696350364963504,
+      "balanced_accuracy": 0.5096776576948927,
+      "roc_auc": 0.5192385053966264,
+      "average_precision": 0.4457319321745672,
+      "brier": 0.2477893613707396,
+      "accuracy": 0.5387244952462343
+    }
+  ],
+  "null_control": [
+    {
+      "pool": "FISIO8",
+      "fixed_candidate": {
+        "kind": "tree",
+        "params": {
+          "criterion": "gini",
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "class_weight": "balanced"
+        },
+        "imputation": "global",
+        "representation": "units",
+        "name": "R003_tree_d21bda81"
+      },
+      "metric": {
+        "n": 9361,
+        "prevalence": 0.4237795107360325,
+        "tn": 3474,
+        "fp": 1920,
+        "fn": 2583,
+        "tp": 1384,
+        "recall": 0.3488782455255861,
+        "specificity": 0.6440489432703004,
+        "precision": 0.4188861985472155,
+        "f1": 0.38069041397331865,
+        "balanced_accuracy": 0.49646359439794324,
+        "roc_auc": 0.49444875637431124,
+        "average_precision": 0.4207365731445303,
+        "brier": 0.250783754221209,
+        "accuracy": 0.518961649396432
+      },
+      "interpretation": "negative diagnostic control; not a formal permutation p-value or proof of no leakage"
+    },
+    {
+      "pool": "STRICT4",
+      "fixed_candidate": {
+        "kind": "tree",
+        "params": {
+          "criterion": "gini",
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "class_weight": "balanced"
+        },
+        "imputation": "global",
+        "representation": "units",
+        "name": "R003_tree_d21bda81"
+      },
+      "metric": {
+        "n": 9361,
+        "prevalence": 0.4237795107360325,
+        "tn": 2290,
+        "fp": 3104,
+        "fn": 1733,
+        "tp": 2234,
+        "recall": 0.5631459541215024,
+        "specificity": 0.42454579162031886,
+        "precision": 0.41850880479580366,
+        "f1": 0.4801719505642128,
+        "balanced_accuracy": 0.49384587287091064,
+        "roc_auc": 0.4920466157628391,
+        "average_precision": 0.4177850340912643,
+        "brier": 0.2507477221054541,
+        "accuracy": 0.483281700673005
+      },
+      "interpretation": "negative diagnostic control; not a formal permutation p-value or proof of no leakage"
+    }
+  ],
+  "importance": [
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "Altura",
+      "mean": 0.0005494201074225231,
+      "std": 0.006533041091208808
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "FC",
+      "mean": 0.04810516294638947,
+      "std": 0.01357412572524852
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "IDADE",
+      "mean": 0.00859031016611888,
+      "std": 0.005973401545778483
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "IMC",
+      "mean": 0.0008206724129955934,
+      "std": 0.006590275226910015
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "PA DIASTOLICA",
+      "mean": 0.0004963059527224163,
+      "std": 0.004971753649416859
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "PA SISTOLICA",
+      "mean": 0.003008265373474887,
+      "std": 0.004824231365422875
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "Peso",
+      "mean": 0.025631305948197586,
+      "std": 0.01081315656866712
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "SEXO",
+      "mean": 0.0008313127177188721,
+      "std": 0.004367372910668587
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "Altura",
+      "mean": 0.004218810578907273,
+      "std": 0.008895521728980733
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "FC",
+      "mean": 0.027914028533922094,
+      "std": 0.012777920771568122
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "IDADE",
+      "mean": 0.009503319228461466,
+      "std": 0.006080468795399658
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "IMC",
+      "mean": 0.009299514810323317,
+      "std": 0.006960127014511862
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "PA DIASTOLICA",
+      "mean": 0.006406705549155175,
+      "std": 0.006099846816893289
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "PA SISTOLICA",
+      "mean": 0.008787578630547502,
+      "std": 0.007647201679133823
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "Peso",
+      "mean": 0.09850459454627578,
+      "std": 0.018066187651358905
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "SEXO",
+      "mean": 0.004416973298174165,
+      "std": 0.0041817241438331714
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "Altura",
+      "mean": -0.001398120298588997,
+      "std": 0.0017471891382483272
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "FC",
+      "mean": 0.05525486154601402,
+      "std": 0.010157764020936561
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "IDADE",
+      "mean": 0.004450758792181383,
+      "std": 0.009873354557875701
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "IMC",
+      "mean": 0.0012217435370841078,
+      "std": 0.0018936898964426972
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "PA DIASTOLICA",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "PA SISTOLICA",
+      "mean": -0.0004162172655031678,
+      "std": 0.004572356294874654
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "Peso",
+      "mean": 0.04597838023320343,
+      "std": 0.021026133333763394
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "SEXO",
+      "mean": 0.00040902123395701503,
+      "std": 0.0015742961198196837
+    },
+    {
+      "pool": "STRICT4",
+      "family": "forest",
+      "variable": "Altura",
+      "mean": 0.008739953970495363,
+      "std": 0.006465683761312149
+    },
+    {
+      "pool": "STRICT4",
+      "family": "forest",
+      "variable": "IDADE",
+      "mean": 0.00931302367000979,
+      "std": 0.013225573979833458
+    },
+    {
+      "pool": "STRICT4",
+      "family": "forest",
+      "variable": "Peso",
+      "mean": 0.044413163345771174,
+      "std": 0.013470793991457997
+    },
+    {
+      "pool": "STRICT4",
+      "family": "forest",
+      "variable": "SEXO",
+      "mean": 0.00428288302232418,
+      "std": 0.007113172535901891
+    },
+    {
+      "pool": "STRICT4",
+      "family": "logistic",
+      "variable": "Altura",
+      "mean": 0.001224480478350228,
+      "std": 0.006687246451608106
+    },
+    {
+      "pool": "STRICT4",
+      "family": "logistic",
+      "variable": "IDADE",
+      "mean": 0.014992384969823596,
+      "std": 0.010438365813118371
+    },
+    {
+      "pool": "STRICT4",
+      "family": "logistic",
+      "variable": "Peso",
+      "mean": 0.10518977711846664,
+      "std": 0.025047544353642745
+    },
+    {
+      "pool": "STRICT4",
+      "family": "logistic",
+      "variable": "SEXO",
+      "mean": 0.005675877290471143,
+      "std": 0.005078882195116398
+    },
+    {
+      "pool": "STRICT4",
+      "family": "tree",
+      "variable": "Altura",
+      "mean": -0.0009824923907483611,
+      "std": 0.0025003248487825373
+    },
+    {
+      "pool": "STRICT4",
+      "family": "tree",
+      "variable": "IDADE",
+      "mean": 0.013596411224128527,
+      "std": 0.005898118765554611
+    },
+    {
+      "pool": "STRICT4",
+      "family": "tree",
+      "variable": "Peso",
+      "mean": 0.07498146512006919,
+      "std": 0.01408686509076633
+    },
+    {
+      "pool": "STRICT4",
+      "family": "tree",
+      "variable": "SEXO",
+      "mean": 0.0004828414703534826,
+      "std": 0.0045891058166918465
+    }
+  ],
+  "n_configs": 105,
+  "outer_folds": 5,
+  "inner_folds": 3,
+  "elapsed_seconds": 377.3,
+  "limits": [
+    "A origem e temporalidade do rótulo não foram documentadas.",
+    "Associação forte não comprova leakage; exclusão é política de risco justificada.",
+    "O teste histórico não foi pontuado novamente e não é tratado como intocado.",
+    "A EDA/curadoria prévia da coorte limita a independência da avaliação interna.",
+    "Componentes candidatos não comprovam identidade de paciente."
+  ],
+  "figure_notes": {
+    "eda": "Desenvolvimento após curadoria, antes de imputar. Boxplot omite apenas pontos atípicos do desenho; não altera os dados das estatísticas/modelos.",
+    "confusions": "Predições externas OOF de procedimentos de seleção por família; mesmos registros e folds.",
+    "importance": "Permutação3repetições por5folds externos; correlacionados/idade condicional impedem interpretação causal."
+  }
+}

@@ -1,0 +1,230 @@
+{
+  "candidate": {
+    "kind": "logistic",
+    "params": {
+      "C": 0.1,
+      "class_weight": "balanced"
+    },
+    "imputation": "age",
+    "representation": "log_weight_standard",
+    "name": "R064_logistic_9c6d0549"
+  },
+  "preprocessor": {
+    "n_fit": 9361,
+    "fit_ids_sha256": "a328db1edad905317c100f62ddd8a453e0346e5a1645df85d7e2ba19641a9f76",
+    "features": [
+      "Peso",
+      "Altura",
+      "IDADE",
+      "SEXO"
+    ],
+    "numeric": [
+      "Peso",
+      "Altura",
+      "IDADE"
+    ],
+    "categorical": [
+      "SEXO"
+    ],
+    "global_medians": {
+      "Peso": 16.0,
+      "Altura": 99.0,
+      "IDADE": 3.808219178082192
+    },
+    "age_medians": {
+      "Peso": {
+        "0": {
+          "median": 3.7,
+          "n": 1072
+        },
+        "1": {
+          "median": 6.6,
+          "n": 386
+        },
+        "2": {
+          "median": 8.5,
+          "n": 472
+        },
+        "3": {
+          "median": 11.0,
+          "n": 698
+        },
+        "4": {
+          "median": 15.1,
+          "n": 1759
+        },
+        "5": {
+          "median": 25.0,
+          "n": 1615
+        },
+        "6": {
+          "median": 43.0,
+          "n": 983
+        },
+        "7": {
+          "median": 55.0,
+          "n": 181
+        }
+      },
+      "Altura": {
+        "0": {
+          "median": 51.0,
+          "n": 956
+        },
+        "1": {
+          "median": 62.0,
+          "n": 331
+        },
+        "2": {
+          "median": 70.0,
+          "n": 418
+        },
+        "3": {
+          "median": 80.0,
+          "n": 554
+        },
+        "4": {
+          "median": 98.0,
+          "n": 1488
+        },
+        "5": {
+          "median": 124.0,
+          "n": 1297
+        },
+        "6": {
+          "median": 150.0,
+          "n": 801
+        },
+        "7": {
+          "median": 165.0,
+          "n": 174
+        }
+      },
+      "IDADE": {}
+    },
+    "age_bins": [
+      0,
+      0.25,
+      0.5,
+      1,
+      2,
+      5,
+      10,
+      15,
+      20
+    ],
+    "min_count": 30,
+    "age_group_columns": [
+      "Peso",
+      "Altura"
+    ],
+    "log_columns": [
+      "Peso"
+    ],
+    "vocabularies": {
+      "SEXO": [
+        "F",
+        "M",
+        "__AUSENTE__",
+        "__DESCONHECIDO__"
+      ]
+    },
+    "means": {
+      "Peso": 21.198985151159064,
+      "Altura": 103.01538297190471,
+      "IDADE": 4.927924544978509
+    },
+    "scales_ddof0": {
+      "Peso": 15.894928206633804,
+      "Altura": 33.98323952823916,
+      "IDADE": 4.3390207907876475
+    },
+    "log_means": {
+      "Peso": 2.843445617077796,
+      "Altura": 103.01538297190471,
+      "IDADE": 4.927924544978509
+    },
+    "log_scales_ddof0": {
+      "Peso": 0.7461048742828719,
+      "Altura": 33.98323952823916,
+      "IDADE": 4.3390207907876475
+    },
+    "dictionary": [
+      {
+        "name": "Peso",
+        "source": "Peso",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "Altura",
+        "source": "Altura",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "IDADE",
+        "source": "IDADE",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "Peso__imputado",
+        "source": "Peso",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "Altura__imputado",
+        "source": "Altura",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "IDADE__imputado",
+        "source": "IDADE",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "SEXO__000",
+        "source": "SEXO",
+        "category": "F",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SEXO__001",
+        "source": "SEXO",
+        "category": "M",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SEXO__002",
+        "source": "SEXO",
+        "category": "__AUSENTE__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SEXO__003",
+        "source": "SEXO",
+        "category": "__DESCONHECIDO__",
+        "kind": "one_hot_binary"
+      }
+    ],
+    "binary_columns_scaled": false,
+    "target_received": false,
+    "imputed_BMI_not_recomputed_from_imputed_parents": true,
+    "cv_warning": "Refit this transformer inside every training fold for future CV; do not CV a once-transformed development matrix."
+  },
+  "training_metrics_descriptive": {
+    "n": 9361,
+    "prevalence": 0.4237795107360325,
+    "tn": 3428,
+    "fp": 1966,
+    "fn": 1713,
+    "tp": 2254,
+    "recall": 0.5681875472649357,
+    "specificity": 0.635520949202818,
+    "precision": 0.5341232227488152,
+    "f1": 0.5506290460486136,
+    "balanced_accuracy": 0.6018542482338769,
+    "roc_auc": 0.6412433069673154,
+    "average_precision": 0.5623773991353819,
+    "brier": 0.23450618756454572,
+    "accuracy": 0.6069864330733896
+  }
+}

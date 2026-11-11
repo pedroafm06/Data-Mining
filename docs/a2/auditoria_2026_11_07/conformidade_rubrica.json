@@ -1,0 +1,375 @@
+{
+  "versao": "auditoria-a2-2026-11-07-v1",
+  "data": "2026-11-07",
+  "idioma": "pt-BR",
+  "commit_historico": "c8c86e333468cc3cbb1307288f409065166d8d6c",
+  "fonte_rubrica": {
+    "registro": "docs/a2/auditoria_2026_11_07/fonte_rubrica.json",
+    "sha256": "bf38c1c6f777f249c2af733a957a2860787446233acd2325c54c26bc1fda545a",
+    "data_recebida": "2026-11-07"
+  },
+  "escopo": "Auditoria do estudo histórico e verificação do artigo, da apresentação, da execução e do código público da A2.",
+  "estados": {
+    "atendido": "Há evidência atual suficiente para este requisito específico.",
+    "parcial": "Há componente demonstrado, mas falta parte material do requisito.",
+    "pendente": "Ação ou artefato necessário ainda não foi certificado nesta auditoria.",
+    "nao_verificado": "Não houve inspeção suficiente para determinar a condição atual.",
+    "nao_conforme_historico": "O artefato histórico inspecionado não satisfaz o requisito novo; deve ser preservado como suplemento."
+  },
+  "conclusao": {
+    "artefatos_e_experimento_verificados": true,
+    "ausencia_absoluta_de_vazamento_certificada": false,
+    "limites": "A fonte carece de documentação sobre formação do alvo, cronologia e identificação longitudinal. A avaliação é interna ao desenvolvimento histórico.",
+    "publicacao": "https://github.com/pedroafm06/Data-Mining-A2",
+    "apresentacao_real_e_submissao_observadas": false
+  },
+  "protocolo_da_revisao": {
+    "estado": "executado_e_reproduzido",
+    "populacao": "Somente desenvolvimento histórico, sem reaplicação do teste histórico para a revisão.",
+    "n_desenvolvimento": 9361,
+    "n_teste_historico_fora_do_novo_estudo": 2342,
+    "grupos": "Componentes candidatos históricos conservadores; não confirmam identidade de paciente.",
+    "features": {
+      "FISIO8": [
+        "Peso",
+        "Altura",
+        "IMC",
+        "IDADE",
+        "PA SISTOLICA",
+        "PA DIASTOLICA",
+        "FC",
+        "SEXO"
+      ],
+      "STRICT4": [
+        "Peso",
+        "Altura",
+        "IDADE",
+        "SEXO"
+      ]
+    },
+    "excluidos_de_todos_os_cenarios_principais": [
+      "ID",
+      "Atendimento",
+      "DN",
+      "Convenio",
+      "NORMAL X ANORMAL",
+      "PULSOS",
+      "B2",
+      "SOPRO",
+      "PPA",
+      "HDA 1",
+      "HDA2",
+      "MOTIVO1",
+      "MOTIVO2"
+    ],
+    "derivacoes_permitidas_com_ressalva": [
+      "IDADE de Atendimento e DN, sob política documentada de datas e coorte",
+      "IMC de medidas observadas e historico com origem explicitada, somente em FISIO8"
+    ],
+    "familias": [
+      "logistic",
+      "tree",
+      "forest",
+      "dummy"
+    ],
+    "cv_externa": {
+      "metodo": "StratifiedGroupKFold",
+      "n_splits": 5,
+      "seed": 743
+    },
+    "cv_interna_por_familia": {
+      "metodo": "StratifiedGroupKFold",
+      "n_splits": 3,
+      "seed_base": 811,
+      "regra_seed": "811 + indice do fold externo"
+    },
+    "cv_selecao_final_descritiva": {
+      "n_splits": 5,
+      "seed": 43,
+      "estimativa_desempenho": false
+    },
+    "comparativo_principal": "Predições OOF externas por família no mesmo X, amostra e folds; seleção de cada família somente dentro dos treinos externos.",
+    "grade_exata": {
+      "total_por_pool": 105,
+      "tree": 48,
+      "logistic": 32,
+      "forest": 24,
+      "dummy": 1,
+      "fonte": "src/kdd_revision/rubric_audit.py:40-59 e protocolo anterior aos resultados"
+    },
+    "diagnosticos_exploratorios": [
+      "Referência majoritária",
+      "Ensaios univariados e de disponibilidade por atributo",
+      "Máscaras de ausência em conjunto",
+      "Controle com alvo permutado"
+    ],
+    "restricoes_diagnosticos": "Sem acesso ao teste histórico, separados da comparação principal e sem tratar associação como prova causal de leakage.",
+    "limite": "Exclusões conservadoras e ajuste por fold reduzem riscos identificáveis; não certificam temporalidade ou independência do padrão de referência."
+  },
+  "requisitos": [
+    {
+      "id": "A2-01",
+      "requisito": "Artigo curto no template oficial de conferências IEEE, duas colunas, máximo de cinco páginas.",
+      "estado": "atendido",
+      "evidencia": [
+        "docs/a2/Estado_e_Verificacao.md:14 registra relatório histórico de sete páginas.",
+        "docs/a2/Relatorio_A2_KDD_Completo.pdf é o artefato histórico preservado."
+      ],
+      "aceite": "Inspecionar o novo PDF renderizado: até cinco páginas no total, duas colunas e aderência ao template oficial. Não presumir exceção para referências.",
+      "template_oficial": "https://www.ieee.org/conferences/publishing/templates",
+      "evidencia_atual": "Artigo_A2_IEEE.pdf, três páginas no formato oficial IEEEtran conferência e revisão visual das três páginas."
+    },
+    {
+      "id": "A2-02",
+      "requisito": "Título, nomes de integrantes e resumo único de 100 a 150 palavras com problema, dataset, algoritmos e principal resultado.",
+      "estado": "atendido",
+      "evidencia": [
+        "Cabeçalho do relatório histórico identifica os quatro integrantes; resumo no formato novo ainda deve ser conferido."
+      ],
+      "aceite": "Contar as palavras do resumo final e confirmar que o principal resultado foi efetivamente executado no protocolo declarado.",
+      "evidencia_atual": "Página 1 do artigo com os quatro autores e resumo em parágrafo único. 126 palavras pelo critério textual do compilador de verificação."
+    },
+    {
+      "id": "A2-03",
+      "requisito": "Introdução com contexto, objetivo claro da tarefa de mineração e relevância.",
+      "estado": "atendido",
+      "evidencia": [
+        "docs/a2/Relatorio_A2_KDD_Completo.md:5-9 define classificação do rótulo registrado.",
+        "docs/a2/auditoria_2026_11_07/Parecer_Metodologico.md delimita o objetivo e a ausência de padrão de referência independente."
+      ],
+      "aceite": "Transportar o objetivo delimitado para o novo artigo, sem alegar primeira detecção ou antecipação de diagnóstico sem suporte.",
+      "evidencia_atual": "Seção I do artigo."
+    },
+    {
+      "id": "A2-04",
+      "requisito": "Dados e EDA: origem, número de instâncias e atributos, alvo, desbalanceamento, leakage e um ou dois gráficos relevantes.",
+      "estado": "atendido",
+      "evidencia": [
+        "Fonte histórica: 12873 registros e 21 variáveis; 6744 Normal, 4960 Anormal e 1169 sem alvo utilizável.",
+        "docs/a2/auditoria_2026_11_07/tabela_semantica_21.json registra interpretação de todas as variáveis e fontes.",
+        "docs/a2/Relatorio_A2_KDD_Completo.md contém EDA histórica."
+      ],
+      "aceite": "Distinguir a base inteira dos 9361 registros do novo desenvolvimento, apresentar a composição efetiva de classes e conferir um ou dois gráficos legíveis no novo artigo.",
+      "evidencia_atual": "Seção II, Fig. 1 e Tabela I do artigo. Associação de SOPRO, B2 e motivos. Auditoria detalhada em Parecer_Semantico_e_Decisoes.md."
+    },
+    {
+      "id": "A2-05",
+      "requisito": "Excluir da análise preditiva os atributos identificados como data leakage.",
+      "estado": "atendido",
+      "evidencia": [
+        "Cenários históricos A e B_contexto incluem campos diagnósticos ou de temporalidade incerta.",
+        "O novo código rubric_audit.py:24-37 e :144-155 restringe o X principal a FISIO8/STRICT4 e exclui os blocos de achados, diagnóstico derivado, história e motivos.",
+        "A semântica diferencia diagnóstico explícito, suspeita de incorporação e associação legítima.",
+        "A conferência estática não substitui a conclusão e validação dos artefatos da execução em curso."
+      ],
+      "aceite": "Conferir listas realmente utilizadas, matrizes e acessos implícitos da implementação; apresentar resultados recalculados. Auditar derivados e ausência, sem certificar ausência absoluta de vazamento.",
+      "evidencia_atual": "Tabela I do artigo e pools congelados no protocolo. Exclusões conservadoras aplicadas nos dois cenários."
+    },
+    {
+      "id": "A2-06",
+      "requisito": "Justificar limpeza, tratamento de erros, codificação, imputação e normalização.",
+      "estado": "atendido",
+      "evidencia": [
+        "src/kdd_revision/preprocessing/ e docs/a2/Decisoes_Preprocessamento_A2.md documentam o fluxo histórico.",
+        "A mineração c8 aprende medianas, vocabulários e escalas dentro de cada treino de fold."
+      ],
+      "aceite": "Conferir que o novo estudo mantém os ajustes nos treinos correspondentes e informa regras fixas, origem das decisões, alternativas e hipóteses de qualidade.",
+      "evidencia_atual": "Seção III-A do artigo e Parecer_Semantico_e_Decisoes.md. Transformações ajustadas por treino."
+    },
+    {
+      "id": "A2-07",
+      "requisito": "Aplicar validação correta sem contaminação dos treinos por validação ou teste.",
+      "estado": "atendido",
+      "evidencia": [
+        "mining.py:122-135 reajusta transformações por treino de fold em c8.",
+        "full_kdd.py reconhece exploração global anterior e teste histórico previamente explorado.",
+        "rubric_audit.py:62-75 filtra o CSV por IDs do desenvolvimento antes da preparação.",
+        "rubric_audit.py:137-169 compartilha folds externos e seleciona por família somente nos treinos internos, com cinco folds externos e três internos.",
+        "A execução nova está em curso e ainda requer conferência final de OOF e métricas."
+      ],
+      "aceite": "Validar cobertura OOF externa, hashes de membros comuns, grupos disjuntos, ajuste apenas no treino, seleção interna e ausência de consulta ao teste histórico. Declarar limites de origem, tempo e grupos.",
+      "evidencia_atual": "Seção III-B e Verificacao_Experimental.json. Grupos disjuntos e 40 escolhas por família conferidas."
+    },
+    {
+      "id": "A2-08",
+      "requisito": "Comparar pelo menos dois algoritmos pertinentes, um baseline simples e outro mais complexo, com ajustes básicos de hiperparâmetros.",
+      "estado": "atendido",
+      "evidencia": [
+        "candidatos_cv.csv histórico contém dummy, árvore, logística e floresta nos mesmos folds de cada cenário.",
+        "A tabela final histórica compara vencedores de cenários diferentes; não isola família no mesmo X.",
+        "rubric_audit.py:152-169 implementa seleção interna e predições OOF externas de logística, árvore, floresta e dummy por conjunto de atributos; execução em curso."
+      ],
+      "aceite": "Apresentar comparação OOF externa por família no mesmo X/folds, com grade e seleção interna documentadas; não usar máximos da CV de seleção como teste independente.",
+      "evidencia_atual": "Seção III-B, Tabela II, 105 configurações por cenário."
+    },
+    {
+      "id": "A2-09",
+      "requisito": "Tabela comparativa com métricas adequadas, análise crítica, matriz de confusão e importância dos atributos.",
+      "estado": "atendido",
+      "evidencia": [
+        "O relatório histórico contém métricas, matrizes e importâncias exploratórias.",
+        "Nenhuma métrica nova foi inventada ou executada por esta auditoria."
+      ],
+      "aceite": "Recalcular métricas das predições externas salvas, explicitar denominadores/prevalência, comparar erros e incertezas e distinguir importância de efeito causal.",
+      "evidencia_atual": "Seção IV, Tabelas II e III, importância por permutação em validação externa."
+    },
+    {
+      "id": "A2-10",
+      "requisito": "Conclusão relacionada ao objetivo, limitações reais, trabalhos futuros e referências de dados, algoritmos e bibliotecas.",
+      "estado": "atendido",
+      "evidencia": [
+        "docs/a2/Relatorio_A2_KDD_Completo.md:199-213 contém síntese, limites e fontes.",
+        "O parecer metodológico atual explicita a validade interna condicional e lacunas de origem."
+      ],
+      "aceite": "Atualizar a conclusão com os resultados novos efetivos, sem atribuir validade externa ou clínica; verificar as referências do artigo final.",
+      "evidencia_atual": "Seção V e referências do artigo."
+    },
+    {
+      "id": "A2-11",
+      "requisito": "Rodapé da primeira página com link funcional para repositório público GitHub ou Google Colab, código organizado e random_state fixado.",
+      "estado": "atendido",
+      "evidencia": [
+        "O repositório local contém código organizado e seeds históricas registradas.",
+        "Esta auditoria não consultou o GitHub nem alterou visibilidade ou publicou arquivos.",
+        "Um URL existente e acesso autenticado não comprovam acesso público."
+      ],
+      "aceite": "Conferir o destino público sem sessão privilegiada e o rodapé na primeira página renderizada. Verificar seeds e instruções da revisão. Não publicar dados clínicos como consequência automática desse requisito.",
+      "evidencia_atual": "Rodapé clicável da primeira página. https://github.com/pedroafm06/Data-Mining-A2 verificado sem login. Sementes explícitas."
+    },
+    {
+      "id": "A2-12",
+      "requisito": "Relatório sem trechos de código e sem resultados apresentados apenas como screenshots do ambiente de desenvolvimento.",
+      "estado": "atendido",
+      "evidencia": [
+        "O novo PDF ainda precisa de inspeção final para este requisito."
+      ],
+      "aceite": "Inspecionar texto e todas as páginas renderizadas; usar tabelas e figuras analíticas legíveis.",
+      "evidencia_atual": "Fig. 1 vetorial, tabelas compostas em LaTeX e exposição textual do protocolo."
+    },
+    {
+      "id": "A2-13",
+      "requisito": "Apresentação de 15 minutos, com ênfase em metodologia e resultados; slides padronizados, numerados, pouco texto e elementos legíveis.",
+      "estado": "atendido",
+      "evidencia": [
+        "Exigência extraída da rubrica recebida em 07/11/2026."
+      ],
+      "aceite": "Preparar e revisar os slides finais e ensaiar a apresentação dentro do tempo máximo.",
+      "evidencia_atual": "14 slides principais numerados, sete de apoio ocultos, roteiro de 14 min 30 s. Renderização verificada."
+    },
+    {
+      "id": "A2-14",
+      "requisito": "Todos os integrantes apresentam e podem ser escolhidos para responder perguntas.",
+      "estado": "parcial",
+      "evidencia": [
+        "Exigência de segurança na apresentação e arguição da rubrica."
+      ],
+      "aceite": "Distribuir a fala e preparar todos para explicar alvo, exclusões, folds, métricas, erros e limites; realização depende da apresentação do grupo.",
+      "evidencia_atual": "Roteiro distribui falas entre os quatro integrantes e inclui arguição. Participação efetiva depende da apresentação."
+    },
+    {
+      "id": "A2-15",
+      "requisito": "Submissão em 18/11/2026 pelo SIGAA; apresentações por ordem de grupos entre 18 e 27/11/2026.",
+      "estado": "pendente",
+      "evidencia": [
+        "Datas e canal constam da rubrica; nenhuma submissão foi realizada por esta auditoria."
+      ],
+      "aceite": "Submeter pelo SIGAA até o prazo e conferir o agendamento do grupo. Não declarar entrega realizada sem comprovante.",
+      "evidencia_atual": "Prazo indicado na rubrica, 18/11/2026 no SIGAA. Apresentações de 18 a 27/11. A submissão e a apresentação dependem do grupo."
+    },
+    {
+      "id": "A2-16",
+      "requisito": "Informar qual IA generativa foi utilizada, onde, como e para quê.",
+      "estado": "atendido",
+      "evidencia": [
+        "O relatório histórico declara uso de Codex para investigação, implementação, comparações, testes e redação."
+      ],
+      "aceite": "Atualizar a declaração no novo artigo e nos materiais finais com os usos efetivos da revisão.",
+      "evidencia_atual": "Declaração de uso de inteligência artificial no artigo e no slide de apoio de fontes."
+    }
+  ],
+  "revisao_estatica_implementacao_nova": {
+    "estado": "concluida_para_o_snapshot_inspecionado_execucao_ainda_em_curso",
+    "arquivos_lidos_integralmente": [
+      "src/kdd_revision/rubric_audit.py",
+      "tools/run_rubric_audit.py",
+      "tests/test_rubric_audit.py"
+    ],
+    "snapshot_sha256": {
+      "src/kdd_revision/rubric_audit.py": "b5eb5b248beec6e0ee2a40f40befe29300160675df3d16eaf4d4b02c9b2e1536",
+      "tools/run_rubric_audit.py": "5764522d5952c46abdf4fba52d8ff840a097045f87cd05b5a2ae211a17c8be43",
+      "tests/test_rubric_audit.py": "8f8dbc603a2f7c5140899af611b664248b3267c7665e607929eed951f1a6b1a7",
+      "artifacts/a2_mining/particoes_modelagem.csv": "18d8474c9cabb4e1e24130c7e5fde1f66d013cf1ef45ca4b8e851cf62d20b299"
+    },
+    "artefatos_observados": [
+      "artifacts/a2_rubric_audit/protocol_before_results.json",
+      "artifacts/a2_rubric_audit/outer_membership.csv",
+      "artifacts/a2_rubric_audit/variable_probes.csv",
+      "artefatos parciais dos folds externos de FISIO8"
+    ],
+    "verification_final_observada": false,
+    "fits_ou_testes_executados_pelo_revisor": false,
+    "bloqueador_computacional_de_leakage_confirmado": false,
+    "pendencias_concretas": [
+      {
+        "id": "REP-01",
+        "estado": "correcao_planejada_nao_verificada",
+        "confianca": 100,
+        "tipo": "reprodutibilidade",
+        "fonte": "rubric_audit.py:65; .gitignore:23; tools/run_rubric_audit.py no snapshot inspecionado",
+        "descricao": "A membresia depende de artifacts/a2_mining/particoes_modelagem.csv, ignorado no Git; o CLI inspecionado não o gera nem aceita outra entrada. Um clone com código e fonte bruta precisa de um passo adicional comprovado.",
+        "aceite": "Fornecer referência congelada admissível com SHA ou bootstrap mínimo sem repetir modelos e teste histórico.",
+        "encaminhamento_comunicado": "Bootstrap da fonte e receita histórica com comparação de IDs/grupos reconstruídos à referência c8; ainda não inspecionado."
+      },
+      {
+        "id": "REP-02",
+        "estado": "correcao_planejada_nao_verificada",
+        "confianca": 100,
+        "tipo": "rastreabilidade",
+        "fonte": "rubric_audit.py:203-204 no snapshot inspecionado",
+        "descricao": "O manifesto omite o hash da entrada de membresia e dependências executadas que afetam preparação, splits, schema e métricas.",
+        "aceite": "Registrar hashes das entradas e de prepare.py, full_kdd.py, schema.py e experiments.py, além das dependências já cobertas, protocolo e ambiente; conferir estabilidade inicial/final.",
+        "encaminhamento_comunicado": "Manifesto final adicional com entradas/dependências e comparação dos módulos e sidecar aos manifestos históricos; ainda não inspecionado."
+      },
+      {
+        "id": "VAL-01",
+        "estado": "conferencia_de_integracao_pendente",
+        "confianca": 100,
+        "tipo": "cobertura_de_verificacao",
+        "fonte": "tests/test_rubric_audit.py:7-21 no snapshot inspecionado",
+        "descricao": "Os testes novos verificam pools, grade e guard etário; ainda não demonstram integração da seleção por família, membresia externa e recusa de deriva de referência.",
+        "aceite": "Conferir artefatos efetivos e acrescentar testes pequenos dos contratos de integração, sem repetir a busca inteira desnecessariamente."
+      }
+    ],
+    "limites_dos_controles": [
+      "Probes e máscaras usam folds seed43; comparação principal usa seed743. São diagnósticos separados, não uma ablação pareada na mesma realização.",
+      "Alvo permutado usa seed911 e folds seed914; árvore fixa e uma permutação não fornecem p-valor formal.",
+      "Permutação por linha não preserva a estrutura conjunta dos rótulos nos grupos.",
+      "Arquivo bruto completo é aberto para validação e filtragem; somente IDs do desenvolvimento chegam à preparação e aos fits da revisão."
+    ]
+  },
+  "datas_e_pesos": {
+    "submissao_relatorio": "2026-11-18",
+    "apresentacoes_inicio": "2026-11-18",
+    "apresentacoes_fim": "2026-11-27",
+    "apresentacoes_ordem": "numérica dos grupos",
+    "duracao_maxima_minutos": 15,
+    "canal_exclusivo_submissao": "SIGAA",
+    "peso_escrita_percentual": 60,
+    "peso_apresentacao_percentual": 35,
+    "peso_seguranca_arguicao_percentual": 5,
+    "entrega_fora_prazo_ou_email_aceita": false
+  },
+  "aceites_tecnicos_pendentes_da_nova_execucao": [
+    "Uma predição OOF externa por ID, família e cenário, sem lacunas ou duplicação.",
+    "Mesmos hashes de membros dos folds externos entre famílias e cenários.",
+    "Nenhum grupo candidato compartilhado entre treino e validação.",
+    "Medianas, vocabulários, escala e demais ajustes aprendidos somente nos treinos correspondentes.",
+    "Seleção de hiperparâmetros por família dentro do treino externo.",
+    "Ausência de leitura dos rótulos ou de tuning no teste histórico na revisão.",
+    "Proibição efetiva de campos diagnósticos, metadados e derivados não admitidos em X.",
+    "Métricas recalculadas a partir das predições externas salvas.",
+    "Controles nulos tratados como diagnósticos, sem exigir exatamente desempenho de acaso.",
+    "Manifesto de código, dados, membros, parâmetros, ambiente e resultados."
+  ],
+  "data_verificacao_final": "2026-11-11"
+}

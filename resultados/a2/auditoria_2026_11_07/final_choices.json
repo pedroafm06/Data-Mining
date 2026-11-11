@@ -1,0 +1,88 @@
+{
+  "FISIO8": {
+    "dummy": {
+      "kind": "dummy",
+      "params": {},
+      "imputation": "global",
+      "representation": "units",
+      "name": "R000_dummy_20708f9d"
+    },
+    "tree": {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 2,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R004_tree_92975b65"
+    },
+    "logistic": {
+      "kind": "logistic",
+      "params": {
+        "C": 10.0,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "log_weight_standard",
+      "name": "R080_logistic_753b06f2"
+    },
+    "forest": {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 8,
+        "min_samples_leaf": 10,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R095_forest_e81a70e9"
+    }
+  },
+  "STRICT4": {
+    "dummy": {
+      "kind": "dummy",
+      "params": {},
+      "imputation": "global",
+      "representation": "units",
+      "name": "R000_dummy_20708f9d"
+    },
+    "tree": {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 6,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R020_tree_42c49831"
+    },
+    "logistic": {
+      "kind": "logistic",
+      "params": {
+        "C": 0.1,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "log_weight_standard",
+      "name": "R064_logistic_9c6d0549"
+    },
+    "forest": {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": 8,
+        "min_samples_leaf": 30,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "units",
+      "name": "R092_forest_65f11b96"
+    }
+  }
+}

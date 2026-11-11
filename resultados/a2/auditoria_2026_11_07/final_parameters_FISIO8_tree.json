@@ -1,0 +1,372 @@
+{
+  "candidate": {
+    "kind": "tree",
+    "params": {
+      "criterion": "gini",
+      "max_depth": 2,
+      "min_samples_leaf": 50,
+      "class_weight": "balanced"
+    },
+    "imputation": "age",
+    "representation": "units",
+    "name": "R004_tree_92975b65"
+  },
+  "preprocessor": {
+    "n_fit": 9361,
+    "fit_ids_sha256": "a328db1edad905317c100f62ddd8a453e0346e5a1645df85d7e2ba19641a9f76",
+    "features": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "SEXO"
+    ],
+    "numeric": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC"
+    ],
+    "categorical": [
+      "SEXO"
+    ],
+    "global_medians": {
+      "Peso": 16.0,
+      "Altura": 99.0,
+      "IMC": 16.741071428571427,
+      "IDADE": 3.808219178082192,
+      "PA SISTOLICA": 100.0,
+      "PA DIASTOLICA": 60.0,
+      "FC": 92.0
+    },
+    "age_medians": {
+      "Peso": {
+        "0": {
+          "median": 3.7,
+          "n": 1072
+        },
+        "1": {
+          "median": 6.6,
+          "n": 386
+        },
+        "2": {
+          "median": 8.5,
+          "n": 472
+        },
+        "3": {
+          "median": 11.0,
+          "n": 698
+        },
+        "4": {
+          "median": 15.1,
+          "n": 1759
+        },
+        "5": {
+          "median": 25.0,
+          "n": 1615
+        },
+        "6": {
+          "median": 43.0,
+          "n": 983
+        },
+        "7": {
+          "median": 55.0,
+          "n": 181
+        }
+      },
+      "Altura": {
+        "0": {
+          "median": 51.0,
+          "n": 956
+        },
+        "1": {
+          "median": 62.0,
+          "n": 331
+        },
+        "2": {
+          "median": 70.0,
+          "n": 418
+        },
+        "3": {
+          "median": 80.0,
+          "n": 554
+        },
+        "4": {
+          "median": 98.0,
+          "n": 1488
+        },
+        "5": {
+          "median": 124.0,
+          "n": 1297
+        },
+        "6": {
+          "median": 150.0,
+          "n": 801
+        },
+        "7": {
+          "median": 165.0,
+          "n": 174
+        }
+      },
+      "IMC": {
+        "0": {
+          "median": 14.336203231292515,
+          "n": 918
+        },
+        "1": {
+          "median": 16.930274003118733,
+          "n": 321
+        },
+        "2": {
+          "median": 17.655227137472725,
+          "n": 401
+        },
+        "3": {
+          "median": 17.31301939058172,
+          "n": 543
+        },
+        "4": {
+          "median": 16.276041666666668,
+          "n": 1421
+        },
+        "5": {
+          "median": 16.763810123923548,
+          "n": 1220
+        },
+        "6": {
+          "median": 19.11111111111111,
+          "n": 751
+        },
+        "7": {
+          "median": 20.04744562130375,
+          "n": 163
+        }
+      },
+      "IDADE": {},
+      "PA SISTOLICA": {},
+      "PA DIASTOLICA": {},
+      "FC": {
+        "0": {
+          "median": 120.0,
+          "n": 1127
+        },
+        "1": {
+          "median": 108.0,
+          "n": 399
+        },
+        "2": {
+          "median": 100.0,
+          "n": 495
+        },
+        "3": {
+          "median": 100.0,
+          "n": 740
+        },
+        "4": {
+          "median": 92.0,
+          "n": 2004
+        },
+        "5": {
+          "median": 88.0,
+          "n": 1988
+        },
+        "6": {
+          "median": 80.0,
+          "n": 1219
+        },
+        "7": {
+          "median": 80.0,
+          "n": 194
+        }
+      }
+    },
+    "age_bins": [
+      0,
+      0.25,
+      0.5,
+      1,
+      2,
+      5,
+      10,
+      15,
+      20
+    ],
+    "min_count": 30,
+    "age_group_columns": [
+      "Peso",
+      "Altura",
+      "FC",
+      "IMC"
+    ],
+    "log_columns": [
+      "Peso"
+    ],
+    "vocabularies": {
+      "SEXO": [
+        "F",
+        "M",
+        "__AUSENTE__",
+        "__DESCONHECIDO__"
+      ]
+    },
+    "means": {
+      "Peso": 21.198985151159064,
+      "Altura": 103.01538297190471,
+      "IMC": 17.23991961437802,
+      "IDADE": 4.927924544978509,
+      "PA SISTOLICA": 100.75793184488836,
+      "PA DIASTOLICA": 61.21044760175195,
+      "FC": 95.26738596303814
+    },
+    "scales_ddof0": {
+      "Peso": 15.894928206633804,
+      "Altura": 33.98323952823916,
+      "IMC": 3.137919910085241,
+      "IDADE": 4.3390207907876475,
+      "PA SISTOLICA": 7.709856271432877,
+      "PA DIASTOLICA": 6.154280206230838,
+      "FC": 17.663569307745007
+    },
+    "log_means": {
+      "Peso": 2.843445617077796,
+      "Altura": 103.01538297190471,
+      "IMC": 17.23991961437802,
+      "IDADE": 4.927924544978509,
+      "PA SISTOLICA": 100.75793184488836,
+      "PA DIASTOLICA": 61.21044760175195,
+      "FC": 95.26738596303814
+    },
+    "log_scales_ddof0": {
+      "Peso": 0.7461048742828719,
+      "Altura": 33.98323952823916,
+      "IMC": 3.137919910085241,
+      "IDADE": 4.3390207907876475,
+      "PA SISTOLICA": 7.709856271432877,
+      "PA DIASTOLICA": 6.154280206230838,
+      "FC": 17.663569307745007
+    },
+    "dictionary": [
+      {
+        "name": "Peso",
+        "source": "Peso",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "Altura",
+        "source": "Altura",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "IMC",
+        "source": "IMC",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "IDADE",
+        "source": "IDADE",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "PA SISTOLICA",
+        "source": "PA SISTOLICA",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "PA DIASTOLICA",
+        "source": "PA DIASTOLICA",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "FC",
+        "source": "FC",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "Peso__imputado",
+        "source": "Peso",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "Altura__imputado",
+        "source": "Altura",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "IMC__imputado",
+        "source": "IMC",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "IDADE__imputado",
+        "source": "IDADE",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "PA SISTOLICA__imputado",
+        "source": "PA SISTOLICA",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "PA DIASTOLICA__imputado",
+        "source": "PA DIASTOLICA",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "FC__imputado",
+        "source": "FC",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "SEXO__000",
+        "source": "SEXO",
+        "category": "F",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SEXO__001",
+        "source": "SEXO",
+        "category": "M",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SEXO__002",
+        "source": "SEXO",
+        "category": "__AUSENTE__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SEXO__003",
+        "source": "SEXO",
+        "category": "__DESCONHECIDO__",
+        "kind": "one_hot_binary"
+      }
+    ],
+    "binary_columns_scaled": false,
+    "target_received": false,
+    "imputed_BMI_not_recomputed_from_imputed_parents": true,
+    "cv_warning": "Refit this transformer inside every training fold for future CV; do not CV a once-transformed development matrix."
+  },
+  "training_metrics_descriptive": {
+    "n": 9361,
+    "prevalence": 0.4237795107360325,
+    "tn": 3780,
+    "fp": 1614,
+    "fn": 1828,
+    "tp": 2139,
+    "recall": 0.5391983866901942,
+    "specificity": 0.7007786429365962,
+    "precision": 0.5699440447641887,
+    "f1": 0.5541450777202073,
+    "balanced_accuracy": 0.6199885148133952,
+    "roc_auc": 0.6342020407703562,
+    "average_precision": 0.5347191779812622,
+    "brier": 0.23189386634712125,
+    "accuracy": 0.6323042409998931
+  }
+}

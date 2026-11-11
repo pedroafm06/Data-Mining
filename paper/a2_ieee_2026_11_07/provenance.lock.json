@@ -1,0 +1,51 @@
+{
+  "retrieved_utc": "2026-11-08T02:32:24.360734+00:00",
+  "ieee_guidance": "https://conferences.ieeeauthorcenter.ieee.org/write-your-paper/authoring-tools-and-templates/",
+  "ieeetran": {
+    "url": "https://mirrors.ctan.org/macros/latex/contrib/IEEEtran.zip",
+    "resolved_url": "https://br.mirrors.cicku.me/ctan/macros/latex/contrib/IEEEtran.zip",
+    "sha256": "e0cd4f5afbd42c8076092280e72b3e0a5111efe501d35de9f715cfb8da313cb4",
+    "version": "1.8b",
+    "license": "LPPL-1.3",
+    "package_page": "https://ctan.org/pkg/ieeetran"
+  },
+  "tectonic": {
+    "release_api": "https://api.github.com/repos/tectonic-typesetting/tectonic/releases/tags/tectonic%400.17.0",
+    "release_url": "https://github.com/tectonic-typesetting/tectonic/releases/tag/tectonic%400.17.0",
+    "tag": "tectonic@0.17.0",
+    "asset_id": 490851834,
+    "url": "https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-aarch64-apple-darwin.tar.gz",
+    "sha256": "a3f1cac7c5678f01661a92212f58480ae3b0634115d880dbc59e2953ded45667",
+    "digest_source": "GitHub release asset digest field",
+    "executable_sha256": "b52b5a730e2b0b33087304f7720f649603953f270a6b1c88bb031e1ae01f7f9c",
+    "platform": "aarch64-apple-darwin",
+    "signature_observation": "Mach-O arm64, ad hoc linker signature; no Apple TeamIdentifier. Official GitHub asset SHA-256 matched before execution."
+  },
+  "lppl": {
+    "url": "https://www.latex-project.org/lppl/lppl-1-3c.txt",
+    "resolved_url": "https://www.latex-project.org/lppl/lppl-1-3c.txt",
+    "sha256": "c1ae6e179a6d28bbd5c483fbacc744acc75e922d598281dc3390aab26126e163"
+  },
+  "tectonic_license": {
+    "url": "https://raw.githubusercontent.com/tectonic-typesetting/tectonic/tectonic%400.17.0/LICENSE",
+    "sha256": "814a258f76e420b25cb3c07172eb2b3956f34cefbf0a650413b78e65c425f306"
+  },
+  "vendored_files": {
+    "vendor/IEEEtran/IEEEtran.cls": "da751920a317ed318b7b5cd7fa585a6cc7d28502d457856382e9be24b10a3bd7",
+    "vendor/IEEEtran/README": "cc2de809d6e86ab95cd4e88d97b41cb81dd96cf224e6445474aeb7419f4a0462",
+    "vendor/IEEEtran/bare_conf.tex": "cc4fa258aa90115ad6afbd8ca5555f448880b29a971398bf1a20ee5f240b45f7",
+    "vendor/IEEEtran/bibtex/IEEEtran.bst": "314f0ece704568faf827011bac498650691b2b5ee06320720830e782416d5a5f",
+    "vendor/IEEEtran/bibtex/README": "797417f3c4f37349f24869ceaf015fac36d4d147262d17b2ce50b36f32e806a7",
+    "vendor/licenses/LPPL-1.3c.txt": "c1ae6e179a6d28bbd5c483fbacc744acc75e922d598281dc3390aab26126e163",
+    "vendor/licenses/Tectonic-MIT.txt": "814a258f76e420b25cb3c07172eb2b3956f34cefbf0a650413b78e65c425f306"
+  },
+  "tex_bundle": {
+    "url": "https://data1b.fullyjustified.net/tlextras-2022.0r0.tar",
+    "upstream_default": "https://relay.fullyjustified.net/default_bundle_v33.tar",
+    "format_serial": 33,
+    "source": "https://github.com/tectonic-typesetting/tectonic/blob/tectonic%400.17.0/crates/bundles/src/lib.rs",
+    "download_method": "Tectonic range requests for required files, not whole multi-GB archive",
+    "content_digest": "6ffe055852f8faf66c0acbe1a7fb27f87b869a90bad1204f3bf4d9683f597c7c",
+    "cache_identity_file": "work/tectonic-cache/bundles/hashes/https,58,,47,,47,data1b.fullyjustified.net,47,tlextras-2022.0r0.tar"
+  }
+}

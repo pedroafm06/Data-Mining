@@ -1,0 +1,833 @@
+{
+  "version": "UCMF-A2-politica-atributos-2026-11-07-v1",
+  "status": "política semântica fixada; resultados experimentais publicados em artefatos separados",
+  "target": "NORMAL X ANORMAL",
+  "target_interpretation": "Classificação do rótulo registrado de ausência/presença de patologia; referência clínica independente e temporalidade não verificadas.",
+  "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
+  "primary_feature_set": "FISIO",
+  "feature_sets": {
+    "FISIO": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "SEXO"
+    ],
+    "STRICT": [
+      "Peso",
+      "Altura",
+      "IDADE",
+      "SEXO"
+    ]
+  },
+  "primary_choice": {
+    "motivo": "FISIO conserva medidas comuns do registro e evita diagnóstico pronto/achados de proveniência mais problemática; STRICT mede a dependência de pressões, FC e IMC.",
+    "evidencia": "Semântica das variáveis e ausência de protocolo temporal; não foi usado desempenho futuro para definir o conjunto principal.",
+    "alternativa": "Promover STRICT ao principal somente por uma nova justificativa semântica documentada, nunca por ser o conjunto de maior escore.",
+    "limite": "FISIO e STRICT não são certificados livres de vazamento. STRICT ainda exige medidas anteriores ao uso e não elimina viés de seleção ou retornos."
+  },
+  "exclude_from_principal_X": [
+    "ID",
+    "Atendimento",
+    "DN",
+    "Convenio",
+    "PULSOS",
+    "PPA",
+    "NORMAL X ANORMAL",
+    "B2",
+    "SOPRO",
+    "HDA 1",
+    "HDA2",
+    "MOTIVO1",
+    "MOTIVO2"
+  ],
+  "prohibited_principal_lineage": [
+    "Não incluir codificações, agrupamentos, indicadores de preenchimento ou interações derivados de MOTIVO1, MOTIVO2, SOPRO, B2, PULSOS, PPA, HDA 1, HDA2 ou Convenio.",
+    "Não incluir derivações de ID nem datas exatas como preditores. Exceção explícita: IDADE derivada de Atendimento e DN na visita.",
+    "Nunca usar o alvo, sua ausência, seu mapeamento ou previsões de outro modelo como atalho de imputação ou fabricação de y.",
+    "Não reconstruir PPA dentro de FISIO sob outro nome; a permanência de PAS/PAD é risco residual declarado, avaliado por sensibilidade."
+  ],
+  "allowed_derivations_with_conditions": [
+    {
+      "name": "IDADE",
+      "parents": [
+        "Atendimento",
+        "DN"
+      ],
+      "condition": "Idade na própria visita; datas validadas; nenhuma informação futura ou do alvo."
+    },
+    {
+      "name": "IMC",
+      "parents": [
+        "Peso",
+        "Altura"
+      ],
+      "condition": "Se recalculado, usar pais observados e unidades verificadas; derivação deve ser identificada. A representação escolhida deve ser comum às famílias comparadas."
+    },
+    {
+      "name": "transformacoes_de_FISIO_ou_STRICT",
+      "condition": "Imputação, escalas, vocabulário, redução e parâmetros aprendidos somente no treino de cada fold. Toda derivação deve preservar as exclusões de linhagem."
+    }
+  ],
+  "development_only_audit": {
+    "single_variable_scope": "Preditores e proxies em ensaios diagnósticos separados da análise principal; nunca usar o alvo como X. IDs/datas têm interpretação de metadado/proxy, sem significado clínico.",
+    "blocks": {
+      "antropometria": [
+        "Peso",
+        "Altura",
+        "IMC"
+      ],
+      "idade_sexo": [
+        "IDADE",
+        "SEXO"
+      ],
+      "pressao": [
+        "PA SISTOLICA",
+        "PA DIASTOLICA"
+      ],
+      "frequencia": [
+        "FC"
+      ],
+      "ausculta": [
+        "B2",
+        "SOPRO"
+      ],
+      "pulsos": [
+        "PULSOS"
+      ],
+      "ppa": [
+        "PPA"
+      ],
+      "hda": [
+        "HDA 1",
+        "HDA2"
+      ],
+      "motivos": [
+        "MOTIVO1",
+        "MOTIVO2"
+      ],
+      "administrativo": [
+        "Convenio"
+      ]
+    },
+    "rule": "Ensaios de variável única e acréscimo/retirada de blocos apenas no desenvolvimento; não selecionar o conjunto principal a partir do teste histórico.",
+    "interpretation": "Ablação estima dependência preditiva condicional ao modelo e à amostra. Não identifica causalidade, momento de registro nem incorporação ao padrão de referência.",
+    "publication_role": "No artigo, suspeitos são documentados como exclusões e auditoria; não competem pelo melhor modelo principal nem voltam a X por melhorarem métricas."
+  },
+  "comparison_contract": {
+    "families": [
+      "dummy",
+      "logistic",
+      "tree",
+      "forest"
+    ],
+    "same_features_within_each_scenario": true,
+    "same_fold_assignments_within_each_scenario": true,
+    "same_eligible_rows_for_paired_comparisons": true,
+    "require_fold_local_preprocessing": true,
+    "differences_between_scenarios_are_not_algorithm_effects": true,
+    "note": "Cada família deve ser comparada no mesmo conjunto de atributos, população e folds do cenário. Diferenças legítimas de pré-processamento/modelo precisam ser explícitas; orçamento e seleção devem ser documentados no protocolo estatístico."
+  },
+  "certainty_rules": [
+    "Conteúdo diagnóstico explícito confirmado não é sinônimo de vazamento comprovado do rótulo específico.",
+    "Alta associação, importância ou ganho de escore não comprovam vazamento; associação fraca não garante disponibilidade temporal.",
+    "Achado usado em guideline não prova que esse guideline produziu o rótulo da UCMF.",
+    "HDA contém sintomas observados, sem cardiopatia explicitamente nomeada; seu grau de suspeita é diferente do de MOTIVO.",
+    "ID é declarado do paciente anônimo; sua estabilidade entre visitas é desconhecida e não deve ser inventada.",
+    "Ausência original, ausência após limpeza e ausência de informação sobre o próprio alvo são mecanismos distintos."
+  ],
+  "unresolved_questions": [
+    "Quais condições compõem NORMAL X ANORMAL, incluindo ou não HAS e alterações de ritmo?",
+    "Qual exame, profissional e procedimento geraram o rótulo, e quais variáveis eram conhecidas nessa decisão?",
+    "Qual o instante de uso pretendido e quais valores foram registrados ou atualizados depois dele?",
+    "O ID permanece igual entre retornos do mesmo paciente?",
+    "Quais critérios determinaram extração, encaminhamento, preenchimento e disponibilidade do rótulo?"
+  ],
+  "variables": [
+    {
+      "indice": 1,
+      "variavel": "ID",
+      "significado": "Identificador do paciente anônimo, conforme declaração do dicionário.",
+      "fontes": [
+        "S1",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Atribuição e manutenção do identificador não descritas. A unicidade observada não estabelece estabilidade entre visitas.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Significado declarado confirmado; estabilidade longitudinal desconhecida.",
+      "risco_semantico": "identificador_e_possivel_proxy_de_coorte",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Pode representar ordem de cadastro ou facilitar memorização. Não criar preditores a partir de seus dígitos.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "excluir_de_X",
+        "STRICT": "excluir_de_X",
+        "descricao": "Metadado; fora de ambos os conjuntos.",
+        "motivo": "O número não é medida clínica e seu uso pode aprender organização do arquivo.",
+        "evidencia": "O dicionário declara ID do paciente anônimo; todos os IDs observados são distintos.",
+        "alternativa": "Usar como chave de agrupamento apenas se houver confirmação de estabilidade; analisar agrupamentos candidatos separadamente.",
+        "limite": "Não renomear conceitualmente como ID de atendimento nem afirmar que IDs distintos provam pessoas distintas."
+      },
+      "risco_descricao": "identificador e possível proxy de coorte"
+    },
+    {
+      "indice": 2,
+      "variavel": "Peso",
+      "significado": "Peso corporal.",
+      "fontes": [
+        "S1",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Pode ser medido antes da decisão, mas horário, tratamento e consulta de referência não estão registrados.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Semântica confirmada; disponibilidade pré-rótulo é hipótese.",
+      "risco_semantico": "baixo_risco_condicionado",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Insumo de IMC; ausência ou mascaramento pode refletir rotina de medição e decisões de limpeza.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "incluir",
+        "STRICT": "incluir",
+        "descricao": "Incluir em FISIO e STRICT.",
+        "motivo": "Preserva informação antropométrica sem conteúdo diagnóstico explícito documentado.",
+        "evidencia": "Dicionário e valores numéricos observados; nenhuma fonte define Peso como cópia de y.",
+        "alternativa": "Retirar em análise de sensibilidade; comparar com e sem indicadores de ausência no desenvolvimento.",
+        "limite": "Peso pode ser consequência de doença/tratamento. Se medido depois do instante de uso, a inclusão deixa de ser defensável."
+      },
+      "risco_descricao": "baixo risco condicionado"
+    },
+    {
+      "indice": 3,
+      "variavel": "Altura",
+      "significado": "Estatura ou comprimento corporal.",
+      "fontes": [
+        "S1",
+        "S4",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Medição ligada à consulta; ordem real em relação ao rótulo desconhecida.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Semântica confirmada; instante desconhecido.",
+      "risco_semantico": "baixo_risco_condicionado",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Insumo de IMC e referências de PPA. Sua ausência pode registrar a intensidade da coleta.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "incluir",
+        "STRICT": "incluir",
+        "descricao": "Incluir em FISIO e STRICT.",
+        "motivo": "É uma medida basal, embora também participe de classificações derivadas.",
+        "evidencia": "Dicionário e explicação de PPA associam medidas corporais às referências pediátricas.",
+        "alternativa": "Retirar isoladamente para avaliar redundância; não reconstruir valores com o alvo.",
+        "limite": "Ser pai de PPA não torna automaticamente Altura uma variável vazada; a interpretação depende do alvo e do instante."
+      },
+      "risco_descricao": "baixo risco condicionado"
+    },
+    {
+      "indice": 4,
+      "variavel": "IMC",
+      "significado": "Índice de massa corporal, derivável de Peso e Altura.",
+      "fontes": [
+        "S1",
+        "S4",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Pode ser calculado no uso se as duas medidas estiverem disponíveis; momento e fórmula do valor histórico não estão documentados.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Relação derivada confirmada; exatidão e momento da fórmula histórica desconhecidos.",
+      "risco_semantico": "derivado_e_redundante_sem_vazamento_demonstrado",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Peso/Altura²; preenchimento histórico pode divergir do cálculo a partir dos valores exibidos. Não usar pais imputados para afirmar medida observada.",
+      "pais_semanticos": [
+        "Peso",
+        "Altura"
+      ],
+      "decisao": {
+        "FISIO": "incluir",
+        "STRICT": "excluir_de_X",
+        "descricao": "Incluir em FISIO; retirar em STRICT.",
+        "motivo": "A principal permite uma representação usual da antropometria; a sensibilidade reduz redundância e dependência de cálculo histórico.",
+        "evidencia": "O complemento explica IMC a partir de peso e altura, sem usar y.",
+        "alternativa": "FISIO sem IMC ou IMC recalculado apenas de pais observados, como ensaios de desenvolvimento.",
+        "limite": "STRICT também remove pressões e FC; sua diferença de escore não identifica isoladamente o efeito do IMC."
+      },
+      "risco_descricao": "derivado e redundante, sem vazamento demonstrado"
+    },
+    {
+      "indice": 5,
+      "variavel": "Atendimento",
+      "significado": "Data da visita.",
+      "fontes": [
+        "S1",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "A data do encontro é conhecida semanticamente, porém não discrimina a ordem intradiária de coleta, exame e laudo.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Significado confirmado; cronologia clínica fina ausente.",
+      "risco_semantico": "metadado_temporal_e_proxy_de_coorte",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Origina IDADE e separações temporais; ano ou ausência pode representar mudanças do serviço.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "excluir_de_X",
+        "STRICT": "excluir_de_X",
+        "descricao": "Fora de X; preservar para reconstrução de idade e auditoria temporal.",
+        "motivo": "Evita apresentar época de cadastro como explicação clínica.",
+        "evidencia": "O dicionário define data da visita; a base contém formatos e valores que exigem interpretação.",
+        "alternativa": "Examinar estabilidade por período ou corte temporal, se o parser e a suficiência amostral forem verificados.",
+        "limite": "Um corte pela data de visita não recupera horário pré-rótulo, não valida séculos ambíguos e não garante separação por paciente."
+      },
+      "risco_descricao": "metadado temporal e proxy de coorte"
+    },
+    {
+      "indice": 6,
+      "variavel": "DN",
+      "significado": "Data de nascimento.",
+      "fontes": [
+        "S1",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "O nascimento antecede a consulta por definição, mas o instante de cadastro e a correção do valor são desconhecidos.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Semântica confirmada; registro pode conter erro.",
+      "risco_semantico": "quase_identificador_e_proxy_de_coorte",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Insumo de IDADE; a granularidade pode permitir ligação ou memorização de registros.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "excluir_de_X",
+        "STRICT": "excluir_de_X",
+        "descricao": "Fora de X; usar somente em derivações autorizadas e sensibilidade de grupos.",
+        "motivo": "Conserva idade sem fornecer a data exata ao classificador.",
+        "evidencia": "Dicionário e presença de datas na fonte.",
+        "alternativa": "Agrupar candidatos por DN e outros campos apenas como sensibilidade, sem chamar grupos de pacientes confirmados.",
+        "limite": "Pessoas distintas podem compartilhar DN; a coincidência não prova identidade e pode fundir pessoas diferentes."
+      },
+      "risco_descricao": "quase identificador e proxy de coorte"
+    },
+    {
+      "indice": 7,
+      "variavel": "IDADE",
+      "significado": "Idade no atendimento.",
+      "fontes": [
+        "S1",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Pode ser derivada de Atendimento e DN no instante da visita; origem da idade histórica não totalmente documentada.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Semântica confirmada; derivação histórica precisa de validação.",
+      "risco_semantico": "baixo_risco_condicionado",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Derivada das datas; entra em referências pediátricas e pode apoiar imputação sem y.",
+      "pais_semanticos": [
+        "Atendimento",
+        "DN"
+      ],
+      "decisao": {
+        "FISIO": "incluir",
+        "STRICT": "incluir",
+        "descricao": "Incluir em FISIO e STRICT.",
+        "motivo": "Permite contextualizar medidas corporais e fisiológicas sem levar as datas exatas a X.",
+        "evidencia": "Dicionário; diferença entre data da visita e nascimento é uma derivação disponível.",
+        "alternativa": "Comparar forma contínua e faixas fixas no desenvolvimento; não escolher faixas pelo teste histórico.",
+        "limite": "Calcular pela data atual ou por uma visita futura mudaria o instante da previsão; erros das datas podem propagar-se."
+      },
+      "risco_descricao": "baixo risco condicionado"
+    },
+    {
+      "indice": 8,
+      "variavel": "Convenio",
+      "significado": "Seguro ou plano de saúde.",
+      "fontes": [
+        "S1",
+        "S5",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "A informação administrativa pode preceder a consulta; a ordem real e eventuais atualizações não estão documentadas.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Natureza administrativa confirmada; relação causal com encaminhamento não comprovada.",
+      "risco_semantico": "proxy_administrativo_e_vies_de_selecao",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Pode representar acesso, encaminhamento, oferta de exames e época de cadastro; ausência também pode representar fluxo administrativo.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "excluir_de_X",
+        "STRICT": "excluir_de_X",
+        "descricao": "Excluir de FISIO e STRICT.",
+        "motivo": "A pergunta principal privilegia medidas do paciente e reduz dependência da origem administrativa.",
+        "evidencia": "Dicionário identifica seguro; A1 descreve associações com o alvo, sem demonstrar mecanismo causal.",
+        "alternativa": "Auditar desempenho por grupos administrativos e seu acréscimo apenas no desenvolvimento.",
+        "limite": "Associação com doença não prova leakage. A exclusão também é uma escolha de transportabilidade e de escopo."
+      },
+      "risco_descricao": "proxy administrativo e viés de seleção"
+    },
+    {
+      "indice": 9,
+      "variavel": "PULSOS",
+      "significado": "Característica dos pulsos à palpação; não é FC.",
+      "fontes": [
+        "S1",
+        "S3",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Achado de exame clínico; não se sabe se foi registrado antes, durante ou após a atribuição do alvo.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Natureza de achado confirmada; uso efetivo para gerar y desconhecido.",
+      "risco_semantico": "suspeita_de_incorporacao_ao_padrao_de_referencia",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Categorias normais, amplos, diminuídos e femorais diminuídos. Rótulo ou ausência pode refletir avaliação dirigida.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "excluir_de_X",
+        "STRICT": "excluir_de_X",
+        "descricao": "Excluir de FISIO e STRICT.",
+        "motivo": "O material diagnóstico usa características dos pulsos para distinguir condições; há risco de reproduzir a decisão registrada.",
+        "evidencia": "Fluxograma inclui ramo dos pulsos; categorias observadas são coerentes com esse tipo de exame.",
+        "alternativa": "Adicionar o bloco de pulsos no desenvolvimento para medir dependência preditiva, sem promovê-lo à comparação principal.",
+        "limite": "Não há prova de que o profissional que atribuiu y usou esse ramo; um achado prévio a referência independente pode ser preditor legítimo."
+      },
+      "risco_descricao": "suspeita de incorporação ao padrão de referência"
+    },
+    {
+      "indice": 10,
+      "variavel": "PA SISTOLICA",
+      "significado": "Pressão arterial sistólica, medida bruta.",
+      "fontes": [
+        "S1",
+        "S4",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Medida associada à consulta, sem horário, técnica ou estado terapêutico documentados.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "É insumo de PPA; integração de HAS ao alvo é desconhecida.",
+      "risco_semantico": "medida_bruta_com_risco_residual_de_incorporacao",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Insumo de PPA; medições, ausências e repetições podem refletir investigação dirigida.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "incluir",
+        "STRICT": "excluir_de_X",
+        "descricao": "Incluir condicionalmente em FISIO; excluir em STRICT.",
+        "motivo": "Mantém a proposta de classificar o registro a partir de medidas; a sensibilidade testa dependência de medidas potencialmente diagnósticas.",
+        "evidencia": "PPA é derivada das pressões segundo as fontes; o alvo só é definido genericamente como patologia cardíaca.",
+        "alternativa": "Comparar FISIO sem o bloco de pressões e STRICT no desenvolvimento.",
+        "limite": "Se HAS integrar y, a pressão pode reconstruir parte do critério. Retirar PPA não remove seus pais nem estabelece independência."
+      },
+      "risco_descricao": "medida bruta com risco residual de incorporação"
+    },
+    {
+      "indice": 11,
+      "variavel": "PA DIASTOLICA",
+      "significado": "Pressão arterial diastólica, medida bruta.",
+      "fontes": [
+        "S1",
+        "S4",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Mesma lacuna temporal da sistólica.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "É insumo de PPA; integração de HAS ao alvo é desconhecida.",
+      "risco_semantico": "medida_bruta_com_risco_residual_de_incorporacao",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Insumo de PPA; ausência conjunta com PAS pode representar rotina de medição.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "incluir",
+        "STRICT": "excluir_de_X",
+        "descricao": "Incluir condicionalmente em FISIO; excluir em STRICT.",
+        "motivo": "Aplica a mesma regra semântica a ambas as pressões.",
+        "evidencia": "A explicação complementar apresenta elevação sistólica ou diastólica como fundamento da classificação de HAS.",
+        "alternativa": "Retirar conjuntamente PAS/PAD para avaliar o bloco; retirada individual não elimina a informação da outra.",
+        "limite": "A fraca associação agregada que eventualmente surgir não demonstra que a variável era disponível nem que não entrou no critério."
+      },
+      "risco_descricao": "medida bruta com risco residual de incorporação"
+    },
+    {
+      "indice": 12,
+      "variavel": "PPA",
+      "significado": "Classificação ou indicador de hipertensão arterial sistêmica derivado das pressões e referências pediátricas.",
+      "fontes": [
+        "S1",
+        "S4",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "O cálculo vem depois dos insumos; seu instante em relação ao alvo e eventual atualização retrospectiva são desconhecidos.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Conteúdo de classificação de HAS confirmado; equivalência a diagnóstico validado ou a y não demonstrada.",
+      "risco_semantico": "conteudo_diagnostico_derivado_com_vinculo_ao_alvo_incerto",
+      "conteudo_diagnostico_explicito_confirmado": true,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Depende de PAS/PAD, idade, sexo e contexto de altura; códigos Não Calculado e #VALUE! também descrevem operação da ficha.",
+      "pais_semanticos": [
+        "PA SISTOLICA",
+        "PA DIASTOLICA",
+        "IDADE",
+        "SEXO",
+        "Altura"
+      ],
+      "decisao": {
+        "FISIO": "excluir_de_X",
+        "STRICT": "excluir_de_X",
+        "descricao": "Excluir de FISIO e STRICT.",
+        "motivo": "Evita fornecer ao classificador uma classificação clínica pronta cuja relação com y não está esclarecida.",
+        "evidencia": "Dicionário e complemento descrevem a construção da variável; valores observados incluem classes de HAS.",
+        "alternativa": "Acréscimo exploratório no desenvolvimento e comparação de valores observados com derivações verificáveis.",
+        "limite": "Não afirmar doença confirmada por um único valor; não calcular PPA de pressões imputadas para fabricar diagnóstico. Os pais remanescentes em FISIO exigem ressalva."
+      },
+      "risco_descricao": "conteúdo diagnóstico derivado, com vínculo ao alvo incerto"
+    },
+    {
+      "indice": 13,
+      "variavel": "NORMAL X ANORMAL",
+      "significado": "Ausência ou presença de patologia cardíaca, conforme o dicionário.",
+      "fontes": [
+        "S1",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Critério, instante, examinador, exames e cegamento não estão informados.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Identidade do alvo confirmada; referência clínica independente desconhecida.",
+      "risco_semantico": "alvo_observado",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Não pode originar preditores, imputação de X, regras de elegibilidade aprendidas globalmente ou rótulos de novos casos.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "somente_y",
+        "STRICT": "somente_y",
+        "descricao": "Usar somente como y nos dois cenários.",
+        "motivo": "Prever a informação registrada sem entregar essa mesma informação ao modelo.",
+        "evidencia": "O dicionário identifica explicitamente a coluna-alvo; há grafias e valores inválidos que exigem mapeamento explícito.",
+        "alternativa": "Não há alternativa legítima de incluí-lo em X; modelar outro desfecho exige nova definição do problema.",
+        "limite": "A auditoria não encontrou protocolo para chamar y de diagnóstico independente. Usá-lo em X seria vazamento direto, mas não foi constatado esse uso no schema canônico."
+      },
+      "risco_descricao": "alvo observado"
+    },
+    {
+      "indice": 14,
+      "variavel": "B2",
+      "significado": "Tipo da segunda bulha ou som cardíaco.",
+      "fontes": [
+        "S1",
+        "S3",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Achado de ausculta com ordem relativa ao rótulo desconhecida.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Relevância diagnóstica no material confirmada; incorporação real em y não confirmada.",
+      "risco_semantico": "suspeita_de_incorporacao_e_disponibilidade",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Categorias única, hiperfonética e desdobramento fixo aparecem no material diagnóstico; codificação e ausência podem registrar interpretação profissional.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "excluir_de_X",
+        "STRICT": "excluir_de_X",
+        "descricao": "Excluir de FISIO e STRICT.",
+        "motivo": "Há risco de reutilizar achado que participou da própria decisão e de exigir exame ausente no estágio pretendido.",
+        "evidencia": "Fluxograma e anexos do material complementar mencionam tipos de B2; dicionário confirma significado.",
+        "alternativa": "Analisar isoladamente e acrescentar bloco de ausculta no desenvolvimento.",
+        "limite": "Alta associação não comprova leakage. Um protocolo de coleta prévia e referência independente poderia mudar a decisão."
+      },
+      "risco_descricao": "suspeita de incorporação e disponibilidade"
+    },
+    {
+      "indice": 15,
+      "variavel": "SOPRO",
+      "significado": "Presença e tipo de sopro.",
+      "fontes": [
+        "S1",
+        "S3",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Achado de ausculta; não há sequência de exame e adjudicação.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Significado e uso em fluxograma confirmados; participação no rótulo da UCMF desconhecida.",
+      "risco_semantico": "suspeita_de_incorporacao_e_disponibilidade",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Tipos e presença podem orientar avaliação; motivo de encaminhamento também pode mencionar sopro. Não gerar indicadores derivados para contornar exclusão.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "excluir_de_X",
+        "STRICT": "excluir_de_X",
+        "descricao": "Excluir de FISIO e STRICT.",
+        "motivo": "A remoção conservadora evita depender de um achado fortemente ligado à avaliação diagnóstica fornecida.",
+        "evidencia": "O material pergunta sobre existência de sopro e descreve tipos nos anexos.",
+        "alternativa": "Ablação e ensaio de variável única apenas no desenvolvimento; referência independente seria necessária para alegação clínica mais forte.",
+        "limite": "Sopro é um achado, não sinônimo de cardiopatia. Nem associação forte nem previsão imperfeita resolvem a questão de proveniência."
+      },
+      "risco_descricao": "suspeita de incorporação e disponibilidade"
+    },
+    {
+      "indice": 16,
+      "variavel": "FC",
+      "significado": "Frequência cardíaca numérica.",
+      "fontes": [
+        "S1",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Medida contemporânea à ficha, sem técnica, horário ou estado de tratamento documentados.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Significado confirmado; protocolo de obtenção e uso na decisão não conhecidos.",
+      "risco_semantico": "baixo_risco_condicionado_com_possivel_incorporacao",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Pode refletir estado fisiológico ou alteração do ritmo; ausência pode refletir coleta. Não confundir com categorias de PULSOS.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "incluir",
+        "STRICT": "excluir_de_X",
+        "descricao": "Incluir condicionalmente em FISIO; excluir em STRICT.",
+        "motivo": "Preserva medida simples na principal e permite sensibilidade a possível contribuição diagnóstica.",
+        "evidencia": "Dicionário a distingue de PULSOS; não foi localizado critério específico que transforme FC em y.",
+        "alternativa": "Remover FC isoladamente no desenvolvimento, além de STRICT.",
+        "limite": "Não encontrar regra no material não prova independência. Se medida após conduta ou usada para adjudicar arritmia, a interpretação muda."
+      },
+      "risco_descricao": "baixo risco condicionado, com possível incorporação"
+    },
+    {
+      "indice": 17,
+      "variavel": "HDA 1",
+      "significado": "Histórico da doença 1 no dicionário; valores observados são sintomas, Assintomático e Outro.",
+      "fontes": [
+        "S1",
+        "S3",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Sintomas podem anteceder a avaliação, mas a codificação pode ser contemporânea ou retrospectiva.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Sintomas observados confirmados; diagnóstico explícito não encontrado nessas categorias.",
+      "risco_semantico": "proveniencia_incerta_de_sintomas",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Cianose aparece no material diagnóstico; preenchimento pode refletir anamnese e intensidade de investigação.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "excluir_de_X",
+        "STRICT": "excluir_de_X",
+        "descricao": "Excluir da principal conservadora e de STRICT; manter bloco HDA como sensibilidade exploratória.",
+        "motivo": "A temporalidade e a possível incorporação não estão esclarecidas, embora a evidência seja mais fraca que em MOTIVO.",
+        "evidencia": "As categorias reais não nomeiam cardiopatias estabelecidas; o dicionário é genérico quanto ao momento.",
+        "alternativa": "FISIO acrescido de HDA1/HDA2 no desenvolvimento, declarando hipótese de anamnese disponível.",
+        "limite": "Não chamar HDA de conteúdo diagnóstico comprovado, não equiparar sintomas a laudo e não usar melhora de escore para apagar a lacuna temporal."
+      },
+      "risco_descricao": "proveniência incerta de sintomas"
+    },
+    {
+      "indice": 18,
+      "variavel": "HDA2",
+      "significado": "Outro histórico da doença; categorias observadas também descrevem sintomas.",
+      "fontes": [
+        "S1",
+        "S3",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Mesma lacuna de HDA1; preenchimento muito raro.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Conteúdo sintomático e baixa cobertura confirmados; protocolo de preenchimento desconhecido.",
+      "risco_semantico": "proveniencia_incerta_e_ausencia_informativa",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Presença de um segundo campo pode representar detalhamento da investigação; seus indicadores de preenchimento preservam essa informação.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "excluir_de_X",
+        "STRICT": "excluir_de_X",
+        "descricao": "Excluir da principal conservadora e de STRICT; sensibilidade junto com HDA1.",
+        "motivo": "Além da incerteza de proveniência, a informação é muito esparsa e não justifica misturar mecanismos no resultado central.",
+        "evidencia": "12.466 de 12.873 registros brutos têm campo vazio; os valores preenchidos são sintomas e categorias genéricas.",
+        "alternativa": "Bloco HDA com e sem HDA2 no desenvolvimento, preservando os mesmos folds.",
+        "limite": "Baixa cobertura não prova leakage. A ausência pode ser legítima ou processual; sua origem não foi estabelecida."
+      },
+      "risco_descricao": "proveniência incerta e ausência informativa"
+    },
+    {
+      "indice": 19,
+      "variavel": "SEXO",
+      "significado": "Sexo do paciente, conforme o cadastro histórico.",
+      "fontes": [
+        "S1",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Característica anterior à consulta por significado; instante e critérios de cadastro desconhecidos.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Semântica confirmada; significado operacional de Indeterminado não documentado.",
+      "risco_semantico": "baixo_risco_condicionado",
+      "conteudo_diagnostico_explicito_confirmado": false,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Insumo de referências pediátricas; grafia e desconhecimento podem representar coorte ou cadastro.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "incluir",
+        "STRICT": "incluir",
+        "descricao": "Incluir em FISIO e STRICT.",
+        "motivo": "Preserva contexto básico sem conteúdo de diagnóstico explícito.",
+        "evidencia": "Dicionário e categorias históricas M/F, suas grafias e Indeterminado.",
+        "alternativa": "Retirar isoladamente no desenvolvimento para avaliar dependência; desconhecimento deve permanecer representado sem imputação por y.",
+        "limite": "Não assumir que Indeterminado é uma categoria clínica nem que toda informação histórica é adequadamente representada pela binarização."
+      },
+      "risco_descricao": "baixo risco condicionado"
+    },
+    {
+      "indice": 20,
+      "variavel": "MOTIVO1",
+      "significado": "Primeiro motivo do encaminhamento; inclui cardiopatia já estabelecida.",
+      "fontes": [
+        "S1",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "O encaminhamento pode anteceder a visita e suceder diagnóstico anterior; momento de registro não informado.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Conteúdo diagnóstico explícito confirmado; igualdade ou origem do y específico não confirmadas.",
+      "risco_semantico": "diagnostico_previo_e_proxy_de_encaminhamento",
+      "conteudo_diagnostico_explicito_confirmado": true,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Sinaliza diagnóstico anterior, suspeita ou finalidade administrativa. Remover apenas a categoria explícita pode transferir o sinal para ausência ou seleção.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "excluir_de_X",
+        "STRICT": "excluir_de_X",
+        "descricao": "Excluir toda a coluna de FISIO e STRICT.",
+        "motivo": "Para uma análise conservadora sem diagnóstico pronto, o conteúdo de cardiopatia estabelecida torna a inclusão inadequada.",
+        "evidencia": "A fonte tem 1.158 ocorrências de Cardiopatia já estabelecida, além de suspeita, parecer, check-up e outro.",
+        "alternativa": "Auditar a contribuição do bloco de motivos somente no desenvolvimento; uma tarefa de reavaliação de pacientes já diagnosticados teria outra definição.",
+        "limite": "Motivo prévio pode ser legítimo numa tarefa explicitamente posterior ao encaminhamento; esta política não prova que seu valor foi copiado do alvo."
+      },
+      "risco_descricao": "diagnóstico prévio e proxy de encaminhamento"
+    },
+    {
+      "indice": 21,
+      "variavel": "MOTIVO2",
+      "significado": "Segundo motivo ou detalhe do encaminhamento; inclui cardiopatia congênita e adquirida.",
+      "fontes": [
+        "S1",
+        "S6"
+      ],
+      "disponibilidade": {
+        "descricao": "Mesma ambiguidade temporal e de diagnóstico anterior de MOTIVO1.",
+        "ordem_relativa_ao_rotulo": "não documentada"
+      },
+      "certeza_da_evidencia": "Conteúdo diagnóstico explícito confirmado; vínculo com a adjudicação do alvo não documentado.",
+      "risco_semantico": "diagnostico_previo_e_proxy_de_encaminhamento",
+      "conteudo_diagnostico_explicito_confirmado": true,
+      "vazamento_comprovado_na_geracao_ou_uso_da_coluna": false,
+      "derivados_e_proxies_de_conduta": "Inclui sinais, doenças, avaliação para cirurgia e atividade física; códigos numéricos não devem ser interpretados como escala clínica nem como regra exata entre colunas.",
+      "pais_semanticos": [],
+      "decisao": {
+        "FISIO": "excluir_de_X",
+        "STRICT": "excluir_de_X",
+        "descricao": "Excluir toda a coluna de FISIO e STRICT.",
+        "motivo": "A análise principal não deve reutilizar categorias que já anunciam cardiopatia.",
+        "evidencia": "Há 1.041 ocorrências de Cardiopatia congenica e 92 de Cardiopatia adquirida; outras categorias incluem Sopro e HAS/dislipidemia/obesidade.",
+        "alternativa": "Acréscimo exploratório do bloco de motivos no desenvolvimento, sem recuperar suas categorias sob nomes derivados.",
+        "limite": "O conjunto é heterogêneo: nem toda categoria contém diagnóstico. Isso não torna a coluna adequada à principal nem demonstra leakage em todas as linhas."
+      },
+      "risco_descricao": "diagnóstico prévio e proxy de encaminhamento"
+    }
+  ],
+  "sources": {
+    "S1": {
+      "path": "../Atividades Praticas/Variáveis do conjunto de dados (SIGAA 03-11-2026).pdf",
+      "pages": "1",
+      "scope": "Dicionário oficial das 21 variáveis; origem do alvo, fórmulas gerais e encaminhamento.",
+      "sha256": "fc825c6378391898e280de75ae4db1f05e1e9c08e472760556617b4b104543cf"
+    },
+    "S2": {
+      "path": "../Atividades Praticas/Tema do estudo de caso.pdf",
+      "pages": "1",
+      "scope": "Objetivo acadêmico genérico de predição/extração de conhecimento; RHP Recife; não fixa instante da previsão.",
+      "sha256": "4e04399bb8e84db5d2bb619feaa1c740fbbb372860dfa5a5bc76ce1ffb85be48"
+    },
+    "S3": {
+      "path": "../Atividades Praticas/trabalho pratico (material complementar)/Guideline for diagnostic.pdf",
+      "pages": "1, diagrama e anexos I/II",
+      "scope": "PDF de imagem, revisado visualmente. Fluxograma usa sopro, B2, pulsos e cianose/ICC em investigação; não comprova protocolo de rotulagem da UCMF.",
+      "sha256": "cec38e5da5dc8501dff90b4b57dcc01b2f6ec48acfb4e4c9d470a8fa7b2d00a3"
+    },
+    "S4": {
+      "path": "../Atividades Praticas/trabalho pratico (material complementar)/Explanation about the PPA variable.pdf",
+      "pages": "3-4; IMC em2",
+      "scope": "PPA/HAS vem de PAS ou PAD, dependentes de idade/altura; ilustra diagnóstico de HAS. Não relaciona HAS ao alvo binário.",
+      "sha256": "5b7fbd347584e9c5c7041daf39995253299f65dc97b6fa5e2e3c3485573c4cad"
+    },
+    "S5": {
+      "path": "../Avaliações/Relatorio A1 - Pre-processamento .pdf",
+      "pages": "1-5",
+      "scope": "Relatório do grupo, fonte secundária. Páginas 4-5 fazem inferência de risco em MOTIVO; não substituem protocolo de coleta/rotulagem.",
+      "sha256": "bde03b25adac8c628145b55e377bfccd7c7b346ba0b0200a78e6a748949adf8d"
+    },
+    "S6": {
+      "path": "../Atividades Praticas/UCMF_raw.csv",
+      "pages": "cabeçalho + frequências agregadas",
+      "scope": "Verificação atual somente leitura: 12.873 registros, 21 campos, UTF-8, delimitador vírgula. Nenhuma linha individual publicada.",
+      "sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1"
+    },
+    "S7": {
+      "path": "config/schema.json",
+      "pages": "cenários A, B, B_contexto e exclude_from_X",
+      "scope": "Implementação atual, não prova clínica. B contém 7 numéricas+SEXO; B_contexto ainda contém PPA, HDA1/2 e MOTIVO1/2.",
+      "sha256": "ccdc9f1a709c82b3c3fc7681be9f9d87e06c49239625c1cfdc9d6b43faa6662c"
+    },
+    "S8": {
+      "path": "../Avaliações/Descrição das avaliações (SIGAA 07-11-2026).docx",
+      "pages": "seção A2: Dados e Análise Exploratória; Metodologia; Requisitos Obrigatórios",
+      "scope": "Rubrica recebida em 07/11/2026: excluir atributo que indique leakage da análise; comparar ao menos dois algoritmos; artigo curto IEEE, duas colunas, máximo de cinco páginas. Não nomeia a coluna.",
+      "sha256": "bf38c1c6f777f249c2af733a957a2860787446233acd2325c54c26bc1fda545a"
+    }
+  }
+}

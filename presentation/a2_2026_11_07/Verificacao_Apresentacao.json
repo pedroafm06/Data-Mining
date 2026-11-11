@@ -1,0 +1,19 @@
+{
+  "arquivo": "output/Apresentacao_A2_UCMF.pptx",
+  "sha256": "937b1dfbeb184c830ac19a0177a076002596669e4a94cd835d25c190d531f9ff",
+  "slides_principais": 14,
+  "slides_ocultos_de_apoio": 7,
+  "notas": 21,
+  "minutos_roteiro": 14.5,
+  "graficos_editaveis": 2,
+  "tabelas_editaveis": 9,
+  "conferencias": [
+    "estrutura do pacote PPTX",
+    "contagem de slides e notas",
+    "geometria dos objetos",
+    "consistência dos gráficos e das planilhas incorporadas",
+    "revisão visual dos slides principais exportados no LibreOffice",
+    "revisão visual das páginas de apoio no gerador"
+  ],
+  "pdf_principal_sha256": "b0c5939d9f7c064cb9b33c96ab5103b295bab399345cf31e6e9a73634a8b019e"
+}

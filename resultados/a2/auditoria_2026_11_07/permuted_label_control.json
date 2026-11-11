@@ -1,0 +1,68 @@
+[
+  {
+    "pool": "FISIO8",
+    "fixed_candidate": {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 2,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R003_tree_d21bda81"
+    },
+    "metric": {
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 3474,
+      "fp": 1920,
+      "fn": 2583,
+      "tp": 1384,
+      "recall": 0.3488782455255861,
+      "specificity": 0.6440489432703004,
+      "precision": 0.4188861985472155,
+      "f1": 0.38069041397331865,
+      "balanced_accuracy": 0.49646359439794324,
+      "roc_auc": 0.49444875637431124,
+      "average_precision": 0.4207365731445303,
+      "brier": 0.250783754221209,
+      "accuracy": 0.518961649396432
+    },
+    "interpretation": "negative diagnostic control; not a formal permutation p-value or proof of no leakage"
+  },
+  {
+    "pool": "STRICT4",
+    "fixed_candidate": {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 2,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R003_tree_d21bda81"
+    },
+    "metric": {
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 2290,
+      "fp": 3104,
+      "fn": 1733,
+      "tp": 2234,
+      "recall": 0.5631459541215024,
+      "specificity": 0.42454579162031886,
+      "precision": 0.41850880479580366,
+      "f1": 0.4801719505642128,
+      "balanced_accuracy": 0.49384587287091064,
+      "roc_auc": 0.4920466157628391,
+      "average_precision": 0.4177850340912643,
+      "brier": 0.2507477221054541,
+      "accuracy": 0.483281700673005
+    },
+    "interpretation": "negative diagnostic control; not a formal permutation p-value or proof of no leakage"
+  }
+]

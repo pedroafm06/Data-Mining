@@ -2,9 +2,27 @@
 
 Trabalho da disciplina INF0414, UFG, 2026/2. Base UCMF: 12.873 registros e 21 variáveis. Grupo: Antônio Henrique Queiroz Villar Lopes, João Vitor Fernandes Ferreira, Mateus Nery Bailão e Pedro Augusto Ferreira Matos. Professor: Rogério Lopes Salvini.
 
-**A A2 aproveita e melhora a A1 e completa o KDD inteiro.** A A1 avaliada continua sendo a versão já entregue. A versão atual inclui entendimento do domínio e dos dados, seleção, limpeza, transformação, mineração, avaliação, interpretação e aplicação/documentação do conhecimento. A descrição formal posterior da A2 poderá acrescentar exigências de entrega e apresentação.
+**A A2 aproveita e melhora a A1 e completa o KDD inteiro.** A A1 avaliada continua sendo a versão já entregue. A versão atual inclui entendimento do domínio e dos dados, seleção, limpeza, transformação, mineração, avaliação, interpretação e aplicação/documentação do conhecimento. A entrega da A2 segue a descrição publicada no SIGAA.
 
-## Começar pela A2 completa
+## Entrega da A2
+
+- [Artigo em PDF](paper/a2_ieee_2026_11_07/output/pdf/Artigo_A2_IEEE.pdf) no formato IEEE de conferências.
+- [Apresentação editável](presentation/a2_2026_11_07/output/Apresentacao_A2_UCMF.pptx), [slides em PDF](presentation/a2_2026_11_07/output/Apresentacao_A2_UCMF.pdf) e [roteiro de 14 min 30 s com arguição](presentation/a2_2026_11_07/output/Roteiro_e_Arguicao.md).
+- [Auditoria das 21 variáveis](docs/a2/auditoria_2026_11_07/Parecer_Semantico_e_Decisoes.md), [verificação experimental](docs/a2/auditoria_2026_11_07/Verificacao_Experimental.json) e [conferência da rubrica](docs/a2/auditoria_2026_11_07/conformidade_rubrica.json).
+- [Código público e instruções de reprodução](https://github.com/pedroafm06/Data-Mining-A2).
+
+### Resultados da revisão
+
+A revisão refez a comparação com 105 configurações por cenário e validação cruzada aninhada de cinco folds externos e três internos, com estratificação e agrupamento por equivalência candidata. O conjunto de 9.361 registros de desenvolvimento é o mesmo para todos os procedimentos. O teste histórico ficou fora da pontuação.
+
+| Cenário | Melhor família pela BA | BA | Sensibilidade |
+|---|---|---:|---:|
+| FISIO8 | Floresta aleatória | 62,87% | 59,29% |
+| STRICT4 | Regressão logística | 59,74% | 52,03% |
+
+SOPRO, B2, PULSOS, PPA, HDA1, HDA2, MOTIVO1 e MOTIVO2 ficam fora dos preditores nos dois cenários. A revisão também examina a informação contida em padrões de ausência, a dependência dos atributos por permutação e o comportamento com rótulos embaralhados. A cronologia da coleta e o critério diagnóstico de referência continuam desconhecidos. [Métricas e experimentos da revisão](resultados/a2/auditoria_2026_11_07/).
+
+## Desenvolvimento anterior da A2
 
 - [Relatório integrado em PDF](docs/a2/Relatorio_A2_KDD_Completo.pdf) · [versão em texto](docs/a2/Relatorio_A2_KDD_Completo.md).
 - [Decisões, alternativas e justificativas](docs/a2/Decisoes_KDD_Completo.md) · [registro estruturado das microdecisões](docs/a2/Registro_Microdecisoes.csv).
@@ -14,7 +32,7 @@ Trabalho da disciplina INF0414, UFG, 2026/2. Base UCMF: 12.873 registros e 21 va
 
 O relatório de [pré-processamento](docs/a2/Relatorio_Preprocessamento_A2.pdf), suas [decisões por variável](docs/a2/Decisoes_Preprocessamento_A2.md) e o [notebook da preparação](notebooks/01_preprocessamento_a2.ipynb) são componentes da A2 completa. A [A1 entregue](docs/a1_entregue/README.md) permanece preservada byte a byte. Os [experimentos com a preparação anterior](docs/historico/README.md) estão separados dos resultados atuais.
 
-## O que foi executado
+### Comparação histórica de cenários
 
 A revisão preserva todas as linhas e os originais, separa erro, suspeita e estimativa, corrige idade relativa quando defensável e aplica representações numéricas explícitas. A mineração compara **81 configurações em cada um de três cenários**, com mediana global/etária e demais parâmetros aprendidos dentro de cada treino de fold. Há CV5-fold, avaliação aninhada3x3 no desenvolvimento e avaliação secundária no teste histórico, já explorado anteriormente.
 
@@ -28,7 +46,7 @@ Foram testados controle majoritário, árvores com diferentes critérios/complex
 
 Esses números classificam o rótulo registrado. Não são validação clínica ou estimativa de desempenho em pacientes novos. A diferença entre cenários não prova causalidade; o relatório mostra suportes, erros, alternativas, instabilidade da seleção e limites de cobertura.
 
-## Reproduzir
+## Reproduzir os experimentos anteriores
 
 Requer Python 3.11 ou superior. A execução registrada usou Python3.14 e as versões de `requirements.lock` em macOS.
 

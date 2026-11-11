@@ -1,0 +1,40 @@
+Os dados foram coletados no Real Hospital Português, em Recife, e disponibilizados para o estudo de caso da disciplina \cite{tema}. A fonte contém 12.873 registros e 21 atributos. Há 1.169 registros sem rótulo, retirados da avaliação supervisionada. Dos 11.704 rotulados, 9.361 compõem o desenvolvimento, 2.342 pertencem ao teste histórico e um registro foi retirado do desenvolvimento por equivalência candidata com o teste. No desenvolvimento há 5.394 rótulos \textit{Normal} e 3.967 \textit{Anormal} (42,38\%). Preservamos a partição histórica para evitar nova pontuação de um teste já examinado no projeto. Os 9.279 componentes candidatos reúnem equivalências de registro para restringir os cortes da validação cruzada. A identidade longitudinal dos pacientes permanece indeterminada.
+
+\subsection{Auditoria da disponibilidade}
+Revisamos o significado, a origem documentada, a dependência de outros campos e a disponibilidade plausível de cada atributo. A Tabela~\ref{tab:policy} resume a decisão. A A1 já havia indicado o risco de MOTIVO1 e MOTIVO2. Na fonte, 1.158 registros trazem \textit{Cardiopatia já estabelecida} em MOTIVO1 e 1.041 trazem \textit{Cardiopatia congenica} em MOTIVO2. O conteúdo diagnóstico é observável. Seu momento de registro em relação ao alvo permanece desconhecido.
+
+O material complementar cita SOPRO, B2 e PULSOS na investigação diagnóstica \cite{guideline}. Isso sustenta a possibilidade de incorporação ao critério do rótulo. O procedimento efetivo de rotulagem da UCMF permanece sem documentação. PPA é uma classificação de hipertensão a partir de medidas e referências pediátricas \cite{ppa}. Excluir PPA ainda deixa suas medidas de origem disponíveis. HDA1 e HDA2 contêm história e sintomas cuja disponibilidade anterior à classificação é incerta. Retiramos esses blocos por razões de proveniência e relação potencial com o alvo.
+
+\begin{table}[!t]
+\centering
+\caption{Decisão sobre os 21 atributos originais}
+\label{tab:policy}
+\footnotesize
+\begin{tabular}{@{}p{0.40\columnwidth}p{0.55\columnwidth}@{}}
+\toprule
+Atributos & Decisão nos experimentos \\
+\midrule
+\textit{NORMAL X ANORMAL} & Resposta binária. \\
+ID & Rastreabilidade e agrupamento candidato. \\
+Atendimento, DN & Insumos para conferir ou derivar IDADE. Datas brutas fora de $X$. \\
+Convênio & Excluído. Pode refletir acesso e encaminhamento. \\
+MOTIVO1, MOTIVO2 & Excluídos. Conteúdo diagnóstico explícito. \\
+SOPRO, B2, PULSOS & Excluídos. Achados potencialmente incorporados ao rótulo. \\
+PPA & Excluído. Classificação derivada de pressão. \\
+HDA1, HDA2 & Excluídos. Ordem de coleta e registro incerta. \\
+Peso, Altura, IDADE, SEXO & Incluídos em \fisio{} e \strict{}. \\
+IMC, PAS, PAD, FC & Incluídos em \fisio{} sob hipótese de disponibilidade. Retirados de \strict{}. \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\subsection{Associação e qualidade de dados}
+Ensaios com uma árvore fixa e uma variável por vez, em cinco partições agrupadas, serviram de diagnóstico exploratório. SOPRO atingiu acurácia balanceada de 91,05\%, MOTIVO1 de 67,26\%, MOTIVO2 de 68,69\% e B2 de 55,32\%. A decisão de exclusão seguiu a auditoria semântica e de proveniência. A pontuação isolada mede associação sob aquela configuração, que pode ser baixa mesmo quando há risco de vazamento. O desempenho de SOPRO é compatível com sua proximidade ao rótulo e admite explicações distintas, entre elas valor informativo clínico e incorporação ao critério.
+
+A Fig.~\ref{fig:eda} mostra indisponibilidade após a limpeza e antes da imputação. A pressão arterial tem muito mais ausências do que FC. A mediana de FC é de 90 bpm em \textit{Normal} e 98 bpm em \textit{Anormal}. Os intervalos interquartis (80 a 100 e 88 a 110 bpm) se sobrepõem. Isso fundamenta a análise de sensibilidade e o controle com apenas máscaras de disponibilidade, pois um modelo pode aprender também o padrão de coleta.
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\columnwidth]{disponibilidade.pdf}
+\caption{Percentual de ausências ou valores mascarados no desenvolvimento, após a limpeza e antes da imputação.}
+\label{fig:eda}
+\end{figure}

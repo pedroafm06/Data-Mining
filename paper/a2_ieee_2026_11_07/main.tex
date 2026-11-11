@@ -1,0 +1,61 @@
+% IEEEtran 1.8b, original class in vendor/IEEEtran, conference defaults retained.
+% Compile with tools/build.py; direct final compilation is deliberately blocked.
+\documentclass[conference]{vendor/IEEEtran/IEEEtran}
+\IEEEoverridecommandlockouts
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{amsmath}
+\usepackage{cite}
+\usepackage[hidelinks]{hyperref}
+\usepackage{url}
+\graphicspath{{figures/}}
+
+\ifdefined\AiiDraft
+  \providecommand{\PublicRepositoryURL}{ENDERECO-PUBLICO-PENDENTE}
+\else
+  \ifdefined\AiiFinalConfigured\else
+    \PackageError{A2}{Versao final bloqueada: use tools/build.py --final}{URL publica, resultados novos e verificacoes sao obrigatorios.}
+  \fi
+\fi
+\newcommand{\pendente}[1]{\textbf{[PENDENTE: #1]}}
+\newcommand{\fisio}{\textsc{Fisio8}}
+\newcommand{\strict}{\textsc{Strict4}}
+\hypersetup{pdftitle={Classificacao de registros clinicos com auditoria de vazamento},
+  pdfauthor={Antonio Henrique Queiroz Villar Lopes; Joao Vitor Fernandes Ferreira; Mateus Nery Bailao; Pedro Augusto Ferreira Matos},
+  pdflang={pt-BR}}
+
+\title{Classificação de registros clínicos com auditoria de vazamento de informação\thanks{Repositório público e código reprodutível: \expandafter\url\expandafter{\PublicRepositoryURL}.}}
+\author{\IEEEauthorblockN{Antônio Henrique Queiroz Villar Lopes, João Vitor Fernandes Ferreira\\
+Mateus Nery Bailão, Pedro Augusto Ferreira Matos}
+\IEEEauthorblockA{Instituto de Informática, Universidade Federal de Goiás (UFG)\\Mineração de Dados (2026/2), Goiânia, Brasil}}
+
+\begin{document}
+\maketitle
+\ifdefined\AiiDraft
+\begin{center}\textbf{VERSÃO DE TRABALHO: NÃO SUBMETER}\end{center}
+\fi
+\begin{abstract}
+\input{sections/abstract.tex}
+\end{abstract}
+\begin{IEEEkeywords}
+classificação, dados clínicos, validação cruzada, vazamento de informação.
+\end{IEEEkeywords}
+
+\section{Introdução}
+\input{sections/01_introducao.tex}
+\section{Dados e análise exploratória}
+\input{sections/02_dados.tex}
+\section{Metodologia}
+\input{sections/03_metodologia.tex}
+\section{Resultados e discussão}
+\input{sections/04_resultados.tex}
+\section{Conclusão}
+\input{sections/05_conclusao.tex}
+
+\section*{Declaração de uso de inteligência artificial}
+\input{sections/06_ia.tex}
+\bibliographystyle{vendor/IEEEtran/bibtex/IEEEtran}
+\bibliography{references}
+\end{document}

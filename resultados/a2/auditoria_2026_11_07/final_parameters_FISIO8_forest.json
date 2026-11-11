@@ -1,0 +1,235 @@
+{
+  "candidate": {
+    "kind": "forest",
+    "params": {
+      "n_estimators": 150,
+      "max_depth": 8,
+      "min_samples_leaf": 10,
+      "class_weight": "balanced"
+    },
+    "imputation": "global",
+    "representation": "units",
+    "name": "R095_forest_e81a70e9"
+  },
+  "preprocessor": {
+    "n_fit": 9361,
+    "fit_ids_sha256": "a328db1edad905317c100f62ddd8a453e0346e5a1645df85d7e2ba19641a9f76",
+    "features": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "SEXO"
+    ],
+    "numeric": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC"
+    ],
+    "categorical": [
+      "SEXO"
+    ],
+    "global_medians": {
+      "Peso": 16.0,
+      "Altura": 99.0,
+      "IMC": 16.741071428571427,
+      "IDADE": 3.808219178082192,
+      "PA SISTOLICA": 100.0,
+      "PA DIASTOLICA": 60.0,
+      "FC": 92.0
+    },
+    "age_medians": {
+      "Peso": {},
+      "Altura": {},
+      "IMC": {},
+      "IDADE": {},
+      "PA SISTOLICA": {},
+      "PA DIASTOLICA": {},
+      "FC": {}
+    },
+    "age_bins": [
+      0,
+      0.25,
+      0.5,
+      1,
+      2,
+      5,
+      10,
+      15,
+      20
+    ],
+    "min_count": 30,
+    "age_group_columns": [],
+    "log_columns": [
+      "Peso"
+    ],
+    "vocabularies": {
+      "SEXO": [
+        "F",
+        "M",
+        "__AUSENTE__",
+        "__DESCONHECIDO__"
+      ]
+    },
+    "means": {
+      "Peso": 19.985215254780474,
+      "Altura": 100.34739878218139,
+      "IMC": 17.157890737654554,
+      "IDADE": 4.927924544978509,
+      "PA SISTOLICA": 100.75793184488836,
+      "PA DIASTOLICA": 61.21044760175195,
+      "FC": 95.09475483388528
+    },
+    "scales_ddof0": {
+      "Peso": 15.000555748673772,
+      "Altura": 29.299594147270728,
+      "IMC": 3.050617122838476,
+      "IDADE": 4.3390207907876475,
+      "PA SISTOLICA": 7.709856271432877,
+      "PA DIASTOLICA": 6.154280206230838,
+      "FC": 17.400075491765772
+    },
+    "log_means": {
+      "Peso": 2.8148290457872176,
+      "Altura": 100.34739878218139,
+      "IMC": 17.157890737654554,
+      "IDADE": 4.927924544978509,
+      "PA SISTOLICA": 100.75793184488836,
+      "PA DIASTOLICA": 61.21044760175195,
+      "FC": 95.09475483388528
+    },
+    "log_scales_ddof0": {
+      "Peso": 0.6923269061853405,
+      "Altura": 29.299594147270728,
+      "IMC": 3.050617122838476,
+      "IDADE": 4.3390207907876475,
+      "PA SISTOLICA": 7.709856271432877,
+      "PA DIASTOLICA": 6.154280206230838,
+      "FC": 17.400075491765772
+    },
+    "dictionary": [
+      {
+        "name": "Peso",
+        "source": "Peso",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "Altura",
+        "source": "Altura",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "IMC",
+        "source": "IMC",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "IDADE",
+        "source": "IDADE",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "PA SISTOLICA",
+        "source": "PA SISTOLICA",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "PA DIASTOLICA",
+        "source": "PA DIASTOLICA",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "FC",
+        "source": "FC",
+        "kind": "continuous_measurement"
+      },
+      {
+        "name": "Peso__imputado",
+        "source": "Peso",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "Altura__imputado",
+        "source": "Altura",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "IMC__imputado",
+        "source": "IMC",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "IDADE__imputado",
+        "source": "IDADE",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "PA SISTOLICA__imputado",
+        "source": "PA SISTOLICA",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "PA DIASTOLICA__imputado",
+        "source": "PA DIASTOLICA",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "FC__imputado",
+        "source": "FC",
+        "kind": "binary_missing_or_masked"
+      },
+      {
+        "name": "SEXO__000",
+        "source": "SEXO",
+        "category": "F",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SEXO__001",
+        "source": "SEXO",
+        "category": "M",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SEXO__002",
+        "source": "SEXO",
+        "category": "__AUSENTE__",
+        "kind": "one_hot_binary"
+      },
+      {
+        "name": "SEXO__003",
+        "source": "SEXO",
+        "category": "__DESCONHECIDO__",
+        "kind": "one_hot_binary"
+      }
+    ],
+    "binary_columns_scaled": false,
+    "target_received": false,
+    "imputed_BMI_not_recomputed_from_imputed_parents": true,
+    "cv_warning": "Refit this transformer inside every training fold for future CV; do not CV a once-transformed development matrix."
+  },
+  "training_metrics_descriptive": {
+    "n": 9361,
+    "prevalence": 0.4237795107360325,
+    "tn": 3759,
+    "fp": 1635,
+    "fn": 1473,
+    "tp": 2494,
+    "recall": 0.6286866649861356,
+    "specificity": 0.6968854282536151,
+    "precision": 0.6040203439089368,
+    "f1": 0.616106719367589,
+    "balanced_accuracy": 0.6627860466198754,
+    "roc_auc": 0.7272843001480793,
+    "average_precision": 0.6698084950361696,
+    "brier": 0.21323448397556485,
+    "accuracy": 0.6679841897233202
+  }
+}
