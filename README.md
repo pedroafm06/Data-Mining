@@ -1,96 +1,65 @@
-# Mineração de Dados - A2: processo completo do KDD
+# Mineração de Dados — A2: classificação de registros de cardiologia pediátrica (UCMF)
 
-Trabalho da disciplina INF0414, UFG, 2026/2. Base UCMF: 12.873 registros e 21 variáveis. Grupo: Antônio Henrique Queiroz Villar Lopes, João Vitor Fernandes Ferreira, Mateus Nery Bailão e Pedro Augusto Ferreira Matos. Professor: Rogério Lopes Salvini.
+INF0414, UFG, 2026/2. Grupo 3: Antônio Henrique Queiroz Villar Lopes, João Vitor Fernandes Ferreira, Mateus Nery Bailão e Pedro Augusto Ferreira Matos. Professor: Rogério Lopes Salvini.
 
-**A A2 aproveita e melhora a A1 e completa o KDD inteiro.** A A1 avaliada continua sendo a versão já entregue. A versão atual inclui entendimento do domínio e dos dados, seleção, limpeza, transformação, mineração, avaliação, interpretação e aplicação/documentação do conhecimento. A entrega da A2 segue a descrição publicada no SIGAA.
+## 1. Artigo
 
-## Entrega da A2
+[**Artigo_A2_IEEE.pdf**](paper/a2_ieee_2026_11_07/output/pdf/Artigo_A2_IEEE.pdf): formato IEEE de conferências, 5 páginas em 2 colunas. Fontes LaTeX em [`paper/a2_ieee_2026_11_07/`](paper/a2_ieee_2026_11_07/).
 
-- [Artigo em PDF](paper/a2_ieee_2026_11_07/output/pdf/Artigo_A2_IEEE.pdf) no formato IEEE de conferências.
-- [Apresentação editável](presentation/a2_2026_11_07/output/Apresentacao_A2_UCMF.pptx), [slides em PDF](presentation/a2_2026_11_07/output/Apresentacao_A2_UCMF.pdf) e [roteiro de 14 min 30 s com arguição](presentation/a2_2026_11_07/output/Roteiro_e_Arguicao.md).
-- [Auditoria das 21 variáveis](docs/a2/auditoria_2026_11_07/Parecer_Semantico_e_Decisoes.md), [verificação experimental](docs/a2/auditoria_2026_11_07/Verificacao_Experimental.json) e [conferência da rubrica](docs/a2/auditoria_2026_11_07/conformidade_rubrica.json).
-- [Código e instruções de reprodução da A2](#reproduzir-a-revisão-da-a2).
+## 2. Slides
 
-### Resultados da revisão
+[**Slides em PDF**](presentation/a2_2026_11_07/output/Apresentacao_A2_UCMF.pdf) (15 slides) · [PowerPoint editável](presentation/a2_2026_11_07/output/Apresentacao_A2_UCMF.pptx) · [roteiro de 14 min 30 s com perguntas de arguição](presentation/a2_2026_11_07/output/Roteiro_e_Arguicao.md).
 
-A revisão refez a comparação com 105 configurações por cenário e validação cruzada aninhada de cinco folds externos e três internos, com estratificação e agrupamento por equivalência candidata. O conjunto de 9.361 registros de desenvolvimento é o mesmo para todos os procedimentos. O teste histórico ficou fora da pontuação.
+## 3. Onde está o código de cada tabela e figura
 
-| Cenário | Melhor família pela BA | BA | Sensibilidade |
-|---|---|---:|---:|
-| FISIO8 | Floresta aleatória | 62,87% | 59,29% |
-| STRICT4 | Regressão logística | 59,74% | 52,03% |
+Nenhum número do artigo ou dos slides é digitado à mão. Todos vêm de [`reviewed_results.json`](resultados/a2/auditoria_2026_11_07/reviewed_results.json).
 
-SOPRO, B2, PULSOS, PPA, HDA1, HDA2, MOTIVO1 e MOTIVO2 ficam fora dos preditores nos dois cenários. A revisão também examina a informação contida em padrões de ausência, a dependência dos atributos por permutação e o comportamento com rótulos embaralhados. A cronologia da coleta e o critério diagnóstico de referência continuam desconhecidos. [Métricas e experimentos da revisão](resultados/a2/auditoria_2026_11_07/).
+| Saída | Código |
+|---|---|
+| Experimentos (3 cenários × 4 famílias, validação aninhada, teste histórico) | [`src/kdd_revision/rubric_audit.py`](src/kdd_revision/rubric_audit.py), executado por [`tools/run_rubric_audit.py`](tools/run_rubric_audit.py) |
+| `reviewed_results.json`, análise de erros, reconciliação A1/A2, agregados da EDA | [`tools/export_rubric_audit.py`](tools/export_rubric_audit.py) |
+| Fig. 1 (alvo, achados de exame, idade e FC) e Fig. 2 (importância) | [`paper/.../tools/figura_eda.py`](paper/a2_ieee_2026_11_07/tools/figura_eda.py) |
+| Tabelas II, III e IV e todos os números do texto | [`paper/.../tools/gerar_numeros.py`](paper/a2_ieee_2026_11_07/tools/gerar_numeros.py) → `generated/*.tex` |
+| Tabela I (decisão por atributo) | lista de atributos em `rubric_audit.py` (`CLINICO`, `EXCLUDED_REASONS`) |
+| Slides e roteiro | [`presentation/.../build_data.py`](presentation/a2_2026_11_07/build_data.py) e [`build_deck.mjs`](presentation/a2_2026_11_07/build_deck.mjs) |
+| Limpeza e transformação | [`src/kdd_revision/preprocessing/`](src/kdd_revision/preprocessing/) |
 
-## Reproduzir a revisão da A2
+## 4. Como reproduzir
 
-Use o arquivo original `UCMF_raw.csv` disponibilizado na disciplina. O ambiente de referência usa Python 3.14.6 no macOS. Na raiz do repositório, execute:
+**A base `UCMF_raw.csv` não está no repositório**, por ser dado clínico da disciplina. Use a cópia distribuída no SIGAA (SHA-256 `35e68400…24ea1`, conferido pelo código) e coloque-a em `dados/raw/UCMF_raw.csv` ou passe `--source`.
 
 ```sh
-python3.14 -m venv .venv
-source .venv/bin/activate
-python -m pip install -r requirements.lock
-python tools/run_rubric_audit.py --source "/caminho/para/UCMF_raw.csv"
-python tools/export_rubric_audit.py --source "/caminho/para/UCMF_raw.csv"
-python -m pytest -q
-```
-
-O programa verifica a versão da fonte pelo SHA-256 e reconstrói a partição de desenvolvimento a partir das regras e sementes. O protocolo fixa `random_state=42` nos estimadores estocásticos, 743 nos folds externos, 811 mais o índice do fold nos internos e 43 na seleção final. Dados clínicos, previsões por registro e modelos ajustados ficam em arquivos locais ignorados pelo Git. As [métricas externas](resultados/a2/auditoria_2026_11_07/family_nested_metrics.csv) e a [síntese dos resultados](resultados/a2/auditoria_2026_11_07/reviewed_results.json) estão disponíveis no repositório.
-
-## Desenvolvimento anterior da A2
-
-- [Relatório integrado em PDF](docs/a2/Relatorio_A2_KDD_Completo.pdf) · [versão em texto](docs/a2/Relatorio_A2_KDD_Completo.md).
-- [Decisões, alternativas e justificativas](docs/a2/Decisoes_KDD_Completo.md) · [registro estruturado das microdecisões](docs/a2/Registro_Microdecisoes.csv).
-- [Notebook completo executado](notebooks/02_kdd_completo_a2.ipynb).
-- [Conceitos utilizados](docs/a2/Conceitos_Utilizados.md) · [estado e verificação](docs/a2/Estado_e_Verificacao.md).
-- [Resultados, parâmetros por fold e finais](resultados/a2/kdd_completo/).
-
-O relatório de [pré-processamento](docs/a2/Relatorio_Preprocessamento_A2.pdf), suas [decisões por variável](docs/a2/Decisoes_Preprocessamento_A2.md) e o [notebook da preparação](notebooks/01_preprocessamento_a2.ipynb) são componentes da A2 completa. A [A1 entregue](docs/a1_entregue/README.md) permanece preservada byte a byte. Os [experimentos com a preparação anterior](docs/historico/README.md) estão separados dos resultados atuais.
-
-### Comparação histórica de cenários
-
-A revisão preserva todas as linhas e os originais, separa erro, suspeita e estimativa, corrige idade relativa quando defensável e aplica representações numéricas explícitas. A mineração compara **81 configurações em cada um de três cenários**, com mediana global/etária e demais parâmetros aprendidos dentro de cada treino de fold. Há CV5-fold, avaliação aninhada3x3 no desenvolvimento e avaliação secundária no teste histórico, já explorado anteriormente.
-
-Foram testados controle majoritário, árvores com diferentes critérios/complexidades/poda/pesos, logística com regularização e representações alternativas, e florestas complementares. Redução, indicadores, qualidade, PCA e sobre/subamostragem foram contestados no desenvolvimento. Os resultados incluem métricas, curvas, intervalos, subgrupos, interpretação e aplicação aos não rotulados. A hipótese inicial de cobertura da aplicação foi rejeitada e substituída por uma regra de suporte explicitada; previsões não viram rótulos de treino.
-
-| Cenário | Informação disponível | BA nested no desenvolvimento | BA no teste histórico |
-|---|---|---:|---:|
-| A | Medidas, achados e contexto | 0,9191 | 0,9292 |
-| B | Sete medidas e SEXO | 0,6309 | 0,6523 |
-| B_contexto | A sem PULSOS, B2 e SOPRO | 0,7096 | 0,7416 |
-
-Esses números classificam o rótulo registrado. Não são validação clínica ou estimativa de desempenho em pacientes novos. A diferença entre cenários não prova causalidade; o relatório mostra suportes, erros, alternativas, instabilidade da seleção e limites de cobertura.
-
-## Reproduzir os experimentos anteriores
-
-Requer Python 3.11 ou superior. A execução registrada usou Python3.14 e as versões de `requirements.lock` em macOS.
-
-```bash
 python -m venv .venv
-source .venv/bin/activate
-python -m pip install -e ".[dev]"
-```
-
-Coloque a cópia da base fornecida pela disciplina em `dados/raw/UCMF_raw.csv`; [origem e hash esperados](dados/README.md). Em seguida:
-
-```bash
-python tools/run_full_kdd.py
-python tools/build_full_kdd_notebook.py
+.venv/Scripts/activate            # Windows; no macOS/Linux: source .venv/bin/activate
+python -m pip install -r requirements.lock
+python tools/run_rubric_audit.py --source dados/raw/UCMF_raw.csv      # ~20 min
+python tools/export_rubric_audit.py --source dados/raw/UCMF_raw.csv
 python -m pytest -q
+cd paper/a2_ieee_2026_11_07
+python tools/bootstrap.py && python tools/gerar_numeros.py && python tools/figura_eda.py
+python tools/build.py --final
 ```
 
-O primeiro comando refaz a busca. O notebook reutiliza uma busca concluída somente após verificar compatibilidade e reaplicar os modelos; num clone sem artefatos, ele executa a busca. Para atualizar aplicação e relatório reutilizando explicitamente modelos compatíveis:
+O primeiro comando reconstrói a partição de desenvolvimento e confere seu SHA-256 com o publicado. Registros clínicos, previsões por registro e modelos ajustados ficam em `artifacts/`, ignorado pelo Git; `resultados/` só tem agregados. Para os slides, veja o [README da apresentação](presentation/a2_2026_11_07/README.md).
 
-```bash
-python tools/run_full_kdd.py --reuse-mining
-```
+## 5. Sementes
 
-`--source /caminho/UCMF_raw.csv` permite entrada externa. `KDD_SOURCE` é reconhecido pelos notebooks; seus geradores também aceitam `--source`. As instruções detalhadas estão no [guia de reprodução](docs/Reproducao.md).
+`random_state=42` nos estimadores; 743 nos 5 *folds* externos; 811+k nos 3 *folds* internos do *fold* externo k; 43 na escolha do modelo final; 1700+k na importância por permutação; 911 e 914 no controle com rótulos embaralhados.
 
-## Organização e rastreabilidade
+## 6. Resultados
 
-`src/kdd_revision/preprocessing/` implementa a preparação atual; `mining.py` e `full_kdd.py` implementam a busca e avaliação; `application.py` verifica cobertura; `reproduction.py` confere a execução salva. `config/a2_kdd_protocol.json` congela candidatos, critérios e seeds; `a2_application_policy.json` registra a revisão independente da cobertura. As decisões de limpeza, os parâmetros efetivos dos estimadores e as fontes didáticas verificadas também estão em `config/`.
+Validação cruzada aninhada no desenvolvimento (9.361 registros), melhor família de cada cenário pela acurácia balanceada (BA). O teste histórico (2.342 registros, já examinado em fases anteriores) é avaliação secundária.
 
-`artifacts/` guarda localmente bases, proveniência, matrizes, predições, modelos e manifestos. `resultados/` contém apenas agregados e parâmetros de ajuste. Dados clínicos por registro e objetos serializados não são distribuídos pelo Git. A partição de referência contém apenas IDs e grupos candidatos para reproduzir a separação histórica.
+| Cenário | Atributos | Melhor família | BA | Sensibilidade | Especificidade | BA no teste histórico |
+|---|---|---|---:|---:|---:|---:|
+| **CLINICO** (principal) | 13: medidas, sinais vitais, PPA, exame físico, HDA1 | Árvore | 91,94% | 87,50% | 96,38% | 92,92% |
+| FISIO8 (sensibilidade) | 8: medidas, sinais vitais, sexo | Floresta | 62,91% | 58,91% | 66,91% | 65,23% |
+| STRICT4 (sensibilidade) | 4: peso, altura, idade, sexo | Logística | 59,74% | 52,03% | 67,45% | 60,33% |
 
-A qualidade foi explorada na coorte completa; nested CV não desfaz essa exploração. Grupos candidatos não comprovam identidade de pacientes. A1 preservada, teste explorado e decisões operacionais são explicitados, sem alegação de ótimo universal ou de submissão no SIGAA.
+No CLINICO, árvore, logística e floresta diferem menos de 0,05 ponto de BA, porque o sopro concentra a informação. Ficam fora dos preditores: ID, datas brutas, Convênio, MOTIVO1, MOTIVO2 e HDA2. A justificativa está no artigo.
+
+Esta execução foi feita no Windows com o `requirements.lock`. Árvore, logística e referência reproduzem exatamente a execução anterior em macOS; a floresta aleatória mostra pequenas diferenças entre plataformas com as mesmas sementes (por exemplo, BA de FISIO8 62,87% → 62,91%).
+
+---
+
+O desenvolvimento anterior da A2 e a comparação histórica de cenários estão em [`docs/historico/`](docs/historico/README.md). A [A1 entregue](docs/a1_entregue/README.md) permanece preservada byte a byte.
