@@ -1,37 +1,286 @@
 {
-  "run_date": "2026-11-07",
+  "run_date": "2026-11-12",
   "dataset": "UCMF, disponibilizado na disciplina INF0414; origem descrita como Real Hospital Português, Recife",
   "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
-  "rubric_sha256": "bf38c1c6f777f249c2af733a957a2860787446233acd2325c54c26bc1fda545a",
+  "protocol_sha256": "4d423774ceb45d237d08fa629fb89f10082bf20e4e98392f4aafb4bb3de209ae",
   "n_original": 12873,
   "n_original_variables": 21,
-  "n_labelled": 11704,
-  "n_unlabelled": 1169,
-  "n_quarantine": 1,
-  "n_historical_test_not_rescored": 2342,
   "n_development": 9361,
+  "n_historical_test": 2342,
   "development_class_counts": {
     "0": 5394,
     "1": 3967
   },
-  "n_candidate_components": 9279,
-  "primary_pool": [
-    "Peso",
-    "Altura",
-    "IMC",
-    "IDADE",
-    "PA SISTOLICA",
-    "PA DIASTOLICA",
-    "FC",
-    "SEXO"
+  "n_groups_development": 9279,
+  "pools": {
+    "CLINICO": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "SEXO",
+      "PPA",
+      "SOPRO",
+      "B2",
+      "PULSOS",
+      "HDA 1"
+    ],
+    "FISIO8": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "SEXO"
+    ],
+    "STRICT4": [
+      "Peso",
+      "Altura",
+      "IDADE",
+      "SEXO"
+    ]
+  },
+  "primary_pool": "CLINICO",
+  "sensitivity_pools": [
+    "FISIO8",
+    "STRICT4"
   ],
-  "sensitivity_pool": [
-    "Peso",
-    "Altura",
-    "IDADE",
-    "SEXO"
-  ],
+  "excluded_fields": {
+    "ID": "identificador",
+    "Atendimento": "data bruta (a idade derivada entra como IDADE)",
+    "DN": "data bruta (a idade derivada entra como IDADE)",
+    "Convenio": "origem do paciente/encaminhamento, nao achado clinico",
+    "MOTIVO1": "motivo do encaminhamento com conteudo diagnostico explicito",
+    "MOTIVO2": "motivo do encaminhamento com conteudo diagnostico explicito",
+    "HDA2": "mais de 50% de ausentes (regra da A1)",
+    "NORMAL X ANORMAL": "alvo"
+  },
+  "best_family_by_pool": {
+    "CLINICO": "tree",
+    "FISIO8": "forest",
+    "STRICT4": "logistic"
+  },
+  "final_choices": {
+    "CLINICO": {
+      "dummy": {
+        "kind": "dummy",
+        "params": {},
+        "imputation": "global",
+        "representation": "units",
+        "name": "R000_dummy_20708f9d"
+      },
+      "tree": {
+        "kind": "tree",
+        "params": {
+          "criterion": "gini",
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "class_weight": null
+        },
+        "imputation": "global",
+        "representation": "units",
+        "name": "R001_tree_b294e31b"
+      },
+      "logistic": {
+        "kind": "logistic",
+        "params": {
+          "C": 10.0,
+          "class_weight": "balanced"
+        },
+        "imputation": "age",
+        "representation": "standard",
+        "name": "R079_logistic_6f9032fe"
+      },
+      "forest": {
+        "kind": "forest",
+        "params": {
+          "n_estimators": 150,
+          "max_depth": null,
+          "min_samples_leaf": 10,
+          "class_weight": "balanced"
+        },
+        "imputation": "global",
+        "representation": "units",
+        "name": "R103_forest_6cd06815"
+      }
+    },
+    "FISIO8": {
+      "dummy": {
+        "kind": "dummy",
+        "params": {},
+        "imputation": "global",
+        "representation": "units",
+        "name": "R000_dummy_20708f9d"
+      },
+      "tree": {
+        "kind": "tree",
+        "params": {
+          "criterion": "gini",
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "class_weight": "balanced"
+        },
+        "imputation": "age",
+        "representation": "units",
+        "name": "R004_tree_92975b65"
+      },
+      "logistic": {
+        "kind": "logistic",
+        "params": {
+          "C": 10.0,
+          "class_weight": "balanced"
+        },
+        "imputation": "age",
+        "representation": "log_weight_standard",
+        "name": "R080_logistic_753b06f2"
+      },
+      "forest": {
+        "kind": "forest",
+        "params": {
+          "n_estimators": 150,
+          "max_depth": 8,
+          "min_samples_leaf": 10,
+          "class_weight": "balanced"
+        },
+        "imputation": "global",
+        "representation": "units",
+        "name": "R095_forest_e81a70e9"
+      }
+    },
+    "STRICT4": {
+      "dummy": {
+        "kind": "dummy",
+        "params": {},
+        "imputation": "global",
+        "representation": "units",
+        "name": "R000_dummy_20708f9d"
+      },
+      "tree": {
+        "kind": "tree",
+        "params": {
+          "criterion": "gini",
+          "max_depth": 6,
+          "min_samples_leaf": 50,
+          "class_weight": "balanced"
+        },
+        "imputation": "age",
+        "representation": "units",
+        "name": "R020_tree_42c49831"
+      },
+      "logistic": {
+        "kind": "logistic",
+        "params": {
+          "C": 0.1,
+          "class_weight": "balanced"
+        },
+        "imputation": "age",
+        "representation": "log_weight_standard",
+        "name": "R064_logistic_9c6d0549"
+      },
+      "forest": {
+        "kind": "forest",
+        "params": {
+          "n_estimators": 150,
+          "max_depth": 8,
+          "min_samples_leaf": 30,
+          "class_weight": "balanced"
+        },
+        "imputation": "age",
+        "representation": "units",
+        "name": "R092_forest_65f11b96"
+      }
+    }
+  },
   "metrics": [
+    {
+      "pool": "CLINICO",
+      "family": "dummy",
+      "mean_fold_BA": 0.5,
+      "sd_fold_BA": 0.0,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 5394,
+      "fp": 0,
+      "fn": 3967,
+      "tp": 0,
+      "recall": 0.0,
+      "specificity": 1.0,
+      "precision": 0.0,
+      "f1": 0.0,
+      "balanced_accuracy": 0.5,
+      "roc_auc": 0.5,
+      "average_precision": 0.4237795107360325,
+      "brier": 0.4237795107360325,
+      "accuracy": 0.5762204892639675
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "mean_fold_BA": 0.9194070133466841,
+      "sd_fold_BA": 0.006235392134012802,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 5199,
+      "fp": 195,
+      "fn": 496,
+      "tp": 3471,
+      "recall": 0.8749684900428536,
+      "specificity": 0.9638487208008899,
+      "precision": 0.9468085106382979,
+      "f1": 0.9094720293462597,
+      "balanced_accuracy": 0.9194086054218717,
+      "roc_auc": 0.9228833230099376,
+      "average_precision": 0.9137658849722895,
+      "brier": 0.0673406912092838,
+      "accuracy": 0.9261831000961436
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "mean_fold_BA": 0.9189958405672222,
+      "sd_fold_BA": 0.005642043653499492,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 5200,
+      "fp": 194,
+      "fn": 500,
+      "tp": 3467,
+      "recall": 0.8739601714141669,
+      "specificity": 0.96403411197627,
+      "precision": 0.9470090139306201,
+      "f1": 0.9090194022024122,
+      "balanced_accuracy": 0.9189971416952185,
+      "roc_auc": 0.9402416291468015,
+      "average_precision": 0.9370024948029713,
+      "brier": 0.0658728581722807,
+      "accuracy": 0.9258626215147955
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "mean_fold_BA": 0.9191478583527717,
+      "sd_fold_BA": 0.006341614322860432,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 5203,
+      "fp": 191,
+      "fn": 501,
+      "tp": 3466,
+      "recall": 0.8737080917569953,
+      "specificity": 0.9645902855024101,
+      "precision": 0.9477713973202079,
+      "f1": 0.9092339979013642,
+      "balanced_accuracy": 0.9191491886297027,
+      "roc_auc": 0.9474387977791192,
+      "average_precision": 0.9442672849232656,
+      "brier": 0.06793833253637141,
+      "accuracy": 0.9260762739023609
+    },
     {
       "pool": "FISIO8",
       "family": "dummy",
@@ -90,31 +339,31 @@
       "precision": 0.5588832487309645,
       "f1": 0.5569748324269634,
       "balanced_accuracy": 0.6164347711407394,
-      "roc_auc": 0.6564064544729837,
-      "average_precision": 0.566682362139382,
-      "brier": 0.23185401494856034,
+      "roc_auc": 0.6564059871395445,
+      "average_precision": 0.5666821312096786,
+      "brier": 0.23185401494855956,
       "accuracy": 0.6257878431791475
     },
     {
       "pool": "FISIO8",
       "family": "forest",
-      "mean_fold_BA": 0.6286696922570061,
-      "sd_fold_BA": 0.016778687103510735,
+      "mean_fold_BA": 0.6290980591980082,
+      "sd_fold_BA": 0.01667619008771533,
       "n": 9361,
       "prevalence": 0.4237795107360325,
-      "tn": 3584,
-      "fp": 1810,
-      "fn": 1615,
-      "tp": 2352,
-      "recall": 0.592891353667759,
-      "specificity": 0.664441972562106,
-      "precision": 0.565112926477655,
-      "f1": 0.5786689629720753,
-      "balanced_accuracy": 0.6286666631149325,
-      "roc_auc": 0.6720529415882738,
-      "average_precision": 0.5954611059637176,
-      "brier": 0.2264072891247969,
-      "accuracy": 0.6341202862941994
+      "tn": 3609,
+      "fp": 1785,
+      "fn": 1630,
+      "tp": 2337,
+      "recall": 0.589110158810184,
+      "specificity": 0.6690767519466073,
+      "precision": 0.5669577874818049,
+      "f1": 0.5778217332179503,
+      "balanced_accuracy": 0.6290934553783957,
+      "roc_auc": 0.6720001095429582,
+      "average_precision": 0.5954583667134956,
+      "brier": 0.22652039669224408,
+      "accuracy": 0.6351885482320265
     },
     {
       "pool": "STRICT4",
@@ -174,43 +423,263 @@
       "precision": 0.5403141361256545,
       "f1": 0.5301142930525234,
       "balanced_accuracy": 0.597372754217474,
-      "roc_auc": 0.6366025223481188,
+      "roc_auc": 0.6366031065149179,
       "average_precision": 0.5577815758482103,
-      "brier": 0.23375283204445196,
+      "brier": 0.23375283204445202,
       "accuracy": 0.609122956949044
     },
     {
       "pool": "STRICT4",
       "family": "forest",
-      "mean_fold_BA": 0.5948029479101697,
-      "sd_fold_BA": 0.006180303917936876,
+      "mean_fold_BA": 0.5966793512454599,
+      "sd_fold_BA": 0.005146858982074203,
       "n": 9361,
       "prevalence": 0.4237795107360325,
-      "tn": 3791,
-      "fp": 1603,
-      "fn": 2036,
-      "tp": 1931,
-      "recall": 0.4867658179984875,
-      "specificity": 0.7028179458657768,
-      "precision": 0.5464063384267119,
-      "f1": 0.5148646847087055,
-      "balanced_accuracy": 0.5947918819321322,
-      "roc_auc": 0.6426665943234503,
-      "average_precision": 0.5742689981673788,
-      "brier": 0.23205271167537775,
-      "accuracy": 0.6112594808246982
+      "tn": 3761,
+      "fp": 1633,
+      "fn": 1999,
+      "tp": 1968,
+      "recall": 0.49609276531383917,
+      "specificity": 0.6972562106043753,
+      "precision": 0.546514856984171,
+      "f1": 0.5200845665961945,
+      "balanced_accuracy": 0.5966744879591073,
+      "roc_auc": 0.6435219780841179,
+      "average_precision": 0.5746291425698515,
+      "brier": 0.2319992027026318,
+      "accuracy": 0.6120072641811772
     }
   ],
-  "missing_percent_by_fisio_variable": {
-    "Peso": 18.406153188761884,
-    "Altura": 31.438948830253178,
-    "IMC": 34.56895630808674,
-    "IDADE": 7.371007371007371,
-    "PA SISTOLICA": 55.955560303386385,
-    "PA DIASTOLICA": 56.03033863903429,
-    "FC": 6.153188761884414,
-    "SEXO": 5.747249225510095
-  },
+  "historical_test_metrics": [
+    {
+      "pool": "CLINICO",
+      "family": "dummy",
+      "n": 2342,
+      "prevalence": 0.42356959863364646,
+      "tn": 1350,
+      "fp": 0,
+      "fn": 992,
+      "tp": 0,
+      "recall": 0.0,
+      "specificity": 1.0,
+      "precision": 0.0,
+      "f1": 0.0,
+      "balanced_accuracy": 0.5,
+      "roc_auc": 0.5,
+      "average_precision": 0.42356959863364646,
+      "brier": 0.42356959863364646,
+      "accuracy": 0.5764304013663536
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "n": 2342,
+      "prevalence": 0.42356959863364646,
+      "tn": 1310,
+      "fp": 40,
+      "fn": 111,
+      "tp": 881,
+      "recall": 0.8881048387096774,
+      "specificity": 0.9703703703703703,
+      "precision": 0.9565689467969598,
+      "f1": 0.9210663878724517,
+      "balanced_accuracy": 0.9292376045400239,
+      "roc_auc": 0.9352012395459975,
+      "average_precision": 0.9144997401611517,
+      "brier": 0.05951594890073107,
+      "accuracy": 0.9355251921434671
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "n": 2342,
+      "prevalence": 0.42356959863364646,
+      "tn": 1311,
+      "fp": 39,
+      "fn": 109,
+      "tp": 883,
+      "recall": 0.8901209677419355,
+      "specificity": 0.9711111111111111,
+      "precision": 0.9577006507592191,
+      "f1": 0.922675026123302,
+      "balanced_accuracy": 0.9306160394265233,
+      "roc_auc": 0.9517140830346477,
+      "average_precision": 0.9506159169060052,
+      "brier": 0.05844081326967987,
+      "accuracy": 0.9368061485909479
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "n": 2342,
+      "prevalence": 0.42356959863364646,
+      "tn": 1312,
+      "fp": 38,
+      "fn": 113,
+      "tp": 879,
+      "recall": 0.8860887096774194,
+      "specificity": 0.9718518518518519,
+      "precision": 0.9585605234460196,
+      "f1": 0.9209009952854897,
+      "balanced_accuracy": 0.9289702807646356,
+      "roc_auc": 0.9586443399044204,
+      "average_precision": 0.958607436189165,
+      "brier": 0.05897817817332963,
+      "accuracy": 0.9355251921434671
+    },
+    {
+      "pool": "FISIO8",
+      "family": "dummy",
+      "n": 2342,
+      "prevalence": 0.42356959863364646,
+      "tn": 1350,
+      "fp": 0,
+      "fn": 992,
+      "tp": 0,
+      "recall": 0.0,
+      "specificity": 1.0,
+      "precision": 0.0,
+      "f1": 0.0,
+      "balanced_accuracy": 0.5,
+      "roc_auc": 0.5,
+      "average_precision": 0.42356959863364646,
+      "brier": 0.42356959863364646,
+      "accuracy": 0.5764304013663536
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "n": 2342,
+      "prevalence": 0.42356959863364646,
+      "tn": 976,
+      "fp": 374,
+      "fn": 434,
+      "tp": 558,
+      "recall": 0.5625,
+      "specificity": 0.7229629629629629,
+      "precision": 0.5987124463519313,
+      "f1": 0.58004158004158,
+      "balanced_accuracy": 0.6427314814814815,
+      "roc_auc": 0.6614684139784947,
+      "average_precision": 0.5653330361932675,
+      "brier": 0.225075809148538,
+      "accuracy": 0.6549957301451751
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "n": 2342,
+      "prevalence": 0.42356959863364646,
+      "tn": 943,
+      "fp": 407,
+      "fn": 438,
+      "tp": 554,
+      "recall": 0.5584677419354839,
+      "specificity": 0.6985185185185185,
+      "precision": 0.5764828303850156,
+      "f1": 0.5673323092677931,
+      "balanced_accuracy": 0.6284931302270012,
+      "roc_auc": 0.6714012096774195,
+      "average_precision": 0.5948555487852332,
+      "brier": 0.22794606880153964,
+      "accuracy": 0.639197267292912
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "n": 2342,
+      "prevalence": 0.42356959863364646,
+      "tn": 927,
+      "fp": 423,
+      "fn": 379,
+      "tp": 613,
+      "recall": 0.6179435483870968,
+      "specificity": 0.6866666666666666,
+      "precision": 0.5916988416988417,
+      "f1": 0.6045364891518737,
+      "balanced_accuracy": 0.6523051075268818,
+      "roc_auc": 0.6962208781362007,
+      "average_precision": 0.6371545780514334,
+      "brier": 0.22033688989679326,
+      "accuracy": 0.6575576430401366
+    },
+    {
+      "pool": "STRICT4",
+      "family": "dummy",
+      "n": 2342,
+      "prevalence": 0.42356959863364646,
+      "tn": 1350,
+      "fp": 0,
+      "fn": 992,
+      "tp": 0,
+      "recall": 0.0,
+      "specificity": 1.0,
+      "precision": 0.0,
+      "f1": 0.0,
+      "balanced_accuracy": 0.5,
+      "roc_auc": 0.5,
+      "average_precision": 0.42356959863364646,
+      "brier": 0.42356959863364646,
+      "accuracy": 0.5764304013663536
+    },
+    {
+      "pool": "STRICT4",
+      "family": "tree",
+      "n": 2342,
+      "prevalence": 0.42356959863364646,
+      "tn": 902,
+      "fp": 448,
+      "fn": 434,
+      "tp": 558,
+      "recall": 0.5625,
+      "specificity": 0.6681481481481482,
+      "precision": 0.5546719681908548,
+      "f1": 0.5585585585585585,
+      "balanced_accuracy": 0.6153240740740741,
+      "roc_auc": 0.6702774044205496,
+      "average_precision": 0.6050481191148883,
+      "brier": 0.2253946237850145,
+      "accuracy": 0.623398804440649
+    },
+    {
+      "pool": "STRICT4",
+      "family": "logistic",
+      "n": 2342,
+      "prevalence": 0.42356959863364646,
+      "tn": 856,
+      "fp": 494,
+      "fn": 424,
+      "tp": 568,
+      "recall": 0.5725806451612904,
+      "specificity": 0.6340740740740741,
+      "precision": 0.5348399246704332,
+      "f1": 0.5530671859785784,
+      "balanced_accuracy": 0.6033273596176822,
+      "roc_auc": 0.6591031959378734,
+      "average_precision": 0.5915771134847644,
+      "brier": 0.23080696797668382,
+      "accuracy": 0.6080273270708796
+    },
+    {
+      "pool": "STRICT4",
+      "family": "forest",
+      "n": 2342,
+      "prevalence": 0.42356959863364646,
+      "tn": 953,
+      "fp": 397,
+      "fn": 473,
+      "tp": 519,
+      "recall": 0.5231854838709677,
+      "specificity": 0.705925925925926,
+      "precision": 0.5665938864628821,
+      "f1": 0.5440251572327044,
+      "balanced_accuracy": 0.6145557048984469,
+      "roc_auc": 0.6756018518518518,
+      "average_precision": 0.6256496251018935,
+      "brier": 0.22535586440189603,
+      "accuracy": 0.6285226302305722
+    }
+  ],
   "variable_probes": [
     {
       "variable": "ID",
@@ -446,6 +915,26 @@
   ],
   "collection_controls": [
     {
+      "pool": "CLINICO",
+      "kind": "availability_masks_only",
+      "n_features": 13,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 3016,
+      "fp": 2378,
+      "fn": 1754,
+      "tp": 2213,
+      "recall": 0.5578522813208974,
+      "specificity": 0.5591397849462365,
+      "precision": 0.48203005881071664,
+      "f1": 0.5171769104931059,
+      "balanced_accuracy": 0.5584960331335669,
+      "roc_auc": 0.5836739960439289,
+      "average_precision": 0.49462847375785735,
+      "brier": 0.24194838086266,
+      "accuracy": 0.5585941672898195
+    },
+    {
       "pool": "FISIO8",
       "kind": "availability_masks_only",
       "n_features": 8,
@@ -487,6 +976,39 @@
     }
   ],
   "null_control": [
+    {
+      "pool": "CLINICO",
+      "fixed_candidate": {
+        "kind": "tree",
+        "params": {
+          "criterion": "gini",
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "class_weight": "balanced"
+        },
+        "imputation": "global",
+        "representation": "units",
+        "name": "R003_tree_d21bda81"
+      },
+      "metric": {
+        "n": 9361,
+        "prevalence": 0.4237795107360325,
+        "tn": 3018,
+        "fp": 2376,
+        "fn": 2176,
+        "tp": 1791,
+        "recall": 0.45147466599445424,
+        "specificity": 0.5595105672969967,
+        "precision": 0.4298056155507559,
+        "f1": 0.44037373985738876,
+        "balanced_accuracy": 0.5054926166457254,
+        "roc_auc": 0.5060604267745048,
+        "average_precision": 0.42518946733367724,
+        "brier": 0.25041615695687747,
+        "accuracy": 0.5137271659010789
+      },
+      "interpretation": "negative diagnostic control; not a formal permutation p-value or proof of no leakage"
+    },
     {
       "pool": "FISIO8",
       "fixed_candidate": {
@@ -556,60 +1078,333 @@
   ],
   "importance": [
     {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "Altura",
+      "mean": -8.622617756169534e-05,
+      "std": 0.0006519878337571391
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "B2",
+      "mean": 0.02775136265830027,
+      "std": 0.003647965745420415
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "FC",
+      "mean": 7.935521599022888e-05,
+      "std": 0.00045364100285075567
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "HDA 1",
+      "mean": -0.0002319461802554749,
+      "std": 0.0007078890079147391
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "IDADE",
+      "mean": -0.00023226819596873228,
+      "std": 0.0003803274133168534
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "IMC",
+      "mean": -8.643793810710528e-05,
+      "std": 0.0003559536320800662
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "PA DIASTOLICA",
+      "mean": 8.715349676191586e-06,
+      "std": 0.00032028548386203487
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "PA SISTOLICA",
+      "mean": -4.432187219104063e-05,
+      "std": 0.00038736334083337736
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "PPA",
+      "mean": 1.97841681012223e-05,
+      "std": 0.0004920777816403322
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "PULSOS",
+      "mean": -0.00037774778060137846,
+      "std": 0.0005731265667568229
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "Peso",
+      "mean": -4.453800763157822e-05,
+      "std": 0.00043330362295343933
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "SEXO",
+      "mean": -0.00013687011522913738,
+      "std": 0.0005352260740996087
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "SOPRO",
+      "mean": 0.38698216388154055,
+      "std": 0.009008812397042248
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "Altura",
+      "mean": 0.00033753779271659864,
+      "std": 0.001300419895526793
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "B2",
+      "mean": 0.027994058021011663,
+      "std": 0.003702729804394413
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "FC",
+      "mean": -0.00015067851618783362,
+      "std": 0.0010068355500958014
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "HDA 1",
+      "mean": 0.0002495687324277703,
+      "std": 0.000824700157124891
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "IDADE",
+      "mean": -0.0005596212067541313,
+      "std": 0.0009922242335904307
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "IMC",
+      "mean": 0.0004021115444457231,
+      "std": 0.0014789198142232559
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "PA DIASTOLICA",
+      "mean": -0.0004140556495742557,
+      "std": 0.0008588816553685829
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "PA SISTOLICA",
+      "mean": -0.00016058109785671942,
+      "std": 0.001041937793326422
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "PPA",
+      "mean": -0.00035103971079233356,
+      "std": 0.0006287372831398296
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "PULSOS",
+      "mean": 0.0010084883691581226,
+      "std": 0.0012723459268226345
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "Peso",
+      "mean": 3.329483596717549e-05,
+      "std": 0.0005831016900162689
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "SEXO",
+      "mean": -5.069687780379824e-05,
+      "std": 0.0003197833220487038
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "SOPRO",
+      "mean": 0.38481756320912075,
+      "std": 0.008935130900214973
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "Altura",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "B2",
+      "mean": 0.031203558170567695,
+      "std": 0.00471269008637604
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "FC",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "HDA 1",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "IDADE",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "IMC",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "PA DIASTOLICA",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "PA SISTOLICA",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "PPA",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "PULSOS",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "Peso",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "SEXO",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "SOPRO",
+      "mean": 0.38637525633483083,
+      "std": 0.009028413701153003
+    },
+    {
       "pool": "FISIO8",
       "family": "forest",
       "variable": "Altura",
-      "mean": 0.0005494201074225231,
-      "std": 0.006533041091208808
+      "mean": 0.0006368844619623429,
+      "std": 0.006964946177399117
     },
     {
       "pool": "FISIO8",
       "family": "forest",
       "variable": "FC",
-      "mean": 0.04810516294638947,
-      "std": 0.01357412572524852
+      "mean": 0.04894758949886725,
+      "std": 0.01424106763598334
     },
     {
       "pool": "FISIO8",
       "family": "forest",
       "variable": "IDADE",
-      "mean": 0.00859031016611888,
-      "std": 0.005973401545778483
+      "mean": 0.007882571710569978,
+      "std": 0.006823431609109346
     },
     {
       "pool": "FISIO8",
       "family": "forest",
       "variable": "IMC",
-      "mean": 0.0008206724129955934,
-      "std": 0.006590275226910015
+      "mean": 0.0014754416249980417,
+      "std": 0.006531773498749764
     },
     {
       "pool": "FISIO8",
       "family": "forest",
       "variable": "PA DIASTOLICA",
-      "mean": 0.0004963059527224163,
-      "std": 0.004971753649416859
+      "mean": -0.00020764172659359925,
+      "std": 0.005012444438590943
     },
     {
       "pool": "FISIO8",
       "family": "forest",
       "variable": "PA SISTOLICA",
-      "mean": 0.003008265373474887,
-      "std": 0.004824231365422875
+      "mean": 0.0037966370374430476,
+      "std": 0.004760656032689485
     },
     {
       "pool": "FISIO8",
       "family": "forest",
       "variable": "Peso",
-      "mean": 0.025631305948197586,
-      "std": 0.01081315656866712
+      "mean": 0.025348873743043888,
+      "std": 0.011186787115896442
     },
     {
       "pool": "FISIO8",
       "family": "forest",
       "variable": "SEXO",
-      "mean": 0.0008313127177188721,
-      "std": 0.004367372910668587
+      "mean": 0.0012514830471192764,
+      "std": 0.004743309030029505
     },
     {
       "pool": "FISIO8",
@@ -644,7 +1439,7 @@
       "family": "logistic",
       "variable": "PA DIASTOLICA",
       "mean": 0.006406705549155175,
-      "std": 0.006099846816893289
+      "std": 0.006099846816893291
     },
     {
       "pool": "FISIO8",
@@ -686,7 +1481,7 @@
       "family": "tree",
       "variable": "IDADE",
       "mean": 0.004450758792181383,
-      "std": 0.009873354557875701
+      "std": 0.0098733545578757
     },
     {
       "pool": "FISIO8",
@@ -727,36 +1522,36 @@
       "pool": "STRICT4",
       "family": "forest",
       "variable": "Altura",
-      "mean": 0.008739953970495363,
-      "std": 0.006465683761312149
+      "mean": 0.010217758516950459,
+      "std": 0.007318500855348721
     },
     {
       "pool": "STRICT4",
       "family": "forest",
       "variable": "IDADE",
-      "mean": 0.00931302367000979,
-      "std": 0.013225573979833458
+      "mean": 0.012301847640193708,
+      "std": 0.010543092812802026
     },
     {
       "pool": "STRICT4",
       "family": "forest",
       "variable": "Peso",
-      "mean": 0.044413163345771174,
-      "std": 0.013470793991457997
+      "mean": 0.04635111183855372,
+      "std": 0.014152142974408307
     },
     {
       "pool": "STRICT4",
       "family": "forest",
       "variable": "SEXO",
-      "mean": 0.00428288302232418,
-      "std": 0.007113172535901891
+      "mean": 0.005731854877353489,
+      "std": 0.005483825133030286
     },
     {
       "pool": "STRICT4",
       "family": "logistic",
       "variable": "Altura",
       "mean": 0.001224480478350228,
-      "std": 0.006687246451608106
+      "std": 0.006687246451608105
     },
     {
       "pool": "STRICT4",
@@ -808,20 +1603,1973 @@
       "std": 0.0045891058166918465
     }
   ],
+  "eda": {
+    "class_counts": {
+      "Normal": 5394,
+      "Anormal": 3967
+    },
+    "anormal_percent": 42.37795107360325,
+    "box_IDADE": {
+      "Normal": {
+        "whislo": 0.0,
+        "q1": 1.7684931506849315,
+        "med": 4.790983606557377,
+        "q3": 9.315536342540609,
+        "whishi": 19.90958904109589,
+        "mean": 5.7489400988845265,
+        "n": 4968
+      },
+      "Anormal": {
+        "whislo": 0.0,
+        "q1": 0.38767123287671235,
+        "med": 2.7315068493150685,
+        "q3": 6.541732165581257,
+        "whishi": 15.726775956284152,
+        "mean": 4.035078590712608,
+        "n": 3703
+      }
+    },
+    "box_FC": {
+      "Normal": {
+        "whislo": 50.0,
+        "q1": 80.0,
+        "med": 90.0,
+        "q3": 100.0,
+        "whishi": 130.0,
+        "mean": 91.98334965719883,
+        "n": 5105
+      },
+      "Anormal": {
+        "whislo": 55.0,
+        "q1": 88.0,
+        "med": 98.0,
+        "q3": 110.0,
+        "whishi": 143.0,
+        "mean": 99.89538043478261,
+        "n": 3680
+      }
+    },
+    "percent_under_1_year": {
+      "Normal": 17.21014492753623,
+      "Anormal": 35.34971644612476
+    },
+    "categories": [
+      {
+        "variable": "Convenio",
+        "value": "113205",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "17999",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "35971",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "38001",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "38412",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "38447",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "38706",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "39561",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "ACMED",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "AERO",
+        "n_development": 3,
+        "n_anormal": 2,
+        "anormal_rate": 0.6666666666666666
+      },
+      {
+        "variable": "Convenio",
+        "value": "AERON",
+        "n_development": 3,
+        "n_anormal": 1,
+        "anormal_rate": 0.3333333333333333
+      },
+      {
+        "variable": "Convenio",
+        "value": "AERON.",
+        "n_development": 4,
+        "n_anormal": 3,
+        "anormal_rate": 0.75
+      },
+      {
+        "variable": "Convenio",
+        "value": "AERONAUTICA",
+        "n_development": 10,
+        "n_anormal": 5,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "AGF",
+        "n_development": 11,
+        "n_anormal": 5,
+        "anormal_rate": 0.45454545454545453
+      },
+      {
+        "variable": "Convenio",
+        "value": "AGF S.",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "ALIANS",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "AMB",
+        "n_development": 3,
+        "n_anormal": 1,
+        "anormal_rate": 0.3333333333333333
+      },
+      {
+        "variable": "Convenio",
+        "value": "AMEP",
+        "n_development": 4,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "AMEP CAMP",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "AMEPE",
+        "n_development": 2,
+        "n_anormal": 2,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "AMERIACA S.",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "AMERICA",
+        "n_development": 19,
+        "n_anormal": 8,
+        "anormal_rate": 0.42105263157894735
+      },
+      {
+        "variable": "Convenio",
+        "value": "AMERICA S.",
+        "n_development": 18,
+        "n_anormal": 5,
+        "anormal_rate": 0.2777777777777778
+      },
+      {
+        "variable": "Convenio",
+        "value": "AMERICA SAUDE",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "AMIL",
+        "n_development": 4,
+        "n_anormal": 2,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "AS",
+        "n_development": 61,
+        "n_anormal": 31,
+        "anormal_rate": 0.5081967213114754
+      },
+      {
+        "variable": "Convenio",
+        "value": "ASL",
+        "n_development": 14,
+        "n_anormal": 3,
+        "anormal_rate": 0.21428571428571427
+      },
+      {
+        "variable": "Convenio",
+        "value": "ASSEF",
+        "n_development": 3,
+        "n_anormal": 1,
+        "anormal_rate": 0.3333333333333333
+      },
+      {
+        "variable": "Convenio",
+        "value": "ASSEFA",
+        "n_development": 2,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "ASSEFAZ",
+        "n_development": 21,
+        "n_anormal": 11,
+        "anormal_rate": 0.5238095238095238
+      },
+      {
+        "variable": "Convenio",
+        "value": "BANCO CENTRAL",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "BL",
+        "n_development": 3,
+        "n_anormal": 2,
+        "anormal_rate": 0.6666666666666666
+      },
+      {
+        "variable": "Convenio",
+        "value": "BLSERV",
+        "n_development": 2,
+        "n_anormal": 2,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "BLUE LIFE",
+        "n_development": 2,
+        "n_anormal": 1,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "BLUELI",
+        "n_development": 3,
+        "n_anormal": 1,
+        "anormal_rate": 0.3333333333333333
+      },
+      {
+        "variable": "Convenio",
+        "value": "BLUELIFE",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "BRADESCO",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "C COR",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "C. CORACAO",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "CAIXA",
+        "n_development": 3,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "CAMED",
+        "n_development": 441,
+        "n_anormal": 139,
+        "anormal_rate": 0.31519274376417233
+      },
+      {
+        "variable": "Convenio",
+        "value": "CAMPE",
+        "n_development": 6,
+        "n_anormal": 1,
+        "anormal_rate": 0.16666666666666666
+      },
+      {
+        "variable": "Convenio",
+        "value": "CASS",
+        "n_development": 8,
+        "n_anormal": 3,
+        "anormal_rate": 0.375
+      },
+      {
+        "variable": "Convenio",
+        "value": "CASSI",
+        "n_development": 55,
+        "n_anormal": 29,
+        "anormal_rate": 0.5272727272727272
+      },
+      {
+        "variable": "Convenio",
+        "value": "CASSI + TAB",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "CC",
+        "n_development": 74,
+        "n_anormal": 54,
+        "anormal_rate": 0.7297297297297297
+      },
+      {
+        "variable": "Convenio",
+        "value": "CELPE",
+        "n_development": 7,
+        "n_anormal": 4,
+        "anormal_rate": 0.5714285714285714
+      },
+      {
+        "variable": "Convenio",
+        "value": "CELPOS",
+        "n_development": 26,
+        "n_anormal": 9,
+        "anormal_rate": 0.34615384615384615
+      },
+      {
+        "variable": "Convenio",
+        "value": "CHESF",
+        "n_development": 6,
+        "n_anormal": 2,
+        "anormal_rate": 0.3333333333333333
+      },
+      {
+        "variable": "Convenio",
+        "value": "CIRCC",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "CIRCULO",
+        "n_development": 26,
+        "n_anormal": 22,
+        "anormal_rate": 0.8461538461538461
+      },
+      {
+        "variable": "Convenio",
+        "value": "CIRCULO COR",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "COM SAUDE",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "COMSAUDE",
+        "n_development": 4,
+        "n_anormal": 2,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "COREIOS",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "CORR",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "CORREIOS",
+        "n_development": 3,
+        "n_anormal": 3,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "CORT",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "CORTESIA",
+        "n_development": 9,
+        "n_anormal": 4,
+        "anormal_rate": 0.4444444444444444
+      },
+      {
+        "variable": "Convenio",
+        "value": "CT",
+        "n_development": 10,
+        "n_anormal": 9,
+        "anormal_rate": 0.9
+      },
+      {
+        "variable": "Convenio",
+        "value": "EMBRA",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "EMBRAT",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "EMBRATEL",
+        "n_development": 3,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "EXCELSIOR",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "EXCELSIOR/ RHP",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "EXERCITO",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "FACHAESF",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "FACHES",
+        "n_development": 3,
+        "n_anormal": 1,
+        "anormal_rate": 0.3333333333333333
+      },
+      {
+        "variable": "Convenio",
+        "value": "FACHESF",
+        "n_development": 39,
+        "n_anormal": 17,
+        "anormal_rate": 0.4358974358974359
+      },
+      {
+        "variable": "Convenio",
+        "value": "FACJESF",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "FISCO",
+        "n_development": 18,
+        "n_anormal": 8,
+        "anormal_rate": 0.4444444444444444
+      },
+      {
+        "variable": "Convenio",
+        "value": "FISCO S.",
+        "n_development": 2,
+        "n_anormal": 1,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "FISCOS",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "FISCOSAUDE",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "FUNCEF",
+        "n_development": 43,
+        "n_anormal": 11,
+        "anormal_rate": 0.2558139534883721
+      },
+      {
+        "variable": "Convenio",
+        "value": "FUSEX",
+        "n_development": 93,
+        "n_anormal": 42,
+        "anormal_rate": 0.45161290322580644
+      },
+      {
+        "variable": "Convenio",
+        "value": "GAMA",
+        "n_development": 7,
+        "n_anormal": 3,
+        "anormal_rate": 0.42857142857142855
+      },
+      {
+        "variable": "Convenio",
+        "value": "GAMA S.",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "GC",
+        "n_development": 13,
+        "n_anormal": 4,
+        "anormal_rate": 0.3076923076923077
+      },
+      {
+        "variable": "Convenio",
+        "value": "GOLD",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "GOLDEN",
+        "n_development": 6,
+        "n_anormal": 3,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "GRUPO",
+        "n_development": 371,
+        "n_anormal": 186,
+        "anormal_rate": 0.5013477088948787
+      },
+      {
+        "variable": "Convenio",
+        "value": "GRUPO SAUDE",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "GS",
+        "n_development": 1606,
+        "n_anormal": 692,
+        "anormal_rate": 0.43088418430884184
+      },
+      {
+        "variable": "Convenio",
+        "value": "HOSPITAL RESIDENCIA",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "IDEAL",
+        "n_development": 131,
+        "n_anormal": 48,
+        "anormal_rate": 0.366412213740458
+      },
+      {
+        "variable": "Convenio",
+        "value": "IDEAL S",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "IDEAL S.",
+        "n_development": 17,
+        "n_anormal": 4,
+        "anormal_rate": 0.23529411764705882
+      },
+      {
+        "variable": "Convenio",
+        "value": "IDEAL SAUDE",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "JORGE DE MEDEIROS",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDESV",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDIA S.",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDIAL",
+        "n_development": 267,
+        "n_anormal": 102,
+        "anormal_rate": 0.38202247191011235
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDIAL S.",
+        "n_development": 12,
+        "n_anormal": 1,
+        "anormal_rate": 0.08333333333333333
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDIS",
+        "n_development": 3,
+        "n_anormal": 2,
+        "anormal_rate": 0.6666666666666666
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDISE",
+        "n_development": 17,
+        "n_anormal": 4,
+        "anormal_rate": 0.23529411764705882
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDISER",
+        "n_development": 2,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDISERV",
+        "n_development": 7,
+        "n_anormal": 3,
+        "anormal_rate": 0.42857142857142855
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDISERV.",
+        "n_development": 12,
+        "n_anormal": 2,
+        "anormal_rate": 0.16666666666666666
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDISERVIC",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDISERVICE",
+        "n_development": 29,
+        "n_anormal": 8,
+        "anormal_rate": 0.27586206896551724
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDSER",
+        "n_development": 3,
+        "n_anormal": 2,
+        "anormal_rate": 0.6666666666666666
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDSERV",
+        "n_development": 7,
+        "n_anormal": 2,
+        "anormal_rate": 0.2857142857142857
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDSERV.",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "MEDSERVICE",
+        "n_development": 7,
+        "n_anormal": 5,
+        "anormal_rate": 0.7142857142857143
+      },
+      {
+        "variable": "Convenio",
+        "value": "MERSEV",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "MMS",
+        "n_development": 17,
+        "n_anormal": 8,
+        "anormal_rate": 0.47058823529411764
+      },
+      {
+        "variable": "Convenio",
+        "value": "NORC",
+        "n_development": 15,
+        "n_anormal": 5,
+        "anormal_rate": 0.3333333333333333
+      },
+      {
+        "variable": "Convenio",
+        "value": "NORCINICAS",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "NORCL",
+        "n_development": 20,
+        "n_anormal": 7,
+        "anormal_rate": 0.35
+      },
+      {
+        "variable": "Convenio",
+        "value": "NORCL.",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "NORCLI",
+        "n_development": 8,
+        "n_anormal": 2,
+        "anormal_rate": 0.25
+      },
+      {
+        "variable": "Convenio",
+        "value": "NORCLIN",
+        "n_development": 37,
+        "n_anormal": 13,
+        "anormal_rate": 0.35135135135135137
+      },
+      {
+        "variable": "Convenio",
+        "value": "NORCLIN.",
+        "n_development": 85,
+        "n_anormal": 32,
+        "anormal_rate": 0.3764705882352941
+      },
+      {
+        "variable": "Convenio",
+        "value": "NORCLINC",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "NORCLINIA",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "NORCLINIC",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "NORCLINICA",
+        "n_development": 25,
+        "n_anormal": 7,
+        "anormal_rate": 0.28
+      },
+      {
+        "variable": "Convenio",
+        "value": "NORCLINICAS",
+        "n_development": 63,
+        "n_anormal": 30,
+        "anormal_rate": 0.47619047619047616
+      },
+      {
+        "variable": "Convenio",
+        "value": "NORLCINICAS",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "NOTRE DAME",
+        "n_development": 3,
+        "n_anormal": 1,
+        "anormal_rate": 0.3333333333333333
+      },
+      {
+        "variable": "Convenio",
+        "value": "NOTREDAME",
+        "n_development": 6,
+        "n_anormal": 2,
+        "anormal_rate": 0.3333333333333333
+      },
+      {
+        "variable": "Convenio",
+        "value": "OAB",
+        "n_development": 3,
+        "n_anormal": 3,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "ODEAL S.",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "P",
+        "n_development": 3,
+        "n_anormal": 3,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "PART",
+        "n_development": 18,
+        "n_anormal": 13,
+        "anormal_rate": 0.7222222222222222
+      },
+      {
+        "variable": "Convenio",
+        "value": "PART.",
+        "n_development": 7,
+        "n_anormal": 5,
+        "anormal_rate": 0.7142857142857143
+      },
+      {
+        "variable": "Convenio",
+        "value": "PARTIC",
+        "n_development": 7,
+        "n_anormal": 1,
+        "anormal_rate": 0.14285714285714285
+      },
+      {
+        "variable": "Convenio",
+        "value": "PARTICL",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "PARTICULAR",
+        "n_development": 38,
+        "n_anormal": 22,
+        "anormal_rate": 0.5789473684210527
+      },
+      {
+        "variable": "Convenio",
+        "value": "PARTICULRA",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "PETRO",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "PETROB",
+        "n_development": 2,
+        "n_anormal": 1,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "PETROB.",
+        "n_development": 3,
+        "n_anormal": 1,
+        "anormal_rate": 0.3333333333333333
+      },
+      {
+        "variable": "Convenio",
+        "value": "PETROBRAS",
+        "n_development": 3,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "PETROF",
+        "n_development": 2,
+        "n_anormal": 1,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "PETROFLEX",
+        "n_development": 2,
+        "n_anormal": 1,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "PLAN A",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "PLAN ASS.",
+        "n_development": 2,
+        "n_anormal": 2,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "PLAN ASSISTE",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "PM",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "RE",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "REAL",
+        "n_development": 74,
+        "n_anormal": 22,
+        "anormal_rate": 0.2972972972972973
+      },
+      {
+        "variable": "Convenio",
+        "value": "REAL S",
+        "n_development": 2,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "REAL S.",
+        "n_development": 201,
+        "n_anormal": 74,
+        "anormal_rate": 0.3681592039800995
+      },
+      {
+        "variable": "Convenio",
+        "value": "REAL SAUDE",
+        "n_development": 11,
+        "n_anormal": 4,
+        "anormal_rate": 0.36363636363636365
+      },
+      {
+        "variable": "Convenio",
+        "value": "REAL. S.",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "REALS.",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "REEMB",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "S BRADESCO",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "S RECIFE",
+        "n_development": 7,
+        "n_anormal": 3,
+        "anormal_rate": 0.42857142857142855
+      },
+      {
+        "variable": "Convenio",
+        "value": "S. CAIXA",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "S. CX",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "S. RECIFE",
+        "n_development": 21,
+        "n_anormal": 1,
+        "anormal_rate": 0.047619047619047616
+      },
+      {
+        "variable": "Convenio",
+        "value": "S.A",
+        "n_development": 2,
+        "n_anormal": 1,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "S.AM",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "S.AMER",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "S.AMER.",
+        "n_development": 2,
+        "n_anormal": 2,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "S.AMERICA",
+        "n_development": 10,
+        "n_anormal": 8,
+        "anormal_rate": 0.8
+      },
+      {
+        "variable": "Convenio",
+        "value": "S.B.",
+        "n_development": 2,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "S.HELEN",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "S.RECIFE",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SA",
+        "n_development": 179,
+        "n_anormal": 58,
+        "anormal_rate": 0.3240223463687151
+      },
+      {
+        "variable": "Convenio",
+        "value": "SAME",
+        "n_development": 48,
+        "n_anormal": 20,
+        "anormal_rate": 0.4166666666666667
+      },
+      {
+        "variable": "Convenio",
+        "value": "SANTA CLARA",
+        "n_development": 9,
+        "n_anormal": 4,
+        "anormal_rate": 0.4444444444444444
+      },
+      {
+        "variable": "Convenio",
+        "value": "SANTA HELEN",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SANTA HELENA",
+        "n_development": 12,
+        "n_anormal": 8,
+        "anormal_rate": 0.6666666666666666
+      },
+      {
+        "variable": "Convenio",
+        "value": "SANTA LUCIA",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SAUDE BARDESCO",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SAUDE BRADESCO",
+        "n_development": 3,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SAUDE CAIXA",
+        "n_development": 3,
+        "n_anormal": 2,
+        "anormal_rate": 0.6666666666666666
+      },
+      {
+        "variable": "Convenio",
+        "value": "SAUDE EXCELSIOR",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SAUDE RE",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SAUDE REC",
+        "n_development": 2,
+        "n_anormal": 2,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SAUDE REC.",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SAUDE RECIFE",
+        "n_development": 16,
+        "n_anormal": 8,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "SB",
+        "n_development": 353,
+        "n_anormal": 123,
+        "anormal_rate": 0.34844192634560905
+      },
+      {
+        "variable": "Convenio",
+        "value": "SBPREF",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SEMEPE",
+        "n_development": 108,
+        "n_anormal": 65,
+        "anormal_rate": 0.6018518518518519
+      },
+      {
+        "variable": "Convenio",
+        "value": "SH",
+        "n_development": 3,
+        "n_anormal": 3,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SHELEN",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SHELENA",
+        "n_development": 2,
+        "n_anormal": 1,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "SR",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "ST HELENA",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "ST.HELENA",
+        "n_development": 11,
+        "n_anormal": 6,
+        "anormal_rate": 0.5454545454545454
+      },
+      {
+        "variable": "Convenio",
+        "value": "STA CLARA",
+        "n_development": 3,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "STA HELEN",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "STA HELENA",
+        "n_development": 13,
+        "n_anormal": 9,
+        "anormal_rate": 0.6923076923076923
+      },
+      {
+        "variable": "Convenio",
+        "value": "STA. CLARA",
+        "n_development": 3,
+        "n_anormal": 1,
+        "anormal_rate": 0.3333333333333333
+      },
+      {
+        "variable": "Convenio",
+        "value": "STA. HELENA",
+        "n_development": 4,
+        "n_anormal": 2,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "STAHER",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "STHELENA",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SUDENE",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SUL AM",
+        "n_development": 22,
+        "n_anormal": 8,
+        "anormal_rate": 0.36363636363636365
+      },
+      {
+        "variable": "Convenio",
+        "value": "SUL AMER.",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "SUL AMERICA",
+        "n_development": 46,
+        "n_anormal": 22,
+        "anormal_rate": 0.4782608695652174
+      },
+      {
+        "variable": "Convenio",
+        "value": "SULA",
+        "n_development": 95,
+        "n_anormal": 30,
+        "anormal_rate": 0.3157894736842105
+      },
+      {
+        "variable": "Convenio",
+        "value": "SULAM",
+        "n_development": 13,
+        "n_anormal": 4,
+        "anormal_rate": 0.3076923076923077
+      },
+      {
+        "variable": "Convenio",
+        "value": "SULAMERICA",
+        "n_development": 6,
+        "n_anormal": 4,
+        "anormal_rate": 0.6666666666666666
+      },
+      {
+        "variable": "Convenio",
+        "value": "SUS",
+        "n_development": 60,
+        "n_anormal": 57,
+        "anormal_rate": 0.95
+      },
+      {
+        "variable": "Convenio",
+        "value": "SUS/TMO",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "TAB",
+        "n_development": 19,
+        "n_anormal": 10,
+        "anormal_rate": 0.5263157894736842
+      },
+      {
+        "variable": "Convenio",
+        "value": "TAB.",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "TAB/SB",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "TABEL",
+        "n_development": 2,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "TABELA",
+        "n_development": 19,
+        "n_anormal": 8,
+        "anormal_rate": 0.42105263157894735
+      },
+      {
+        "variable": "Convenio",
+        "value": "TBA",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "U G",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "U. GUARA",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "U. RECIFE",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "U.G.",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "U.GUARAP",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "U.GUARARAP.",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "U.GUARARAPE",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "U.GUARARAPES",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "U.RECIFE",
+        "n_development": 26,
+        "n_anormal": 19,
+        "anormal_rate": 0.7307692307692307
+      },
+      {
+        "variable": "Convenio",
+        "value": "UCARUARU",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "UG",
+        "n_development": 92,
+        "n_anormal": 36,
+        "anormal_rate": 0.391304347826087
+      },
+      {
+        "variable": "Convenio",
+        "value": "UNIB.",
+        "n_development": 6,
+        "n_anormal": 3,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "UNIBAN",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "UNIBANCO",
+        "n_development": 2,
+        "n_anormal": 1,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "UNIM",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "UNIM.RECIFE",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "UNIMED",
+        "n_development": 14,
+        "n_anormal": 7,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "UNIMED GUA",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "UNIMED RE",
+        "n_development": 1,
+        "n_anormal": 1,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "UNIMED REC",
+        "n_development": 10,
+        "n_anormal": 6,
+        "anormal_rate": 0.6
+      },
+      {
+        "variable": "Convenio",
+        "value": "UR",
+        "n_development": 1132,
+        "n_anormal": 452,
+        "anormal_rate": 0.3992932862190813
+      },
+      {
+        "variable": "Convenio",
+        "value": "UR/MACEIO",
+        "n_development": 1,
+        "n_anormal": 0,
+        "anormal_rate": 0.0
+      },
+      {
+        "variable": "Convenio",
+        "value": "VIVA",
+        "n_development": 6,
+        "n_anormal": 3,
+        "anormal_rate": 0.5
+      },
+      {
+        "variable": "Convenio",
+        "value": "__MISSING__",
+        "n_development": 2625,
+        "n_anormal": 1147,
+        "anormal_rate": 0.4369523809523809
+      },
+      {
+        "variable": "PULSOS",
+        "value": "Amplos",
+        "n_development": 47,
+        "n_anormal": 40,
+        "anormal_rate": 0.851063829787234
+      },
+      {
+        "variable": "PULSOS",
+        "value": "Diminuidos",
+        "n_development": 17,
+        "n_anormal": 15,
+        "anormal_rate": 0.8823529411764706
+      },
+      {
+        "variable": "PULSOS",
+        "value": "Femorais diminuidos",
+        "n_development": 28,
+        "n_anormal": 25,
+        "anormal_rate": 0.8928571428571429
+      },
+      {
+        "variable": "PULSOS",
+        "value": "Normais",
+        "n_development": 9200,
+        "n_anormal": 3846,
+        "anormal_rate": 0.41804347826086957
+      },
+      {
+        "variable": "PULSOS",
+        "value": "Outro",
+        "n_development": 31,
+        "n_anormal": 24,
+        "anormal_rate": 0.7741935483870968
+      },
+      {
+        "variable": "PULSOS",
+        "value": "__MISSING__",
+        "n_development": 38,
+        "n_anormal": 17,
+        "anormal_rate": 0.4473684210526316
+      },
+      {
+        "variable": "PPA",
+        "value": "__MISSING__",
+        "n_development": 7691,
+        "n_anormal": 3372,
+        "anormal_rate": 0.43843453387075804
+      },
+      {
+        "variable": "PPA",
+        "value": "has-1 pad",
+        "n_development": 20,
+        "n_anormal": 5,
+        "anormal_rate": 0.25
+      },
+      {
+        "variable": "PPA",
+        "value": "has-1 pas",
+        "n_development": 38,
+        "n_anormal": 14,
+        "anormal_rate": 0.3684210526315789
+      },
+      {
+        "variable": "PPA",
+        "value": "has-2 pad",
+        "n_development": 16,
+        "n_anormal": 5,
+        "anormal_rate": 0.3125
+      },
+      {
+        "variable": "PPA",
+        "value": "has-2 pas",
+        "n_development": 60,
+        "n_anormal": 36,
+        "anormal_rate": 0.6
+      },
+      {
+        "variable": "PPA",
+        "value": "normal",
+        "n_development": 1442,
+        "n_anormal": 501,
+        "anormal_rate": 0.3474341192787795
+      },
+      {
+        "variable": "PPA",
+        "value": "pre-hipertensao pad",
+        "n_development": 54,
+        "n_anormal": 19,
+        "anormal_rate": 0.35185185185185186
+      },
+      {
+        "variable": "PPA",
+        "value": "pre-hipertensao pas",
+        "n_development": 40,
+        "n_anormal": 15,
+        "anormal_rate": 0.375
+      },
+      {
+        "variable": "B2",
+        "value": "Desdob fixo",
+        "n_development": 123,
+        "n_anormal": 108,
+        "anormal_rate": 0.8780487804878049
+      },
+      {
+        "variable": "B2",
+        "value": "Hiperfonetica",
+        "n_development": 224,
+        "n_anormal": 219,
+        "anormal_rate": 0.9776785714285714
+      },
+      {
+        "variable": "B2",
+        "value": "Normal",
+        "n_development": 8859,
+        "n_anormal": 3511,
+        "anormal_rate": 0.3963201264251044
+      },
+      {
+        "variable": "B2",
+        "value": "Outro",
+        "n_development": 68,
+        "n_anormal": 60,
+        "anormal_rate": 0.8823529411764706
+      },
+      {
+        "variable": "B2",
+        "value": "Unica",
+        "n_development": 62,
+        "n_anormal": 60,
+        "anormal_rate": 0.967741935483871
+      },
+      {
+        "variable": "B2",
+        "value": "__MISSING__",
+        "n_development": 25,
+        "n_anormal": 9,
+        "anormal_rate": 0.36
+      },
+      {
+        "variable": "SOPRO",
+        "value": "Ausente",
+        "n_development": 5814,
+        "n_anormal": 587,
+        "anormal_rate": 0.10096319229446164
+      },
+      {
+        "variable": "SOPRO",
+        "value": "Continuo",
+        "n_development": 36,
+        "n_anormal": 28,
+        "anormal_rate": 0.7777777777777778
+      },
+      {
+        "variable": "SOPRO",
+        "value": "Diastolico",
+        "n_development": 7,
+        "n_anormal": 7,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "SOPRO",
+        "value": "Sistolico",
+        "n_development": 3483,
+        "n_anormal": 3337,
+        "anormal_rate": 0.9580821131208728
+      },
+      {
+        "variable": "SOPRO",
+        "value": "Sistolico e diastolico",
+        "n_development": 3,
+        "n_anormal": 3,
+        "anormal_rate": 1.0
+      },
+      {
+        "variable": "SOPRO",
+        "value": "__MISSING__",
+        "n_development": 18,
+        "n_anormal": 5,
+        "anormal_rate": 0.2777777777777778
+      },
+      {
+        "variable": "HDA 1",
+        "value": "__MISSING__",
+        "n_development": 2526,
+        "n_anormal": 864,
+        "anormal_rate": 0.342042755344418
+      },
+      {
+        "variable": "HDA 1",
+        "value": "assintomatico",
+        "n_development": 5192,
+        "n_anormal": 2421,
+        "anormal_rate": 0.46629429892141755
+      },
+      {
+        "variable": "HDA 1",
+        "value": "cianose",
+        "n_development": 204,
+        "n_anormal": 108,
+        "anormal_rate": 0.5294117647058824
+      },
+      {
+        "variable": "HDA 1",
+        "value": "desmaio/tontura",
+        "n_development": 125,
+        "n_anormal": 40,
+        "anormal_rate": 0.32
+      },
+      {
+        "variable": "HDA 1",
+        "value": "dispneia",
+        "n_development": 441,
+        "n_anormal": 232,
+        "anormal_rate": 0.5260770975056689
+      },
+      {
+        "variable": "HDA 1",
+        "value": "dor precordial",
+        "n_development": 414,
+        "n_anormal": 137,
+        "anormal_rate": 0.3309178743961353
+      },
+      {
+        "variable": "HDA 1",
+        "value": "ganho de peso",
+        "n_development": 71,
+        "n_anormal": 27,
+        "anormal_rate": 0.38028169014084506
+      },
+      {
+        "variable": "HDA 1",
+        "value": "outro",
+        "n_development": 102,
+        "n_anormal": 47,
+        "anormal_rate": 0.46078431372549017
+      },
+      {
+        "variable": "HDA 1",
+        "value": "palpitacao",
+        "n_development": 286,
+        "n_anormal": 91,
+        "anormal_rate": 0.3181818181818182
+      }
+    ],
+    "convenio_SUS": {
+      "n": 60,
+      "anormal_percent": 95.0
+    },
+    "missing_percent_by_clinico_variable": {
+      "Peso": 18.406153188761884,
+      "Altura": 31.438948830253178,
+      "IMC": 34.56895630808674,
+      "IDADE": 7.371007371007371,
+      "PA SISTOLICA": 55.955560303386385,
+      "PA DIASTOLICA": 56.03033863903429,
+      "FC": 6.153188761884414,
+      "SEXO": 5.747249225510095,
+      "PPA": 82.1600256382865,
+      "SOPRO": 0.19228714880888795,
+      "B2": 0.2670654844567888,
+      "PULSOS": 0.40593953637431895,
+      "HDA 1": 26.984296549513942
+    },
+    "missing_percent_HDA2": 96.49610084392694
+  },
+  "a1_reconciliation": {
+    "n_source": 12873,
+    "n_a1_duplicates": 987,
+    "n_a1_duplicates_unlabelled": 752,
+    "n_a1_duplicates_labelled": 235,
+    "n_unlabelled": 1169,
+    "n_labelled_a2": 11704,
+    "n_a1_final": 11469,
+    "labelled_duplicates_by_partition": {
+      "development": 190,
+      "test": 45
+    },
+    "labelled_duplicates_same_group_as_copy": 93,
+    "labelled_duplicates_other_group": 142,
+    "labelled_duplicates_other_group_lt8_prepared_fields": 142,
+    "labelled_duplicates_other_partition_than_copy": 36,
+    "labelled_duplicates_other_partition_with_ge8_fields": 0,
+    "group_rule": "records with identical prepared predictor values and at least 8 non-missing prepared fields share a group; groups never split across folds"
+  },
   "n_configs": 105,
   "outer_folds": 5,
   "inner_folds": 3,
-  "elapsed_seconds": 377.3,
-  "limits": [
-    "A origem e temporalidade do rótulo não foram documentadas.",
-    "Associação forte não comprova leakage; exclusão é política de risco justificada.",
-    "O teste histórico não foi pontuado novamente e não é tratado como intocado.",
-    "A EDA/curadoria prévia da coorte limita a independência da avaliação interna.",
-    "Componentes candidatos não comprovam identidade de paciente."
-  ],
-  "figure_notes": {
-    "eda": "Desenvolvimento após curadoria, antes de imputar. Boxplot omite apenas pontos atípicos do desenho; não altera os dados das estatísticas/modelos.",
-    "confusions": "Predições externas OOF de procedimentos de seleção por família; mesmos registros e folds.",
-    "importance": "Permutação3repetições por5folds externos; correlacionados/idade condicional impedem interpretação causal."
-  }
+  "seeds": {
+    "random_state": 42,
+    "outer_cv": 743,
+    "inner_cv": "811+k",
+    "final_selection_cv": 43,
+    "permutation": "1700+k",
+    "null_control": [
+      911,
+      914
+    ]
+  },
+  "elapsed_seconds": 1228.11
 }

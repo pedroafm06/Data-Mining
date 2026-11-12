@@ -1,4 +1,47 @@
 {
+  "CLINICO": {
+    "dummy": {
+      "kind": "dummy",
+      "params": {},
+      "imputation": "global",
+      "representation": "units",
+      "name": "R000_dummy_20708f9d"
+    },
+    "tree": {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 2,
+        "min_samples_leaf": 50,
+        "class_weight": null
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R001_tree_b294e31b"
+    },
+    "logistic": {
+      "kind": "logistic",
+      "params": {
+        "C": 10.0,
+        "class_weight": "balanced"
+      },
+      "imputation": "age",
+      "representation": "standard",
+      "name": "R079_logistic_6f9032fe"
+    },
+    "forest": {
+      "kind": "forest",
+      "params": {
+        "n_estimators": 150,
+        "max_depth": null,
+        "min_samples_leaf": 10,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R103_forest_6cd06815"
+    }
+  },
   "FISIO8": {
     "dummy": {
       "kind": "dummy",

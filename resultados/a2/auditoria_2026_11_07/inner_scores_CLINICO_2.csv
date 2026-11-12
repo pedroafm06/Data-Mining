@@ -1,0 +1,106 @@
+candidate,kind,imputation,representation,params,mean_balanced_accuracy,sd_balanced_accuracy,mean_recall,mean_average_precision
+R000_dummy_20708f9d,dummy,global,units,{},0.5,0.0,0.0,0.42382162013219277
+R001_tree_b294e31b,tree,global,units,"{""class_weight"": null, ""criterion"": ""gini"", ""max_depth"": 2, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R002_tree_41ceff98,tree,age,units,"{""class_weight"": null, ""criterion"": ""gini"", ""max_depth"": 2, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R003_tree_d21bda81,tree,global,units,"{""class_weight"": ""balanced"", ""criterion"": ""gini"", ""max_depth"": 2, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R004_tree_92975b65,tree,age,units,"{""class_weight"": ""balanced"", ""criterion"": ""gini"", ""max_depth"": 2, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R005_tree_7119500c,tree,global,units,"{""class_weight"": null, ""criterion"": ""gini"", ""max_depth"": 2, ""min_samples_leaf"": 20}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R006_tree_dde06d67,tree,age,units,"{""class_weight"": null, ""criterion"": ""gini"", ""max_depth"": 2, ""min_samples_leaf"": 20}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R007_tree_b9e97e2a,tree,global,units,"{""class_weight"": ""balanced"", ""criterion"": ""gini"", ""max_depth"": 2, ""min_samples_leaf"": 20}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R008_tree_5696d2b9,tree,age,units,"{""class_weight"": ""balanced"", ""criterion"": ""gini"", ""max_depth"": 2, ""min_samples_leaf"": 20}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R009_tree_894f14a4,tree,global,units,"{""class_weight"": null, ""criterion"": ""gini"", ""max_depth"": 4, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9197746391287843
+R010_tree_0bb6b3b1,tree,age,units,"{""class_weight"": null, ""criterion"": ""gini"", ""max_depth"": 4, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9206724582463407
+R011_tree_7933cb3c,tree,global,units,"{""class_weight"": ""balanced"", ""criterion"": ""gini"", ""max_depth"": 4, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9180811639866157
+R012_tree_20631b0c,tree,age,units,"{""class_weight"": ""balanced"", ""criterion"": ""gini"", ""max_depth"": 4, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9206724582463407
+R013_tree_a1d12145,tree,global,units,"{""class_weight"": null, ""criterion"": ""gini"", ""max_depth"": 4, ""min_samples_leaf"": 20}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9178275688503618
+R014_tree_bf8c140d,tree,age,units,"{""class_weight"": null, ""criterion"": ""gini"", ""max_depth"": 4, ""min_samples_leaf"": 20}",0.9167889025212704,0.009832899598227543,0.8701953371140517,0.9204255909357059
+R015_tree_1bc7c40d,tree,global,units,"{""class_weight"": ""balanced"", ""criterion"": ""gini"", ""max_depth"": 4, ""min_samples_leaf"": 20}",0.9186141322066578,0.00826497543954079,0.8752362948960303,0.9163576729863051
+R016_tree_2d137bd9,tree,age,units,"{""class_weight"": ""balanced"", ""criterion"": ""gini"", ""max_depth"": 4, ""min_samples_leaf"": 20}",0.9186141322066578,0.00826497543954079,0.8752362948960303,0.9204240685009775
+R017_tree_ba6b31e5,tree,global,units,"{""class_weight"": null, ""criterion"": ""gini"", ""max_depth"": 6, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9242871040184024
+R018_tree_673643b0,tree,age,units,"{""class_weight"": null, ""criterion"": ""gini"", ""max_depth"": 6, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9263779532880427
+R019_tree_eddd3d17,tree,global,units,"{""class_weight"": ""balanced"", ""criterion"": ""gini"", ""max_depth"": 6, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.924731065589054
+R020_tree_42c49831,tree,age,units,"{""class_weight"": ""balanced"", ""criterion"": ""gini"", ""max_depth"": 6, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9266977804996039
+R021_tree_5213fedf,tree,global,units,"{""class_weight"": null, ""criterion"": ""gini"", ""max_depth"": 6, ""min_samples_leaf"": 20}",0.917415413633024,0.011160228257477894,0.867044738500315,0.9199917070244776
+R022_tree_36936973,tree,age,units,"{""class_weight"": null, ""criterion"": ""gini"", ""max_depth"": 6, ""min_samples_leaf"": 20}",0.9146255949664069,0.011058540296774487,0.8660995589161941,0.9203169033379875
+R023_tree_b3e4ece3,tree,global,units,"{""class_weight"": ""balanced"", ""criterion"": ""gini"", ""max_depth"": 6, ""min_samples_leaf"": 20}",0.9152597260163237,0.010937127403384834,0.87177063642092,0.921118918443795
+R024_tree_8032a32c,tree,age,units,"{""class_weight"": ""balanced"", ""criterion"": ""gini"", ""max_depth"": 6, ""min_samples_leaf"": 20}",0.9163439058671278,0.009494195928087609,0.8720856962822937,0.9203826976966966
+R025_tree_99936232,tree,global,units,"{""class_weight"": null, ""criterion"": ""entropy"", ""max_depth"": 2, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R026_tree_76b31b92,tree,age,units,"{""class_weight"": null, ""criterion"": ""entropy"", ""max_depth"": 2, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R027_tree_aafed9a3,tree,global,units,"{""class_weight"": ""balanced"", ""criterion"": ""entropy"", ""max_depth"": 2, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R028_tree_b16ce0dc,tree,age,units,"{""class_weight"": ""balanced"", ""criterion"": ""entropy"", ""max_depth"": 2, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R029_tree_5e88fb10,tree,global,units,"{""class_weight"": null, ""criterion"": ""entropy"", ""max_depth"": 2, ""min_samples_leaf"": 20}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R030_tree_a2fb296a,tree,age,units,"{""class_weight"": null, ""criterion"": ""entropy"", ""max_depth"": 2, ""min_samples_leaf"": 20}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R031_tree_be0203d9,tree,global,units,"{""class_weight"": ""balanced"", ""criterion"": ""entropy"", ""max_depth"": 2, ""min_samples_leaf"": 20}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R032_tree_c4ba7b92,tree,age,units,"{""class_weight"": ""balanced"", ""criterion"": ""entropy"", ""max_depth"": 2, ""min_samples_leaf"": 20}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9015318262789839
+R033_tree_481da6b1,tree,global,units,"{""class_weight"": null, ""criterion"": ""entropy"", ""max_depth"": 4, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9166212598690753
+R034_tree_0b4068c9,tree,age,units,"{""class_weight"": null, ""criterion"": ""entropy"", ""max_depth"": 4, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9179616319286401
+R035_tree_23c98c18,tree,global,units,"{""class_weight"": ""balanced"", ""criterion"": ""entropy"", ""max_depth"": 4, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9200467483591281
+R036_tree_c2eb3ef7,tree,age,units,"{""class_weight"": ""balanced"", ""criterion"": ""entropy"", ""max_depth"": 4, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9179699082441383
+R037_tree_249a6637,tree,global,units,"{""class_weight"": null, ""criterion"": ""entropy"", ""max_depth"": 4, ""min_samples_leaf"": 20}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9157303911272675
+R038_tree_22080f6c,tree,age,units,"{""class_weight"": null, ""criterion"": ""entropy"", ""max_depth"": 4, ""min_samples_leaf"": 20}",0.9175855351053835,0.009204532236125036,0.8727158160050409,0.9174004202934225
+R039_tree_f1eb108e,tree,global,units,"{""class_weight"": ""balanced"", ""criterion"": ""entropy"", ""max_depth"": 4, ""min_samples_leaf"": 20}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9190517712595517
+R040_tree_24d26f6b,tree,age,units,"{""class_weight"": ""balanced"", ""criterion"": ""entropy"", ""max_depth"": 4, ""min_samples_leaf"": 20}",0.9186141322066578,0.00826497543954079,0.8752362948960303,0.9174088071817313
+R041_tree_01e82c5a,tree,global,units,"{""class_weight"": null, ""criterion"": ""entropy"", ""max_depth"": 6, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9269141821731091
+R042_tree_252c1c77,tree,age,units,"{""class_weight"": null, ""criterion"": ""entropy"", ""max_depth"": 6, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9292787682130327
+R043_tree_5de55c00,tree,global,units,"{""class_weight"": ""balanced"", ""criterion"": ""entropy"", ""max_depth"": 6, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.927482305153227
+R044_tree_7bf8d7b0,tree,age,units,"{""class_weight"": ""balanced"", ""criterion"": ""entropy"", ""max_depth"": 6, ""min_samples_leaf"": 50}",0.9195413459294208,0.009868748304368624,0.8752362948960303,0.9292948964260855
+R045_tree_fe62a509,tree,global,units,"{""class_weight"": null, ""criterion"": ""entropy"", ""max_depth"": 6, ""min_samples_leaf"": 20}",0.9172489007716583,0.010871885808348691,0.8657844990548204,0.9224753543266194
+R046_tree_836d8531,tree,age,units,"{""class_weight"": null, ""criterion"": ""entropy"", ""max_depth"": 6, ""min_samples_leaf"": 20}",0.9155284214460705,0.01105021167031611,0.8676748582230623,0.9225936724060815
+R047_tree_a4a43033,tree,global,units,"{""class_weight"": ""balanced"", ""criterion"": ""entropy"", ""max_depth"": 6, ""min_samples_leaf"": 20}",0.9183552188974599,0.01096263953801579,0.8724007561436672,0.923303428709552
+R048_tree_1b4ddca8,tree,age,units,"{""class_weight"": ""balanced"", ""criterion"": ""entropy"", ""max_depth"": 6, ""min_samples_leaf"": 20}",0.9147731011468396,0.01184036066531012,0.8733459357277882,0.9226108784535842
+R049_logistic_fb92b6f1,logistic,global,standard,"{""C"": 0.01, ""class_weight"": null}",0.9094885475823675,0.009151115403012307,0.8500315059861374,0.9374073921318465
+R050_logistic_3b8425f8,logistic,global,log_weight_standard,"{""C"": 0.01, ""class_weight"": null}",0.9094885475823675,0.009151115403012307,0.8500315059861374,0.9375674652649223
+R051_logistic_a68d4e03,logistic,age,standard,"{""C"": 0.01, ""class_weight"": null}",0.9094885475823675,0.008764203463412931,0.8500315059861374,0.9362123314493443
+R052_logistic_9d66fa3a,logistic,age,log_weight_standard,"{""C"": 0.01, ""class_weight"": null}",0.9097203510130583,0.008883466548401999,0.8500315059861374,0.9367519302515958
+R053_logistic_848c0d57,logistic,global,standard,"{""C"": 0.01, ""class_weight"": ""balanced""}",0.9104427100971674,0.00821836849832463,0.8528670447385003,0.9373106803083484
+R054_logistic_281102e5,logistic,global,log_weight_standard,"{""C"": 0.01, ""class_weight"": ""balanced""}",0.9108736716738864,0.007842444536926915,0.8534971644612476,0.9374903083821283
+R055_logistic_895ecb02,logistic,age,standard,"{""C"": 0.01, ""class_weight"": ""balanced""}",0.9105586118125127,0.00771089786752749,0.8528670447385003,0.9361659600511452
+R056_logistic_e7ee06a3,logistic,age,log_weight_standard,"{""C"": 0.01, ""class_weight"": ""balanced""}",0.9109895733892318,0.00804318953076635,0.8534971644612476,0.9366564487332107
+R057_logistic_c858fd94,logistic,global,standard,"{""C"": 0.1, ""class_weight"": null}",0.9147467099149673,0.00787105439788329,0.8626339004410838,0.9385040691367675
+R058_logistic_edf398f3,logistic,global,log_weight_standard,"{""C"": 0.1, ""class_weight"": null}",0.914904239845654,0.00814388699466318,0.8629489603024575,0.9386106536855817
+R059_logistic_c4ce5170,logistic,age,standard,"{""C"": 0.1, ""class_weight"": null}",0.9150944150610035,0.009720327616453158,0.8626339004410838,0.9375036339082977
+R060_logistic_233f44b7,logistic,age,log_weight_standard,"{""C"": 0.1, ""class_weight"": null}",0.9151777520349214,0.009360928766981315,0.8632640201638311,0.9380660208556933
+R061_logistic_5906d965,logistic,global,standard,"{""C"": 0.1, ""class_weight"": ""balanced""}",0.9164560378850091,0.008846962386016198,0.8676748582230625,0.9377539360133916
+R062_logistic_89646f1f,logistic,global,log_weight_standard,"{""C"": 0.1, ""class_weight"": ""balanced""}",0.9164144096696676,0.008884207111474515,0.8673597983616887,0.9378246971274343
+R063_logistic_8cb6fc60,logistic,age,standard,"{""C"": 0.1, ""class_weight"": ""balanced""}",0.9165719396003545,0.009607289924591684,0.8676748582230625,0.9366874809007975
+R064_logistic_9c6d0549,logistic,age,log_weight_standard,"{""C"": 0.1, ""class_weight"": ""balanced""}",0.9165719396003545,0.009607289924591684,0.8676748582230625,0.9372964819376546
+R065_logistic_d2ed0ee2,logistic,global,standard,"{""C"": 1.0, ""class_weight"": null}",0.918619587069578,0.010476642356797142,0.87177063642092,0.9377837386434359
+R066_logistic_b6a667fd,logistic,global,log_weight_standard,"{""C"": 1.0, ""class_weight"": null}",0.9186195870695779,0.010050912564130014,0.87177063642092,0.9378718335715607
+R067_logistic_368ed764,logistic,age,standard,"{""C"": 1.0, ""class_weight"": null}",0.9189763556895282,0.010563503263101492,0.8727158160050409,0.9371229201039024
+R068_logistic_4dad49d0,logistic,age,log_weight_standard,"{""C"": 1.0, ""class_weight"": null}",0.9189347274741868,0.010579935915581646,0.8724007561436672,0.9373386518395264
+R069_logistic_8d3e9106,logistic,global,standard,"{""C"": 1.0, ""class_weight"": ""balanced""}",0.9185634405174022,0.010150905291736543,0.8739760554505356,0.9366745914972282
+R070_logistic_ab530a0a,logistic,global,log_weight_standard,"{""C"": 1.0, ""class_weight"": ""balanced""}",0.918290089414605,0.010355291444776852,0.8736609955891619,0.9366997982309947
+R071_logistic_27b7892f,logistic,age,standard,"{""C"": 1.0, ""class_weight"": ""balanced""}",0.9186793422327475,0.009922546251984668,0.8739760554505356,0.936035018194647
+R072_logistic_45f5be8c,logistic,age,log_weight_standard,"{""C"": 1.0, ""class_weight"": ""balanced""}",0.9184059911299505,0.010136229692166411,0.8736609955891619,0.9364345592321729
+R073_logistic_42c7b97a,logistic,global,standard,"{""C"": 10.0, ""class_weight"": null}",0.9187445522588374,0.010447353475163332,0.8727158160050411,0.9373178440287493
+R074_logistic_a901358d,logistic,global,log_weight_standard,"{""C"": 10.0, ""class_weight"": null}",0.9185127488281467,0.010076574354621696,0.8727158160050409,0.937418950264654
+R075_logistic_b099187e,logistic,age,standard,"{""C"": 10.0, ""class_weight"": null}",0.9191755138355564,0.010486009126428199,0.8733459357277882,0.9362244428687622
+R076_logistic_e41cf8e4,logistic,age,log_weight_standard,"{""C"": 10.0, ""class_weight"": null}",0.9190179839048694,0.010310822219894255,0.8730308758664146,0.9368178042726467
+R077_logistic_9123a5dd,logistic,global,standard,"{""C"": 10.0, ""class_weight"": ""balanced""}",0.9193510096276012,0.009135234735304242,0.875551354757404,0.9361355921015789
+R078_logistic_0727a162,logistic,global,log_weight_standard,"{""C"": 10.0, ""class_weight"": ""balanced""}",0.9184149740606293,0.00986592999388967,0.874606175173283,0.9363781486966197
+R079_logistic_6f9032fe,logistic,age,standard,"{""C"": 10.0, ""class_weight"": ""balanced""}",0.918373345845288,0.009793984311812937,0.8742911153119093,0.9352762165370049
+R080_logistic_753b06f2,logistic,age,log_weight_standard,"{""C"": 10.0, ""class_weight"": ""balanced""}",0.9184150546038645,0.009762292576403132,0.874606175173283,0.9356936387268652
+R081_forest_2e45fcad,forest,global,units,"{""class_weight"": null, ""max_depth"": 4, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.9106655305971793,0.007206189967533215,0.8519218651543793,0.9412101334354467
+R082_forest_080c547f,forest,age,units,"{""class_weight"": null, ""max_depth"": 4, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.910308761977229,0.007148724080300744,0.8509766855702584,0.941681881540148
+R083_forest_ac759a5d,forest,global,units,"{""class_weight"": ""balanced"", ""max_depth"": 4, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.9136260345388015,0.008883382650038097,0.8585381222432261,0.941092320667695
+R084_forest_060dcb82,forest,age,units,"{""class_weight"": ""balanced"", ""max_depth"": 4, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.9129542060574778,0.008286909642005687,0.8569628229363578,0.9410049701593503
+R085_forest_33dff489,forest,global,units,"{""class_weight"": null, ""max_depth"": 4, ""min_samples_leaf"": 10, ""n_estimators"": 150}",0.9142234284336513,0.007090207189188606,0.8604284814114682,0.9422420176124947
+R086_forest_0cb682d5,forest,age,units,"{""class_weight"": null, ""max_depth"": 4, ""min_samples_leaf"": 10, ""n_estimators"": 150}",0.9136261150820367,0.007508895654397069,0.8585381222432261,0.9422102466424024
+R087_forest_a4318fc8,forest,global,units,"{""class_weight"": ""balanced"", ""max_depth"": 4, ""min_samples_leaf"": 10, ""n_estimators"": 150}",0.9160812228604659,0.008442608478986388,0.8648393194706995,0.9424298401658268
+R088_forest_76249d60,forest,age,units,"{""class_weight"": ""balanced"", ""max_depth"": 4, ""min_samples_leaf"": 10, ""n_estimators"": 150}",0.9166697949111069,0.009055038374577246,0.8657844990548204,0.94220070219185
+R089_forest_30c33e1f,forest,global,units,"{""class_weight"": null, ""max_depth"": 8, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.9110547834153216,0.007566328789173485,0.852236925015753,0.9453714957087688
+R090_forest_4cab0c02,forest,age,units,"{""class_weight"": null, ""max_depth"": 8, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.9107813517692894,0.006782175631363776,0.8519218651543793,0.9438264353304632
+R091_forest_f5d584a1,forest,global,units,"{""class_weight"": ""balanced"", ""max_depth"": 8, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.9137418557109118,0.010925281097316395,0.8585381222432261,0.9428041839002211
+R092_forest_65f11b96,forest,age,units,"{""class_weight"": ""balanced"", ""max_depth"": 8, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.9123240863347304,0.008438062762792393,0.8557025834908633,0.9428315826311566
+R093_forest_5b574a16,forest,global,units,"{""class_weight"": null, ""max_depth"": 8, ""min_samples_leaf"": 10, ""n_estimators"": 150}",0.9165538931957616,0.010270122537912998,0.8657844990548204,0.9446208874569457
+R094_forest_58f1636f,forest,age,units,"{""class_weight"": null, ""max_depth"": 8, ""min_samples_leaf"": 10, ""n_estimators"": 150}",0.9167856160832172,0.010475362187305324,0.8657844990548204,0.943985561838616
+R095_forest_e81a70e9,forest,global,units,"{""class_weight"": ""balanced"", ""max_depth"": 8, ""min_samples_leaf"": 10, ""n_estimators"": 150}",0.9186287310867272,0.010542244186679952,0.8727158160050411,0.9472195590833565
+R096_forest_0fe05b54,forest,age,units,"{""class_weight"": ""balanced"", ""max_depth"": 8, ""min_samples_leaf"": 10, ""n_estimators"": 150}",0.9176329403565857,0.010926731732359174,0.8695652173913043,0.9449236233949231
+R097_forest_f8094aaf,forest,global,units,"{""class_weight"": null, ""max_depth"": null, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.9114530997073782,0.007863060539063028,0.8534971644612477,0.9457212638995026
+R098_forest_6c5018a9,forest,age,units,"{""class_weight"": null, ""max_depth"": null, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.9101095232879656,0.00807434729657925,0.8503465658475111,0.9440105987921038
+R099_forest_d86fd6d8,forest,global,units,"{""class_weight"": ""balanced"", ""max_depth"": null, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.9131950729620826,0.009391527970970075,0.8579080025204789,0.945362770820207
+R100_forest_689a7703,forest,age,units,"{""class_weight"": ""balanced"", ""max_depth"": null, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.9127966761267908,0.009128796047942232,0.8566477630749842,0.9446658415304371
+R101_forest_5cc98a9b,forest,global,units,"{""class_weight"": null, ""max_depth"": null, ""min_samples_leaf"": 10, ""n_estimators"": 150}",0.9170770941338423,0.009515800442310911,0.867989918084436,0.9480895822147427
+R102_forest_5a643ff1,forest,age,units,"{""class_weight"": null, ""max_depth"": null, ""min_samples_leaf"": 10, ""n_estimators"": 150}",0.9172908511599401,0.010040079700811165,0.8660995589161941,0.9455293994230843
+R103_forest_6cd06815,forest,global,units,"{""class_weight"": ""balanced"", ""max_depth"": null, ""min_samples_leaf"": 10, ""n_estimators"": 150}",0.9185455551992794,0.01031524212099719,0.8720856962822937,0.9458570312448987
+R104_forest_2ca7331d,forest,age,units,"{""class_weight"": ""balanced"", ""max_depth"": null, ""min_samples_leaf"": 10, ""n_estimators"": 150}",0.917924418407211,0.01158057659704133,0.87177063642092,0.9462381751658251

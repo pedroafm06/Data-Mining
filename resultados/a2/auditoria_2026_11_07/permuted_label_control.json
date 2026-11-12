@@ -1,5 +1,38 @@
 [
   {
+    "pool": "CLINICO",
+    "fixed_candidate": {
+      "kind": "tree",
+      "params": {
+        "criterion": "gini",
+        "max_depth": 2,
+        "min_samples_leaf": 50,
+        "class_weight": "balanced"
+      },
+      "imputation": "global",
+      "representation": "units",
+      "name": "R003_tree_d21bda81"
+    },
+    "metric": {
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 3018,
+      "fp": 2376,
+      "fn": 2176,
+      "tp": 1791,
+      "recall": 0.45147466599445424,
+      "specificity": 0.5595105672969967,
+      "precision": 0.4298056155507559,
+      "f1": 0.44037373985738876,
+      "balanced_accuracy": 0.5054926166457254,
+      "roc_auc": 0.5060604267745048,
+      "average_precision": 0.42518946733367724,
+      "brier": 0.25041615695687747,
+      "accuracy": 0.5137271659010789
+    },
+    "interpretation": "negative diagnostic control; not a formal permutation p-value or proof of no leakage"
+  },
+  {
     "pool": "FISIO8",
     "fixed_candidate": {
       "kind": "tree",

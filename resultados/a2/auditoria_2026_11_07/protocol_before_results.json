@@ -1,11 +1,42 @@
 {
-  "version": "A2-rubrica-2026-11-07-v1",
+  "version": "A2-rubrica-2026-11-12-v2-clinico",
   "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
   "source_rubric_sha256": "bf38c1c6f777f249c2af733a957a2860787446233acd2325c54c26bc1fda545a",
-  "development_only": true,
-  "historical_test_scored": false,
+  "development_only_for_selection": true,
+  "historical_test_scored": "secondary, once, after final selection; previously examined",
+  "leakage_definition": "information unavailable at prediction time",
+  "excluded_fields": {
+    "ID": "identificador",
+    "Atendimento": "data bruta (a idade derivada entra como IDADE)",
+    "DN": "data bruta (a idade derivada entra como IDADE)",
+    "Convenio": "origem do paciente/encaminhamento, nao achado clinico",
+    "MOTIVO1": "motivo do encaminhamento com conteudo diagnostico explicito",
+    "MOTIVO2": "motivo do encaminhamento com conteudo diagnostico explicito",
+    "HDA2": "mais de 50% de ausentes (regra da A1)",
+    "NORMAL X ANORMAL": "alvo"
+  },
+  "primary_pool": "CLINICO",
+  "sensitivity_pools": [
+    "FISIO8",
+    "STRICT4"
+  ],
   "n_development": 9361,
   "pools": {
+    "CLINICO": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "SEXO",
+      "PPA",
+      "SOPRO",
+      "B2",
+      "PULSOS",
+      "HDA 1"
+    ],
     "FISIO8": [
       "Peso",
       "Altura",
@@ -1239,10 +1270,10 @@
   "same_outer_folds_for_all_families_and_pools": true,
   "grouping": "Frozen candidate components from c8c86e3; used only to prevent candidate equivalence crossing partitions, not as X",
   "limitations": [
-    "target reference standard and chronology undocumented",
+    "target reference standard undocumented",
     "previous cohort-wide exploration remains",
-    "group components do not establish patient identity",
-    "FISIO8 conditional on vitals not defining y; STRICT4 removes these potential cardiovascular inputs"
+    "groups of identical records do not establish patient identity",
+    "CLINICO assumes exam findings, anamnesis and vitals are recorded before the report; FISIO8/STRICT4 measure sensitivity to removing them"
   ],
   "audit_probes": "Single-variable, raw-date/ordinal-ID and missingness probes are development-only diagnostic experiments, never admissible model candidates.",
   "null_control": "Fixed shallow tree with permuted development labels; a null result is not proof of absence of leakage",
