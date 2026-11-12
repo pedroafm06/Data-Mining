@@ -1,0 +1,9 @@
+{
+  "name": "a2-ucmf-deck",
+  "private": true,
+  "type": "module",
+  "description": "Gera a apresentação da A2 a partir de .build/content.json",
+  "dependencies": {
+    "pptxgenjs": "3.12.0"
+  }
+}

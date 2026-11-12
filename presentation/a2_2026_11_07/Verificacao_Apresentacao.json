@@ -1,19 +1,16 @@
 {
   "arquivo": "output/Apresentacao_A2_UCMF.pptx",
-  "sha256": "a82f61ee9627e469d3f2530881cab0af732edd9b34a513096e91bd552fee412e",
-  "slides_principais": 14,
-  "slides_ocultos_de_apoio": 7,
-  "notas": 21,
-  "minutos_roteiro": 14.5,
-  "graficos_editaveis": 2,
-  "tabelas_editaveis": 9,
+  "sha256": "3a87cc0066298e607a0d2d34a834be3235a17ba643a2c8583f8d51c64fadd1a9",
+  "pdf": "output/Apresentacao_A2_UCMF.pdf",
+  "pdf_sha256": "c5914934f7ad25181b1bc68ab0a0cb10b802e2b9ed341f6212fa2634590760c4",
+  "slides_numerados": 15,
+  "slides_ocultos_de_apoio": 3,
+  "segundos_roteiro": 870,
+  "fonte_dos_numeros": "resultados/a2/auditoria_2026_11_07/reviewed_results.json",
+  "fonte_sha256": "83296934c02cb2749c2e4ffa3ee3df849635dd884152532aab6b6be243f1ba71",
+  "gerador": "build_data.py + build_deck.mjs (pptxgenjs 3.12.0) + LibreOffice 26.8.2",
   "conferencias": [
-    "estrutura do pacote PPTX",
-    "contagem de slides e notas",
-    "geometria dos objetos",
-    "consistência dos gráficos e das planilhas incorporadas",
-    "revisão visual dos slides principais exportados no LibreOffice",
-    "revisão visual das páginas de apoio no gerador"
-  ],
-  "pdf_principal_sha256": "a14be9ec92f55a7572102300e11fa4bce988d5408055402c1ad92c1ae84e626b"
+    "15 páginas no PDF exportado",
+    "revisão visual de todos os slides numerados"
+  ]
 }

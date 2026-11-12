@@ -1,7 +1,18 @@
 # Apresentação da A2 UCMF
 
-A apresentação editável fica em [PowerPoint](output/Apresentacao_A2_UCMF.pptx). Os 14 slides principais também estão disponíveis em [PDF](output/Apresentacao_A2_UCMF.pdf). O [roteiro](output/Roteiro_e_Arguicao.md) distribui 14 min 30 s entre os quatro integrantes e inclui perguntas de arguição. Sete slides de apoio ficam ocultos durante a apresentação e podem ser abertos pelo PowerPoint ou Impress.
+- [Slides em PDF](output/Apresentacao_A2_UCMF.pdf): 15 slides numerados.
+- [PowerPoint editável](output/Apresentacao_A2_UCMF.pptx): os mesmos 15 slides e mais 3 de apoio ocultos (todas as métricas, teste histórico, reprodução e uso de IA). Tabelas e gráficos são nativos e editáveis.
+- [Roteiro e arguição](output/Roteiro_e_Arguicao.md): 14 min 30 s divididos entre os quatro integrantes, com as perguntas prováveis, inclusive sobre a decisão de vazamento.
 
-O deck foi conferido pela renderização e pela abertura via LibreOffice Impress. As tabelas e os dois gráficos são editáveis. O tempo é uma estimativa de roteiro.
+## Reconstruir
 
-Para reconstruir, execute `python build_data.py` neste diretório após gerar a auditoria experimental na raiz do projeto. O gerador `build_deck.mjs` usa Node.js e o pacote `@oai/artifact-tool` do runtime de apresentações. Defina `CODEX_PRESENTATIONS_SKILL` com o caminho da instalação das ferramentas e `RUNTIME_NODE_MODULES` com o caminho das dependências desse runtime. Execute `node build_deck.mjs --final`. Para conservar o PPTX publicado e gerar uma nova cópia, defina `UCMF_DECK_REVISION` com um sufixo. O PDF é exportado pelo LibreOffice Impress.
+Todos os números vêm de `resultados/a2/auditoria_2026_11_07/reviewed_results.json`. Neste diretório:
+
+```sh
+python build_data.py          # gera .build/content.json e output/Roteiro_e_Arguicao.md
+npm install                   # instala pptxgenjs 3.12.0 (package.json)
+node build_deck.mjs           # gera output/Apresentacao_A2_UCMF.pptx
+soffice --headless --convert-to pdf --outdir output output/Apresentacao_A2_UCMF.pptx
+```
+
+O PDF é exportado pelo LibreOffice Impress, que omite os slides ocultos.

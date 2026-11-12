@@ -1,258 +1,184 @@
 # Roteiro e preparação para arguição
 
-14 slides principais, 14 min 30 s. Os sete slides de apoio ficam ocultos na apresentação. Qualquer integrante deve compreender todo o roteiro.
+15 slides numerados, 14 min 30 s de fala. Três slides de apoio ficam ocultos. Qualquer integrante deve conseguir explicar todo o roteiro.
 
-- Antônio Henrique Queiroz Villar Lopes: 3 min 50 s.
-- João Vitor Fernandes Ferreira: 3 min 40 s.
+- Antônio Henrique Queiroz Villar Lopes: 3 min 20 s.
+- João Vitor Fernandes Ferreira: 3 min 10 s.
 - Mateus Nery Bailão: 3 min 50 s.
-- Pedro Augusto Ferreira Matos: 3 min 10 s.
+- Pedro Augusto Ferreira Matos: 4 min 10 s.
 
-## 1. Classificação de registros cardíacos pediátricos
+## 1. Classificação de registros de cardiologia pediátrica
 
-Responsável sugerido: Antônio Henrique Queiroz Villar Lopes. Tempo: 0:30.
+Responsável: Antônio Henrique Queiroz Villar Lopes. Tempo: 0:30.
 
-Apresentamos a revisão final do estudo de caso UCMF. O trabalho tem duas partes conectadas: primeiro auditamos quais informações podem entrar no modelo e quais riscos permanecem. Depois comparamos referência, regressão logística, árvore e floresta com o mesmo protocolo. O foco é explicar o que os resultados sustentam. O modelo tenta classificar o rótulo que existe no registro. O estudo não dispõe de uma referência clínica independente para validar diagnóstico. A revisão mantém a A1 entregue como histórico e torna as novas decisões explícitas.
+Somos o grupo 3. Vamos mostrar como classificamos registros de cardiologia pediátrica como normais ou anormais, quais atributos deixamos o modelo usar e o que os resultados dizem sobre a origem da informação.
 
-**Pergunta possível:** Qual é a contribuição principal?
+**Pergunta provável:** Qual é a contribuição principal?
 
-**Resposta:** A revisão completa dos atributos e a comparação entre famílias com as mesmas entradas e folds externos.
+**Resposta:** Uma política de atributos baseada na disponibilidade no momento da previsão e a comparação de quatro modelos em três cenários com o mesmo protocolo.
 
-**Fontes locais:** Parecer_Semantico_e_Decisoes.md, protocol_before_results.json.
 
-## 2. Tarefa e significado do alvo
+## 2. Tarefa
 
-Responsável sugerido: Antônio Henrique Queiroz Villar Lopes. Tempo: 1:00.
+Responsável: Antônio Henrique Queiroz Villar Lopes. Tempo: 0:50.
 
-A tarefa é uma classificação supervisionada binária. A classe positiva é Anormal. O dicionário descreve o alvo como ausência ou presença de patologia cardíaca, mas não informa quem atribuiu o rótulo, quais exames serviram como referência nem em qual momento cada campo ficou disponível. Isso importa porque prever a decisão registrada é diferente de demonstrar detecção de doença por uma referência independente. A nossa pergunta operacional é quanto medidas disponíveis no registro permitem discriminar esse rótulo, sob uma política conservadora de atributos. As afirmações ficam condicionadas à disponibilidade das medidas antes do uso pretendido. Não chamamos a saída de diagnóstico e não inferimos causa a partir de associação.
+A base UCMF vem de atendimentos de cardiologia pediátrica do Real Hospital Português, em Recife. O alvo indica se o registro foi rotulado como normal ou anormal. A classe positiva é Anormal. A pergunta é: com o que se coleta no atendimento, antes do laudo, dá para antecipar esse rótulo? Pensamos no uso como apoio à triagem.
 
-**Pergunta possível:** O modelo prevê doença ou o registro?
+**Pergunta provável:** O modelo diagnostica doença?
 
-**Resposta:** O rótulo registrado. A equivalência com diagnóstico independente não foi documentada.
+**Resposta:** Não. Ele prevê o rótulo registrado na base, cujo critério de referência não está documentado.
 
-**Fontes locais:** Variáveis do conjunto de dados (SIGAA 03-11-2026).pdf, Tema do estudo de caso.pdf.
 
-## 3. Coorte e partições
+## 3. Dados e partições
 
-Responsável sugerido: Antônio Henrique Queiroz Villar Lopes. Tempo: 1:10.
+Responsável: Antônio Henrique Queiroz Villar Lopes. Tempo: 1:00.
 
-A fonte tem 12.873 registros e 21 variáveis. Existem 11.704 rótulos conhecidos após o mapeamento explícito. A divisão histórica contém 9.361 registros de desenvolvimento, 2.342 do teste histórico e um registro em quarentena por equivalência candidata entre partições. Essa linha permanece na base original. Os demais 1.169 registros não têm rótulo utilizável para a classificação supervisionada. A nova execução usa somente o desenvolvimento, com 9.279 componentes candidatos de agrupamento. Esses componentes ajudam a manter possíveis equivalências juntas, mas não provam identidade de paciente. O ID é declarado como do paciente anônimo no dicionário. Sua unicidade na planilha não prova estabilidade entre retornos. O teste antigo já foi explorado e não recebeu nova avaliação nesta revisão.
+São 12.873 registros e 21 atributos. 1.169 não têm rótulo. Dos 11.704 rotulados, 9.361 formam o desenvolvimento, onde fazemos toda a escolha de modelos, e 2.342 formam o teste histórico, separado numa fase anterior. No desenvolvimento, 42,4% são anormais: um desequilíbrio moderado, por isso usamos acurácia balanceada.
 
-**Pergunta possível:** Por que não usar o teste antigo novamente?
+**Pergunta provável:** Por que não descartar o teste histórico?
 
-**Resposta:** Porque a exposição anterior impede apresentá-lo como validação nova e intocada. A nova avaliação usa folds externos no desenvolvimento e assume o histórico de exploração.
+**Resposta:** Usamos como avaliação secundária, uma única vez, deixando claro que ele já tinha sido examinado antes.
 
-**Fontes locais:** UCMF_raw.csv, a2_mining/particoes_modelagem.csv, verification.json.
 
-## 4. Riscos de vazamento nas 21 variáveis
+## 4. O exame físico separa as classes
 
-Responsável sugerido: Antônio Henrique Queiroz Villar Lopes. Tempo: 1:10.
+Responsável: João Vitor Fernandes Ferreira. Tempo: 1:00.
 
-A auditoria separa fatos de suspeitas. MOTIVO1 e MOTIVO2 contêm expressões como cardiopatia já estabelecida e cardiopatia congênita. O conteúdo diagnóstico é explícito, embora não saibamos se veio do mesmo processo que gerou y. SOPRO, B2 e PULSOS aparecem no material de investigação diagnóstica. Isso sugere possível incorporação, mas não prova que o fluxograma fornecido rotulou a UCMF. PPA é uma classificação derivada de hipertensão e seu vínculo com o alvo genérico permanece desconhecido. HDA contém sintomas e Assintomático, sem nomes de cardiopatia nas categorias observadas. Retiramos esse bloco da principal por proveniência incerta, com grau de suspeita diferente. Uma correlação forte, sozinha, não demonstra vazamento. A política não depende apenas do tamanho da associação.
+Este gráfico mostra o percentual de anormais em cada achado do exame. Com sopro sistólico, 95,8% são anormais; sem sopro, 10,1%. B2 alterada também concentra anormais. Esses achados são exatamente o que o cardiologista observa ao examinar a criança.
 
-**Pergunta possível:** Vocês provaram que SOPRO vaza o alvo?
+**Pergunta provável:** Isso não é vazamento?
 
-**Resposta:** Não. A suspeita tem fundamento semântico, mas falta o protocolo do alvo e a ordem temporal. A remoção é conservadora.
+**Resposta:** Não pelo nosso critério: o sopro é auscultado no atendimento, antes do laudo. SOPRO sozinho tem BA de 91,1%, o que mostra poder preditivo, não informação do futuro.
 
-**Fontes locais:** Politica_Atributos.json, Guideline for diagnostic.pdf, UCMF_raw.csv.
 
-## 5. Conjuntos de atributos
+## 5. Idade e frequência cardíaca
 
-Responsável sugerido: João Vitor Fernandes Ferreira. Tempo: 1:00.
+Responsável: João Vitor Fernandes Ferreira. Tempo: 0:50.
 
-FISIO8 contém Peso, Altura, IMC, IDADE, pressões sistólica e diastólica, frequência cardíaca e sexo. STRICT4 conserva Peso, Altura, IDADE e SEXO. Essa escolha foi documentada pelo tipo de informação antes da leitura dos novos resultados. STRICT4 testa uma alternativa mais restrita porque medidas de pressão ou frequência poderiam participar de critérios diagnósticos não documentados. Se HAS integrar o alvo, tirar PPA e manter suas pressões não elimina necessariamente essa informação. STRICT4 também retira o IMC histórico, reduzindo dependência de uma derivação antiga. Por retirar quatro atributos juntos, a diferença entre os conjuntos não identifica o efeito isolado de cada um. Nenhum conjunto recebe certificado de ausência de vazamento.
+As crianças anormais são mais novas: mediana de 2,7 anos contra 4,8, e 35,3% delas têm menos de um ano, contra 17,2% dos normais. Isso é compatível com cardiopatias congênitas, percebidas cedo. A FC mediana é 98 contra 90 bpm, mas a FC cai com a idade, então parte dessa diferença é efeito da idade.
 
-**Pergunta possível:** Por que manter medidas que podem estar no critério?
+**Pergunta provável:** A FC é um marcador de doença?
 
-**Resposta:** FISIO8 estuda medidas básicas sob uma premissa temporal explícita. STRICT4 documenta a sensibilidade à alternativa mais restrita. A falta de referência impede certeza nos dois.
+**Resposta:** Aqui ela se confunde com a idade; não afirmamos efeito causal.
 
-**Fontes locais:** Politica_Atributos.json, protocol_before_results.json.
 
-## 6. Pré-processamento no treino
+## 6. Critério de vazamento
 
-Responsável sugerido: João Vitor Fernandes Ferreira. Tempo: 1:00.
+Responsável: João Vitor Fernandes Ferreira. Tempo: 1:20.
 
-A limpeza reconhece grafias, sentinelas e valores suspeitos sem transformar desconhecido em Normal. O alvo recebe apenas o mapeamento explícito de valores válidos. Não corrigimos seu conteúdo com base em SOPRO ou outro achado. As transformações que aprendem com a amostra, como imputação por mediana, escalas e categorias, são ajustadas no treino de cada fold. A busca compara a imputação global e a baseada em idade, quando previstas para a família. Cada validação recebe somente a transformação aprendida no seu treino. Indicadores de ausência merecem cuidado: podem captar o processo de medição, e retirar o indicador explícito não remove necessariamente a marca deixada pela mediana imputada. As derivações mantêm rastreabilidade e as exclusões também valem para codificações dos campos retirados.
+Definimos vazamento como usar informação indisponível no momento da previsão. Saem ID e datas brutas; Convênio, que descreve a origem do paciente: no SUS, 95,0% dos 60 registros são anormais, o que reflete quem encaminhou; MOTIVO1 e MOTIVO2, que trazem o diagnóstico escrito, como cardiopatia congênita, risco já apontado na A1; e HDA2, com 96,5% de ausentes. Ficam medidas, sinais vitais, exame físico, sintomas e PPA, que é calculada de pressão, idade, sexo e altura.
 
-**Pergunta possível:** Por que não imputar antes de dividir?
+**Pergunta provável:** Por que a versão anterior excluía SOPRO, B2 e PULSOS?
 
-**Resposta:** Porque a mediana, a escala e o vocabulário passariam a conhecer os registros que deveriam apenas avaliar o modelo.
+**Resposta:** Ela tratava como vazamento tudo o que estivesse próximo do rótulo. Revimos o critério: o que importa é a disponibilidade antes do laudo, e o exame físico está disponível.
 
-**Fontes locais:** preprocessing_audit.json, protocol_before_results.json, Politica_Atributos.json.
+**Pergunta provável:** E se o sopro tiver sido registrado depois do laudo?
 
-## 7. Validação aninhada
+**Resposta:** A base não tem horários. Por isso mantemos os cenários sem exame físico como sensibilidade e declaramos essa suposição como limitação.
 
-Responsável sugerido: João Vitor Fernandes Ferreira. Tempo: 1:40.
+**Pergunta provável:** Convênio está disponível no atendimento. Por que sai?
 
-Usamos cinco folds externos e três internos. Pensem primeiro em uma divisão externa: quatro partes ficam no treino e uma fica reservada para avaliar. Dentro das quatro partes de treino, os três folds internos comparam os hiperparâmetros de cada família. A seleção usa a média da acurácia balanceada interna. Depois ajustamos a configuração escolhida em todo o treino externo e produzimos as previsões da parte externa. Repetimos o processo cinco vezes, trocando a parte externa. Assim cada registro recebe uma previsão de um modelo que não o usou no próprio ajuste nem na seleção interna daquela previsão. Concatenamos essas previsões externas para formar as métricas OOF. As quatro famílias e os dois conjuntos usam as mesmas divisões externas, o que permite comparação pareada. Mantemos os grupos candidatos juntos. Isso reduz cruzamento de equivalências candidatas, mas não assegura que todos os retornos de uma pessoa foram detectados. A avaliação é interna à mesma coorte e permanece condicionada a decisões históricas já exploradas.
+**Resposta:** Porque descreve o caminho de encaminhamento e não a criança. Um modelo apoiado nele aprenderia quem encaminha, e não o que se observa.
 
-**Pergunta possível:** O que significa uma previsão OOF?
 
-**Resposta:** É uma previsão produzida quando aquela linha estava no fold externo de avaliação. O ajuste e a escolha interna ocorreram nas demais partes.
+## 7. Três cenários
 
-**Fontes locais:** protocol_before_results.json, outer_membership.csv, verification.json.
+Responsável: Mateus Nery Bailão. Tempo: 0:50.
 
-## 8. Algoritmos e métricas
+O cenário principal, CLINICO, tem 13 atributos. FISIO8 retira exame físico, sintomas e PPA e fica com medidas, sinais vitais e sexo. STRICT4 mantém só peso, altura, idade e sexo. Os três usam os mesmos registros e as mesmas partições, o que permite ver de onde vem a informação.
 
-Responsável sugerido: Mateus Nery Bailão. Tempo: 0:50.
+**Pergunta provável:** FISIO8 e STRICT4 viraram o quê?
 
-A referência prevê sempre a classe mais frequente e mostra o desempenho sem discriminação individual. A logística oferece uma relação regularizada e simples de interpretar. A árvore permite regras não lineares, e a floresta agrega várias árvores. A busca tem 105 configurações no total: uma referência, 48 árvores, 32 logísticas e 24 florestas. Escolhemos hiperparâmetros dentro de cada família para não comparar uma família ajustada com outra arbitrariamente fixada. A métrica de seleção é a acurácia balanceada, média da sensibilidade e da especificidade. Apresentamos também ROC-AUC, sensibilidade e especificidade. O limiar é 0,5, sem ajuste no teste histórico. Uma acurácia comum aparentemente razoável pode esconder o fato de a referência nunca reconhecer a classe Anormal.
+**Resposta:** Análises de sensibilidade: mostram quanto do desempenho depende de cada bloco de atributos.
 
-**Pergunta possível:** Por que acurácia balanceada?
 
-**Resposta:** Ela dá o mesmo peso ao acerto de cada classe. A referência tem 57,6% de acurácia comum, mas 50% de BA e sensibilidade zero.
+## 8. Da A1 para a A2
 
-**Fontes locais:** protocol_before_results.json, family_nested_metrics.csv.
+Responsável: Mateus Nery Bailão. Tempo: 1:00.
 
-## 9. Comparação principal
+A A1 removeu 987 duplicados: 752 sem rótulo e 235 rotulados. Na A2 mantemos os rotulados e colocamos registros iguais no mesmo grupo, que nunca é dividido entre treino e validação; 93 ficam no grupo da cópia. Também mudamos três decisões: idade contínua em vez de faixas, one-hot no sexo e a imputação por faixa etária como opção testada, não como regra.
 
-Responsável sugerido: Mateus Nery Bailão. Tempo: 1:10.
+**Pergunta provável:** Por que não remover os duplicados?
 
-Esta tabela resume as previsões externas de FISIO8. A floresta apresenta a maior acurácia balanceada observada, 62,9%, com ROC-AUC de 0,672. Sua sensibilidade é 59,3% e a especificidade é 66,4%. A referência fica em 50% de BA. A logística e a árvore também superam numericamente essa referência, mas o ganho de complexidade não produz uma discriminação elevada. Todos os valores vêm das mesmas 9.361 linhas e dos mesmos folds externos. Não confundimos esse resumo com desempenho de treinamento, nem com o escore usado para escolher a configuração final. A maior média observada entre famílias não é uma demonstração de superioridade clínica ou uma validação externa confirmatória. A interpretação precisa considerar a incerteza e os erros, que mostramos a seguir.
+**Resposta:** O agrupamento evita que cópias caiam em treino e validação ao mesmo tempo, sem perder registros.
 
-**Pergunta possível:** Esse é o resultado do modelo treinado em todos os dados?
 
-**Resposta:** Não. São predições externas da validação aninhada. O ajuste final em todo o desenvolvimento serve à reprodução e não substitui a estimativa OOF.
+## 9. Pré-processamento e validação
 
-**Fontes locais:** family_nested_metrics.csv, outer_fold_metrics.csv.
+Responsável: Mateus Nery Bailão. Tempo: 1:10.
 
-## 10. Erros da floresta em FISIO8
+Tudo que aprende com os dados, como medianas, escalas e vocabulário das categorias, é ajustado só no treino de cada partição. A validação é aninhada: cinco folds externos para estimar o desempenho e, dentro de cada um, três folds internos para escolher os hiperparâmetros. É estratificada pela classe e agrupada. Sementes fixas: 42 nos modelos, 743 nos folds externos e 811 mais k nos internos.
 
-Responsável sugerido: Mateus Nery Bailão. Tempo: 1:00.
+**Pergunta provável:** Por que aninhada?
 
-A matriz usa linha para o rótulo registrado e coluna para a classe predita. Entre 5.394 registros Normal, o modelo classifica 3.584 como Normal e 1.810 como Anormal. Entre 3.967 registros Anormal, classifica corretamente 2.352 e deixa 1.615 como Normal. Assim, aproximadamente 40,7% dos anormais registrados não são reconhecidos nesse limiar. Falso positivo significa divergir do rótulo Normal, e falso negativo significa divergir do rótulo Anormal. Como a referência clínica do alvo não é independente e validada, tratamos esses termos como erros de classificação do registro. A matriz mostra por que um resumo único de desempenho é insuficiente e por que não há base para propor uso diagnóstico.
+**Resposta:** Para que o mesmo dado não sirva para escolher hiperparâmetros e medir desempenho.
 
-**Pergunta possível:** Um falso negativo aqui significa doença não detectada?
 
-**Resposta:** Significa previsão Normal quando o rótulo registrado é Anormal. A interpretação clínica exige referência validada, que não temos.
+## 10. Modelos e métricas
 
-**Fontes locais:** family_nested_metrics.csv, oof_FISIO8_forest.csv.
+Responsável: Mateus Nery Bailão. Tempo: 0:50.
 
-## 11. Dependência dos atributos
+O baseline simples é a classe majoritária, que sempre diz Normal. Comparamos com três modelos: árvore de decisão, regressão logística e floresta aleatória, com 105 configurações por cenário. A métrica principal é a acurácia balanceada, média de sensibilidade e especificidade.
 
-Responsável sugerido: Mateus Nery Bailão. Tempo: 0:50.
+**Pergunta provável:** Por que não acurácia comum?
 
-A importância por permutação usa o próprio fold externo. Primeiro calculamos a BA naquele fold. Depois embaralhamos uma variável nesse conjunto e medimos quanto a BA cai, mantendo o modelo ajustado. O gráfico resume cinco folds e três repetições por variável na floresta FISIO8. A maior queda média aparece em FC, 4,8 pontos percentuais, seguida por Peso. Isso mostra dependência preditiva desse modelo na amostra avaliada. Não demonstra que FC causa a condição, que foi registrada antes de y ou que é independente do critério diagnóstico. Variáveis correlacionadas podem substituir umas às outras, e uma importância pequena não prova irrelevância individual. A presença forte de FC reforça o valor de olhar a sensibilidade STRICT4.
+**Resposta:** A classe majoritária já teria 57,6% de acurácia sem reconhecer nenhum anormal.
 
-**Pergunta possível:** Importância é causalidade?
 
-**Resposta:** Não. É a perda de desempenho do modelo ao perturbar uma entrada no fold externo, condicionada às outras variáveis e ao modelo.
+## 11. Resultado principal
 
-**Fontes locais:** outer_permutation_importance.csv.
+Responsável: Pedro Augusto Ferreira Matos. Tempo: 1:10.
 
-## 12. Sensibilidades e processo de coleta
+No CLINICO, árvore, logística e floresta ficam a 0,04 ponto uma da outra: é um empate. Pelo critério fixado antes, a árvore tem a maior BA, 91,9%, com sensibilidade de 87,5% e especificidade de 96,4%. A floresta ordena melhor as probabilidades, com ROC-AUC de 94,7%.
 
-Responsável sugerido: Pedro Augusto Ferreira Matos. Tempo: 1:00.
+**Pergunta provável:** Se empatam, qual vocês usariam?
 
-A comparação com STRICT4 mantém a população e as divisões externas. A BA observada da floresta cai de 62,9% para 59,5%. A logística em STRICT4 fica em 59,7%. Isso é uma sensibilidade ao conjunto de informação, sem trocar retrospectivamente a principal pelo melhor valor. Também ajustamos uma árvore fixa usando apenas máscaras de disponibilidade. Em FISIO8 ela alcança BA de 56,1%, mostrando sinal no padrão de preenchimento. Esse ensaio usa somente desenvolvimento e não equivale à busca aninhada das famílias. Um controle com rótulos permutados fica próximo de 50%, mas é diagnóstico auxiliar, sem p-valor formal e sem provar ausência de vazamento. Os controles sustentam uma interpretação cuidadosa do processo de registro.
+**Resposta:** A árvore, por ser a mais simples de explicar; a floresta, se o limiar for ajustado, porque ordena melhor.
 
-**Pergunta possível:** FISIO8 ser melhor prova que as medidas são legítimas?
 
-**Resposta:** Não. Prova apenas uma diferença preditiva neste protocolo. A admissibilidade depende da origem e do momento das medidas.
+## 12. De onde vem a informação
 
-**Fontes locais:** family_nested_metrics.csv, collection_process_controls.csv, permuted_label_control.json.
+Responsável: Pedro Augusto Ferreira Matos. Tempo: 1:00.
 
-## 13. Limites da evidência
+Tirando o exame físico, a melhor BA cai 29,0 pontos, para 62,9%. Tirando também os sinais vitais, cai mais 3,2 pontos, para 59,7%. Quase toda a informação está na ausculta. No teste histórico a ordem se mantém: 92,9%, 65,2% e 60,3%.
 
-Responsável sugerido: Pedro Augusto Ferreira Matos. Tempo: 1:00.
+**Pergunta provável:** O teste histórico confirma o resultado?
 
-A principal limitação é a falta de definição operacional e de referência independente do alvo. A segunda é a sequência de coleta: não temos horários nem histórico de atualização dos campos clínicos. A terceira é a representatividade, porque são registros de um serviço de cardiologia e a modelagem supervisionada depende de rótulo disponível. Os grupos são candidatos, sem identidade de paciente confirmada. Além disso, a coorte e escolhas de qualidade já receberam exploração anterior. A validação aninhada protege a seleção interna de hiperparâmetros desta execução, mas não apaga decisões históricas. O teste antigo não foi reavaliado. Mesmo retirando campos suspeitos, não afirmamos que o conjunto está livre de todos os mecanismos de vazamento. São limites que afetam a conclusão, e não detalhes que uma métrica alta resolveria.
+**Resposta:** Mostra estabilidade dentro da mesma coorte. Como ele já tinha sido examinado, não substitui validação externa.
 
-**Pergunta possível:** Qual informação faltante mais mudaria o estudo?
 
-**Resposta:** O protocolo de formação do alvo e a ordem de obtenção das entradas. Isso permitiria decidir sobre incorporação e disponibilidade temporal.
+## 13. Importância dos atributos
 
-**Fontes locais:** Parecer_Semantico_e_Decisoes.md, protocol_before_results.json, verification.json.
+Responsável: Pedro Augusto Ferreira Matos. Tempo: 0:50.
 
-## 14. Conclusão
+Embaralhar o SOPRO derruba a BA em 38,6 pontos; B2, em 3,1. Os outros não mudam nada. Sem o exame, o modelo passa a usar FC (4,9) e peso (2,5), que acompanham a idade.
 
-Responsável sugerido: Pedro Augusto Ferreira Matos. Tempo: 1:10.
+**Pergunta provável:** Importância é causa?
 
-A revisão auditou as 21 variáveis e comparou quatro famílias com a mesma entrada e as mesmas divisões externas. A maior BA observada em FISIO8 é 62,9%, na floresta. Esse resultado indica discriminação limitada do rótulo registrado e precisa ser lido junto dos 1.615 falsos negativos de registro e dos 1.810 falsos positivos. A política conservadora exclui os campos de diagnóstico prévio, os achados de maior incerteza e as classificações derivadas. Ela não transforma o alvo em referência independente. O próximo avanço não é apenas buscar outro algoritmo: é esclarecer a formação do rótulo, a ordem de coleta e a identidade estável entre retornos, e então obter uma avaliação confirmatória separada. Os dados originais e a A1 permanecem preservados. O código, as sementes, o protocolo e os manifestos permitem conferir as decisões e os resultados desta execução.
+**Resposta:** Não. É a perda de desempenho do modelo quando o atributo é embaralhado.
 
-**Pergunta possível:** O que vocês defendem ao final?
 
-**Resposta:** Uma comparação reprodutível e uma política de atributos justificável, com melhora numérica sobre a referência e limites explícitos. Não defendemos diagnóstico clínico validado.
+## 14. Análise de erros
 
-**Fontes locais:** family_nested_metrics.csv, Politica_Atributos.json, manifest.json.
+Responsável: Pedro Augusto Ferreira Matos. Tempo: 1:10.
 
-## 15. Matriz das 21 variáveis, parte 1 (apoio)
+São 496 falsos negativos, 12,5% dos anormais, e todos (100,0%) são crianças sem sopro. Entre os 195 falsos positivos, 79,0% têm sopro, o que é compatível com sopros inocentes. Numa triagem, o falso negativo é o erro caro: pode atrasar um diagnóstico. Por isso o próximo passo é ajustar o limiar para aumentar a sensibilidade.
 
-ID: O número não é medida clínica e seu uso pode aprender organização do arquivo. Evidência: O dicionário declara ID do paciente anônimo; todos os IDs observados são distintos. Alternativa: Usar como chave de agrupamento apenas se houver confirmação de estabilidade; analisar agrupamentos candidatos separadamente. Limite: Não renomear conceitualmente como ID de atendimento nem afirmar que IDs distintos provam pessoas distintas.
+**Pergunta provável:** Como reduzir os falsos negativos?
 
-Peso: Preserva informação antropométrica sem conteúdo diagnóstico explícito documentado. Evidência: Dicionário e valores numéricos observados; nenhuma fonte define Peso como cópia de y. Alternativa: Retirar em análise de sensibilidade; comparar com e sem indicadores de ausência no desenvolvimento. Limite: Peso pode ser consequência de doença/tratamento. Se medido depois do instante de uso, a inclusão deixa de ser defensável.
+**Resposta:** Baixando o limiar e estudando à parte as crianças anormais sem sopro, com idade, FC e sintomas.
 
-Altura: É uma medida basal, embora também participe de classificações derivadas. Evidência: Dicionário e explicação de PPA associam medidas corporais às referências pediátricas. Alternativa: Retirar isoladamente para avaliar redundância; não reconstruir valores com o alvo. Limite: Ser pai de PPA não torna automaticamente Altura uma variável vazada; a interpretação depende do alvo e do instante.
 
-IMC: A principal permite uma representação usual da antropometria; a sensibilidade reduz redundância e dependência de cálculo histórico. Evidência: O complemento explica IMC a partir de peso e altura, sem usar y. Alternativa: FISIO sem IMC ou IMC recalculado apenas de pais observados, como ensaios de desenvolvimento. Limite: STRICT também remove pressões e FC; sua diferença de escore não identifica isoladamente o efeito do IMC.
+## 15. Conclusão e limitações
 
-Atendimento: Evita apresentar época de cadastro como explicação clínica. Evidência: O dicionário define data da visita; a base contém formatos e valores que exigem interpretação. Alternativa: Examinar estabilidade por período ou corte temporal, se o parser e a suficiência amostral forem verificados. Limite: Um corte pela data de visita não recupera horário pré-rótulo, não valida séculos ambíguos e não garante separação por paciente.
+Responsável: Antônio Henrique Queiroz Villar Lopes. Tempo: 1:00.
 
-DN: Conserva idade sem fornecer a data exata ao classificador. Evidência: Dicionário e presença de datas na fonte. Alternativa: Agrupar candidatos por DN e outros campos apenas como sensibilidade, sem chamar grupos de pacientes confirmados. Limite: Pessoas distintas podem compartilhar DN; a coincidência não prova identidade e pode fundir pessoas diferentes.
+O modelo reproduz o raciocínio do exame cardiológico: acerta muito quando há sopro e falha nas crianças sem sopro. As limitações são reais: o rótulo não tem padrão de referência documentado, supomos que o exame foi registrado antes do laudo, a avaliação é interna a uma coorte e os grupos não identificam pacientes. Código, sementes e resultados estão no repositório.
 
-IDADE: Permite contextualizar medidas corporais e fisiológicas sem levar as datas exatas a X. Evidência: Dicionário; diferença entre data da visita e nascimento é uma derivação disponível. Alternativa: Comparar forma contínua e faixas fixas no desenvolvimento; não escolher faixas pelo teste histórico. Limite: Calcular pela data atual ou por uma visita futura mudaria o instante da previsão; erros das datas podem propagar-se.
+**Pergunta provável:** Qual dado mais mudaria o estudo?
 
-**Fontes locais:** Politica_Atributos.json, Parecer_Semantico_e_Decisoes.md.
-
-## 16. Matriz das 21 variáveis, parte 2 (apoio)
-
-Convenio: A pergunta principal privilegia medidas do paciente e reduz dependência da origem administrativa. Evidência: Dicionário identifica seguro; A1 descreve associações com o alvo, sem demonstrar mecanismo causal. Alternativa: Auditar desempenho por grupos administrativos e seu acréscimo apenas no desenvolvimento. Limite: Associação com doença não prova leakage. A exclusão também é uma escolha de transportabilidade e de escopo.
-
-PULSOS: O material diagnóstico usa características dos pulsos para distinguir condições; há risco de reproduzir a decisão registrada. Evidência: Fluxograma inclui ramo dos pulsos; categorias observadas são coerentes com esse tipo de exame. Alternativa: Adicionar o bloco de pulsos no desenvolvimento para medir dependência preditiva, sem promovê-lo à comparação principal. Limite: Não há prova de que o profissional que atribuiu y usou esse ramo; um achado prévio a referência independente pode ser preditor legítimo.
-
-PA SISTOLICA: Mantém a proposta de classificar o registro a partir de medidas; a sensibilidade testa dependência de medidas potencialmente diagnósticas. Evidência: PPA é derivada das pressões segundo as fontes; o alvo só é definido genericamente como patologia cardíaca. Alternativa: Comparar FISIO sem o bloco de pressões e STRICT no desenvolvimento. Limite: Se HAS integrar y, a pressão pode reconstruir parte do critério. Retirar PPA não remove seus pais nem estabelece independência.
-
-PA DIASTOLICA: Aplica a mesma regra semântica a ambas as pressões. Evidência: A explicação complementar apresenta elevação sistólica ou diastólica como fundamento da classificação de HAS. Alternativa: Retirar conjuntamente PAS/PAD para avaliar o bloco; retirada individual não elimina a informação da outra. Limite: A fraca associação agregada que eventualmente surgir não demonstra que a variável era disponível nem que não entrou no critério.
-
-PPA: Evita fornecer ao classificador uma classificação clínica pronta cuja relação com y não está esclarecida. Evidência: Dicionário e complemento descrevem a construção da variável; valores observados incluem classes de HAS. Alternativa: Acréscimo exploratório no desenvolvimento e comparação de valores observados com derivações verificáveis. Limite: Não afirmar doença confirmada por um único valor; não calcular PPA de pressões imputadas para fabricar diagnóstico. Os pais remanescentes em FISIO exigem ressalva.
-
-NORMAL X ANORMAL: Prever a informação registrada sem entregar essa mesma informação ao modelo. Evidência: O dicionário identifica explicitamente a coluna-alvo; há grafias e valores inválidos que exigem mapeamento explícito. Alternativa: Não há alternativa legítima de incluí-lo em X; modelar outro desfecho exige nova definição do problema. Limite: A auditoria não encontrou protocolo para chamar y de diagnóstico independente. Usá-lo em X seria vazamento direto, mas não foi constatado esse uso no schema canônico.
-
-B2: Há risco de reutilizar achado que participou da própria decisão e de exigir exame ausente no estágio pretendido. Evidência: Fluxograma e anexos do material complementar mencionam tipos de B2; dicionário confirma significado. Alternativa: Analisar isoladamente e acrescentar bloco de ausculta no desenvolvimento. Limite: Alta associação não comprova leakage. Um protocolo de coleta prévia e referência independente poderia mudar a decisão.
-
-**Fontes locais:** Politica_Atributos.json, Parecer_Semantico_e_Decisoes.md.
-
-## 17. Matriz das 21 variáveis, parte 3 (apoio)
-
-SOPRO: A remoção conservadora evita depender de um achado fortemente ligado à avaliação diagnóstica fornecida. Evidência: O material pergunta sobre existência de sopro e descreve tipos nos anexos. Alternativa: Ablação e ensaio de variável única apenas no desenvolvimento; referência independente seria necessária para alegação clínica mais forte. Limite: Sopro é um achado, não sinônimo de cardiopatia. Nem associação forte nem previsão imperfeita resolvem a questão de proveniência.
-
-FC: Preserva medida simples na principal e permite sensibilidade a possível contribuição diagnóstica. Evidência: Dicionário a distingue de PULSOS; não foi localizado critério específico que transforme FC em y. Alternativa: Remover FC isoladamente no desenvolvimento, além de STRICT. Limite: Não encontrar regra no material não prova independência. Se medida após conduta ou usada para adjudicar arritmia, a interpretação muda.
-
-HDA 1: A temporalidade e a possível incorporação não estão esclarecidas, embora a evidência seja mais fraca que em MOTIVO. Evidência: As categorias reais não nomeiam cardiopatias estabelecidas; o dicionário é genérico quanto ao momento. Alternativa: FISIO acrescido de HDA1/HDA2 no desenvolvimento, declarando hipótese de anamnese disponível. Limite: Não chamar HDA de conteúdo diagnóstico comprovado, não equiparar sintomas a laudo e não usar melhora de escore para apagar a lacuna temporal.
-
-HDA2: Além da incerteza de proveniência, a informação é muito esparsa e não justifica misturar mecanismos no resultado central. Evidência: 12.466 de 12.873 registros brutos têm campo vazio; os valores preenchidos são sintomas e categorias genéricas. Alternativa: Bloco HDA com e sem HDA2 no desenvolvimento, preservando os mesmos folds. Limite: Baixa cobertura não prova leakage. A ausência pode ser legítima ou processual; sua origem não foi estabelecida.
-
-SEXO: Preserva contexto básico sem conteúdo de diagnóstico explícito. Evidência: Dicionário e categorias históricas M/F, suas grafias e Indeterminado. Alternativa: Retirar isoladamente no desenvolvimento para avaliar dependência; desconhecimento deve permanecer representado sem imputação por y. Limite: Não assumir que Indeterminado é uma categoria clínica nem que toda informação histórica é adequadamente representada pela binarização.
-
-MOTIVO1: Para uma análise conservadora sem diagnóstico pronto, o conteúdo de cardiopatia estabelecida torna a inclusão inadequada. Evidência: A fonte tem 1.158 ocorrências de Cardiopatia já estabelecida, além de suspeita, parecer, check-up e outro. Alternativa: Auditar a contribuição do bloco de motivos somente no desenvolvimento; uma tarefa de reavaliação de pacientes já diagnosticados teria outra definição. Limite: Motivo prévio pode ser legítimo numa tarefa explicitamente posterior ao encaminhamento; esta política não prova que seu valor foi copiado do alvo.
-
-MOTIVO2: A análise principal não deve reutilizar categorias que já anunciam cardiopatia. Evidência: Há 1.041 ocorrências de Cardiopatia congenica e 92 de Cardiopatia adquirida; outras categorias incluem Sopro e HAS/dislipidemia/obesidade. Alternativa: Acréscimo exploratório do bloco de motivos no desenvolvimento, sem recuperar suas categorias sob nomes derivados. Limite: O conjunto é heterogêneo: nem toda categoria contém diagnóstico. Isso não torna a coluna adequada à principal nem demonstra leakage em todas as linhas.
-
-**Fontes locais:** Politica_Atributos.json, Parecer_Semantico_e_Decisoes.md.
-
-## 18. Métricas e classe positiva (apoio)
-
-TP e TN representam concordância com os rótulos registrados. FP e FN representam divergência. A referência que prevê Normal para todos tem sensibilidade zero e especificidade um, portanto BA de 0,5. AUC usa os escores ao longo de limiares e não prova calibração. A definição da classe positiva e o limiar permanecem fixos para as comparações.
-
-**Fontes locais:** family_nested_metrics.csv, protocol_before_results.json.
-
-## 19. Espaço de busca por família (apoio)
-
-Árvore: profundidades 2, 4 e 6, folhas mínimas 20 ou 50, critérios gini/entropy, peso padrão ou balanceado e imputação global ou por idade. Logística: C em 0,01, 0,1, 1 e 10, pesos, duas imputações e representações padronizada ou log/padronizada. Floresta: 150 árvores, profundidade 4, 8 ou ilimitada, folhas 10 ou 30, pesos e imputação. A contagem total de 105 representa o produto das opções em cada família. O número de candidatos não implica o mesmo custo computacional. O protocolo congela a ordem para desempates.
-
-**Fontes locais:** protocol_before_results.json.
-
-## 20. Ensaios com variável única (apoio)
-
-Os ensaios usam uma variável por vez para investigar associação preditiva no desenvolvimento e não para selecionar campos admissíveis. Sua configuração e interpretação são distintas da validação aninhada das famílias. Variáveis preparadas podem manter informação de seus pais determinísticos. Mesmo um escore muito alto não prova incorporação nem retrospectividade, e um baixo não absolve diagnóstico prévio. Os ensaios não participam da escolha do modelo principal.
-
-**Fontes locais:** variable_probes.csv, protocol_before_results.json.
-
-## 21. Fontes e reprodução (apoio)
-
-Fontes primárias: Tema do estudo de caso.pdf, Variáveis do conjunto de dados (SIGAA 03-11-2026).pdf, complementos Guideline for diagnostic.pdf e Explanation about the PPA variable.pdf. A1 é fonte secundária preservada. A rubrica recebida em 07/11/2026 exige artigo IEEE curto e exclusão de campos com leakage. Código e execução: src/kdd_revision/rubric_audit.py, artifacts/a2_rubric_audit/protocol_before_results.json, verification.json e manifest.json. A origem bruta permanece local e não está embutida no deck. IA generativa: Codex/OpenAI apoiou scripts, auditoria, organização metodológica e redação. O grupo deve compreender e conferir todos os resultados e responder pela entrega. Nenhuma alegação de revisão humana posterior é pressuposta.
-
-**Fontes locais:** Politica_Atributos.json, manifest.json, verification.json.
+**Resposta:** O critério de rotulagem e os horários de registro, que confirmariam a disponibilidade de cada atributo.
 
 ## Preparação conjunta
 
-Cada integrante deve conseguir explicar a classe positiva, a diferença entre treino interno e avaliação externa, o motivo das exclusões, a interpretação da matriz e os limites da referência do alvo. Ensaiar a transição entre autores. O tempo indicado é uma meta de ensaio, não uma medição de apresentação real. Os slides de apoio não entram nos 14 min 30 s.
+Todos devem saber explicar: o critério de vazamento e por que SOPRO fica e Convênio sai; a diferença entre folds internos e externos; por que as três famílias empatam no CLINICO; o que significa um falso negativo numa triagem; e as limitações. Os números deste roteiro vêm de `resultados/a2/auditoria_2026_11_07/reviewed_results.json`.
