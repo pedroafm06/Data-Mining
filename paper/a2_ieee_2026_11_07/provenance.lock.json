@@ -47,5 +47,20 @@
     "download_method": "Tectonic range requests for required files, not whole multi-GB archive",
     "content_digest": "6ffe055852f8faf66c0acbe1a7fb27f87b869a90bad1204f3bf4d9683f597c7c",
     "cache_identity_file": "work/tectonic-cache/bundles/hashes/https,58,,47,,47,data1b.fullyjustified.net,47,tlextras-2022.0r0.tar"
+  },
+  "tectonic_platforms": {
+    "Windows-AMD64": {
+      "release_api": "https://api.github.com/repos/tectonic-typesetting/tectonic/releases/tags/tectonic%400.17.0",
+      "tag": "tectonic@0.17.0",
+      "asset_id": 490851968,
+      "url": "https://github.com/tectonic-typesetting/tectonic/releases/download/tectonic%400.17.0/tectonic-0.17.0-x86_64-pc-windows-msvc.zip",
+      "sha256": "f61ce51f0b0ade1015b7de7ef368541c5424e9756ecbd0d7af97d6d48030845f",
+      "digest_source": "GitHub release asset digest field",
+      "executable_name": "tectonic.exe",
+      "executable_sha256": "99ffcfdbf1ebf8bdda9e791942e3d06aedb12463fddc33f07de6f5211c8bf08d",
+      "platform": "x86_64-pc-windows-msvc",
+      "added_utc": "2026-11-12",
+      "note": "Same release as the macOS pin; added to compile the revision on Windows."
+    }
   }
 }

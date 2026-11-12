@@ -25,3 +25,6 @@ artifacts/
 *.pkl
 *.pickle
 *.zip
+
+# Base clínica da disciplina (nunca versionar)
+UCMF_raw.csv

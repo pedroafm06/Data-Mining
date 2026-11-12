@@ -42,5 +42,5 @@ def bootstrap(root=PROJECT_ROOT,source=SOURCE_DEFAULT):
     out=root/'artifacts/a2_mining/particoes_modelagem.csv';out.parent.mkdir(parents=True,exist_ok=True)
     if out.exists():
         old=pd.read_csv(out,dtype={'ID':str});pd.testing.assert_frame_equal(old,mapping,check_dtype=False)
-    else:mapping.to_csv(out,index=False)
+    else:mapping.to_csv(out,index=False,lineterminator='\n')
     return {'n_development':int(mapping.partition.eq('development').sum()),'n_test':int(mapping.partition.eq('test').sum()),'membership_sha256':sha256(out.read_bytes()).hexdigest()}

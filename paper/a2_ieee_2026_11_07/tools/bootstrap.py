@@ -13,6 +13,7 @@ from pathlib import Path
 import platform
 import tarfile
 import urllib.request
+import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -29,10 +30,14 @@ def fetch(url: str) -> bytes:
 
 def main() -> None:
     lock = json.loads((ROOT / "provenance.lock.json").read_text())
-    spec = lock["tectonic"]
-    if (platform.system(), platform.machine()) != ("Darwin", "arm64"):
-        raise SystemExit("This pinned binary is macOS arm64. Select an official release asset and update the provenance lock for another platform.")
-    binary = ROOT / "work/bin/tectonic"
+    key = f"{platform.system()}-{platform.machine()}"
+    if (platform.system(), platform.machine()) == ("Darwin", "arm64"):
+        spec = lock["tectonic"]
+    elif key in lock.get("tectonic_platforms", {}):
+        spec = lock["tectonic_platforms"][key]
+    else:
+        raise SystemExit(f"No pinned Tectonic binary for {key}. Select an official release asset and update the provenance lock.")
+    binary = ROOT / "work/bin" / spec.get("executable_name", "tectonic")
     if binary.exists() and sha256(binary.read_bytes()) == spec["executable_sha256"]:
         print("Verified local Tectonic binary:", binary)
         return
@@ -47,9 +52,13 @@ def main() -> None:
     downloads = ROOT / "work/downloads"
     downloads.mkdir(parents=True, exist_ok=True)
     (downloads / Path(spec["url"]).name).write_bytes(archive)
-    with tarfile.open(fileobj=io.BytesIO(archive), mode="r:gz") as bundle:
-        member = next(m for m in bundle.getmembers() if Path(m.name).name == "tectonic" and m.isfile())
-        executable = bundle.extractfile(member).read()
+    if spec["url"].endswith(".zip"):
+        with zipfile.ZipFile(io.BytesIO(archive)) as bundle:
+            executable = bundle.read(next(n for n in bundle.namelist() if Path(n).name == binary.name))
+    else:
+        with tarfile.open(fileobj=io.BytesIO(archive), mode="r:gz") as bundle:
+            member = next(m for m in bundle.getmembers() if Path(m.name).name == "tectonic" and m.isfile())
+            executable = bundle.extractfile(member).read()
     if sha256(executable) != spec["executable_sha256"]:
         raise SystemExit("Extracted executable SHA-256 mismatch; stopped.")
     binary.parent.mkdir(parents=True, exist_ok=True)
