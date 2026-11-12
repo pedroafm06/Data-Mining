@@ -92,6 +92,27 @@ def eda_summary(data, y, assoc):
     }
 
 
+def error_analysis(a, data, best):
+    """Aggregate profile of out-of-fold errors by murmur finding and age (no rows exported)."""
+    result = {}
+    for pool in SCENARIOS_AUDIT:
+        oof = pd.read_csv(a / f'oof_{pool}_{best[pool]}.csv', dtype={'ID': str})
+        d = data[['ID', 'SOPRO', 'IDADE']].astype({'ID': str}).merge(oof, on='ID', validate='one_to_one')
+        pred = d.p.ge(.5); fn = d.y.eq(1) & ~pred; fp = d.y.eq(0) & pred; tp = d.y.eq(1) & pred
+        no_murmur = d.SOPRO.eq('Ausente'); murmur = d.SOPRO.notna() & ~no_murmur
+        age = pd.to_numeric(d.IDADE, errors='coerce')
+        result[pool] = {
+            'family': best[pool], 'n_fn': int(fn.sum()), 'n_fp': int(fp.sum()),
+            'fn_without_murmur_percent': float(100 * no_murmur[fn].mean()),
+            'fp_with_murmur_percent': float(100 * murmur[fp].mean()),
+            'anormal_without_murmur': int((d.y.eq(1) & no_murmur).sum()),
+            'anormal_without_murmur_percent_of_anormal': float(100 * no_murmur[d.y.eq(1)].mean()),
+            'normal_with_murmur': int((d.y.eq(0) & murmur).sum()),
+            'median_age_fn': float(age[fn].median()), 'median_age_tp': float(age[tp].median()),
+        }
+    return result
+
+
 def figures(metrics, ranking, best):
     figdir = OUT / 'figures'; figdir.mkdir(exist_ok=True)
     for old in figdir.glob('*'):
@@ -133,7 +154,9 @@ def export(source=SOURCE_DEFAULT):
     figures(metrics, ranking, best[PRIMARY])
     final = {pool: {kind: json.loads((a / f'final_parameters_{pool}_{kind}.json').read_text(encoding='utf-8'))['candidate'] for kind in ['dummy', 'tree', 'logistic', 'forest']} for pool in SCENARIOS_AUDIT}
     probes = pd.read_csv(a / 'variable_probes.csv')
+    summary_errors = error_analysis(a, data, best)
     summary = {
+        'error_analysis': summary_errors,
         'run_date': '2026-11-12', 'dataset': 'UCMF, disponibilizado na disciplina INF0414; origem descrita como Real Hospital Português, Recife',
         'source_sha256': sourcehash, 'protocol_sha256': check['protocol_sha256'],
         'n_original': 12873, 'n_original_variables': 21, 'n_development': int(len(y)), 'n_historical_test': 2342,
