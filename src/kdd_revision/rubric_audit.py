@@ -1,7 +1,12 @@
-"""A2 rubric revision: semantic leakage audit + family-wise nested evaluation.
+"""A2 rubric revision: availability-based predictor policy + family-wise nested evaluation.
 
-Only the frozen DEVELOPMENT rows enter analyses. A strong association is evidence
-of predictive information, not evidence about chronology or target construction.
+Leakage is defined as using information unavailable when the prediction is made.
+CLINICO keeps every field collected before the report (anthropometry, vitals,
+physical examination, anamnesis and PPA derived from them). It excludes only
+identifiers/raw dates, the patient's origin (Convenio), the referral reason fields
+(MOTIVO1/2, explicit diagnostic content) and HDA2 (more than 50% missing, A1 rule).
+FISIO8 and STRICT4 are sensitivity analyses. Model selection uses DEVELOPMENT rows
+only; the historical test is scored once afterwards as a secondary evaluation.
 """
 from pathlib import Path
 from hashlib import sha256
@@ -21,14 +26,19 @@ from .preprocessing.preparation import prepare_final,model_frame
 from .mining import preprocessor,fit_model,metric,cross_validate,select_candidate,digest_ids
 from .full_kdd import folds_for,write
 
-SCENARIOS_AUDIT={'FISIO8':['Peso','Altura','IMC','IDADE','PA SISTOLICA','PA DIASTOLICA','FC','SEXO'],
+CLINICO=['Peso','Altura','IMC','IDADE','PA SISTOLICA','PA DIASTOLICA','FC','SEXO','PPA','SOPRO','B2','PULSOS','HDA 1']
+EXCLUDED_REASONS={'ID':'identificador','Atendimento':'data bruta (a idade derivada entra como IDADE)','DN':'data bruta (a idade derivada entra como IDADE)',
+    'Convenio':'origem do paciente/encaminhamento, nao achado clinico','MOTIVO1':'motivo do encaminhamento com conteudo diagnostico explicito',
+    'MOTIVO2':'motivo do encaminhamento com conteudo diagnostico explicito','HDA2':'mais de 50% de ausentes (regra da A1)','NORMAL X ANORMAL':'alvo'}
+SCENARIOS_AUDIT={'CLINICO':CLINICO,'FISIO8':['Peso','Altura','IMC','IDADE','PA SISTOLICA','PA DIASTOLICA','FC','SEXO'],
                  'STRICT4':['Peso','Altura','IDADE','SEXO']}
-FORBIDDEN=set(ORIGINAL)-set(SCENARIOS_AUDIT['FISIO8'])
+FORBIDDEN=set(ORIGINAL)-set(CLINICO)
+assert FORBIDDEN==set(EXCLUDED_REASONS)
 FAMILIES=['dummy','tree','logistic','forest']
 
 
 def validate_features(features):
-    if not features or len(set(features))!=len(features) or not set(features)<=set(SCENARIOS_AUDIT['FISIO8']):raise ValueError('Non-admissible predictor list')
+    if not features or len(set(features))!=len(features) or not set(features)<=set(CLINICO):raise ValueError('Non-admissible predictor list')
 
 
 def audit_preprocessor(candidate,features):
@@ -59,32 +69,52 @@ def search_space():
     return values
 
 
-def load_development(root=PROJECT_ROOT,source=SOURCE_DEFAULT):
+def load_partition(root=PROJECT_ROOT,source=SOURCE_DEFAULT,partition='development'):
     root=Path(root);source,source_hash=validated_source(source)
     # Historical memberships are retained; no new supposedly untouched holdout.
     membership=pd.read_csv(root/'artifacts/a2_mining/particoes_modelagem.csv',dtype={'ID':str})
-    wanted=membership[membership.partition.eq('development')].copy()
+    wanted=membership[membership.partition.eq(partition)].copy()
     raw=pd.read_csv(source,dtype=str,keep_default_na=False)
     raw=raw[raw.ID.isin(set(wanted.ID))].copy().reset_index(drop=True)
     if set(raw.ID)!=set(wanted.ID) or not raw.ID.is_unique:raise ValueError('Development membership mismatch')
     prepared=prepare_final(raw);semantic=prepared.data;data=model_frame(semantic)
     groups=wanted.set_index('ID').loc[data.ID,'group'].reset_index(drop=True)
-    if len(data)!=9361:raise ValueError('This frozen study requires the recorded development population')
+    expected={'development':9361,'test':2342}[partition]
+    if len(data)!=expected:raise ValueError(f'This frozen study requires the recorded {partition} population')
     y=data[TARGET].map({'Normal':0,'Anormal':1})
-    if y.isna().any():raise ValueError('Development label missing')
+    if y.isna().any():raise ValueError(f'{partition} label missing')
     return raw,semantic,data,y.to_numpy(dtype=int),groups,source_hash
 
 
+def load_development(root=PROJECT_ROOT,source=SOURCE_DEFAULT):
+    return load_partition(root,source,'development')
+
+
+def score_historical_test(root,source,final_models,out):
+    """Secondary evaluation: final model of each pool/family applied once to the historical test.
+
+    The test rows were examined in earlier project phases (A1 EDA and previous A2 runs),
+    so this is not an untouched holdout. Nothing here feeds back into selection.
+    """
+    _,_,test,ytest,_,_=load_partition(root,source,'test');rows=[]
+    for (pool,kind),fitted in final_models.items():
+        x=test[['ID']+SCENARIOS_AUDIT[pool]].copy();p=fitted.proba(x)
+        rows.append({'pool':pool,'family':kind,**metric(ytest,p)})
+    pd.DataFrame(rows).to_csv(out/'historical_test_metrics.csv',index=False)
+    return rows
+
+
 def frozen_protocol(source_hash):
-    return {'version':'A2-rubrica-2026-11-07-v1','source_sha256':source_hash,
+    return {'version':'A2-rubrica-2026-11-12-v2-clinico','source_sha256':source_hash,
         'source_rubric_sha256':'bf38c1c6f777f249c2af733a957a2860787446233acd2325c54c26bc1fda545a',
-        'development_only':True,'historical_test_scored':False,'n_development':9361,
+        'development_only_for_selection':True,'historical_test_scored':'secondary, once, after final selection; previously examined',
+        'leakage_definition':'information unavailable at prediction time','excluded_fields':EXCLUDED_REASONS,'primary_pool':'CLINICO','sensitivity_pools':['FISIO8','STRICT4'],'n_development':9361,
         'pools':SCENARIOS_AUDIT,'families':FAMILIES,'candidates':search_space(),
         'outer_cv':{'n_splits':5,'seed':743},'inner_cv':{'n_splits':3,'seed_base':811},
         'final_selection_cv':{'n_splits':5,'seed':43},'criterion':'mean balanced_accuracy in inner CV; ties1e-12 listed order',
         'threshold':.5,'same_outer_folds_for_all_families_and_pools':True,
         'grouping':'Frozen candidate components from c8c86e3; used only to prevent candidate equivalence crossing partitions, not as X',
-        'limitations':['target reference standard and chronology undocumented','previous cohort-wide exploration remains','group components do not establish patient identity','FISIO8 conditional on vitals not defining y; STRICT4 removes these potential cardiovascular inputs'],
+        'limitations':['target reference standard undocumented','previous cohort-wide exploration remains','groups of identical records do not establish patient identity','CLINICO assumes exam findings, anamnesis and vitals are recorded before the report; FISIO8/STRICT4 measure sensitivity to removing them'],
         'audit_probes':'Single-variable, raw-date/ordinal-ID and missingness probes are development-only diagnostic experiments, never admissible model candidates.',
         'null_control':'Fixed shallow tree with permuted development labels; a null result is not proof of absence of leakage',
         'missingness_limit':'Dropping indicators does not remove median fingerprints; single-column probes refer to prepared fields with declared lineage'}
@@ -140,7 +170,7 @@ def run(root=PROJECT_ROOT,source=SOURCE_DEFAULT):
         for i in val:membership.append({'ID':data.ID.iloc[i],'outer_fold':k,'group':groups.iloc[i]})
     pd.DataFrame(membership).to_csv(out/'outer_membership.csv',index=False)
     probes=single_variable_probes(raw,semantic,data,y,groups,out);print('21-variable probes completed',flush=True)
-    result_rows=[];outer_rows=[];audits=[];choices=[];perm_rows=[];final_choices={}
+    result_rows=[];outer_rows=[];audits=[];choices=[];perm_rows=[];final_choices={};final_models={}
     for pool,features in SCENARIOS_AUDIT.items():
         validate_features(features);x=data[['ID']+features].copy();oof={kind:np.full(len(y),np.nan) for kind in FAMILIES}
         for fold,(train,val) in enumerate(outer):
@@ -172,9 +202,10 @@ def run(root=PROJECT_ROOT,source=SOURCE_DEFAULT):
         audits.extend([{'pool':pool,'scope':'final_selection',**a} for a in audit]);final_choices[pool]={}
         for kind in FAMILIES:
             c=select_candidate(score[score.kind.eq(kind)],[v for v in options if v['kind']==kind]);final_choices[pool][kind]=c
-            fitted=fit_model(x,y,c,features);joblib.dump(fitted,out/f'final_model_{pool}_{kind}.joblib')
+            fitted=fit_model(x,y,c,features);joblib.dump(fitted,out/f'final_model_{pool}_{kind}.joblib');final_models[pool,kind]=fitted
             write(out/f'final_parameters_{pool}_{kind}.json',{'candidate':c,'preprocessor':fitted.preprocessor.metadata(),'training_metrics_descriptive':metric(y,fitted.proba(x))})
     pd.DataFrame(result_rows).to_csv(out/'family_nested_metrics.csv',index=False)
+    score_historical_test(root,source,final_models,out);print('historical test scored once (secondary)',flush=True)
     pd.DataFrame(outer_rows).to_csv(out/'outer_fold_metrics.csv',index=False);write(out/'outer_selections.json',choices)
     write(out/'preprocessing_audit.json',audits);write(out/'final_choices.json',final_choices)
     pd.DataFrame(perm_rows).to_csv(out/'outer_permutation_importance.csv',index=False)
@@ -194,10 +225,10 @@ def run(root=PROJECT_ROOT,source=SOURCE_DEFAULT):
         score,p,au=cross_validate(data[['ID']+features],ynull,cvnull,[fixed],features)
         null.append({'pool':pool,'fixed_candidate':fixed,'metric':metric(ynull,p[fixed['name']]),'interpretation':'negative diagnostic control; not a formal permutation p-value or proof of no leakage'})
     write(out/'permuted_label_control.json',null)
-    checks={'complete':True,'source_sha256':source_hash,'protocol_sha256':policy_hash,'n_development':len(y),'historical_test_rows_used':0,
+    checks={'complete':True,'source_sha256':source_hash,'protocol_sha256':policy_hash,'n_development':len(y),'historical_test_rows_used_for_selection':0,'historical_test_rows_scored_secondary':2342,
         'pools':SCENARIOS_AUDIT,'candidate_count':len(options),'outer_folds':5,'inner_folds':3,'families':FAMILIES,
         'same_outer_validation_ids_all_models':True,'outer_oof_once_per_row':True,'preprocessing_audits':len(audits),
-        'semantic_guarantee':'No certified absence of temporal/incorporation leakage without source protocol. Fields excluded as declared risk policy.',
+        'predictor_policy':'Availability at prediction time; excluded fields and reasons in protocol excluded_fields.',
         'source_preserved':sha256(Path(source).resolve().read_bytes()).hexdigest()==source_hash,'elapsed_seconds':round(time.monotonic()-start,2)}
     write(out/'verification.json',checks)
     manifest={'code':{str(p.relative_to(root)):sha256(p.read_bytes()).hexdigest() for p in [Path(__file__),root/'src/kdd_revision/mining.py',root/'src/kdd_revision/preprocessing/transformer.py',root/'src/kdd_revision/preprocessing/preparation.py']},
