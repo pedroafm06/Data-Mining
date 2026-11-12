@@ -22,6 +22,11 @@ def digest(path: Path) -> str:
     return hashlib.sha256(path.read_bytes()).hexdigest()
 
 
+def text_digest(path: Path) -> str:
+    """Hash with LF line endings, so a CRLF checkout (Git on Windows) matches the pinned value."""
+    return hashlib.sha256(path.read_bytes().replace(b"\r\n", b"\n")).hexdigest()
+
+
 def uncomment(tex: str) -> str:
     return re.sub(r"(?<!\\)%[^\n]*", "", tex)
 
@@ -123,7 +128,7 @@ def main() -> None:
     if not binary.exists() or digest(binary) != spec["executable_sha256"]:
         raise ValueError("Run python3 tools/bootstrap.py to obtain the pinned verified binary.")
     for relative, expected in lock.get("vendored_files", {}).items():
-        if digest(ROOT / relative) != expected:
+        if text_digest(ROOT / relative) != expected:
             raise ValueError(f"Vendored official source was modified: {relative}")
     build_dir = ROOT / "work/build" / name
     build_dir.mkdir(parents=True, exist_ok=True)

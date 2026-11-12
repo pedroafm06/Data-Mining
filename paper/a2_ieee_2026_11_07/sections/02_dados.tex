@@ -1,40 +1,43 @@
-Os dados foram coletados no Real Hospital Português, em Recife, e disponibilizados para o estudo de caso da disciplina \cite{tema}. A fonte contém 12.873 registros e 21 atributos. Há 1.169 registros sem rótulo, retirados da avaliação supervisionada. Dos 11.704 rotulados, 9.361 compõem o desenvolvimento, 2.342 pertencem ao teste histórico e um registro foi retirado do desenvolvimento por equivalência candidata com o teste. No desenvolvimento há 5.394 rótulos \textit{Normal} e 3.967 \textit{Anormal} (42,38\%). Preservamos a partição histórica para evitar nova pontuação de um teste já examinado no projeto. Os 9.279 componentes candidatos reúnem equivalências de registro para restringir os cortes da validação cruzada. A identidade longitudinal dos pacientes permanece indeterminada.
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\textwidth]{eda_alvo_achados.pdf}
+\caption{Conjunto de desenvolvimento. (a) Distribuição do alvo. (b) Percentual de anormais em cada categoria de SOPRO, B2 e PULSOS com pelo menos 20 registros; a linha tracejada marca a proporção geral (\pctAnormal\%). (c, d) Idade e frequência cardíaca por classe; as caixas vão do primeiro ao terceiro quartil, o traço é a mediana e os pontos atípicos não são desenhados.}
+\label{fig:eda}
+\end{figure*}
 
-\subsection{Auditoria da disponibilidade}
-Revisamos o significado, a origem documentada, a dependência de outros campos e a disponibilidade plausível de cada atributo. A Tabela~\ref{tab:policy} resume a decisão. A A1 já havia indicado o risco de MOTIVO1 e MOTIVO2. Na fonte, 1.158 registros trazem \textit{Cardiopatia já estabelecida} em MOTIVO1 e 1.041 trazem \textit{Cardiopatia congenica} em MOTIVO2. O conteúdo diagnóstico é observável. Seu momento de registro em relação ao alvo permanece desconhecido.
+\subsection{Origem e composição}
+A fonte tem \recNSource{} registros e 21 atributos \cite{tema,dict}: identificação (ID, Atendimento, DN), antropometria (Peso, Altura, IMC), IDADE, SEXO, sinais vitais (pressões sistólica e diastólica, PAS e PAD, e frequência cardíaca, FC), a classificação de pressão arterial PPA \cite{ppa}, achados do exame físico (SOPRO, segunda bulha B2 e PULSOS), sintomas da história da doença atual (HDA1 e HDA2), Convênio, os motivos de encaminhamento (MOTIVO1 e MOTIVO2) e o alvo. Há \recNUnlabelled{} registros sem rótulo, que ficam fora da classificação supervisionada. Dos \recNLabelledAdois{} rotulados, \nDev{} formam o conjunto de desenvolvimento e \nTest{} formam o teste histórico, separado em uma fase anterior do projeto; \nRetirado{} registro idêntico a outro do teste foi retirado do desenvolvimento. O desenvolvimento tem \nNormal{} registros \textit{Normal} e \nAnormal{} \textit{Anormal} (\pctAnormal\%), um desequilíbrio moderado (Fig.~\ref{fig:eda}a).
 
-O material complementar cita SOPRO, B2 e PULSOS na investigação diagnóstica \cite{guideline}. Isso sustenta a possibilidade de incorporação ao critério do rótulo. O procedimento efetivo de rotulagem da UCMF permanece sem documentação. PPA é uma classificação de hipertensão a partir de medidas e referências pediátricas \cite{ppa}. Excluir PPA ainda deixa suas medidas de origem disponíveis. HDA1 e HDA2 contêm história e sintomas cuja disponibilidade anterior à classificação é incerta. Retiramos esses blocos por razões de proveniência e relação potencial com o alvo.
+\subsection{Descobertas da análise exploratória}
+Os achados do exame físico separam as classes com nitidez (Fig.~\ref{fig:eda}b). Entre os \sopSisN{} registros com sopro sistólico, \sopSisPct\% são anormais; entre os \sopAusN{} sem sopro, \sopAusPct\%. B2 normal tem \btwoNormPct\% de anormais e B2 hiperfonética, \btwoHiperPct\%. Pulsos alterados também se concentram na classe anormal, mas são raros.
+
+As crianças com rótulo anormal são mais novas (Fig.~\ref{fig:eda}c): a mediana de idade é \idadeMedAnormal{} anos contra \idadeMedNormal{}, e \menosUmAnoAnormal\% dos anormais têm menos de um ano, contra \menosUmAnoNormal\% dos normais. A FC mediana é \fcMedAnormal{} bpm nos anormais e \fcMedNormal{} bpm nos normais, com intervalos interquartis sobrepostos (\fcQumAnormal--\fcQtresAnormal{} e \fcQumNormal--\fcQtresNormal{} bpm). Como a FC de repouso cai com a idade, parte dessa diferença acompanha a idade.
+
+A falta de dados é desigual: PAS falta em \missPAS\% dos registros, PPA em \missPPA\%, HDA1 em \missHDAum\% e HDA2 em \missHDAdois\%, enquanto SOPRO, B2 e PULSOS faltam em menos de 1\%.
+
+\subsection{Vazamento de informação}
+Consideramos vazamento todo atributo indisponível no momento da previsão ou que já contenha a conclusão diagnóstica. A Tabela~\ref{tab:policy} resume a decisão para os 21 atributos. MOTIVO1 e MOTIVO2 trazem textos como ``cardiopatia já estabelecida'' e ``cardiopatia congênita''; a A1 já havia apontado esse risco, e cada um sozinho atinge acurácia balanceada (BA) de \probeMotivoUm\% e \probeMotivoDois\% em um teste exploratório com uma árvore rasa. Convênio descreve a origem do paciente e o caminho de encaminhamento, não a criança: os \susN{} registros do SUS no desenvolvimento têm \susPct\% de anormais, o que reflete quem encaminha, e não o que se observa no atendimento. HDA2 tem \missHDAdois\% de ausentes e sai pela regra da A1 de excluir atributos com mais de 50\% de ausência.
+
+Os achados de exame (SOPRO, B2, PULSOS), os sintomas relatados (HDA1) e a PPA, calculada a partir de PAS, PAD, idade, sexo e altura \cite{ppa}, são coletados durante o atendimento, antes do laudo. São exatamente a informação que o cardiologista usa para decidir a investigação \cite{guideline}. SOPRO sozinho atinge BA de \probeSopro\% no mesmo teste exploratório; isso mede poder preditivo de um dado disponível, não vazamento. O cenário principal, \clinico{}, mantém esses atributos. Os cenários \fisio{} e \strict{} servem de análise de sensibilidade: retiram os achados de exame e, no segundo caso, também os sinais vitais.
 
 \begin{table}[!t]
 \centering
 \caption{Decisão sobre os 21 atributos originais}
 \label{tab:policy}
 \footnotesize
-\begin{tabular}{@{}p{0.40\columnwidth}p{0.55\columnwidth}@{}}
+\begin{tabular}{@{}p{0.36\columnwidth}p{0.59\columnwidth}@{}}
 \toprule
-Atributos & Decisão nos experimentos \\
+Atributos & Decisão \\
 \midrule
-\textit{NORMAL X ANORMAL} & Resposta binária. \\
-ID & Rastreabilidade e agrupamento candidato. \\
-Atendimento, DN & Insumos para conferir ou derivar IDADE. Datas brutas fora de $X$. \\
-Convênio & Excluído. Pode refletir acesso e encaminhamento. \\
-MOTIVO1, MOTIVO2 & Excluídos. Conteúdo diagnóstico explícito. \\
-SOPRO, B2, PULSOS & Excluídos. Achados potencialmente incorporados ao rótulo. \\
-PPA & Excluído. Classificação derivada de pressão. \\
-HDA1, HDA2 & Excluídos. Ordem de coleta e registro incerta. \\
-Peso, Altura, IDADE, SEXO & Incluídos em \fisio{} e \strict{}. \\
-IMC, PAS, PAD, FC & Incluídos em \fisio{} sob hipótese de disponibilidade. Retirados de \strict{}. \\
+\textit{NORMAL X ANORMAL} & Alvo. \\
+ID & Fora: identificador. \\
+Atendimento, DN & Fora como datas; usadas para conferir IDADE. \\
+Convênio & Fora: origem do paciente, não achado clínico. \\
+MOTIVO1, MOTIVO2 & Fora: conteúdo diagnóstico explícito. \\
+HDA2 & Fora: mais de 50\% de ausentes. \\
+SOPRO, B2, PULSOS, HDA1, PPA & Em \clinico{}: coletados antes do laudo. \\
+IMC, PAS, PAD, FC & Em \clinico{} e \fisio{}. \\
+Peso, Altura, IDADE, SEXO & Nos três cenários. \\
 \bottomrule
 \end{tabular}
 \end{table}
-
-\subsection{Associação e qualidade de dados}
-Ensaios com uma árvore fixa e uma variável por vez, em cinco partições agrupadas, serviram de diagnóstico exploratório. SOPRO atingiu acurácia balanceada de 91,05\%, MOTIVO1 de 67,26\%, MOTIVO2 de 68,69\% e B2 de 55,32\%. A decisão de exclusão seguiu a auditoria semântica e de proveniência. A pontuação isolada mede associação sob aquela configuração, que pode ser baixa mesmo quando há risco de vazamento. O desempenho de SOPRO é compatível com sua proximidade ao rótulo e admite explicações distintas, entre elas valor informativo clínico e incorporação ao critério.
-
-A Fig.~\ref{fig:eda} mostra indisponibilidade após a limpeza e antes da imputação. A pressão arterial tem muito mais ausências do que FC. A mediana de FC é de 90 bpm em \textit{Normal} e 98 bpm em \textit{Anormal}. Os intervalos interquartis (80 a 100 e 88 a 110 bpm) se sobrepõem. Isso fundamenta a análise de sensibilidade e o controle com apenas máscaras de disponibilidade, pois um modelo pode aprender também o padrão de coleta.
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\columnwidth]{disponibilidade.pdf}
-\caption{Percentual de ausências ou valores mascarados no desenvolvimento, após a limpeza e antes da imputação.}
-\label{fig:eda}
-\end{figure}

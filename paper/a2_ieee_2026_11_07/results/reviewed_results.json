@@ -1,4 +1,42 @@
 {
+  "error_analysis": {
+    "CLINICO": {
+      "family": "tree",
+      "n_fn": 496,
+      "n_fp": 195,
+      "fn_without_murmur_percent": 100.0,
+      "fp_with_murmur_percent": 78.97435897435898,
+      "anormal_without_murmur": 587,
+      "anormal_without_murmur_percent_of_anormal": 14.797075875976809,
+      "normal_with_murmur": 154,
+      "median_age_fn": 3.3013698630136985,
+      "median_age_tp": 2.5876712328767124
+    },
+    "FISIO8": {
+      "family": "forest",
+      "n_fn": 1630,
+      "n_fp": 1785,
+      "fn_without_murmur_percent": 16.319018404907975,
+      "fp_with_murmur_percent": 3.1932773109243695,
+      "anormal_without_murmur": 587,
+      "anormal_without_murmur_percent_of_anormal": 14.797075875976809,
+      "normal_with_murmur": 154,
+      "median_age_fn": 6.443835616438356,
+      "median_age_tp": 0.6301369863013698
+    },
+    "STRICT4": {
+      "family": "logistic",
+      "n_fn": 1903,
+      "n_fp": 1756,
+      "fn_without_murmur_percent": 16.97320021019443,
+      "fp_with_murmur_percent": 3.189066059225513,
+      "anormal_without_murmur": 587,
+      "anormal_without_murmur_percent_of_anormal": 14.797075875976809,
+      "normal_with_murmur": 154,
+      "median_age_fn": 6.690833894752601,
+      "median_age_tp": 0.4465753424657534
+    }
+  },
   "run_date": "2026-11-12",
   "dataset": "UCMF, disponibilizado na disciplina INF0414; origem descrita como Real Hospital Português, Recife",
   "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
