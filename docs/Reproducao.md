@@ -1,5 +1,7 @@
 # Reprodução da A2 completa
 
+Para os resultados do artigo final de 16/11, comece pelo [fluxo da revisão final](../README.md#reproduzir-a-revisão-da-a2). A documentação abaixo descreve a execução histórica e seus artefatos.
+
 A execução segue: entendimento e seleção documentados -> preparação revisada -> busca de modelos -> avaliação -> interpretação -> aplicação com verificação de cobertura -> relatório. Os comandos usam as mesmas funções dos notebooks, sem uma segunda implementação estatística.
 
 ## Entrada e ambiente

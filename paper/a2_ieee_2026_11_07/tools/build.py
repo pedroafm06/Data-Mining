@@ -11,8 +11,11 @@ from pathlib import Path
 import re
 import shutil
 import subprocess
+import sys
 import urllib.parse
 import urllib.request
+
+from bootstrap import pinned_executable
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -60,7 +63,7 @@ def public_repository(url: str) -> dict:
 
 
 def final_config() -> tuple[dict, dict]:
-    config = json.loads((ROOT / "submission_config.json").read_text())
+    config = json.loads((ROOT / "submission_config.json").read_text(encoding="utf-8"))
     for key in ("public_repository_url", "public_repository_checked_utc", "results_file", "results_sha256"):
         if not config.get(key):
             raise ValueError(f"Final blocked: missing {key} in submission_config.json.")
@@ -71,33 +74,42 @@ def final_config() -> tuple[dict, dict]:
     results = (ROOT / config["results_file"]).resolve()
     if digest(results) != config["results_sha256"]:
         raise ValueError("Final blocked: reviewed results SHA-256 differs from the source.")
-    main = uncomment((ROOT / "main.tex").read_text())
+    main = uncomment((ROOT / "main.tex").read_text(encoding="utf-8"))
     if r"\documentclass[conference]{vendor/IEEEtran/IEEEtran}" not in main:
         raise ValueError("Final blocked: retain the official IEEEtran conference class.")
     source_paths = list((ROOT / "sections").glob("*.tex"))
-    content = "\n".join(uncomment(p.read_text()) for p in source_paths)
+    content = "\n".join(uncomment(p.read_text(encoding="utf-8")) for p in source_paths)
     if re.search(r"PENDENTE|TODO|FIXME|\\pendente\b", content):
         raise ValueError("Final blocked: unresolved content placeholders remain.")
     if re.search(r"\\(?:onecolumn|geometry|setstretch)\b|\\usepackage(?:\[[^\]]*\])?\{(?:geometry|fullpage|setspace)\}", main + content):
         raise ValueError("Final blocked: class layout must remain unchanged.")
-    words = word_count((ROOT / "sections/abstract.tex").read_text())
+    words = word_count((ROOT / "sections/abstract.tex").read_text(encoding="utf-8"))
     if not 100 <= words <= 150:
         raise ValueError(f"Final blocked: abstract has {words} words, required 100–150.")
     return config, public_repository(config["public_repository_url"])
 
 
 def validate_pdf(path: Path, log_path: Path, *, final: bool) -> dict:
-    if not shutil.which("pdfinfo"):
-        raise ValueError("Install Poppler locally to validate PDF pages (pdfinfo missing).")
-    info = subprocess.run(["pdfinfo", str(path)], capture_output=True, text=True, check=True).stdout
-    pages = int(re.search(r"^Pages:\s+(\d+)", info, re.MULTILINE).group(1))
+    if shutil.which("pdfinfo"):
+        info = subprocess.run(
+            ["pdfinfo", str(path)], capture_output=True,
+            encoding="utf-8", errors="replace", check=True,
+            env={**os.environ, "LC_ALL": "C"},
+        ).stdout
+        pages = int(re.search(r"^Pages:\s+(\d+)", info, re.MULTILINE).group(1))
+    else:
+        try:
+            from pypdf import PdfReader
+        except ImportError as exc:
+            raise ValueError("Install Poppler (pdfinfo) or pypdf to validate PDF pages.") from exc
+        pages = len(PdfReader(path).pages)
     if final and not 1 <= pages <= 5:
         raise ValueError(f"Final blocked: {pages} pages; maximum is 5.")
-    log = log_path.read_text(errors="replace") if log_path.exists() else ""
+    log = log_path.read_text(encoding="utf-8", errors="replace") if log_path.exists() else ""
     problems = [line.strip() for line in log.splitlines() if re.search(r"Overfull \\hbox|Missing character|undefined references|Citation .* undefined|Reference .* undefined", line)]
     if final and problems:
         raise ValueError("Final blocked: layout or reference defects: " + "; ".join(problems))
-    return {"pages": pages, "layout_reference_warnings": problems, "abstract_words": word_count((ROOT / "sections/abstract.tex").read_text())}
+    return {"pages": pages, "layout_reference_warnings": problems, "abstract_words": word_count((ROOT / "sections/abstract.tex").read_text(encoding="utf-8"))}
 
 
 def main() -> None:
@@ -110,12 +122,13 @@ def main() -> None:
     args = parser.parse_args()
     name = "final" if args.final else "smoke" if args.smoke else "draft"
     config, public_check = final_config() if args.final else ({}, {})
-    lock = json.loads((ROOT / "provenance.lock.json").read_text())
-    binary = ROOT / "work/bin/tectonic"
-    if not binary.exists() or digest(binary) != lock["tectonic"]["executable_sha256"]:
+    lock = json.loads((ROOT / "provenance.lock.json").read_text(encoding="utf-8"))
+    spec, binary = pinned_executable(lock)
+    if not binary.exists() or digest(binary) != spec["executable_sha256"]:
         raise ValueError("Run python3 tools/bootstrap.py to obtain the pinned verified binary.")
     for relative, expected in lock.get("vendored_files", {}).items():
-        if digest(ROOT / relative) != expected:
+        vendor_text = (ROOT / relative).read_bytes().replace(b"\r\n", b"\n")
+        if hashlib.sha256(vendor_text).hexdigest() != expected:
             raise ValueError(f"Vendored official source was modified: {relative}")
     build_dir = ROOT / "work/build" / name
     build_dir.mkdir(parents=True, exist_ok=True)
@@ -128,39 +141,81 @@ def main() -> None:
         if any(char in url for char in "%#{}\\"):
             raise ValueError("Use a repository URL without escaped characters or fragments.")
         wrapper = flag + "\n\\edef\\PublicRepositoryURL{\\detokenize{" + url + "}}\n\\input{main.tex}\n"
-    (build_dir / "driver.tex").write_text(wrapper)
+    generator = ROOT / "tools/gerar_numeros.py"
+    if args.final and generator.is_file():
+        subprocess.run([sys.executable, str(generator)], cwd=ROOT, check=True)
+    (build_dir / "driver.tex").write_text(wrapper, encoding="utf-8", newline="\n")
     env = os.environ.copy()
     env["TECTONIC_CACHE_DIR"] = str(ROOT / "work/tectonic-cache")
-    env["SOURCE_DATE_EPOCH"] = "1794009600"
+    env["SOURCE_DATE_EPOCH"] = "1794787200"
     command = [str(binary), "--untrusted", "--keep-logs", "--keep-intermediates", "--outdir", str(build_dir)]
     if lock.get("tex_bundle", {}).get("url"):
         command += ["--bundle", lock["tex_bundle"]["url"]]
     if args.offline:
         command += ["--only-cached"]
     command += ["-"]
-    completed = subprocess.run(command, input=wrapper, text=True, cwd=ROOT, env=env, capture_output=True)
-    (build_dir / "build.stdout.log").write_text(completed.stdout + completed.stderr)
+    completed = subprocess.run(
+        command, input=wrapper, encoding="utf-8", errors="replace",
+        cwd=ROOT, env=env, capture_output=True,
+    )
+    (build_dir / "build.stdout.log").write_text(completed.stdout + completed.stderr, encoding="utf-8")
     print(completed.stdout + completed.stderr)
     if completed.returncode:
         raise SystemExit(completed.returncode)
     bundle_lock = lock.get("tex_bundle", {})
     if bundle_lock.get("content_digest"):
         identity_file = ROOT / bundle_lock["cache_identity_file"]
-        if identity_file.read_text().strip() != bundle_lock["content_digest"]:
+        if identity_file.read_text(encoding="utf-8").strip() != bundle_lock["content_digest"]:
             raise ValueError("Official TeX bundle identity changed; stopped before publishing the PDF.")
     candidate = build_dir / "texput.pdf"
     qa = validate_pdf(candidate, build_dir / "texput.log", final=args.final)
     destination = ROOT / "output/pdf" / ("Artigo_A2_IEEE.pdf" if args.final else f"a2-{name}.pdf")
     destination.parent.mkdir(parents=True, exist_ok=True)
     shutil.copy2(candidate, destination)
-    sources = [ROOT / "main.tex", ROOT / "references.bib", ROOT / "submission_config.json", *sorted((ROOT / "sections").glob("*.tex")), *sorted((ROOT / "figures").glob("*")), *sorted((ROOT / "tools").glob("*.py"))]
-    manifest = {"mode": name, "created_utc": datetime.now(timezone.utc).isoformat(), "pdf": str(destination.relative_to(ROOT)), "pdf_sha256": digest(destination), "tectonic_sha256": digest(binary), "provenance_lock_sha256": digest(ROOT / "provenance.lock.json"), "source_sha256": {str(p.relative_to(ROOT)): digest(p) for p in sources if p.is_file()}, "tex_bundle_content_digest": bundle_lock.get("content_digest"), "source_date_epoch": env["SOURCE_DATE_EPOCH"], "config": config, "public_repository_check": public_check, "qa": qa}
-    (build_dir / "build-manifest.json").write_text(json.dumps(manifest, indent=2, ensure_ascii=False) + "\n")
+    tex_sources = [
+        ROOT / "main.tex",
+        *sorted((ROOT / "sections").glob("*.tex")),
+        *sorted((ROOT / "generated").rglob("*.tex")),
+    ]
+    source_text = "\n".join(uncomment(path.read_text(encoding="utf-8")) for path in tex_sources)
+    assets = set()
+    for name in re.findall(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]+)\}", source_text):
+        asset = ROOT / "figures" / name
+        if not asset.is_file():
+            asset = ROOT / name
+        if asset.is_file():
+            assets.add(asset)
+    sources = [
+        *tex_sources,
+        ROOT / "references.bib",
+        ROOT / "submission_config.json",
+        *sorted(assets),
+        *sorted((ROOT / "tools").glob("*.py")),
+    ]
+    if args.final:
+        sources.append(ROOT / config["results_file"])
+    manifest = {
+        "mode": name,
+        "created_utc": datetime.now(timezone.utc).isoformat(),
+        "pdf": destination.relative_to(ROOT).as_posix(),
+        "pdf_sha256": digest(destination),
+        "tectonic_sha256": digest(binary),
+        "provenance_lock_sha256": digest(ROOT / "provenance.lock.json"),
+        "source_sha256": {p.relative_to(ROOT).as_posix(): digest(p) for p in sources if p.is_file()},
+        "tex_bundle_content_digest": bundle_lock.get("content_digest"),
+        "source_date_epoch": env["SOURCE_DATE_EPOCH"],
+        "config": config,
+        "public_repository_check": public_check,
+        "qa": qa,
+    }
+    (build_dir / "build-manifest.json").write_text(
+        json.dumps(manifest, indent=2, ensure_ascii=False) + "\n", encoding="utf-8", newline="\n",
+    )
     print(json.dumps({"pdf": str(destination), **qa}, ensure_ascii=False))
 
 
 if __name__ == "__main__":
     try:
         main()
-    except (ValueError, OSError) as exc:
+    except (ValueError, OSError, subprocess.CalledProcessError) as exc:
         raise SystemExit(str(exc))

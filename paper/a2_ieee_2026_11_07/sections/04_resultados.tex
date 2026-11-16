@@ -1,53 +1,49 @@
 \begin{table}[!t]
 \centering
-\caption{Resultados externos agrupados por cenário e família}
+\caption{Métricas das previsões externas da validação aninhada (\%)}
 \label{tab:results}
 \footnotesize
-\begin{tabular}{@{}llrrrr@{}}
+\setlength{\tabcolsep}{2.5pt}
+\begin{tabular}{@{}llrrrrrr@{}}
 \toprule
-Cenário & Família & BA & Sens. & Prec. & \(F_1\) \\
+Cenário & Família & BA & Sens. & Esp. & Prec. & \(F_1\) & AP \\
 \midrule
-\fisio & Maioria   & 50,00 & 0,00  & 0,00  & 0,00 \\
- & Árvore             & 60,91 & 54,32 & 55,14 & 54,73 \\
- & Logística          & 61,64 & 55,51 & 55,89 & 55,70 \\
- & Floresta           & \textbf{62,87} & 59,29 & 56,51 & 57,87 \\
-\midrule
-\strict & Maioria  & 50,00 & 0,00  & 0,00  & 0,00 \\
- & Árvore             & 59,32 & 35,82 & 60,52 & 45,00 \\
- & Logística          & \textbf{59,74} & 52,03 & 54,03 & 53,01 \\
- & Floresta           & 59,48 & 48,68 & 54,64 & 51,49 \\
-\bottomrule
+\input{generated/tab_resultados.tex}
 \end{tabular}
 \par\smallskip
-\raggedright\scriptsize Valores em porcentagem. Para a referência, precisão e \(F_1\) são registrados como zero pela convenção de avaliação na ausência de predições positivas.
+\raggedright\scriptsize Sens.\ = sensibilidade, Esp.\ = especificidade, Prec.\ = precisão e AP = precisão média. Maioria tem precisão e \(F_1\) iguais a zero pela convenção da avaliação.
 \end{table}
 
-A Tabela~\ref{tab:results} mostra que a floresta obteve a maior BA observada em \fisio{}. Seu desvio-padrão de BA entre folds foi 1,68 ponto percentual, ante 1,27 da logística e 0,40 da árvore. A AP foi 59,55\% para a floresta, 56,67\% para a logística e 56,00\% para a árvore, frente a 42,38\% na referência majoritária. Essa referência acertaria 57,62\% dos rótulos com a classe \textit{Normal} sempre e recuperaria zero positivos. A BA explicita esse desequilíbrio.
+\subsection{Desempenho com entradas conservadoras}
+Em \fisio{}, a floresta obteve a maior BA, \FisioForestBA\% (IC \FisioForestCI\%). A logística atingiu \FisioLogisticBA\% (Tabela~\ref{tab:results}). A diferença floresta menos logística foi de \FisioDiffBA{} pontos percentuais (IC \FisioDiffCI{} pontos). A referência majoritária tem BA de 50\%, pois prevê todos os registros como \textit{Normal}. Em \strict{}, a maior BA foi de \StrictBestBA\% com a \StrictBestFamily{}. Os três intervalos pareados entre famílias em \strict{} incluem zero. A ordem numérica, portanto, não sustenta preferência clara entre elas sob esse desenho. Remover IMC, PAS, PAD e FC em conjunto altera a comparação de famílias e deixa indeterminado o efeito isolado de cada medida.
 
 \begin{table}[!t]
 \centering
-\caption{Matrizes de confusão externas em \fisio}
+\caption{Matrizes de confusão das previsões externas}
 \label{tab:confusion}
 \footnotesize
 \begin{tabular}{@{}lrrrr@{}}
 \toprule
-& \multicolumn{2}{c}{Logística} & \multicolumn{2}{c}{Floresta} \\
+& \multicolumn{2}{c}{\fisio{} (floresta)} & \multicolumn{2}{c}{\clin{} (árvore)} \\
 \cmidrule(lr){2-3}\cmidrule(l){4-5}
 Rótulo & Normal & Anormal & Normal & Anormal \\
 \midrule
-Normal & 3.656 & 1.738 & 3.584 & 1.810 \\
-Anormal & 1.765 & 2.202 & 1.615 & 2.352 \\
+Normal & \FisioForestTN & \FisioForestFP & \ClinTreeTN & \ClinTreeFP \\
+Anormal & \FisioForestFN & \FisioForestTP & \ClinTreeFN & \ClinTreeTP \\
 \bottomrule
 \end{tabular}
 \par\smallskip
-\raggedright\scriptsize As linhas indicam o rótulo registrado. Em cada família, as colunas indicam a classe prevista.
+\raggedright\scriptsize As linhas indicam o rótulo registrado. As colunas indicam a previsão.
 \end{table}
 
-A diferença entre floresta e logística em \fisio{} foi de 1,23 ponto percentual em BA. A Tabela~\ref{tab:confusion} mostra a troca no limiar avaliado. A floresta recuperou mais 150 registros \textit{Anormal} e produziu mais 72 falsos positivos. Ainda deixou 1.615 positivos com previsão \textit{Normal}, cerca de 41\% dos positivos observados. Em \strict{}, a logística teve a maior BA e a floresta teve maior AP (57,43\% ante 55,78\%). A ordem depende da métrica e da disponibilidade dos preditores. As diferenças são descritivas e o estudo carece de uma coorte independente para confirmar sua magnitude.
+Em \fisio{}, a floresta previu \textit{Normal} para \FisioForestFN{} registros \textit{Anormal}, com sensibilidade de \FisioForestSens\%. A Tabela~\ref{tab:confusion} também registra \FisioForestFP{} positivos entre os rotulados \textit{Normal}. Entre os positivos com idade válida, a mediana foi de \FisioMedianAgeFN{} anos nos falsos negativos e \FisioMedianAgeTP{} nos verdadeiros positivos da floresta. Essa distribuição sugere examinar o erro por idade em outra coorte. Aqui, os erros medem desacordo com o rótulo registrado.
 
-\subsection{Importância e controles}
-Permutamos cada variável de origem três vezes por fold externo, aplicando novamente as transformações ajustadas no treino. Na floresta em \fisio{}, as maiores quedas médias de BA foram de 4,81 pontos percentuais para FC, 2,56 para Peso e 0,86 para IDADE. O resultado inclui o efeito da variável na imputação e nos indicadores derivados. Também pode depender da redundância entre Peso, Altura e IMC e de combinações pouco realistas geradas pela permutação. A medida descreve dependência preditiva do procedimento.
+\subsection{Dependência dos achados e das medidas}
+A árvore em \clin{} obteve BA de \ClinTreeBA\% (IC \ClinTreeCI\%) e sensibilidade de \ClinTreeSens\%. Na comparação entre árvores, a BA subiu \ClinVsFisio{} pontos ao incluir os cinco campos simultaneamente. A matriz mostra \ClinTreeFN{} falsos negativos no ensaio com achados. Entre eles, \ClinNoMurmurFN{} tinham SOPRO explicitamente ausente. Ao todo, \AnormalSemSopro{} registros \textit{Anormal} tinham essa marcação. O material clínico e a dependência forte de SOPRO tornam essa diferença compatível com incorporação de informação ao alvo. A definição do rótulo também admite que os achados sejam informativos por associação com a condição registrada. A avaliação interna deixa essas explicações em aberto.
 
-Uma árvore fixa com apenas máscaras de disponibilidade atingiu BA de 56,11\% em \fisio{} e 50,97\% em \strict{}, sinal de que o processo de coleta pode carregar informação sobre o rótulo. Com rótulos embaralhados, uma árvore rasa obteve 49,65\% e 49,38\%, respectivamente. Esse controle examina o comportamento esperado ao romper a relação entre entradas e rótulo. A verificação da cronologia e do critério clínico exige documentação da coleta e da rotulagem.
+Permutamos cada atributo três vezes por fold externo e reaplicamos as transformações ajustadas no treino. Em \clin{}, permutar SOPRO e B2 na árvore reduziu a BA em \ClinImpSopro{} e \ClinImpBtwo{} pontos, respectivamente. Na floresta em \fisio{}, as quedas para FC e Peso foram \FisioImpFC{} e \FisioImpPeso{} pontos. A permutação mede dependência do procedimento, inclusive via indicadores e imputação. Correlação entre as medidas e combinações pouco realistas do embaralhamento limitam a leitura de cada valor.
 
-Em uma busca separada de cinco folds no desenvolvimento, a floresta selecionada para \fisio{} usou 150 árvores, profundidade máxima 8, 10 registros mínimos por folha, pesos balanceados e mediana global. Essa busca prepara o reajuste em todos os registros de desenvolvimento. A Tabela~\ref{tab:results} estima o desempenho do procedimento por família com seleção interna, que pode escolher configurações distintas em cada fold. A exploração anterior da coorte também orientou escolhas de curadoria. A avaliação permanece interna e condicionada a essas decisões.
+A árvore de \fisio{} ajustada em todo o desenvolvimento forneceu uma regra descritiva de maior suporte. A combinação \FisioRuleConditions{} recebeu previsão \textit{\FisioRulePredicted{}} e cobriu \FisioRuleN{} registros de treino, dos quais \FisioRuleAnormal{} tinham rótulo \textit{Anormal}. Os limites, apresentados com arredondamento, se aplicam a valores preparados, incluindo imputação. O suporte descreve o ajuste final, enquanto a tabela de desempenho avalia o procedimento de seleção nos folds.
+
+\subsection{Controles e alcance}
+Em \fisio{}, a árvore fixa com apenas máscaras de disponibilidade atingiu BA de \FisioMaskBA\%, compatível com um processo de coleta relacionado ao rótulo. O controle com rótulos permutados produziu \FisioNullBA\%. A exploração prévia da coorte orientou a curadoria. Uma estimativa em novos registros exigiria uma divisão independente e documentação da disponibilidade temporal dos campos e do critério de adjudicação.

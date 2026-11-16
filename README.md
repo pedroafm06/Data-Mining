@@ -7,20 +7,22 @@ Trabalho da disciplina INF0414, UFG, 2026/2. Base UCMF: 12.873 registros e 21 va
 ## Entrega da A2
 
 - [Artigo em PDF](paper/a2_ieee_2026_11_07/output/pdf/Artigo_A2_IEEE.pdf) no formato IEEE de conferências.
-- [Apresentação editável](presentation/a2_2026_11_07/output/Apresentacao_A2_UCMF.pptx), [slides em PDF](presentation/a2_2026_11_07/output/Apresentacao_A2_UCMF.pdf) e [roteiro de 14 min 30 s com arguição](presentation/a2_2026_11_07/output/Roteiro_e_Arguicao.md).
-- [Auditoria das 21 variáveis](docs/a2/auditoria_2026_11_07/Parecer_Semantico_e_Decisoes.md), [verificação experimental](docs/a2/auditoria_2026_11_07/Verificacao_Experimental.json) e [conferência da rubrica](docs/a2/auditoria_2026_11_07/conformidade_rubrica.json).
+- Material da apresentação de 11/11, a ser revisado com o grupo à luz do artigo final. [Apresentação editável](presentation/a2_2026_11_07/output/Apresentacao_A2_UCMF.pptx), [slides em PDF](presentation/a2_2026_11_07/output/Apresentacao_A2_UCMF.pdf) e [roteiro de 14 min 30 s com arguição](presentation/a2_2026_11_07/output/Roteiro_e_Arguicao.md).
+- [Auditoria das 21 variáveis](docs/a2/auditoria_2026_11_07/Parecer_Semantico_e_Decisoes.md), [verificação experimental](docs/a2/auditoria_2026_11_07/Verificacao_Experimental.json) e [conferência da rubrica da entrega](docs/a2/Revisao_Final_A2.md#conferência-da-rubrica).
+- [Parecer sobre as revisões do Antônio e do João](docs/a2/Revisao_Final_A2.md).
 - [Código e instruções de reprodução da A2](#reproduzir-a-revisão-da-a2).
 
-### Resultados da revisão
+### Resultados da revisão final
 
-A revisão refez a comparação com 105 configurações por cenário e validação cruzada aninhada de cinco folds externos e três internos, com estratificação e agrupamento por equivalência candidata. O conjunto de 9.361 registros de desenvolvimento é o mesmo para todos os procedimentos. O teste histórico ficou fora da pontuação.
+A comparação usa 9.361 registros, 105 configurações por cenário e validação aninhada com cinco folds externos e três internos. O agrupamento une cópias brutas exatas às equivalências anteriores, sem comparar ID ou rótulo. As tabelas e os intervalos pareados da A2 estão nos [resultados da revisão final](resultados/a2/revisao_final_2026_11_16/).
 
-| Cenário | Melhor família pela BA | BA | Sensibilidade |
-|---|---|---:|---:|
-| FISIO8 | Floresta aleatória | 62,87% | 59,29% |
-| STRICT4 | Regressão logística | 59,74% | 52,03% |
+| Cenário | Papel | Entradas | Maior BA observada |
+|---|---|---|---|
+| FISIO8 | Principal | Peso, altura, IMC, idade, PAS, PAD, FC e sexo | Floresta · 63,27% |
+| STRICT4 | Sensibilidade | Peso, altura, idade e sexo | Árvore · 59,55% |
+| CLINICO | Ensaio exploratório | FISIO8 mais PPA, SOPRO, B2, PULSOS e HDA1 | Árvore · 91,92% |
 
-SOPRO, B2, PULSOS, PPA, HDA1, HDA2, MOTIVO1 e MOTIVO2 ficam fora dos preditores nos dois cenários. A revisão também examina a informação contida em padrões de ausência, a dependência dos atributos por permutação e o comportamento com rótulos embaralhados. A cronologia da coleta e o critério diagnóstico de referência continuam desconhecidos. [Métricas e experimentos da revisão](resultados/a2/auditoria_2026_11_07/).
+MOTIVO1 e MOTIVO2 ficam fora de todos os modelos. FISIO8 e STRICT4 também retiram os achados diagnósticos de origem ou cronologia incerta. CLINICO mede quanto a pontuação depende desses campos. Sua participação na definição do rótulo segue desconhecida. O teste histórico ficou fora da avaliação final.
 
 ## Reproduzir a revisão da A2
 
@@ -35,10 +37,13 @@ python tools/export_rubric_audit.py --source "/caminho/para/UCMF_raw.csv"
 python -m pytest -q
 ```
 
-O programa verifica a versão da fonte pelo SHA-256 e reconstrói a partição de desenvolvimento a partir das regras e sementes. O protocolo fixa `random_state=42` nos estimadores estocásticos, 743 nos folds externos, 811 mais o índice do fold nos internos e 43 na seleção final. Dados clínicos, previsões por registro e modelos ajustados ficam em arquivos locais ignorados pelo Git. As [métricas externas](resultados/a2/auditoria_2026_11_07/family_nested_metrics.csv) e a [síntese dos resultados](resultados/a2/auditoria_2026_11_07/reviewed_results.json) estão disponíveis no repositório.
+O programa verifica a versão da fonte pelo SHA-256 e reconstrói a partição histórica a partir das regras e sementes e agrupa cópias exatas no desenvolvimento. O protocolo fixa `random_state=42` nos estimadores estocásticos, 743 nos folds externos, 811 mais o índice do fold nos internos e 43 na seleção final. Dados clínicos, previsões por registro e modelos ajustados ficam em arquivos locais ignorados pelo Git. As [métricas externas](resultados/a2/revisao_final_2026_11_16/family_nested_metrics.csv) e a [síntese dos resultados](resultados/a2/revisao_final_2026_11_16/reviewed_results.json) estão disponíveis no repositório.
+
+O [guia de compilação do artigo](paper/a2_ieee_2026_11_07/README.md) explica como gerar o PDF a partir dos resultados agregados. O [protocolo final](config/a2_final_protocol_2026_11_16.json) identifica os cenários, as sementes e a grade completa.
 
 ## Desenvolvimento anterior da A2
 
+- [Auditoria de 7 de novembro com o agrupamento anterior](resultados/a2/auditoria_2026_11_07/).
 - [Relatório integrado em PDF](docs/a2/Relatorio_A2_KDD_Completo.pdf) · [versão em texto](docs/a2/Relatorio_A2_KDD_Completo.md).
 - [Decisões, alternativas e justificativas](docs/a2/Decisoes_KDD_Completo.md) · [registro estruturado das microdecisões](docs/a2/Registro_Microdecisoes.csv).
 - [Notebook completo executado](notebooks/02_kdd_completo_a2.ipynb).

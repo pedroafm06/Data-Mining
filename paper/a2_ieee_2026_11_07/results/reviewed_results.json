@@ -1,36 +1,64 @@
 {
-  "run_date": "2026-11-07",
-  "dataset": "UCMF, disponibilizado na disciplina INF0414; origem descrita como Real Hospital Português, Recife",
   "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
-  "rubric_sha256": "bf38c1c6f777f249c2af733a957a2860787446233acd2325c54c26bc1fda545a",
+  "protocol_sha256": "3ffffc55df7ac7d57d4effd07e953d065225773aa5fe007f08881a166c415091",
+  "evaluation_code_sha256": {
+    "src/kdd_revision/rubric_audit.py": "0cc418598adead0bbb6566a2130fd0aaa0f4f5748ef92692642ebb07d1a89cd9",
+    "src/kdd_revision/mining.py": "8bcb23da77654b71cb4b25ea17b4b7cedb64b28ad7f2a73c1d48002f81edd9d4",
+    "src/kdd_revision/preprocessing/transformer.py": "b78e5cea1e0be69cc18ff986c8671ac617bf5d4a7676c0faf3305236fbfebcf3",
+    "src/kdd_revision/preprocessing/preparation.py": "d7de7036d1005fb64b309ac32c42dd47e93bd1ec80869ea820f59d7fb2896f7d"
+  },
+  "membership_sha256": "18d8474c9cabb4e1e24130c7e5fde1f66d013cf1ef45ca4b8e851cf62d20b299",
   "n_original": 12873,
   "n_original_variables": 21,
   "n_labelled": 11704,
   "n_unlabelled": 1169,
-  "n_quarantine": 1,
-  "n_historical_test_not_rescored": 2342,
   "n_development": 9361,
-  "development_class_counts": {
-    "0": 5394,
-    "1": 3967
+  "n_historical_test_not_rescored": 2342,
+  "class_counts": {
+    "Normal": 5394,
+    "Anormal": 3967
   },
-  "n_candidate_components": 9279,
-  "primary_pool": [
-    "Peso",
-    "Altura",
-    "IMC",
-    "IDADE",
-    "PA SISTOLICA",
-    "PA DIASTOLICA",
-    "FC",
-    "SEXO"
-  ],
-  "sensitivity_pool": [
-    "Peso",
-    "Altura",
-    "IDADE",
-    "SEXO"
-  ],
+  "pools": {
+    "FISIO8": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "SEXO"
+    ],
+    "STRICT4": [
+      "Peso",
+      "Altura",
+      "IDADE",
+      "SEXO"
+    ],
+    "CLINICO": [
+      "Peso",
+      "Altura",
+      "IMC",
+      "IDADE",
+      "PA SISTOLICA",
+      "PA DIASTOLICA",
+      "FC",
+      "SEXO",
+      "PPA",
+      "SOPRO",
+      "B2",
+      "PULSOS",
+      "HDA 1"
+    ]
+  },
+  "primary_pool": "FISIO8",
+  "sensitivity_pool": "STRICT4",
+  "exploratory_pool": "CLINICO",
+  "best_family_by_pool": {
+    "FISIO8": "forest",
+    "STRICT4": "tree",
+    "CLINICO": "tree"
+  },
   "metrics": [
     {
       "pool": "FISIO8",
@@ -56,65 +84,65 @@
     {
       "pool": "FISIO8",
       "family": "tree",
-      "mean_fold_BA": 0.6091212393265751,
-      "sd_fold_BA": 0.003996521356862911,
+      "mean_fold_BA": 0.6168994069182,
+      "sd_fold_BA": 0.021120505053150156,
       "n": 9361,
       "prevalence": 0.4237795107360325,
-      "tn": 3641,
-      "fp": 1753,
-      "fn": 1812,
-      "tp": 2155,
-      "recall": 0.5432316612049407,
-      "specificity": 0.675009269558769,
-      "precision": 0.5514329580348004,
-      "f1": 0.5473015873015873,
-      "balanced_accuracy": 0.6091204653818549,
-      "roc_auc": 0.6367538449157719,
-      "average_precision": 0.5600352091974481,
-      "brier": 0.23283602129187592,
-      "accuracy": 0.6191646191646192
+      "tn": 3737,
+      "fp": 1657,
+      "fn": 1821,
+      "tp": 2146,
+      "recall": 0.5409629442903958,
+      "specificity": 0.692806822395254,
+      "precision": 0.5642913489350513,
+      "f1": 0.5523809523809524,
+      "balanced_accuracy": 0.6168848833428249,
+      "roc_auc": 0.645191433329417,
+      "average_precision": 0.5708819138063828,
+      "brier": 0.23296987301761257,
+      "accuracy": 0.6284584980237155
     },
     {
       "pool": "FISIO8",
       "family": "logistic",
-      "mean_fold_BA": 0.6164358872343805,
-      "sd_fold_BA": 0.012662331796315856,
+      "mean_fold_BA": 0.620261919535477,
+      "sd_fold_BA": 0.016462769957988465,
       "n": 9361,
       "prevalence": 0.4237795107360325,
-      "tn": 3656,
-      "fp": 1738,
-      "fn": 1765,
-      "tp": 2202,
-      "recall": 0.555079405092009,
-      "specificity": 0.6777901371894698,
-      "precision": 0.5588832487309645,
-      "f1": 0.5569748324269634,
-      "balanced_accuracy": 0.6164347711407394,
-      "roc_auc": 0.6564064544729837,
-      "average_precision": 0.566682362139382,
-      "brier": 0.23185401494856034,
-      "accuracy": 0.6257878431791475
+      "tn": 3681,
+      "fp": 1713,
+      "fn": 1753,
+      "tp": 2214,
+      "recall": 0.558104360978069,
+      "specificity": 0.6824249165739711,
+      "precision": 0.5637891520244461,
+      "f1": 0.5609323536863441,
+      "balanced_accuracy": 0.62026463877602,
+      "roc_auc": 0.6537185394633647,
+      "average_precision": 0.5656654197815878,
+      "brier": 0.23252055939289962,
+      "accuracy": 0.629740412349108
     },
     {
       "pool": "FISIO8",
       "family": "forest",
-      "mean_fold_BA": 0.6286696922570061,
-      "sd_fold_BA": 0.016778687103510735,
+      "mean_fold_BA": 0.6326677788853369,
+      "sd_fold_BA": 0.014850370564337533,
       "n": 9361,
       "prevalence": 0.4237795107360325,
-      "tn": 3584,
-      "fp": 1810,
-      "fn": 1615,
-      "tp": 2352,
-      "recall": 0.592891353667759,
-      "specificity": 0.664441972562106,
-      "precision": 0.565112926477655,
-      "f1": 0.5786689629720753,
-      "balanced_accuracy": 0.6286666631149325,
-      "roc_auc": 0.6720529415882738,
-      "average_precision": 0.5954611059637176,
-      "brier": 0.2264072891247969,
-      "accuracy": 0.6341202862941994
+      "tn": 3687,
+      "fp": 1707,
+      "fn": 1659,
+      "tp": 2308,
+      "recall": 0.5817998487522057,
+      "specificity": 0.6835372636262514,
+      "precision": 0.5748443337484433,
+      "f1": 0.5783011776497119,
+      "balanced_accuracy": 0.6326685561892286,
+      "roc_auc": 0.6718384589062958,
+      "average_precision": 0.5950686195629176,
+      "brier": 0.22737847368122185,
+      "accuracy": 0.6404230317273796
     },
     {
       "pool": "STRICT4",
@@ -140,67 +168,1446 @@
     {
       "pool": "STRICT4",
       "family": "tree",
-      "mean_fold_BA": 0.5931848516828719,
-      "sd_fold_BA": 0.008926847847208175,
+      "mean_fold_BA": 0.5954780914242224,
+      "sd_fold_BA": 0.01439964475270434,
       "n": 9361,
       "prevalence": 0.4237795107360325,
-      "tn": 4467,
-      "fp": 927,
-      "fn": 2546,
-      "tp": 1421,
-      "recall": 0.3582051928409377,
-      "specificity": 0.8281423804226918,
-      "precision": 0.6051959114139693,
-      "f1": 0.4500395882818686,
-      "balanced_accuracy": 0.5931737866318147,
-      "roc_auc": 0.6152524175392483,
-      "average_precision": 0.5437361371280077,
-      "brier": 0.23118823901787167,
-      "accuracy": 0.628992628992629
+      "tn": 4455,
+      "fp": 939,
+      "fn": 2519,
+      "tp": 1448,
+      "recall": 0.3650113435845727,
+      "specificity": 0.8259176863181312,
+      "precision": 0.6066191872643486,
+      "f1": 0.45577588920365125,
+      "balanced_accuracy": 0.595464514951352,
+      "roc_auc": 0.6272863003351996,
+      "average_precision": 0.5528789742893732,
+      "brier": 0.23109162091420496,
+      "accuracy": 0.6305950218993698
     },
     {
       "pool": "STRICT4",
       "family": "logistic",
-      "mean_fold_BA": 0.597361365356608,
-      "sd_fold_BA": 0.00822263258840526,
+      "mean_fold_BA": 0.5950651696819114,
+      "sd_fold_BA": 0.01706395634563013,
       "n": 9361,
       "prevalence": 0.4237795107360325,
-      "tn": 3638,
-      "fp": 1756,
-      "fn": 1903,
-      "tp": 2064,
-      "recall": 0.5202924124023192,
-      "specificity": 0.6744530960326288,
-      "precision": 0.5403141361256545,
-      "f1": 0.5301142930525234,
-      "balanced_accuracy": 0.597372754217474,
-      "roc_auc": 0.6366025223481188,
-      "average_precision": 0.5577815758482103,
-      "brier": 0.23375283204445196,
-      "accuracy": 0.609122956949044
+      "tn": 4339,
+      "fp": 1055,
+      "fn": 2437,
+      "tp": 1530,
+      "recall": 0.38568187547264937,
+      "specificity": 0.8044123099740452,
+      "precision": 0.5918762088974855,
+      "f1": 0.46703296703296704,
+      "balanced_accuracy": 0.5950470927233473,
+      "roc_auc": 0.6285114383130609,
+      "average_precision": 0.5473742798550328,
+      "brier": 0.23211554075368784,
+      "accuracy": 0.6269629313107574
     },
     {
       "pool": "STRICT4",
       "family": "forest",
-      "mean_fold_BA": 0.5948029479101697,
-      "sd_fold_BA": 0.006180303917936876,
+      "mean_fold_BA": 0.5931424290678047,
+      "sd_fold_BA": 0.00912910837223348,
       "n": 9361,
       "prevalence": 0.4237795107360325,
-      "tn": 3791,
-      "fp": 1603,
-      "fn": 2036,
-      "tp": 1931,
-      "recall": 0.4867658179984875,
-      "specificity": 0.7028179458657768,
-      "precision": 0.5464063384267119,
-      "f1": 0.5148646847087055,
-      "balanced_accuracy": 0.5947918819321322,
-      "roc_auc": 0.6426665943234503,
-      "average_precision": 0.5742689981673788,
-      "brier": 0.23205271167537775,
-      "accuracy": 0.6112594808246982
+      "tn": 4219,
+      "fp": 1175,
+      "fn": 2364,
+      "tp": 1603,
+      "recall": 0.404083690446181,
+      "specificity": 0.782165368928439,
+      "precision": 0.5770338372930166,
+      "f1": 0.4753150481838399,
+      "balanced_accuracy": 0.59312452968731,
+      "roc_auc": 0.6384839366748235,
+      "average_precision": 0.5704444657184409,
+      "brier": 0.23219607021520566,
+      "accuracy": 0.6219421002029698
+    },
+    {
+      "pool": "CLINICO",
+      "family": "dummy",
+      "mean_fold_BA": 0.5,
+      "sd_fold_BA": 0.0,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 5394,
+      "fp": 0,
+      "fn": 3967,
+      "tp": 0,
+      "recall": 0.0,
+      "specificity": 1.0,
+      "precision": 0.0,
+      "f1": 0.0,
+      "balanced_accuracy": 0.5,
+      "roc_auc": 0.5,
+      "average_precision": 0.4237795107360325,
+      "brier": 0.4237795107360325,
+      "accuracy": 0.5762204892639675
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "mean_fold_BA": 0.9191566132847763,
+      "sd_fold_BA": 0.008266489448278324,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 5199,
+      "fp": 195,
+      "fn": 498,
+      "tp": 3469,
+      "recall": 0.8744643307285103,
+      "specificity": 0.9638487208008899,
+      "precision": 0.9467794759825328,
+      "f1": 0.909186214126589,
+      "balanced_accuracy": 0.9191565257647001,
+      "roc_auc": 0.9204797102981316,
+      "average_precision": 0.9112276032140539,
+      "brier": 0.06780537824973888,
+      "accuracy": 0.9259694477085781
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "mean_fold_BA": 0.919057244612158,
+      "sd_fold_BA": 0.008278389565298735,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 5202,
+      "fp": 192,
+      "fn": 501,
+      "tp": 3466,
+      "recall": 0.8737080917569953,
+      "specificity": 0.96440489432703,
+      "precision": 0.9475123018042646,
+      "f1": 0.9091147540983606,
+      "balanced_accuracy": 0.9190564930420126,
+      "roc_auc": 0.9400404421011723,
+      "average_precision": 0.9349251861664208,
+      "brier": 0.06602306005036138,
+      "accuracy": 0.9259694477085781
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "mean_fold_BA": 0.9190900809278733,
+      "sd_fold_BA": 0.009056144106610778,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 5201,
+      "fp": 193,
+      "fn": 500,
+      "tp": 3467,
+      "recall": 0.8739601714141669,
+      "specificity": 0.96421950315165,
+      "precision": 0.9472677595628415,
+      "f1": 0.909138586600236,
+      "balanced_accuracy": 0.9190898372829084,
+      "roc_auc": 0.9479927514714228,
+      "average_precision": 0.9463184291006994,
+      "brier": 0.06728187737218025,
+      "accuracy": 0.9259694477085781
     }
   ],
+  "bootstrap": {
+    "n_boot": 2000,
+    "valid_resamples": 2000,
+    "seed": 2026,
+    "unit": "candidate group",
+    "n_groups": 9166,
+    "paired": true,
+    "conditional_on_fitted_models": true,
+    "models": {
+      "FISIO8/dummy": {
+        "ba": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ]
+      },
+      "FISIO8/tree": {
+        "ba": 0.6168848833428249,
+        "ci95": [
+          0.6053391972077758,
+          0.628472141505828
+        ]
+      },
+      "FISIO8/logistic": {
+        "ba": 0.62026463877602,
+        "ci95": [
+          0.6087441220003977,
+          0.6318861583183136
+        ]
+      },
+      "FISIO8/forest": {
+        "ba": 0.6326685561892286,
+        "ci95": [
+          0.6206782588944105,
+          0.6439419631108383
+        ]
+      },
+      "STRICT4/dummy": {
+        "ba": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ]
+      },
+      "STRICT4/tree": {
+        "ba": 0.595464514951352,
+        "ci95": [
+          0.5855968486320591,
+          0.6052964648830216
+        ]
+      },
+      "STRICT4/logistic": {
+        "ba": 0.5950470927233473,
+        "ci95": [
+          0.5852210178162873,
+          0.6048624991752802
+        ]
+      },
+      "STRICT4/forest": {
+        "ba": 0.59312452968731,
+        "ci95": [
+          0.5826622837229537,
+          0.6031064133174895
+        ]
+      },
+      "CLINICO/dummy": {
+        "ba": 0.5,
+        "ci95": [
+          0.5,
+          0.5
+        ]
+      },
+      "CLINICO/tree": {
+        "ba": 0.9191565257647001,
+        "ci95": [
+          0.9128105226223543,
+          0.9249789326989768
+        ]
+      },
+      "CLINICO/logistic": {
+        "ba": 0.9190564930420126,
+        "ci95": [
+          0.9127963047930858,
+          0.9247841224553899
+        ]
+      },
+      "CLINICO/forest": {
+        "ba": 0.9190898372829084,
+        "ci95": [
+          0.9129704109424593,
+          0.9249937940033812
+        ]
+      }
+    },
+    "differences": [
+      {
+        "a": "FISIO8/forest",
+        "b": "FISIO8/logistic",
+        "diff": 0.012403917413208565,
+        "ci95": [
+          0.004304059760095727,
+          0.02011016569487212
+        ],
+        "ci_contains_zero": false
+      },
+      {
+        "a": "FISIO8/tree",
+        "b": "FISIO8/forest",
+        "diff": -0.015783672846403696,
+        "ci95": [
+          -0.02265463822088855,
+          -0.009046147816739765
+        ],
+        "ci_contains_zero": false
+      },
+      {
+        "a": "FISIO8/tree",
+        "b": "FISIO8/logistic",
+        "diff": -0.0033797554331951307,
+        "ci95": [
+          -0.012448491118207724,
+          0.005926070452881022
+        ],
+        "ci_contains_zero": true
+      },
+      {
+        "a": "STRICT4/forest",
+        "b": "STRICT4/logistic",
+        "diff": -0.001922563036037328,
+        "ci95": [
+          -0.007622055200775862,
+          0.004051502153750007
+        ],
+        "ci_contains_zero": true
+      },
+      {
+        "a": "STRICT4/tree",
+        "b": "STRICT4/forest",
+        "diff": 0.0023399852640419994,
+        "ci95": [
+          -0.0033336821236292975,
+          0.008133173453215863
+        ],
+        "ci_contains_zero": true
+      },
+      {
+        "a": "STRICT4/tree",
+        "b": "STRICT4/logistic",
+        "diff": 0.0004174222280046713,
+        "ci95": [
+          -0.003678989310392106,
+          0.00489835915993004
+        ],
+        "ci_contains_zero": true
+      },
+      {
+        "a": "CLINICO/forest",
+        "b": "CLINICO/logistic",
+        "diff": 3.334424089573851e-05,
+        "ci95": [
+          -0.0010919504617662862,
+          0.0011991823761603954
+        ],
+        "ci_contains_zero": true
+      },
+      {
+        "a": "CLINICO/tree",
+        "b": "CLINICO/forest",
+        "diff": 6.668848179169906e-05,
+        "ci95": [
+          -0.0006177937181173793,
+          0.0006986338273090141
+        ],
+        "ci_contains_zero": true
+      },
+      {
+        "a": "CLINICO/tree",
+        "b": "CLINICO/logistic",
+        "diff": 0.00010003272268743757,
+        "ci95": [
+          -0.0011565371613568576,
+          0.001336469884727337
+        ],
+        "ci_contains_zero": true
+      }
+    ]
+  },
+  "importance": [
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "Altura",
+      "mean": -0.00011501467864144151,
+      "std": 0.0003954983986268905
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "B2",
+      "mean": 0.02898502710540345,
+      "std": 0.006520612127022323
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "FC",
+      "mean": 0.00011496173850508532,
+      "std": 0.0004978150072926805
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "HDA 1",
+      "mean": -5.080713297164567e-05,
+      "std": 0.000448012144593904
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "IDADE",
+      "mean": 8.382414357163507e-05,
+      "std": 0.000431535939393276
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "IMC",
+      "mean": -5.317613455082526e-05,
+      "std": 0.00031587570285620327
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "PA DIASTOLICA",
+      "mean": 7.28743301047663e-05,
+      "std": 0.0003321686989451999
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "PA SISTOLICA",
+      "mean": -0.00012378734334910212,
+      "std": 0.0004638790959050464
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "PPA",
+      "mean": 1.114166628683281e-05,
+      "std": 0.00020880986562246326
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "PULSOS",
+      "mean": -8.597254725906112e-08,
+      "std": 0.0003035020183705484
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "Peso",
+      "mean": -4.2274886325148016e-05,
+      "std": 0.0005072194973807525
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "SEXO",
+      "mean": 0.00019881891448762326,
+      "std": 0.0005064801774500483
+    },
+    {
+      "pool": "CLINICO",
+      "family": "forest",
+      "variable": "SOPRO",
+      "mean": 0.38708718040533713,
+      "std": 0.013631438319836877
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "Altura",
+      "mean": 0.00043478663160702405,
+      "std": 0.0014655851332704786
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "B2",
+      "mean": 0.027939937480674196,
+      "std": 0.004251413661109641
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "FC",
+      "mean": -0.00016592769188579216,
+      "std": 0.00117066071309581
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "HDA 1",
+      "mean": 0.0004311643332133445,
+      "std": 0.0005511098942504376
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "IDADE",
+      "mean": -4.472548555641461e-05,
+      "std": 0.0008038652959964136
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "IMC",
+      "mean": 0.0002692625530865837,
+      "std": 0.0019354938083861754
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "PA DIASTOLICA",
+      "mean": -7.796300649211366e-05,
+      "std": 0.0006458261172869272
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "PA SISTOLICA",
+      "mean": 0.00050401875559265,
+      "std": 0.0009370520080777115
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "PPA",
+      "mean": 0.0005017512593910404,
+      "std": 0.0005462464575501898
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "PULSOS",
+      "mean": 0.0010296242851899637,
+      "std": 0.000995580042235674
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "Peso",
+      "mean": 0.0005992536410280413,
+      "std": 0.0006713182249010979
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "SEXO",
+      "mean": 2.2124512164619265e-05,
+      "std": 0.0005465400917907015
+    },
+    {
+      "pool": "CLINICO",
+      "family": "logistic",
+      "variable": "SOPRO",
+      "mean": 0.3852907604852424,
+      "std": 0.013314021322616896
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "Altura",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "B2",
+      "mean": 0.032118101037777194,
+      "std": 0.006053729367204444
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "FC",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "HDA 1",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "IDADE",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "IMC",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "PA DIASTOLICA",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "PA SISTOLICA",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "PPA",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "PULSOS",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "Peso",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "SEXO",
+      "mean": 0.0,
+      "std": 0.0
+    },
+    {
+      "pool": "CLINICO",
+      "family": "tree",
+      "variable": "SOPRO",
+      "mean": 0.3857184532367973,
+      "std": 0.013856544423302315
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "Altura",
+      "mean": 0.0014144084355569796,
+      "std": 0.004139469595061003
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "FC",
+      "mean": 0.047988180708062066,
+      "std": 0.012220721744609654
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "IDADE",
+      "mean": 0.01398544936420032,
+      "std": 0.007229090570467636
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "IMC",
+      "mean": 0.004362320838275472,
+      "std": 0.005501398673107938
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "PA DIASTOLICA",
+      "mean": 0.0013924455519231567,
+      "std": 0.003972802485456735
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "PA SISTOLICA",
+      "mean": 0.005078963675181754,
+      "std": 0.005448037981053807
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "Peso",
+      "mean": 0.02762734499334806,
+      "std": 0.008180429916049045
+    },
+    {
+      "pool": "FISIO8",
+      "family": "forest",
+      "variable": "SEXO",
+      "mean": 0.004763761770582005,
+      "std": 0.0022778575656318767
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "Altura",
+      "mean": 0.015374011452938404,
+      "std": 0.010393031036813044
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "FC",
+      "mean": 0.03156349369279834,
+      "std": 0.007840978314499638
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "IDADE",
+      "mean": 0.017160111448614675,
+      "std": 0.004792328159017133
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "IMC",
+      "mean": 0.009585866287243998,
+      "std": 0.007276908703885094
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "PA DIASTOLICA",
+      "mean": 0.00807664138467874,
+      "std": 0.0038148451368149633
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "PA SISTOLICA",
+      "mean": 0.009681779299177292,
+      "std": 0.00622778937841037
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "Peso",
+      "mean": 0.10765154141112214,
+      "std": 0.012067669878066222
+    },
+    {
+      "pool": "FISIO8",
+      "family": "logistic",
+      "variable": "SEXO",
+      "mean": 0.011670645441622721,
+      "std": 0.015932816383036574
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "Altura",
+      "mean": 0.004589353631423565,
+      "std": 0.00963333912507658
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "FC",
+      "mean": 0.05420582794206978,
+      "std": 0.018153101058498513
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "IDADE",
+      "mean": 0.008565484733092089,
+      "std": 0.005236972751789732
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "IMC",
+      "mean": 0.0028887302045508783,
+      "std": 0.006578374603209053
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "PA DIASTOLICA",
+      "mean": 0.00051859392171462,
+      "std": 0.000924983085708749
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "PA SISTOLICA",
+      "mean": 0.00761735466455989,
+      "std": 0.011404122387011774
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "Peso",
+      "mean": 0.04330317849794682,
+      "std": 0.01403688695720342
+    },
+    {
+      "pool": "FISIO8",
+      "family": "tree",
+      "variable": "SEXO",
+      "mean": 0.0008113253057399664,
+      "std": 0.0014680039708869703
+    },
+    {
+      "pool": "STRICT4",
+      "family": "forest",
+      "variable": "Altura",
+      "mean": 0.0031455912919533167,
+      "std": 0.009147156466012506
+    },
+    {
+      "pool": "STRICT4",
+      "family": "forest",
+      "variable": "IDADE",
+      "mean": 0.013922793670875426,
+      "std": 0.009675956525032378
+    },
+    {
+      "pool": "STRICT4",
+      "family": "forest",
+      "variable": "Peso",
+      "mean": 0.042369995900651845,
+      "std": 0.018721087965487767
+    },
+    {
+      "pool": "STRICT4",
+      "family": "forest",
+      "variable": "SEXO",
+      "mean": 0.006453571422281312,
+      "std": 0.008119411284973848
+    },
+    {
+      "pool": "STRICT4",
+      "family": "logistic",
+      "variable": "Altura",
+      "mean": 0.0011225539203921628,
+      "std": 0.005675273257101037
+    },
+    {
+      "pool": "STRICT4",
+      "family": "logistic",
+      "variable": "IDADE",
+      "mean": 0.010608713466977827,
+      "std": 0.007552372382058966
+    },
+    {
+      "pool": "STRICT4",
+      "family": "logistic",
+      "variable": "Peso",
+      "mean": 0.09211211379295459,
+      "std": 0.013350999404351853
+    },
+    {
+      "pool": "STRICT4",
+      "family": "logistic",
+      "variable": "SEXO",
+      "mean": 0.002532174595902418,
+      "std": 0.002788038582385528
+    },
+    {
+      "pool": "STRICT4",
+      "family": "tree",
+      "variable": "Altura",
+      "mean": -0.000879178757906803,
+      "std": 0.002509652982008972
+    },
+    {
+      "pool": "STRICT4",
+      "family": "tree",
+      "variable": "IDADE",
+      "mean": 0.012757187933901577,
+      "std": 0.00645232888979379
+    },
+    {
+      "pool": "STRICT4",
+      "family": "tree",
+      "variable": "Peso",
+      "mean": 0.08226851318947402,
+      "std": 0.01603458350093144
+    },
+    {
+      "pool": "STRICT4",
+      "family": "tree",
+      "variable": "SEXO",
+      "mean": 0.000542903011794967,
+      "std": 0.0013633314022696208
+    }
+  ],
+  "errors": {
+    "FISIO8": {
+      "family": "forest",
+      "fn": 1659,
+      "fp": 1707,
+      "fn_explicitly_without_murmur": 275,
+      "fp_explicitly_with_murmur": 59,
+      "median_age_fn": 6.512328767123288,
+      "median_age_tp": 0.5945205479452055
+    },
+    "STRICT4": {
+      "family": "logistic",
+      "fn": 2437,
+      "fp": 1055,
+      "fn_explicitly_without_murmur": 411,
+      "fp_explicitly_with_murmur": 34,
+      "median_age_fn": 5.273590837637547,
+      "median_age_tp": 0.21095890410958903
+    },
+    "CLINICO": {
+      "family": "tree",
+      "fn": 498,
+      "fp": 195,
+      "fn_explicitly_without_murmur": 496,
+      "fp_explicitly_with_murmur": 154,
+      "median_age_fn": 3.3060109289617485,
+      "median_age_tp": 2.582764428475185
+    }
+  },
+  "tree_rules_development": {
+    "FISIO8": [
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE ≤ 0.03830376",
+          "Altura ≤ 50.5",
+          "IMC ≤ 14.24934",
+          "IDADE ≤ 0.006838087"
+        ],
+        "n": 80,
+        "n_anormal": 58,
+        "anormal_rate": 0.725,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE ≤ 0.03830376",
+          "Altura ≤ 50.5",
+          "IMC ≤ 14.24934",
+          "IDADE > 0.006838087"
+        ],
+        "n": 74,
+        "n_anormal": 60,
+        "anormal_rate": 0.8108108108108109,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE ≤ 0.03830376",
+          "Altura ≤ 50.5",
+          "IMC > 14.24934",
+          "IDADE ≤ 0.005471966"
+        ],
+        "n": 51,
+        "n_anormal": 46,
+        "anormal_rate": 0.9019607843137255,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE ≤ 0.03830376",
+          "Altura ≤ 50.5",
+          "IMC > 14.24934",
+          "IDADE > 0.005471966"
+        ],
+        "n": 53,
+        "n_anormal": 44,
+        "anormal_rate": 0.8301886792452831,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE ≤ 0.03830376",
+          "Altura > 50.5",
+          "IDADE ≤ 0.00957407"
+        ],
+        "n": 82,
+        "n_anormal": 64,
+        "anormal_rate": 0.7804878048780488,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE ≤ 0.03830376",
+          "Altura > 50.5",
+          "IDADE > 0.00957407"
+        ],
+        "n": 73,
+        "n_anormal": 48,
+        "anormal_rate": 0.6575342465753424,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE > 0.03830376",
+          "IMC ≤ 11.78566"
+        ],
+        "n": 66,
+        "n_anormal": 55,
+        "anormal_rate": 0.8333333333333334,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE > 0.03830376",
+          "IMC > 11.78566",
+          "Altura observado",
+          "IDADE ≤ 0.08891758",
+          "IMC ≤ 13.55438"
+        ],
+        "n": 79,
+        "n_anormal": 32,
+        "anormal_rate": 0.4050632911392405,
+        "predicted": "Normal"
+      },
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE > 0.03830376",
+          "IMC > 11.78566",
+          "Altura observado",
+          "IDADE ≤ 0.08891758",
+          "IMC > 13.55438"
+        ],
+        "n": 101,
+        "n_anormal": 55,
+        "anormal_rate": 0.5445544554455446,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE > 0.03830376",
+          "IMC > 11.78566",
+          "Altura observado",
+          "IDADE > 0.08891758",
+          "Peso ≤ 3.65"
+        ],
+        "n": 78,
+        "n_anormal": 62,
+        "anormal_rate": 0.7948717948717948,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE > 0.03830376",
+          "IMC > 11.78566",
+          "Altura observado",
+          "IDADE > 0.08891758",
+          "Peso > 3.65"
+        ],
+        "n": 946,
+        "n_anormal": 528,
+        "anormal_rate": 0.5581395348837209,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE > 0.03830376",
+          "IMC > 11.78566",
+          "Altura ausente",
+          "FC ≤ 129",
+          "FC ≤ 111"
+        ],
+        "n": 181,
+        "n_anormal": 125,
+        "anormal_rate": 0.6906077348066298,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE > 0.03830376",
+          "IMC > 11.78566",
+          "Altura ausente",
+          "FC ≤ 129",
+          "FC > 111"
+        ],
+        "n": 136,
+        "n_anormal": 76,
+        "anormal_rate": 0.5588235294117647,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso ≤ 8.85",
+          "IDADE > 0.03830376",
+          "IMC > 11.78566",
+          "Altura ausente",
+          "FC > 129"
+        ],
+        "n": 82,
+        "n_anormal": 63,
+        "anormal_rate": 0.7682926829268293,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC ≤ 98.5",
+          "SEXO ≠ ausente",
+          "Peso ≤ 28.85",
+          "FC ≤ 89.5",
+          "IMC ≤ 15.34998"
+        ],
+        "n": 320,
+        "n_anormal": 133,
+        "anormal_rate": 0.415625,
+        "predicted": "Normal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC ≤ 98.5",
+          "SEXO ≠ ausente",
+          "Peso ≤ 28.85",
+          "FC ≤ 89.5",
+          "IMC > 15.34998"
+        ],
+        "n": 1484,
+        "n_anormal": 465,
+        "anormal_rate": 0.3133423180592992,
+        "predicted": "Normal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC ≤ 98.5",
+          "SEXO ≠ ausente",
+          "Peso ≤ 28.85",
+          "FC > 89.5",
+          "PA DIASTOLICA observado"
+        ],
+        "n": 635,
+        "n_anormal": 318,
+        "anormal_rate": 0.5007874015748032,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC ≤ 98.5",
+          "SEXO ≠ ausente",
+          "Peso ≤ 28.85",
+          "FC > 89.5",
+          "PA DIASTOLICA ausente"
+        ],
+        "n": 967,
+        "n_anormal": 343,
+        "anormal_rate": 0.35470527404343327,
+        "predicted": "Normal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC ≤ 98.5",
+          "SEXO ≠ ausente",
+          "Peso > 28.85",
+          "PA SISTOLICA ≤ 128",
+          "IMC ≤ 20.29697"
+        ],
+        "n": 1343,
+        "n_anormal": 396,
+        "anormal_rate": 0.29486224869694716,
+        "predicted": "Normal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC ≤ 98.5",
+          "SEXO ≠ ausente",
+          "Peso > 28.85",
+          "PA SISTOLICA ≤ 128",
+          "IMC > 20.29697"
+        ],
+        "n": 526,
+        "n_anormal": 114,
+        "anormal_rate": 0.21673003802281368,
+        "predicted": "Normal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC ≤ 98.5",
+          "SEXO ≠ ausente",
+          "Peso > 28.85",
+          "PA SISTOLICA > 128"
+        ],
+        "n": 99,
+        "n_anormal": 45,
+        "anormal_rate": 0.45454545454545453,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC ≤ 98.5",
+          "SEXO = ausente",
+          "FC ≤ 94",
+          "FC ≤ 84"
+        ],
+        "n": 84,
+        "n_anormal": 3,
+        "anormal_rate": 0.03571428571428571,
+        "predicted": "Normal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC ≤ 98.5",
+          "SEXO = ausente",
+          "FC ≤ 94",
+          "FC > 84"
+        ],
+        "n": 50,
+        "n_anormal": 10,
+        "anormal_rate": 0.2,
+        "predicted": "Normal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC ≤ 98.5",
+          "SEXO = ausente",
+          "FC > 94"
+        ],
+        "n": 100,
+        "n_anormal": 1,
+        "anormal_rate": 0.01,
+        "predicted": "Normal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC > 98.5",
+          "IDADE ≤ 1.844049",
+          "IDADE ≤ 1.635616",
+          "IMC observado",
+          "FC ≤ 114"
+        ],
+        "n": 235,
+        "n_anormal": 86,
+        "anormal_rate": 0.3659574468085106,
+        "predicted": "Normal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC > 98.5",
+          "IDADE ≤ 1.844049",
+          "IDADE ≤ 1.635616",
+          "IMC observado",
+          "FC > 114"
+        ],
+        "n": 92,
+        "n_anormal": 48,
+        "anormal_rate": 0.5217391304347826,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC > 98.5",
+          "IDADE ≤ 1.844049",
+          "IDADE ≤ 1.635616",
+          "IMC ausente",
+          "IDADE ≤ 1.143637"
+        ],
+        "n": 53,
+        "n_anormal": 32,
+        "anormal_rate": 0.6037735849056604,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC > 98.5",
+          "IDADE ≤ 1.844049",
+          "IDADE ≤ 1.635616",
+          "IMC ausente",
+          "IDADE > 1.143637"
+        ],
+        "n": 57,
+        "n_anormal": 26,
+        "anormal_rate": 0.45614035087719296,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC > 98.5",
+          "IDADE ≤ 1.844049",
+          "IDADE > 1.635616"
+        ],
+        "n": 76,
+        "n_anormal": 20,
+        "anormal_rate": 0.2631578947368421,
+        "predicted": "Normal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC > 98.5",
+          "IDADE > 1.844049",
+          "FC ≤ 101",
+          "IDADE ≤ 4.171233",
+          "IMC ≤ 16.76534"
+        ],
+        "n": 263,
+        "n_anormal": 140,
+        "anormal_rate": 0.532319391634981,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC > 98.5",
+          "IDADE > 1.844049",
+          "FC ≤ 101",
+          "IDADE ≤ 4.171233",
+          "IMC > 16.76534"
+        ],
+        "n": 140,
+        "n_anormal": 61,
+        "anormal_rate": 0.4357142857142857,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC > 98.5",
+          "IDADE > 1.844049",
+          "FC ≤ 101",
+          "IDADE > 4.171233",
+          "IMC ≤ 15.42646"
+        ],
+        "n": 57,
+        "n_anormal": 44,
+        "anormal_rate": 0.7719298245614035,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC > 98.5",
+          "IDADE > 1.844049",
+          "FC ≤ 101",
+          "IDADE > 4.171233",
+          "IMC > 15.42646"
+        ],
+        "n": 302,
+        "n_anormal": 174,
+        "anormal_rate": 0.5761589403973509,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC > 98.5",
+          "IDADE > 1.844049",
+          "FC > 101",
+          "Altura ≤ 121",
+          "Altura ≤ 93.5"
+        ],
+        "n": 112,
+        "n_anormal": 67,
+        "anormal_rate": 0.5982142857142857,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC > 98.5",
+          "IDADE > 1.844049",
+          "FC > 101",
+          "Altura ≤ 121",
+          "Altura > 93.5"
+        ],
+        "n": 191,
+        "n_anormal": 93,
+        "anormal_rate": 0.4869109947643979,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "Peso > 8.85",
+          "FC > 98.5",
+          "IDADE > 1.844049",
+          "FC > 101",
+          "Altura > 121"
+        ],
+        "n": 93,
+        "n_anormal": 32,
+        "anormal_rate": 0.34408602150537637,
+        "predicted": "Normal"
+      }
+    ],
+    "CLINICO": [
+      {
+        "conditions": [
+          "SOPRO ≠ Ausente",
+          "HDA 1 ≠ ausente"
+        ],
+        "n": 2781,
+        "n_anormal": 2711,
+        "anormal_rate": 0.974829198130169,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "SOPRO ≠ Ausente",
+          "HDA 1 = ausente"
+        ],
+        "n": 766,
+        "n_anormal": 669,
+        "anormal_rate": 0.8733681462140992,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "SOPRO = Ausente",
+          "B2 ≠ Normal"
+        ],
+        "n": 119,
+        "n_anormal": 91,
+        "anormal_rate": 0.7647058823529411,
+        "predicted": "Anormal"
+      },
+      {
+        "conditions": [
+          "SOPRO = Ausente",
+          "B2 = Normal"
+        ],
+        "n": 5695,
+        "n_anormal": 496,
+        "anormal_rate": 0.08709394205443372,
+        "predicted": "Normal"
+      }
+    ]
+  },
+  "a1_reconciliation": {
+    "raw_duplicate_copies_excluding_id": 987,
+    "labelled_copies": 235,
+    "unlabelled_copies": 752,
+    "remaining_labelled_after_a1_deduplication": 11469
+  },
+  "grouping": {
+    "previous_groups": 9279,
+    "final_groups": 9166,
+    "exact_signatures_split_between_old_groups": 7,
+    "records_in_those_signatures": 120,
+    "exact_signatures_with_conflicting_labels": 3,
+    "records_in_conflicting_signatures": 110,
+    "exact_signatures_split_between_final_folds": 0,
+    "fold_sizes": [
+      1872,
+      1872,
+      1872,
+      1873,
+      1872
+    ]
+  },
   "missing_percent_by_fisio_variable": {
     "Peso": 18.406153188761884,
     "Altura": 31.438948830253178,
@@ -211,12 +1618,33 @@
     "FC": 6.153188761884414,
     "SEXO": 5.747249225510095
   },
+  "eda": {
+    "sopro_by_status": {
+      "Ausência registrada": {
+        "n": 5814,
+        "n_anormal": 587
+      },
+      "Presença registrada": {
+        "n": 3529,
+        "n_anormal": 3375
+      }
+    },
+    "median_age": {
+      "0": 4.790983606557377,
+      "1": 2.7315068493150685
+    },
+    "median_fc": {
+      "0": 90.0,
+      "1": 98.0
+    },
+    "explicitly_without_murmur_anormal": 587
+  },
   "variable_probes": [
     {
       "variable": "ID",
       "role": "exploratory_not_admissibility_proof",
       "representation": "ordinal_identifier_audit_only",
-      "cv_balanced_accuracy": 0.5265439785535077,
+      "cv_balanced_accuracy": 0.5250668777518346,
       "missingness_BA": 0.49979313485308297,
       "n_missing": 0.0,
       "anormal_rate_missing": null,
@@ -227,7 +1655,7 @@
       "variable": "Peso",
       "role": "exploratory_not_admissibility_proof",
       "representation": "prepared_numeric",
-      "cv_balanced_accuracy": 0.5808505777035777,
+      "cv_balanced_accuracy": 0.582626468139683,
       "missingness_BA": 0.5111931499386064,
       "n_missing": 1723.0,
       "anormal_rate_missing": 0.3940800928612885,
@@ -238,8 +1666,8 @@
       "variable": "Altura",
       "role": "exploratory_not_admissibility_proof",
       "representation": "prepared_numeric",
-      "cv_balanced_accuracy": 0.564397917038781,
-      "missingness_BA": 0.5068208483803017,
+      "cv_balanced_accuracy": 0.5636003424245577,
+      "missingness_BA": 0.4931070654366825,
       "n_missing": 2943.0,
       "anormal_rate_missing": 0.41318382602786274,
       "anormal_rate_present": 0.42863820504830163,
@@ -249,8 +1677,8 @@
       "variable": "IMC",
       "role": "exploratory_not_admissibility_proof",
       "representation": "prepared_numeric",
-      "cv_balanced_accuracy": 0.5427297450911062,
-      "missingness_BA": 0.5040139035436867,
+      "cv_balanced_accuracy": 0.532518906675288,
+      "missingness_BA": 0.4842654672647413,
       "n_missing": 3236.0,
       "anormal_rate_missing": 0.4181087762669963,
       "anormal_rate_present": 0.4267755102040816,
@@ -260,7 +1688,7 @@
       "variable": "Atendimento",
       "role": "exploratory_not_admissibility_proof",
       "representation": "raw_date_token_no_century_assigned_audit_only",
-      "cv_balanced_accuracy": 0.5069012530985375,
+      "cv_balanced_accuracy": 0.5082583426729921,
       "missingness_BA": 0.5105012627816864,
       "n_missing": 177.0,
       "anormal_rate_missing": 0.15254237288135594,
@@ -271,8 +1699,8 @@
       "variable": "DN",
       "role": "exploratory_not_admissibility_proof",
       "representation": "raw_date_token_no_century_assigned_audit_only",
-      "cv_balanced_accuracy": 0.5055840504331293,
-      "missingness_BA": 0.5039017902515928,
+      "cv_balanced_accuracy": 0.4964775209344351,
+      "missingness_BA": 0.48993840451803017,
       "n_missing": 481.0,
       "anormal_rate_missing": 0.3866943866943867,
       "anormal_rate_present": 0.4257882882882883,
@@ -282,8 +1710,8 @@
       "variable": "IDADE",
       "role": "exploratory_not_admissibility_proof",
       "representation": "prepared_numeric",
-      "cv_balanced_accuracy": 0.5839622005759604,
-      "missingness_BA": 0.5062138056092911,
+      "cv_balanced_accuracy": 0.5841142475104446,
+      "missingness_BA": 0.49134482113700545,
       "n_missing": 690.0,
       "anormal_rate_missing": 0.3826086956521739,
       "anormal_rate_present": 0.4270557029177719,
@@ -293,7 +1721,7 @@
       "variable": "Convenio",
       "role": "exploratory_not_admissibility_proof",
       "representation": "nominal_one_hot",
-      "cv_balanced_accuracy": 0.5106524217826359,
+      "cv_balanced_accuracy": 0.5082747227100404,
       "missingness_BA": 0.5075636047820923,
       "n_missing": 2625.0,
       "anormal_rate_missing": 0.4369523809523809,
@@ -304,8 +1732,8 @@
       "variable": "PULSOS",
       "role": "exploratory_not_admissibility_proof",
       "representation": "nominal_one_hot",
-      "cv_balanced_accuracy": 0.5109054594733582,
-      "missingness_BA": 0.4987328020125995,
+      "cv_balanced_accuracy": 0.5113169232000115,
+      "missingness_BA": 0.4994653004453968,
       "n_missing": 38.0,
       "anormal_rate_missing": 0.4473684210526316,
       "anormal_rate_present": 0.42368336372412313,
@@ -315,7 +1743,7 @@
       "variable": "PA SISTOLICA",
       "role": "exploratory_not_admissibility_proof",
       "representation": "prepared_numeric",
-      "cv_balanced_accuracy": 0.556324872074481,
+      "cv_balanced_accuracy": 0.5581447853205707,
       "missingness_BA": 0.553205841967085,
       "n_missing": 5238.0,
       "anormal_rate_missing": 0.4702176403207331,
@@ -326,7 +1754,7 @@
       "variable": "PA DIASTOLICA",
       "role": "exploratory_not_admissibility_proof",
       "representation": "prepared_numeric",
-      "cv_balanced_accuracy": 0.5539721052408735,
+      "cv_balanced_accuracy": 0.5549170768218596,
       "missingness_BA": 0.5532131791020823,
       "n_missing": 5245.0,
       "anormal_rate_missing": 0.47016205910390846,
@@ -337,7 +1765,7 @@
       "variable": "PPA",
       "role": "exploratory_not_admissibility_proof",
       "representation": "nominal_one_hot",
-      "cv_balanced_accuracy": 0.5269667984827365,
+      "cv_balanced_accuracy": 0.526477313438388,
       "missingness_BA": 0.5246540587582071,
       "n_missing": 7691.0,
       "anormal_rate_missing": 0.43843453387075804,
@@ -381,7 +1809,7 @@
       "variable": "FC",
       "role": "exploratory_not_admissibility_proof",
       "representation": "prepared_numeric",
-      "cv_balanced_accuracy": 0.6048625670494969,
+      "cv_balanced_accuracy": 0.6025666045954392,
       "missingness_BA": 0.5093844059617166,
       "n_missing": 576.0,
       "anormal_rate_missing": 0.4982638888888889,
@@ -403,8 +1831,8 @@
       "variable": "HDA2",
       "role": "exploratory_not_admissibility_proof",
       "representation": "nominal_one_hot",
-      "cv_balanced_accuracy": 0.5016509254744299,
-      "missingness_BA": 0.49900946340867963,
+      "cv_balanced_accuracy": 0.5013801758463572,
+      "missingness_BA": 0.4969025139641568,
       "n_missing": 9033.0,
       "anormal_rate_missing": 0.4233366544890955,
       "anormal_rate_present": 0.43597560975609756,
@@ -414,8 +1842,8 @@
       "variable": "SEXO",
       "role": "exploratory_not_admissibility_proof",
       "representation": "nominal_one_hot",
-      "cv_balanced_accuracy": 0.49419109208253964,
-      "missingness_BA": 0.4977477565891912,
+      "cv_balanced_accuracy": 0.4953045373684024,
+      "missingness_BA": 0.48891237395199305,
       "n_missing": 538.0,
       "anormal_rate_missing": 0.43866171003717475,
       "anormal_rate_present": 0.422872038989006,
@@ -425,8 +1853,8 @@
       "variable": "MOTIVO1",
       "role": "exploratory_not_admissibility_proof",
       "representation": "nominal_one_hot",
-      "cv_balanced_accuracy": 0.6725625219705134,
-      "missingness_BA": 0.5086406681597035,
+      "cv_balanced_accuracy": 0.6629701993616413,
+      "missingness_BA": 0.4895249779909317,
       "n_missing": 223.0,
       "anormal_rate_missing": 0.24663677130044842,
       "anormal_rate_present": 0.42810242941562704,
@@ -436,7 +1864,7 @@
       "variable": "MOTIVO2",
       "role": "exploratory_not_admissibility_proof",
       "representation": "nominal_one_hot",
-      "cv_balanced_accuracy": 0.6868654020810732,
+      "cv_balanced_accuracy": 0.6875696268407914,
       "missingness_BA": 0.5613068101043845,
       "n_missing": 2148.0,
       "anormal_rate_missing": 0.29329608938547486,
@@ -451,19 +1879,19 @@
       "n_features": 8,
       "n": 9361,
       "prevalence": 0.4237795107360325,
-      "tn": 2666,
-      "fp": 2728,
-      "fn": 1476,
-      "tp": 2491,
-      "recall": 0.6279304260146206,
-      "specificity": 0.4942528735632184,
-      "precision": 0.47729450086223413,
-      "f1": 0.5423470498584803,
-      "balanced_accuracy": 0.5610916497889195,
-      "roc_auc": 0.5750047270777388,
-      "average_precision": 0.48576355988137243,
-      "brier": 0.24288324325254976,
-      "accuracy": 0.5509026813374639
+      "tn": 2563,
+      "fp": 2831,
+      "fn": 1481,
+      "tp": 2486,
+      "recall": 0.6266700277287622,
+      "specificity": 0.47515758249907303,
+      "precision": 0.4675568929847658,
+      "f1": 0.5355450236966824,
+      "balanced_accuracy": 0.5509138051139176,
+      "roc_auc": 0.5550212921788291,
+      "average_precision": 0.47443946190673697,
+      "brier": 0.24596627242004537,
+      "accuracy": 0.5393654524089306
     },
     {
       "pool": "STRICT4",
@@ -471,19 +1899,39 @@
       "n_features": 4,
       "n": 9361,
       "prevalence": 0.4237795107360325,
-      "tn": 3777,
-      "fp": 1617,
-      "fn": 2701,
-      "tp": 1266,
-      "recall": 0.31913284597932945,
-      "specificity": 0.7002224694104561,
-      "precision": 0.43912591050988553,
-      "f1": 0.3696350364963504,
-      "balanced_accuracy": 0.5096776576948927,
-      "roc_auc": 0.5192385053966264,
-      "average_precision": 0.4457319321745672,
-      "brier": 0.2477893613707396,
-      "accuracy": 0.5387244952462343
+      "tn": 3240,
+      "fp": 2154,
+      "fn": 2333,
+      "tp": 1634,
+      "recall": 0.41189815981850264,
+      "specificity": 0.6006674082313682,
+      "precision": 0.4313621964097149,
+      "f1": 0.42140554480980014,
+      "balanced_accuracy": 0.5062827840249354,
+      "roc_auc": 0.5141850186171621,
+      "average_precision": 0.44303759475396787,
+      "brier": 0.2498393477410014,
+      "accuracy": 0.5206708684969554
+    },
+    {
+      "pool": "CLINICO",
+      "kind": "availability_masks_only",
+      "n_features": 13,
+      "n": 9361,
+      "prevalence": 0.4237795107360325,
+      "tn": 2833,
+      "fp": 2561,
+      "fn": 1679,
+      "tp": 2288,
+      "recall": 0.5767582556087724,
+      "specificity": 0.525213199851687,
+      "precision": 0.4718498659517426,
+      "f1": 0.5190562613430127,
+      "balanced_accuracy": 0.5509857277302297,
+      "roc_auc": 0.5756012314796927,
+      "average_precision": 0.49250189790556226,
+      "brier": 0.24379068483040514,
+      "accuracy": 0.5470569383612862
     }
   ],
   "null_control": [
@@ -504,19 +1952,19 @@
       "metric": {
         "n": 9361,
         "prevalence": 0.4237795107360325,
-        "tn": 3474,
-        "fp": 1920,
-        "fn": 2583,
-        "tp": 1384,
-        "recall": 0.3488782455255861,
-        "specificity": 0.6440489432703004,
-        "precision": 0.4188861985472155,
-        "f1": 0.38069041397331865,
-        "balanced_accuracy": 0.49646359439794324,
-        "roc_auc": 0.49444875637431124,
-        "average_precision": 0.4207365731445303,
-        "brier": 0.250783754221209,
-        "accuracy": 0.518961649396432
+        "tn": 1502,
+        "fp": 3892,
+        "fn": 1130,
+        "tp": 2837,
+        "recall": 0.7151499873960171,
+        "specificity": 0.27845754542083795,
+        "precision": 0.4216079655223659,
+        "f1": 0.5304786836200449,
+        "balanced_accuracy": 0.4968037664084275,
+        "roc_auc": 0.49714674241954787,
+        "average_precision": 0.42405354103329806,
+        "brier": 0.2504600448436417,
+        "accuracy": 0.46351885482320265
       },
       "interpretation": "negative diagnostic control; not a formal permutation p-value or proof of no leakage"
     },
@@ -537,291 +1985,191 @@
       "metric": {
         "n": 9361,
         "prevalence": 0.4237795107360325,
-        "tn": 2290,
-        "fp": 3104,
-        "fn": 1733,
-        "tp": 2234,
-        "recall": 0.5631459541215024,
-        "specificity": 0.42454579162031886,
-        "precision": 0.41850880479580366,
-        "f1": 0.4801719505642128,
-        "balanced_accuracy": 0.49384587287091064,
-        "roc_auc": 0.4920466157628391,
-        "average_precision": 0.4177850340912643,
-        "brier": 0.2507477221054541,
-        "accuracy": 0.483281700673005
+        "tn": 3337,
+        "fp": 2057,
+        "fn": 2469,
+        "tp": 1498,
+        "recall": 0.37761532644315604,
+        "specificity": 0.6186503522432332,
+        "precision": 0.4213783403656821,
+        "f1": 0.3982983249135868,
+        "balanced_accuracy": 0.49813283934319463,
+        "roc_auc": 0.49594160631288975,
+        "average_precision": 0.42420461807990706,
+        "brier": 0.2503777250899127,
+        "accuracy": 0.5165046469394295
+      },
+      "interpretation": "negative diagnostic control; not a formal permutation p-value or proof of no leakage"
+    },
+    {
+      "pool": "CLINICO",
+      "fixed_candidate": {
+        "kind": "tree",
+        "params": {
+          "criterion": "gini",
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "class_weight": "balanced"
+        },
+        "imputation": "global",
+        "representation": "units",
+        "name": "R003_tree_d21bda81"
+      },
+      "metric": {
+        "n": 9361,
+        "prevalence": 0.4237795107360325,
+        "tn": 2381,
+        "fp": 3013,
+        "fn": 1746,
+        "tp": 2221,
+        "recall": 0.5598689185782707,
+        "specificity": 0.4414163885799036,
+        "precision": 0.4243408482995797,
+        "f1": 0.4827736115639604,
+        "balanced_accuracy": 0.5006426535790871,
+        "roc_auc": 0.5021919340304639,
+        "average_precision": 0.42643131726681915,
+        "brier": 0.25037728098437295,
+        "accuracy": 0.49161414378805685
       },
       "interpretation": "negative diagnostic control; not a formal permutation p-value or proof of no leakage"
     }
   ],
-  "importance": [
-    {
-      "pool": "FISIO8",
-      "family": "forest",
-      "variable": "Altura",
-      "mean": 0.0005494201074225231,
-      "std": 0.006533041091208808
+  "final_choices": {
+    "FISIO8": {
+      "dummy": {
+        "kind": "dummy",
+        "params": {},
+        "imputation": "global",
+        "representation": "units",
+        "name": "R000_dummy_20708f9d"
+      },
+      "tree": {
+        "kind": "tree",
+        "params": {
+          "criterion": "gini",
+          "max_depth": 6,
+          "min_samples_leaf": 50,
+          "class_weight": "balanced"
+        },
+        "imputation": "age",
+        "representation": "units",
+        "name": "R020_tree_42c49831"
+      },
+      "logistic": {
+        "kind": "logistic",
+        "params": {
+          "C": 1.0,
+          "class_weight": "balanced"
+        },
+        "imputation": "age",
+        "representation": "log_weight_standard",
+        "name": "R072_logistic_45f5be8c"
+      },
+      "forest": {
+        "kind": "forest",
+        "params": {
+          "n_estimators": 150,
+          "max_depth": null,
+          "min_samples_leaf": 30,
+          "class_weight": "balanced"
+        },
+        "imputation": "global",
+        "representation": "units",
+        "name": "R099_forest_d86fd6d8"
+      }
     },
-    {
-      "pool": "FISIO8",
-      "family": "forest",
-      "variable": "FC",
-      "mean": 0.04810516294638947,
-      "std": 0.01357412572524852
+    "STRICT4": {
+      "dummy": {
+        "kind": "dummy",
+        "params": {},
+        "imputation": "global",
+        "representation": "units",
+        "name": "R000_dummy_20708f9d"
+      },
+      "tree": {
+        "kind": "tree",
+        "params": {
+          "criterion": "entropy",
+          "max_depth": 6,
+          "min_samples_leaf": 50,
+          "class_weight": "balanced"
+        },
+        "imputation": "age",
+        "representation": "units",
+        "name": "R044_tree_7bf8d7b0"
+      },
+      "logistic": {
+        "kind": "logistic",
+        "params": {
+          "C": 0.01,
+          "class_weight": null
+        },
+        "imputation": "age",
+        "representation": "log_weight_standard",
+        "name": "R052_logistic_9d66fa3a"
+      },
+      "forest": {
+        "kind": "forest",
+        "params": {
+          "n_estimators": 150,
+          "max_depth": 8,
+          "min_samples_leaf": 10,
+          "class_weight": "balanced"
+        },
+        "imputation": "age",
+        "representation": "units",
+        "name": "R096_forest_0fe05b54"
+      }
     },
-    {
-      "pool": "FISIO8",
-      "family": "forest",
-      "variable": "IDADE",
-      "mean": 0.00859031016611888,
-      "std": 0.005973401545778483
-    },
-    {
-      "pool": "FISIO8",
-      "family": "forest",
-      "variable": "IMC",
-      "mean": 0.0008206724129955934,
-      "std": 0.006590275226910015
-    },
-    {
-      "pool": "FISIO8",
-      "family": "forest",
-      "variable": "PA DIASTOLICA",
-      "mean": 0.0004963059527224163,
-      "std": 0.004971753649416859
-    },
-    {
-      "pool": "FISIO8",
-      "family": "forest",
-      "variable": "PA SISTOLICA",
-      "mean": 0.003008265373474887,
-      "std": 0.004824231365422875
-    },
-    {
-      "pool": "FISIO8",
-      "family": "forest",
-      "variable": "Peso",
-      "mean": 0.025631305948197586,
-      "std": 0.01081315656866712
-    },
-    {
-      "pool": "FISIO8",
-      "family": "forest",
-      "variable": "SEXO",
-      "mean": 0.0008313127177188721,
-      "std": 0.004367372910668587
-    },
-    {
-      "pool": "FISIO8",
-      "family": "logistic",
-      "variable": "Altura",
-      "mean": 0.004218810578907273,
-      "std": 0.008895521728980733
-    },
-    {
-      "pool": "FISIO8",
-      "family": "logistic",
-      "variable": "FC",
-      "mean": 0.027914028533922094,
-      "std": 0.012777920771568122
-    },
-    {
-      "pool": "FISIO8",
-      "family": "logistic",
-      "variable": "IDADE",
-      "mean": 0.009503319228461466,
-      "std": 0.006080468795399658
-    },
-    {
-      "pool": "FISIO8",
-      "family": "logistic",
-      "variable": "IMC",
-      "mean": 0.009299514810323317,
-      "std": 0.006960127014511862
-    },
-    {
-      "pool": "FISIO8",
-      "family": "logistic",
-      "variable": "PA DIASTOLICA",
-      "mean": 0.006406705549155175,
-      "std": 0.006099846816893289
-    },
-    {
-      "pool": "FISIO8",
-      "family": "logistic",
-      "variable": "PA SISTOLICA",
-      "mean": 0.008787578630547502,
-      "std": 0.007647201679133823
-    },
-    {
-      "pool": "FISIO8",
-      "family": "logistic",
-      "variable": "Peso",
-      "mean": 0.09850459454627578,
-      "std": 0.018066187651358905
-    },
-    {
-      "pool": "FISIO8",
-      "family": "logistic",
-      "variable": "SEXO",
-      "mean": 0.004416973298174165,
-      "std": 0.0041817241438331714
-    },
-    {
-      "pool": "FISIO8",
-      "family": "tree",
-      "variable": "Altura",
-      "mean": -0.001398120298588997,
-      "std": 0.0017471891382483272
-    },
-    {
-      "pool": "FISIO8",
-      "family": "tree",
-      "variable": "FC",
-      "mean": 0.05525486154601402,
-      "std": 0.010157764020936561
-    },
-    {
-      "pool": "FISIO8",
-      "family": "tree",
-      "variable": "IDADE",
-      "mean": 0.004450758792181383,
-      "std": 0.009873354557875701
-    },
-    {
-      "pool": "FISIO8",
-      "family": "tree",
-      "variable": "IMC",
-      "mean": 0.0012217435370841078,
-      "std": 0.0018936898964426972
-    },
-    {
-      "pool": "FISIO8",
-      "family": "tree",
-      "variable": "PA DIASTOLICA",
-      "mean": 0.0,
-      "std": 0.0
-    },
-    {
-      "pool": "FISIO8",
-      "family": "tree",
-      "variable": "PA SISTOLICA",
-      "mean": -0.0004162172655031678,
-      "std": 0.004572356294874654
-    },
-    {
-      "pool": "FISIO8",
-      "family": "tree",
-      "variable": "Peso",
-      "mean": 0.04597838023320343,
-      "std": 0.021026133333763394
-    },
-    {
-      "pool": "FISIO8",
-      "family": "tree",
-      "variable": "SEXO",
-      "mean": 0.00040902123395701503,
-      "std": 0.0015742961198196837
-    },
-    {
-      "pool": "STRICT4",
-      "family": "forest",
-      "variable": "Altura",
-      "mean": 0.008739953970495363,
-      "std": 0.006465683761312149
-    },
-    {
-      "pool": "STRICT4",
-      "family": "forest",
-      "variable": "IDADE",
-      "mean": 0.00931302367000979,
-      "std": 0.013225573979833458
-    },
-    {
-      "pool": "STRICT4",
-      "family": "forest",
-      "variable": "Peso",
-      "mean": 0.044413163345771174,
-      "std": 0.013470793991457997
-    },
-    {
-      "pool": "STRICT4",
-      "family": "forest",
-      "variable": "SEXO",
-      "mean": 0.00428288302232418,
-      "std": 0.007113172535901891
-    },
-    {
-      "pool": "STRICT4",
-      "family": "logistic",
-      "variable": "Altura",
-      "mean": 0.001224480478350228,
-      "std": 0.006687246451608106
-    },
-    {
-      "pool": "STRICT4",
-      "family": "logistic",
-      "variable": "IDADE",
-      "mean": 0.014992384969823596,
-      "std": 0.010438365813118371
-    },
-    {
-      "pool": "STRICT4",
-      "family": "logistic",
-      "variable": "Peso",
-      "mean": 0.10518977711846664,
-      "std": 0.025047544353642745
-    },
-    {
-      "pool": "STRICT4",
-      "family": "logistic",
-      "variable": "SEXO",
-      "mean": 0.005675877290471143,
-      "std": 0.005078882195116398
-    },
-    {
-      "pool": "STRICT4",
-      "family": "tree",
-      "variable": "Altura",
-      "mean": -0.0009824923907483611,
-      "std": 0.0025003248487825373
-    },
-    {
-      "pool": "STRICT4",
-      "family": "tree",
-      "variable": "IDADE",
-      "mean": 0.013596411224128527,
-      "std": 0.005898118765554611
-    },
-    {
-      "pool": "STRICT4",
-      "family": "tree",
-      "variable": "Peso",
-      "mean": 0.07498146512006919,
-      "std": 0.01408686509076633
-    },
-    {
-      "pool": "STRICT4",
-      "family": "tree",
-      "variable": "SEXO",
-      "mean": 0.0004828414703534826,
-      "std": 0.0045891058166918465
+    "CLINICO": {
+      "dummy": {
+        "kind": "dummy",
+        "params": {},
+        "imputation": "global",
+        "representation": "units",
+        "name": "R000_dummy_20708f9d"
+      },
+      "tree": {
+        "kind": "tree",
+        "params": {
+          "criterion": "gini",
+          "max_depth": 2,
+          "min_samples_leaf": 50,
+          "class_weight": null
+        },
+        "imputation": "global",
+        "representation": "units",
+        "name": "R001_tree_b294e31b"
+      },
+      "logistic": {
+        "kind": "logistic",
+        "params": {
+          "C": 1.0,
+          "class_weight": "balanced"
+        },
+        "imputation": "global",
+        "representation": "log_weight_standard",
+        "name": "R070_logistic_ab530a0a"
+      },
+      "forest": {
+        "kind": "forest",
+        "params": {
+          "n_estimators": 150,
+          "max_depth": null,
+          "min_samples_leaf": 10,
+          "class_weight": "balanced"
+        },
+        "imputation": "global",
+        "representation": "units",
+        "name": "R103_forest_6cd06815"
+      }
     }
-  ],
-  "n_configs": 105,
-  "outer_folds": 5,
-  "inner_folds": 3,
-  "elapsed_seconds": 377.3,
-  "limits": [
-    "A origem e temporalidade do rótulo não foram documentadas.",
-    "Associação forte não comprova leakage; exclusão é política de risco justificada.",
-    "O teste histórico não foi pontuado novamente e não é tratado como intocado.",
-    "A EDA/curadoria prévia da coorte limita a independência da avaliação interna.",
-    "Componentes candidatos não comprovam identidade de paciente."
-  ],
-  "figure_notes": {
-    "eda": "Desenvolvimento após curadoria, antes de imputar. Boxplot omite apenas pontos atípicos do desenho; não altera os dados das estatísticas/modelos.",
-    "confusions": "Predições externas OOF de procedimentos de seleção por família; mesmos registros e folds.",
-    "importance": "Permutação3repetições por5folds externos; correlacionados/idade condicional impedem interpretação causal."
+  },
+  "verification": {
+    "oof_procedures_checked": 12,
+    "external_selections_checked": 60,
+    "historical_test_rows_used": 0,
+    "source_preserved": true
   }
 }
