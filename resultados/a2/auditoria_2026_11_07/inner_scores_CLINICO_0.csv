@@ -67,18 +67,18 @@ R064_logistic_9c6d0549,logistic,age,log_weight_standard,"{""C"": 0.1, ""class_we
 R065_logistic_d2ed0ee2,logistic,global,standard,"{""C"": 1.0, ""class_weight"": null}",0.9188841163281664,0.007925909388781942,0.8711405166981726,0.9416867626033066
 R066_logistic_b6a667fd,logistic,global,log_weight_standard,"{""C"": 1.0, ""class_weight"": null}",0.9192734496895438,0.007869520718767873,0.8714555765595463,0.9414415556567127
 R067_logistic_368ed764,logistic,age,standard,"{""C"": 1.0, ""class_weight"": null}",0.919546800792341,0.007890141130144171,0.87177063642092,0.9415515186031495
-R068_logistic_4dad49d0,logistic,age,log_weight_standard,"{""C"": 1.0, ""class_weight"": null}",0.9191575479741986,0.007606270827399074,0.8714555765595463,0.9415424467737505
+R068_logistic_4dad49d0,logistic,age,log_weight_standard,"{""C"": 1.0, ""class_weight"": null}",0.9191575479741986,0.007606270827399074,0.8714555765595463,0.9415415881463044
 R069_logistic_8d3e9106,logistic,global,standard,"{""C"": 1.0, ""class_weight"": ""balanced""}",0.9193424294130979,0.007598608747855142,0.874606175173283,0.9406191998235925
-R070_logistic_ab530a0a,logistic,global,log_weight_standard,"{""C"": 1.0, ""class_weight"": ""balanced""}",0.9191848994824111,0.007636713396124972,0.8742911153119093,0.9404716494327706
-R071_logistic_27b7892f,logistic,age,standard,"{""C"": 1.0, ""class_weight"": ""balanced""}",0.9190274500949593,0.008195749957497193,0.8739760554505356,0.9408422410776168
+R070_logistic_ab530a0a,logistic,global,log_weight_standard,"{""C"": 1.0, ""class_weight"": ""balanced""}",0.9191848994824111,0.007636713396124972,0.8742911153119093,0.9404717453516045
+R071_logistic_27b7892f,logistic,age,standard,"{""C"": 1.0, ""class_weight"": ""balanced""}",0.9190274500949593,0.008195749957497193,0.8739760554505356,0.9408408868820114
 R072_logistic_45f5be8c,logistic,age,log_weight_standard,"{""C"": 1.0, ""class_weight"": ""balanced""}",0.9191015625084931,0.008354279234265025,0.873660995589162,0.9407270065114556
 R073_logistic_42c7b97a,logistic,global,standard,"{""C"": 10.0, ""class_weight"": null}",0.9201445974033664,0.008063604392728166,0.873660995589162,0.941406893407133
-R074_logistic_a901358d,logistic,global,log_weight_standard,"{""C"": 10.0, ""class_weight"": null}",0.9201445168601312,0.007716020181172071,0.873660995589162,0.941065361093413
-R075_logistic_b099187e,logistic,age,standard,"{""C"": 10.0, ""class_weight"": null}",0.9201770010583236,0.007791457306156589,0.8730308758664146,0.9412457634545426
-R076_logistic_e41cf8e4,logistic,age,log_weight_standard,"{""C"": 10.0, ""class_weight"": null}",0.9199035694122912,0.007559628388014648,0.8727158160050409,0.9410882115528146
+R074_logistic_a901358d,logistic,global,log_weight_standard,"{""C"": 10.0, ""class_weight"": null}",0.9201445168601312,0.007716020181172071,0.873660995589162,0.9410648908545979
+R075_logistic_b099187e,logistic,age,standard,"{""C"": 10.0, ""class_weight"": null}",0.9201770010583236,0.007791457306156589,0.8730308758664146,0.9412530998457983
+R076_logistic_e41cf8e4,logistic,age,log_weight_standard,"{""C"": 10.0, ""class_weight"": null}",0.9199035694122912,0.007559628388014648,0.8727158160050409,0.9410884009614877
 R077_logistic_9123a5dd,logistic,global,standard,"{""C"": 10.0, ""class_weight"": ""balanced""}",0.9194166223698668,0.0075643744738044146,0.8742911153119093,0.9403231979739753
-R078_logistic_0727a162,logistic,global,log_weight_standard,"{""C"": 10.0, ""class_weight"": ""balanced""}",0.9193007206545213,0.0075824724576591665,0.8742911153119093,0.9402002466069922
-R079_logistic_6f9032fe,logistic,age,standard,"{""C"": 10.0, ""class_weight"": ""balanced""}",0.9195742328437886,0.007962914539521027,0.874606175173283,0.9404218936985499
+R078_logistic_0727a162,logistic,global,log_weight_standard,"{""C"": 10.0, ""class_weight"": ""balanced""}",0.9193007206545213,0.0075824724576591665,0.8742911153119093,0.9401959939798417
+R079_logistic_6f9032fe,logistic,age,standard,"{""C"": 10.0, ""class_weight"": ""balanced""}",0.9195742328437886,0.007962914539521027,0.874606175173283,0.9404223616149014
 R080_logistic_753b06f2,logistic,age,log_weight_standard,"{""C"": 10.0, ""class_weight"": ""balanced""}",0.9197317627744755,0.007735530537568496,0.8749212350346566,0.940275075256598
 R081_forest_2e45fcad,forest,global,units,"{""class_weight"": null, ""max_depth"": 4, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.9124633282311189,0.007577574624630841,0.854127284183995,0.9423759527400746
 R082_forest_080c547f,forest,age,units,"{""class_weight"": null, ""max_depth"": 4, ""min_samples_leaf"": 30, ""n_estimators"": 150}",0.9122640895418556,0.007465326662601345,0.8534971644612476,0.9429640370316332

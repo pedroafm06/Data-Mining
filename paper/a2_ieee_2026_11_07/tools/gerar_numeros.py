@@ -4,6 +4,7 @@ Nenhum número de resultado é digitado nos .tex: o texto usa as macros definida
 Convenção dos nomes: \\v<Cenário><Família><Métrica>, p.ex. \\vClinArvBA (percentual com vírgula).
 """
 import json
+import re
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -119,6 +120,55 @@ def descreve(c):
 
 macros["finalClinParams"] = descreve(fc)
 macros["finalClinImput"] = {"global": "mediana global", "age": "mediana por faixa etária"}[fc["imputation"]]
+
+# Incerteza: bootstrap pareado por grupo das previsões externas (IC 95%, pontos percentuais)
+U = R["uncertainty"]
+def intervalo(lo, hi, d=1):
+    return f"[{num(100 * lo, d)}; {num(100 * hi, d)}]"
+for name, m in U["models"].items():
+    pool, fam = name.split("/")
+    macros["ci" + POOLS[pool] + FAMS[fam] + "BA"] = intervalo(*m["ci95"])
+macros["ciMeiaLargMax"] = num(100 * max((m["ci95"][1] - m["ci95"][0]) / 2 for m in U["models"].values()))
+macros["nBoot"] = inteiro(U["n_boot"])
+for d in U["differences"]:
+    (pa, fa), (pb, fb) = d["a"].split("/"), d["b"].split("/")
+    casas = 2 if abs(d["diff"]) < .01 else 1
+    # Os dois sentidos: \dFisioFloFisioLog = floresta − logística e \dFisioLogFisioFlo = logística − floresta.
+    for (p1, f1, p2, f2), s in [((pa, fa, pb, fb), 1), ((pb, fb, pa, fa), -1)]:
+        key = "d" + POOLS[p1] + FAMS[f1] + POOLS[p2] + FAMS[f2]
+        lo, hi = sorted(s * v for v in d["ci95"])
+        macros[key] = num(100 * s * d["diff"], casas); macros[key + "CI"] = intervalo(lo, hi, casas)
+    if pa != pb:  # queda entre os melhores de cada cenário, sem depender de qual família venceu
+        alias = "dCross" + POOLS[pa] + POOLS[pb]
+        macros[alias] = num(100 * d["diff"]); macros[alias + "CI"] = intervalo(*d["ci95"])
+within = [d for d in U["differences"] if d["a"].split("/")[0] == d["b"].split("/")[0]]
+for pool, short in POOLS.items():
+    zero = [d["ci_contains_zero"] for d in within if d["a"].startswith(pool + "/")]
+    macros["todasZero" + short] = "todas" if all(zero) else "nem todas"
+
+# Conhecimento: regras da árvore final de cada cenário (suporte no desenvolvimento)
+UNIDADES = {"Peso": "kg", "Altura": "cm", "IMC": "kg/m\\textsuperscript{2}", "IDADE": "anos", "FC": "bpm", "PA SISTOLICA": "mmHg", "PA DIASTOLICA": "mmHg"}
+def condicao(c):
+    m = re.fullmatch(r"(.+) (≤|>) ([-0-9.e]+)", c)
+    if m:  # limiar numérico: três algarismos significativos e unidade
+        var, op, val = m.groups(); v = float(val)
+        texto = f"{v:.3g}".replace(".", ","); unidade = UNIDADES.get(var, "")
+        if var == "IDADE" and v < 1:  # idades de recém-nascidos ficam legíveis em dias
+            texto, unidade = f"{v * 365.25:.0f}", "dias"
+        simbolo = "$\\leq$" if op == "≤" else "$>$"
+        c = f"{var} {simbolo} {texto}~{unidade}".rstrip("~")
+    c = c.replace("≠", "$\\neq$")
+    for raw, nice in [("HDA 1", "HDA1"), ("PA SISTOLICA", "PAS"), ("PA DIASTOLICA", "PAD"), ("IDADE", "idade")]:
+        c = c.replace(raw, nice)
+    return c
+for pool, short in POOLS.items():
+    regras = R["knowledge"][pool]["rules"]
+    partes = []
+    for i, r in enumerate(sorted(regras, key=lambda r: -r["n"])):
+        cond = " e ".join(condicao(c) for c in r["conditions"])
+        partes.append(f"{cond} $\\Rightarrow$ \\textit{{{r['predicted']}}} ({inteiro(r['n'])} registros, {pct(r['anormal_rate'])}\\% anormais)")
+    macros["regras" + short] = "; ".join(partes)
+    macros["nRegras" + short] = str(len(regras))
 
 OUT.mkdir(exist_ok=True)
 lines = ["% Gerado por tools/gerar_numeros.py a partir de results/reviewed_results.json. Não editar."]

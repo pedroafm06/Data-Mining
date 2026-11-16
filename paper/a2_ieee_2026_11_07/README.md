@@ -1,6 +1,6 @@
 # Artigo A2 no formato IEEE de conferências
 
-[Artigo A2 em PDF](output/pdf/Artigo_A2_IEEE.pdf): cinco páginas em duas colunas, resumo de 136 palavras (contagem de `tools/build.py`) e link do repositório no rodapé da primeira página.
+[Artigo A2 em PDF](output/pdf/Artigo_A2_IEEE.pdf): cinco páginas em duas colunas, resumo de 145 palavras (contagem de `tools/build.py`) e link do repositório no rodapé da primeira página.
 
 ## De onde vem cada número, tabela e figura
 
@@ -19,6 +19,7 @@ Nenhum resultado é digitado no texto. A cadeia é:
 | Fig. 2 (importância por permutação) | `tools/figura_eda.py` | `importance` |
 | Tabela IV (teste histórico) | `tools/gerar_numeros.py` | `historical_test_metrics` |
 | Análise de erros e reconciliação A1/A2 | macros | `error_analysis`, `a1_reconciliation` |
+| Intervalos de 95% e regras extraídas | macros | `uncertainty`, `knowledge` |
 
 ## Compilar
 

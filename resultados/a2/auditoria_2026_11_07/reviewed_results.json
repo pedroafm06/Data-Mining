@@ -37,6 +37,717 @@
       "median_age_tp": 0.4465753424657534
     }
   },
+  "uncertainty": {
+    "n_boot": 2000,
+    "seed": 2026,
+    "unit": "candidate group",
+    "n_groups": 9279,
+    "paired": true,
+    "conditional_on_fitted_models": true,
+    "models": {
+      "CLINICO/tree": {
+        "ba": 0.9194086054218717,
+        "ci95": [
+          0.9134561413418695,
+          0.9255145591042897
+        ]
+      },
+      "CLINICO/logistic": {
+        "ba": 0.9189971416952185,
+        "ci95": [
+          0.9130623121632893,
+          0.9249994746106805
+        ]
+      },
+      "CLINICO/forest": {
+        "ba": 0.9191491886297027,
+        "ci95": [
+          0.9131709994135456,
+          0.9250935286064037
+        ]
+      },
+      "FISIO8/tree": {
+        "ba": 0.6091204653818549,
+        "ci95": [
+          0.5991806441182155,
+          0.6190769919544801
+        ]
+      },
+      "FISIO8/logistic": {
+        "ba": 0.6164347711407394,
+        "ci95": [
+          0.6066325549206982,
+          0.626841585432748
+        ]
+      },
+      "FISIO8/forest": {
+        "ba": 0.6290934553783957,
+        "ci95": [
+          0.6189935354798679,
+          0.6394181239747907
+        ]
+      },
+      "STRICT4/tree": {
+        "ba": 0.5931737866318147,
+        "ci95": [
+          0.5841505795342574,
+          0.6021072925976104
+        ]
+      },
+      "STRICT4/logistic": {
+        "ba": 0.597372754217474,
+        "ci95": [
+          0.5869200943414021,
+          0.6075093398525121
+        ]
+      },
+      "STRICT4/forest": {
+        "ba": 0.5966744879591073,
+        "ci95": [
+          0.5863767482284585,
+          0.6068466312975895
+        ]
+      }
+    },
+    "differences": [
+      {
+        "a": "CLINICO/tree",
+        "b": "CLINICO/logistic",
+        "diff": 0.0004114637266532384,
+        "ci95": [
+          -0.0010102323887750315,
+          0.001887878227323352
+        ],
+        "ci_contains_zero": true
+      },
+      {
+        "a": "CLINICO/tree",
+        "b": "CLINICO/forest",
+        "diff": 0.00025941679216900937,
+        "ci95": [
+          -0.00034071566157951595,
+          0.0009515970376077841
+        ],
+        "ci_contains_zero": true
+      },
+      {
+        "a": "CLINICO/logistic",
+        "b": "CLINICO/forest",
+        "diff": -0.000152046934484229,
+        "ci95": [
+          -0.0016015776405749304,
+          0.001284147750256736
+        ],
+        "ci_contains_zero": true
+      },
+      {
+        "a": "FISIO8/tree",
+        "b": "FISIO8/logistic",
+        "diff": -0.007314305758884476,
+        "ci95": [
+          -0.017312130266858523,
+          0.0024272813566315384
+        ],
+        "ci_contains_zero": true
+      },
+      {
+        "a": "FISIO8/tree",
+        "b": "FISIO8/forest",
+        "diff": -0.019972989996540735,
+        "ci95": [
+          -0.027705619744154232,
+          -0.01220553475501103
+        ],
+        "ci_contains_zero": false
+      },
+      {
+        "a": "FISIO8/logistic",
+        "b": "FISIO8/forest",
+        "diff": -0.01265868423765626,
+        "ci95": [
+          -0.020485634315131167,
+          -0.004453332062315918
+        ],
+        "ci_contains_zero": false
+      },
+      {
+        "a": "STRICT4/tree",
+        "b": "STRICT4/logistic",
+        "diff": -0.004198967585659297,
+        "ci95": [
+          -0.012987699377545325,
+          0.004581488970755384
+        ],
+        "ci_contains_zero": true
+      },
+      {
+        "a": "STRICT4/tree",
+        "b": "STRICT4/forest",
+        "diff": -0.0035007013272925214,
+        "ci95": [
+          -0.011317576805620863,
+          0.003786506446175169
+        ],
+        "ci_contains_zero": true
+      },
+      {
+        "a": "STRICT4/logistic",
+        "b": "STRICT4/forest",
+        "diff": 0.0006982662583667754,
+        "ci95": [
+          -0.007482521393610242,
+          0.008754993899920972
+        ],
+        "ci_contains_zero": true
+      },
+      {
+        "a": "CLINICO/tree",
+        "b": "FISIO8/forest",
+        "diff": 0.2903151500434761,
+        "ci95": [
+          0.27824505939697175,
+          0.3014192304733552
+        ],
+        "ci_contains_zero": false
+      },
+      {
+        "a": "FISIO8/forest",
+        "b": "STRICT4/logistic",
+        "diff": 0.03172070116092163,
+        "ci95": [
+          0.022487739650712386,
+          0.041160529386860344
+        ],
+        "ci_contains_zero": false
+      }
+    ]
+  },
+  "knowledge": {
+    "CLINICO": {
+      "model": "final tree refitted on all development rows; support is descriptive (training rows)",
+      "rules": [
+        {
+          "conditions": [
+            "SOPRO ≠ Ausente",
+            "HDA 1 ≠ ausente"
+          ],
+          "n": 2781,
+          "n_anormal": 2711,
+          "anormal_rate": 0.974829198130169,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "SOPRO ≠ Ausente",
+            "HDA 1 = ausente"
+          ],
+          "n": 766,
+          "n_anormal": 669,
+          "anormal_rate": 0.8733681462140992,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "SOPRO = Ausente",
+            "B2 ≠ Normal"
+          ],
+          "n": 119,
+          "n_anormal": 91,
+          "anormal_rate": 0.7647058823529411,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "SOPRO = Ausente",
+            "B2 = Normal"
+          ],
+          "n": 5695,
+          "n_anormal": 496,
+          "anormal_rate": 0.08709394205443372,
+          "predicted": "Normal"
+        }
+      ]
+    },
+    "FISIO8": {
+      "model": "final tree refitted on all development rows; support is descriptive (training rows)",
+      "rules": [
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE ≤ 0.0383"
+          ],
+          "n": 413,
+          "n_anormal": 320,
+          "anormal_rate": 0.774818401937046,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE > 0.0383"
+          ],
+          "n": 1669,
+          "n_anormal": 996,
+          "anormal_rate": 0.5967645296584781,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "FC ≤ 98.5"
+          ],
+          "n": 5608,
+          "n_anormal": 1828,
+          "anormal_rate": 0.325962910128388,
+          "predicted": "Normal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "FC > 98.5"
+          ],
+          "n": 1671,
+          "n_anormal": 823,
+          "anormal_rate": 0.49251944943147813,
+          "predicted": "Anormal"
+        }
+      ]
+    },
+    "STRICT4": {
+      "model": "final tree refitted on all development rows; support is descriptive (training rows)",
+      "rules": [
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE ≤ 0.0383",
+            "Altura ≤ 50.5",
+            "Peso ≤ 3.55",
+            "SEXO ≠ F",
+            "IDADE ≤ 0.006838"
+          ],
+          "n": 82,
+          "n_anormal": 63,
+          "anormal_rate": 0.7682926829268293,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE ≤ 0.0383",
+            "Altura ≤ 50.5",
+            "Peso ≤ 3.55",
+            "SEXO ≠ F",
+            "IDADE > 0.006838"
+          ],
+          "n": 61,
+          "n_anormal": 53,
+          "anormal_rate": 0.8688524590163934,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE ≤ 0.0383",
+            "Altura ≤ 50.5",
+            "Peso ≤ 3.55",
+            "SEXO = F"
+          ],
+          "n": 53,
+          "n_anormal": 37,
+          "anormal_rate": 0.6981132075471698,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE ≤ 0.0383",
+            "Altura ≤ 50.5",
+            "Peso > 3.55"
+          ],
+          "n": 62,
+          "n_anormal": 55,
+          "anormal_rate": 0.8870967741935484,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE ≤ 0.0383",
+            "Altura > 50.5",
+            "IDADE ≤ 0.009574"
+          ],
+          "n": 82,
+          "n_anormal": 64,
+          "anormal_rate": 0.7804878048780488,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE ≤ 0.0383",
+            "Altura > 50.5",
+            "IDADE > 0.009574"
+          ],
+          "n": 73,
+          "n_anormal": 48,
+          "anormal_rate": 0.6575342465753424,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE > 0.0383",
+            "Peso ≤ 2.85"
+          ],
+          "n": 74,
+          "n_anormal": 60,
+          "anormal_rate": 0.8108108108108109,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE > 0.0383",
+            "Peso > 2.85",
+            "Altura observado",
+            "IDADE ≤ 0.08892",
+            "IDADE ≤ 0.05472"
+          ],
+          "n": 62,
+          "n_anormal": 36,
+          "anormal_rate": 0.5806451612903226,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE > 0.0383",
+            "Peso > 2.85",
+            "Altura observado",
+            "IDADE ≤ 0.08892",
+            "IDADE > 0.05472"
+          ],
+          "n": 114,
+          "n_anormal": 50,
+          "anormal_rate": 0.43859649122807015,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE > 0.0383",
+            "Peso > 2.85",
+            "Altura observado",
+            "IDADE > 0.08892",
+            "Peso ≤ 3.65"
+          ],
+          "n": 76,
+          "n_anormal": 58,
+          "anormal_rate": 0.7631578947368421,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE > 0.0383",
+            "Peso > 2.85",
+            "Altura observado",
+            "IDADE > 0.08892",
+            "Peso > 3.65"
+          ],
+          "n": 962,
+          "n_anormal": 542,
+          "anormal_rate": 0.5634095634095634,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE > 0.0383",
+            "Peso > 2.85",
+            "Altura ausente",
+            "IDADE ≤ 0.3411",
+            "Peso ≤ 4.85"
+          ],
+          "n": 136,
+          "n_anormal": 86,
+          "anormal_rate": 0.6323529411764706,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE > 0.0383",
+            "Peso > 2.85",
+            "Altura ausente",
+            "IDADE ≤ 0.3411",
+            "Peso > 4.85"
+          ],
+          "n": 60,
+          "n_anormal": 32,
+          "anormal_rate": 0.5333333333333333,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE > 0.0383",
+            "Peso > 2.85",
+            "Altura ausente",
+            "IDADE > 0.3411",
+            "Peso ≤ 6.85"
+          ],
+          "n": 87,
+          "n_anormal": 70,
+          "anormal_rate": 0.8045977011494253,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso ≤ 8.85",
+            "IDADE > 0.0383",
+            "Peso > 2.85",
+            "Altura ausente",
+            "IDADE > 0.3411",
+            "Peso > 6.85"
+          ],
+          "n": 98,
+          "n_anormal": 62,
+          "anormal_rate": 0.6326530612244898,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso ≤ 28.2",
+            "Peso ≤ 21.1",
+            "IDADE ≤ 3.592",
+            "IDADE ≤ 0.7743"
+          ],
+          "n": 128,
+          "n_anormal": 64,
+          "anormal_rate": 0.5,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso ≤ 28.2",
+            "Peso ≤ 21.1",
+            "IDADE ≤ 3.592",
+            "IDADE > 0.7743"
+          ],
+          "n": 1975,
+          "n_anormal": 787,
+          "anormal_rate": 0.39848101265822783,
+          "predicted": "Normal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso ≤ 28.2",
+            "Peso ≤ 21.1",
+            "IDADE > 3.592",
+            "Peso ≤ 15.05"
+          ],
+          "n": 261,
+          "n_anormal": 141,
+          "anormal_rate": 0.5402298850574713,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso ≤ 28.2",
+            "Peso ≤ 21.1",
+            "IDADE > 3.592",
+            "Peso > 15.05"
+          ],
+          "n": 1132,
+          "n_anormal": 489,
+          "anormal_rate": 0.43197879858657245,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso ≤ 28.2",
+            "Peso > 21.1",
+            "Altura ≤ 134.5",
+            "IDADE ≤ 9.059"
+          ],
+          "n": 1128,
+          "n_anormal": 418,
+          "anormal_rate": 0.37056737588652483,
+          "predicted": "Normal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso ≤ 28.2",
+            "Peso > 21.1",
+            "Altura ≤ 134.5",
+            "IDADE > 9.059"
+          ],
+          "n": 139,
+          "n_anormal": 39,
+          "anormal_rate": 0.2805755395683453,
+          "predicted": "Normal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso ≤ 28.2",
+            "Peso > 21.1",
+            "Altura > 134.5"
+          ],
+          "n": 73,
+          "n_anormal": 37,
+          "anormal_rate": 0.5068493150684932,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso > 28.2",
+            "IDADE ≤ 8.427",
+            "IDADE ≤ 7.56",
+            "Peso ≤ 37.2"
+          ],
+          "n": 173,
+          "n_anormal": 45,
+          "anormal_rate": 0.26011560693641617,
+          "predicted": "Normal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso > 28.2",
+            "IDADE ≤ 8.427",
+            "IDADE ≤ 7.56",
+            "Peso > 37.2"
+          ],
+          "n": 192,
+          "n_anormal": 69,
+          "anormal_rate": 0.359375,
+          "predicted": "Normal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso > 28.2",
+            "IDADE ≤ 8.427",
+            "IDADE > 7.56",
+            "Peso ≤ 34.4"
+          ],
+          "n": 66,
+          "n_anormal": 33,
+          "anormal_rate": 0.5,
+          "predicted": "Anormal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso > 28.2",
+            "IDADE ≤ 8.427",
+            "IDADE > 7.56",
+            "Peso > 34.4"
+          ],
+          "n": 67,
+          "n_anormal": 23,
+          "anormal_rate": 0.34328358208955223,
+          "predicted": "Normal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso > 28.2",
+            "IDADE > 8.427",
+            "IDADE ≤ 8.807"
+          ],
+          "n": 54,
+          "n_anormal": 7,
+          "anormal_rate": 0.12962962962962962,
+          "predicted": "Normal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso > 28.2",
+            "IDADE > 8.427",
+            "IDADE > 8.807",
+            "Peso ≤ 43.15"
+          ],
+          "n": 921,
+          "n_anormal": 290,
+          "anormal_rate": 0.31487513572204123,
+          "predicted": "Normal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO ≠ ausente",
+            "Peso > 28.2",
+            "IDADE > 8.427",
+            "IDADE > 8.807",
+            "Peso > 43.15"
+          ],
+          "n": 709,
+          "n_anormal": 187,
+          "anormal_rate": 0.2637517630465444,
+          "predicted": "Normal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO = ausente",
+            "IDADE ≤ 7.099",
+            "IDADE observado"
+          ],
+          "n": 68,
+          "n_anormal": 9,
+          "anormal_rate": 0.1323529411764706,
+          "predicted": "Normal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO = ausente",
+            "IDADE ≤ 7.099",
+            "IDADE ausente"
+          ],
+          "n": 128,
+          "n_anormal": 11,
+          "anormal_rate": 0.0859375,
+          "predicted": "Normal"
+        },
+        {
+          "conditions": [
+            "Peso > 8.85",
+            "SEXO = ausente",
+            "IDADE > 7.099"
+          ],
+          "n": 65,
+          "n_anormal": 2,
+          "anormal_rate": 0.03076923076923077,
+          "predicted": "Normal"
+        }
+      ]
+    }
+  },
   "run_date": "2026-11-12",
   "dataset": "UCMF, disponibilizado na disciplina INF0414; origem descrita como Real Hospital Português, Recife",
   "source_sha256": "35e68400d6bec51bbf74857c0f0e0487161b3495b5f4fefbc2cc57af24824ea1",
@@ -295,7 +1006,7 @@
       "balanced_accuracy": 0.9189971416952185,
       "roc_auc": 0.9402416291468015,
       "average_precision": 0.9370024948029713,
-      "brier": 0.0658728581722807,
+      "brier": 0.0658728582150281,
       "accuracy": 0.9258626215147955
     },
     {
@@ -379,7 +1090,7 @@
       "balanced_accuracy": 0.6164347711407394,
       "roc_auc": 0.6564059871395445,
       "average_precision": 0.5666821312096786,
-      "brier": 0.23185401494855956,
+      "brier": 0.23185401494856064,
       "accuracy": 0.6257878431791475
     },
     {
@@ -543,7 +1254,7 @@
       "balanced_accuracy": 0.9306160394265233,
       "roc_auc": 0.9517140830346477,
       "average_precision": 0.9506159169060052,
-      "brier": 0.05844081326967987,
+      "brier": 0.0584408203696378,
       "accuracy": 0.9368061485909479
     },
     {
@@ -619,7 +1330,7 @@
       "balanced_accuracy": 0.6284931302270012,
       "roc_auc": 0.6714012096774195,
       "average_precision": 0.5948555487852332,
-      "brier": 0.22794606880153964,
+      "brier": 0.22794606880154034,
       "accuracy": 0.639197267292912
     },
     {
@@ -695,7 +1406,7 @@
       "balanced_accuracy": 0.6033273596176822,
       "roc_auc": 0.6591031959378734,
       "average_precision": 0.5915771134847644,
-      "brier": 0.23080696797668382,
+      "brier": 0.23080696797668407,
       "accuracy": 0.6080273270708796
     },
     {
@@ -3609,5 +4320,5 @@
       914
     ]
   },
-  "elapsed_seconds": 1228.11
+  "elapsed_seconds": 2368.05
 }

@@ -173,8 +173,8 @@ function notes(s, n) {
 {
   const s = slide('CLINICO: três modelos empatados', 11);
   table(s, D.results_main, 64, 150, 1152, [380, 193, 193, 193, 193], {size: 20, rowH: 56, highlight: 2});
-  txt(s, `Diferença entre os três: ${V.spread_clin} ponto de BA`, 64, 470, 1152, 40, 24, C.teal, true);
-  txt(s, 'Previsões externas da validação aninhada', 64, 530, 1152, 40, 20, C.muted);
+  txt(s, `Diferença entre os três: ${V.spread_clin} ponto de BA · IC95% das diferenças contém zero`, 64, 470, 1152, 40, 24, C.teal, true);
+  txt(s, `Previsões externas da validação aninhada · IC95% da BA da árvore: ${V.ci_clin}`, 64, 530, 1152, 40, 20, C.muted);
   notes(s, 11);
 }
 // 12. De onde vem a informação
@@ -183,7 +183,7 @@ function notes(s, n) {
   const colors = {STRICT4: C.gray, FISIO8: C.ink, CLINICO: C.teal};
   s.addChart(pres.charts.BAR, D.scenario_chart.series.map(x => ({name: x.name, labels: D.scenario_chart.categories, values: x.values})), {
     x: px(64), y: px(130), w: px(800), h: px(500), barDir: 'col', barGrouping: 'clustered', chartColors: D.scenario_chart.series.map(x => colors[x.name]),
-    valAxisMinVal: 50, valAxisMaxVal: 100, showValue: true, dataLabelFontSize: 12, dataLabelFormatCode: '0.0', showLegend: true, legendPos: 'b', legendFontSize: 14,
+    valAxisMinVal: 0, valAxisMaxVal: 100, showValue: true, dataLabelFontSize: 12, dataLabelFormatCode: '0.0', showLegend: true, legendPos: 'b', legendFontSize: 14,
     catAxisLabelFontSize: 16, valAxisLabelFontSize: 14, valAxisTitle: 'BA (%)', showValAxisTitle: true, valGridLine: {color: C.grid, size: 1}});
   txt(s, `−${V.gain_cf} p.p.`, 900, 180, 320, 60, 40, C.orange, true); txt(s, 'sem o exame físico', 900, 245, 320, 36, 20);
   txt(s, `−${V.gain_fs} p.p.`, 900, 320, 320, 60, 40, C.gray, true); txt(s, 'sem os sinais vitais', 900, 385, 320, 36, 20);
@@ -192,15 +192,17 @@ function notes(s, n) {
 }
 // 13. Importância
 {
-  const s = slide('Importância por permutação', 13);
+  const s = slide('Importância e regras extraídas', 13);
   D.importance_chart.forEach((c, i) => {
     const x = 64 + i * 590;
     txt(s, c.title, x, 135, 560, 36, 22, i === 0 ? C.teal : C.ink, true);
     s.addChart(pres.charts.BAR, [{name: 'Queda de BA (p.p.)', labels: c.categories, values: c.values}], {
-      x: px(x), y: px(180), w: px(560), h: px(400), barDir: 'bar', catAxisOrientation: 'maxMin', chartColors: [i === 0 ? C.teal : C.ink],
+      x: px(x), y: px(175), w: px(560), h: px(300), barDir: 'bar', catAxisOrientation: 'maxMin', chartColors: [i === 0 ? C.teal : C.ink],
       showValue: true, dataLabelFontSize: 14, dataLabelFormatCode: '0.0', valAxisMinVal: 0, catAxisLabelFontSize: 16, valAxisLabelFontSize: 12, showLegend: false, valGridLine: {color: C.grid, size: 1}});
   });
-  txt(s, 'Queda de BA ao embaralhar o atributo no fold externo', 64, 600, 1152, 36, 18, C.muted);
+  txt(s, 'Queda de BA ao embaralhar o atributo no fold externo', 64, 478, 1152, 30, 16, C.muted);
+  txt(s, 'Regras da árvore final (CLINICO)', 64, 515, 1152, 32, 20, C.teal, true);
+  txt(s, V.rules_clin, 64, 550, 1152, 110, 16, C.ink);
   notes(s, 13);
 }
 // 14. Análise de erros
@@ -240,7 +242,7 @@ function notes(s, n) {
   const s = slide('Reprodução e uso de IA', 18, {hidden: true});
   txt(s, 'github.com/pedroafm06/Data-Mining', 64, 150, 1152, 44, 26, C.teal, true);
   txt(s, `Números: ${D.source}`, 64, 215, 1152, 40, 18, C.muted);
-  txt(s, 'IA generativa: Claude (Anthropic) na A1; Codex (OpenAI) no desenvolvimento da A2; Claude Code nesta revisão (cenário CLINICO, geradores, artigo, slides e README). Decisões do grupo; números conferidos nas saídas do código.', 64, 290, 1152, 160, 20);
+  txt(s, 'IA generativa: Claude (Anthropic) na A1; Codex (OpenAI) no desenvolvimento da A2; Claude Code nesta revisão (cenário CLINICO, geradores, artigo, slides e README) e na auditoria final (reprodução, intervalos por bootstrap, regras da árvore e testes). Decisões do grupo; números conferidos nas saídas do código.', 64, 290, 1152, 160, 20);
   s.addNotes('Slide de apoio. Declaração de uso de IA e onde reproduzir.');
 }
 

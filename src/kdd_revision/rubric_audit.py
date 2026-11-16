@@ -231,6 +231,9 @@ def run(root=PROJECT_ROOT,source=SOURCE_DEFAULT):
         'predictor_policy':'Availability at prediction time; excluded fields and reasons in protocol excluded_fields.',
         'source_preserved':sha256(Path(source).resolve().read_bytes()).hexdigest()==source_hash,'elapsed_seconds':round(time.monotonic()-start,2)}
     write(out/'verification.json',checks)
-    manifest={'code':{str(p.relative_to(root)):sha256(p.read_bytes()).hexdigest() for p in [Path(__file__),root/'src/kdd_revision/mining.py',root/'src/kdd_revision/preprocessing/transformer.py',root/'src/kdd_revision/preprocessing/preparation.py']},
+    # Every module executed by the run, so a manifest identifies the code behind the numbers.
+    executed=['rubric_audit.py','rubric_bootstrap.py','mining.py','full_kdd.py','experiments.py','prepare.py','schema.py','preprocessing/transformer.py','preprocessing/preparation.py','preprocessing/run.py']
+    manifest={'code':{('src/kdd_revision/'+name):sha256((root/'src/kdd_revision'/name).read_bytes().replace(b'\r\n',b'\n')).hexdigest() for name in executed},
+        'membership_sha256':sha256((root/'artifacts/a2_mining/particoes_modelagem.csv').read_bytes().replace(b'\r\n',b'\n')).hexdigest(),
         'outputs':{p.name:sha256(p.read_bytes()).hexdigest() for p in out.iterdir() if p.is_file() and p.name!='manifest.json'},'self_excluded':True}
     write(out/'manifest.json',manifest);print(json.dumps(checks,ensure_ascii=False,indent=2),flush=True);return checks

@@ -6,8 +6,66 @@
 \newcommand{\bestStrict}{logística}
 \newcommand{\btwoHiperPct}{97,8}
 \newcommand{\btwoNormPct}{39,6}
+\newcommand{\ciClinArvBA}{[91,3; 92,6]}
+\newcommand{\ciClinFloBA}{[91,3; 92,5]}
+\newcommand{\ciClinLogBA}{[91,3; 92,5]}
+\newcommand{\ciFisioArvBA}{[59,9; 61,9]}
+\newcommand{\ciFisioFloBA}{[61,9; 63,9]}
+\newcommand{\ciFisioLogBA}{[60,7; 62,7]}
+\newcommand{\ciMeiaLargMax}{1,0}
+\newcommand{\ciStrictArvBA}{[58,4; 60,2]}
+\newcommand{\ciStrictFloBA}{[58,6; 60,7]}
+\newcommand{\ciStrictLogBA}{[58,7; 60,8]}
 \newcommand{\clinBAspread}{0,04}
 \newcommand{\clinFNpctAnormal}{12,5}
+\newcommand{\dClinArvClinFlo}{0,03}
+\newcommand{\dClinArvClinFloCI}{[-0,03; 0,10]}
+\newcommand{\dClinArvClinLog}{0,04}
+\newcommand{\dClinArvClinLogCI}{[-0,10; 0,19]}
+\newcommand{\dClinArvFisioFlo}{29,0}
+\newcommand{\dClinArvFisioFloCI}{[27,8; 30,1]}
+\newcommand{\dClinFloClinArv}{-0,03}
+\newcommand{\dClinFloClinArvCI}{[-0,10; 0,03]}
+\newcommand{\dClinFloClinLog}{0,02}
+\newcommand{\dClinFloClinLogCI}{[-0,13; 0,16]}
+\newcommand{\dClinLogClinArv}{-0,04}
+\newcommand{\dClinLogClinArvCI}{[-0,19; 0,10]}
+\newcommand{\dClinLogClinFlo}{-0,02}
+\newcommand{\dClinLogClinFloCI}{[-0,16; 0,13]}
+\newcommand{\dCrossClinFisio}{29,0}
+\newcommand{\dCrossClinFisioCI}{[27,8; 30,1]}
+\newcommand{\dCrossFisioStrict}{3,2}
+\newcommand{\dCrossFisioStrictCI}{[2,2; 4,1]}
+\newcommand{\dFisioArvFisioFlo}{-2,0}
+\newcommand{\dFisioArvFisioFloCI}{[-2,8; -1,2]}
+\newcommand{\dFisioArvFisioLog}{-0,73}
+\newcommand{\dFisioArvFisioLogCI}{[-1,73; 0,24]}
+\newcommand{\dFisioFloClinArv}{-29,0}
+\newcommand{\dFisioFloClinArvCI}{[-30,1; -27,8]}
+\newcommand{\dFisioFloFisioArv}{2,0}
+\newcommand{\dFisioFloFisioArvCI}{[1,2; 2,8]}
+\newcommand{\dFisioFloFisioLog}{1,3}
+\newcommand{\dFisioFloFisioLogCI}{[0,4; 2,0]}
+\newcommand{\dFisioFloStrictLog}{3,2}
+\newcommand{\dFisioFloStrictLogCI}{[2,2; 4,1]}
+\newcommand{\dFisioLogFisioArv}{0,73}
+\newcommand{\dFisioLogFisioArvCI}{[-0,24; 1,73]}
+\newcommand{\dFisioLogFisioFlo}{-1,3}
+\newcommand{\dFisioLogFisioFloCI}{[-2,0; -0,4]}
+\newcommand{\dStrictArvStrictFlo}{-0,35}
+\newcommand{\dStrictArvStrictFloCI}{[-1,13; 0,38]}
+\newcommand{\dStrictArvStrictLog}{-0,42}
+\newcommand{\dStrictArvStrictLogCI}{[-1,30; 0,46]}
+\newcommand{\dStrictFloStrictArv}{0,35}
+\newcommand{\dStrictFloStrictArvCI}{[-0,38; 1,13]}
+\newcommand{\dStrictFloStrictLog}{-0,07}
+\newcommand{\dStrictFloStrictLogCI}{[-0,88; 0,75]}
+\newcommand{\dStrictLogFisioFlo}{-3,2}
+\newcommand{\dStrictLogFisioFloCI}{[-4,1; -2,2]}
+\newcommand{\dStrictLogStrictArv}{0,42}
+\newcommand{\dStrictLogStrictArvCI}{[-0,46; 1,30]}
+\newcommand{\dStrictLogStrictFlo}{0,07}
+\newcommand{\dStrictLogStrictFloCI}{[-0,75; 0,88]}
 \newcommand{\errClinFNsemSopro}{100,0}
 \newcommand{\errClinFPcomSopro}{79,0}
 \newcommand{\errClinIdadeFN}{3,3}
@@ -50,10 +108,14 @@
 \newcommand{\missPAS}{56,0}
 \newcommand{\missPPA}{82,2}
 \newcommand{\nAnormal}{3{.}967}
+\newcommand{\nBoot}{2{.}000}
 \newcommand{\nConfigs}{105}
 \newcommand{\nDev}{9{.}361}
 \newcommand{\nGroups}{9{.}279}
 \newcommand{\nNormal}{5{.}394}
+\newcommand{\nRegrasClin}{4}
+\newcommand{\nRegrasFisio}{4}
+\newcommand{\nRegrasStrict}{32}
 \newcommand{\nRetirado}{1}
 \newcommand{\nTest}{2{.}342}
 \newcommand{\normComSopro}{154}
@@ -77,6 +139,9 @@
 \newcommand{\recNLabelledAdois}{11{.}704}
 \newcommand{\recNSource}{12{.}873}
 \newcommand{\recNUnlabelled}{1{.}169}
+\newcommand{\regrasClin}{SOPRO = Ausente e B2 = Normal $\Rightarrow$ \textit{Normal} (5{.}695 registros, 8,7\% anormais); SOPRO $\neq$ Ausente e HDA1 $\neq$ ausente $\Rightarrow$ \textit{Anormal} (2{.}781 registros, 97,5\% anormais); SOPRO $\neq$ Ausente e HDA1 = ausente $\Rightarrow$ \textit{Anormal} (766 registros, 87,3\% anormais); SOPRO = Ausente e B2 $\neq$ Normal $\Rightarrow$ \textit{Anormal} (119 registros, 76,5\% anormais)}
+\newcommand{\regrasFisio}{Peso $>$ 8,85~kg e FC $\leq$ 98,5~bpm $\Rightarrow$ \textit{Normal} (5{.}608 registros, 32,6\% anormais); Peso $>$ 8,85~kg e FC $>$ 98,5~bpm $\Rightarrow$ \textit{Anormal} (1{.}671 registros, 49,3\% anormais); Peso $\leq$ 8,85~kg e idade $>$ 14~dias $\Rightarrow$ \textit{Anormal} (1{.}669 registros, 59,7\% anormais); Peso $\leq$ 8,85~kg e idade $\leq$ 14~dias $\Rightarrow$ \textit{Anormal} (413 registros, 77,5\% anormais)}
+\newcommand{\regrasStrict}{Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $\leq$ 28,2~kg e Peso $\leq$ 21,1~kg e idade $\leq$ 3,59~anos e idade $>$ 283~dias $\Rightarrow$ \textit{Normal} (1{.}975 registros, 39,8\% anormais); Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $\leq$ 28,2~kg e Peso $\leq$ 21,1~kg e idade $>$ 3,59~anos e Peso $>$ 15,1~kg $\Rightarrow$ \textit{Anormal} (1{.}132 registros, 43,2\% anormais); Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $\leq$ 28,2~kg e Peso $>$ 21,1~kg e Altura $\leq$ 134~cm e idade $\leq$ 9,06~anos $\Rightarrow$ \textit{Normal} (1{.}128 registros, 37,1\% anormais); Peso $\leq$ 8,85~kg e idade $>$ 14~dias e Peso $>$ 2,85~kg e Altura observado e idade $>$ 32~dias e Peso $>$ 3,65~kg $\Rightarrow$ \textit{Anormal} (962 registros, 56,3\% anormais); Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $>$ 28,2~kg e idade $>$ 8,43~anos e idade $>$ 8,81~anos e Peso $\leq$ 43,1~kg $\Rightarrow$ \textit{Normal} (921 registros, 31,5\% anormais); Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $>$ 28,2~kg e idade $>$ 8,43~anos e idade $>$ 8,81~anos e Peso $>$ 43,1~kg $\Rightarrow$ \textit{Normal} (709 registros, 26,4\% anormais); Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $\leq$ 28,2~kg e Peso $\leq$ 21,1~kg e idade $>$ 3,59~anos e Peso $\leq$ 15,1~kg $\Rightarrow$ \textit{Anormal} (261 registros, 54,0\% anormais); Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $>$ 28,2~kg e idade $\leq$ 8,43~anos e idade $\leq$ 7,56~anos e Peso $>$ 37,2~kg $\Rightarrow$ \textit{Normal} (192 registros, 35,9\% anormais); Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $>$ 28,2~kg e idade $\leq$ 8,43~anos e idade $\leq$ 7,56~anos e Peso $\leq$ 37,2~kg $\Rightarrow$ \textit{Normal} (173 registros, 26,0\% anormais); Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $\leq$ 28,2~kg e Peso $>$ 21,1~kg e Altura $\leq$ 134~cm e idade $>$ 9,06~anos $\Rightarrow$ \textit{Normal} (139 registros, 28,1\% anormais); Peso $\leq$ 8,85~kg e idade $>$ 14~dias e Peso $>$ 2,85~kg e Altura ausente e idade $\leq$ 125~dias e Peso $\leq$ 4,85~kg $\Rightarrow$ \textit{Anormal} (136 registros, 63,2\% anormais); Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $\leq$ 28,2~kg e Peso $\leq$ 21,1~kg e idade $\leq$ 3,59~anos e idade $\leq$ 283~dias $\Rightarrow$ \textit{Anormal} (128 registros, 50,0\% anormais); Peso $>$ 8,85~kg e SEXO = ausente e idade $\leq$ 7,1~anos e idade ausente $\Rightarrow$ \textit{Normal} (128 registros, 8,6\% anormais); Peso $\leq$ 8,85~kg e idade $>$ 14~dias e Peso $>$ 2,85~kg e Altura observado e idade $\leq$ 32~dias e idade $>$ 20~dias $\Rightarrow$ \textit{Anormal} (114 registros, 43,9\% anormais); Peso $\leq$ 8,85~kg e idade $>$ 14~dias e Peso $>$ 2,85~kg e Altura ausente e idade $>$ 125~dias e Peso $>$ 6,85~kg $\Rightarrow$ \textit{Anormal} (98 registros, 63,3\% anormais); Peso $\leq$ 8,85~kg e idade $>$ 14~dias e Peso $>$ 2,85~kg e Altura ausente e idade $>$ 125~dias e Peso $\leq$ 6,85~kg $\Rightarrow$ \textit{Anormal} (87 registros, 80,5\% anormais); Peso $\leq$ 8,85~kg e idade $\leq$ 14~dias e Altura $\leq$ 50,5~cm e Peso $\leq$ 3,55~kg e SEXO $\neq$ F e idade $\leq$ 2~dias $\Rightarrow$ \textit{Anormal} (82 registros, 76,8\% anormais); Peso $\leq$ 8,85~kg e idade $\leq$ 14~dias e Altura $>$ 50,5~cm e idade $\leq$ 3~dias $\Rightarrow$ \textit{Anormal} (82 registros, 78,0\% anormais); Peso $\leq$ 8,85~kg e idade $>$ 14~dias e Peso $>$ 2,85~kg e Altura observado e idade $>$ 32~dias e Peso $\leq$ 3,65~kg $\Rightarrow$ \textit{Anormal} (76 registros, 76,3\% anormais); Peso $\leq$ 8,85~kg e idade $>$ 14~dias e Peso $\leq$ 2,85~kg $\Rightarrow$ \textit{Anormal} (74 registros, 81,1\% anormais); Peso $\leq$ 8,85~kg e idade $\leq$ 14~dias e Altura $>$ 50,5~cm e idade $>$ 3~dias $\Rightarrow$ \textit{Anormal} (73 registros, 65,8\% anormais); Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $\leq$ 28,2~kg e Peso $>$ 21,1~kg e Altura $>$ 134~cm $\Rightarrow$ \textit{Anormal} (73 registros, 50,7\% anormais); Peso $>$ 8,85~kg e SEXO = ausente e idade $\leq$ 7,1~anos e idade observado $\Rightarrow$ \textit{Normal} (68 registros, 13,2\% anormais); Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $>$ 28,2~kg e idade $\leq$ 8,43~anos e idade $>$ 7,56~anos e Peso $>$ 34,4~kg $\Rightarrow$ \textit{Normal} (67 registros, 34,3\% anormais); Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $>$ 28,2~kg e idade $\leq$ 8,43~anos e idade $>$ 7,56~anos e Peso $\leq$ 34,4~kg $\Rightarrow$ \textit{Anormal} (66 registros, 50,0\% anormais); Peso $>$ 8,85~kg e SEXO = ausente e idade $>$ 7,1~anos $\Rightarrow$ \textit{Normal} (65 registros, 3,1\% anormais); Peso $\leq$ 8,85~kg e idade $\leq$ 14~dias e Altura $\leq$ 50,5~cm e Peso $>$ 3,55~kg $\Rightarrow$ \textit{Anormal} (62 registros, 88,7\% anormais); Peso $\leq$ 8,85~kg e idade $>$ 14~dias e Peso $>$ 2,85~kg e Altura observado e idade $\leq$ 32~dias e idade $\leq$ 20~dias $\Rightarrow$ \textit{Anormal} (62 registros, 58,1\% anormais); Peso $\leq$ 8,85~kg e idade $\leq$ 14~dias e Altura $\leq$ 50,5~cm e Peso $\leq$ 3,55~kg e SEXO $\neq$ F e idade $>$ 2~dias $\Rightarrow$ \textit{Anormal} (61 registros, 86,9\% anormais); Peso $\leq$ 8,85~kg e idade $>$ 14~dias e Peso $>$ 2,85~kg e Altura ausente e idade $\leq$ 125~dias e Peso $>$ 4,85~kg $\Rightarrow$ \textit{Anormal} (60 registros, 53,3\% anormais); Peso $>$ 8,85~kg e SEXO $\neq$ ausente e Peso $>$ 28,2~kg e idade $>$ 8,43~anos e idade $\leq$ 8,81~anos $\Rightarrow$ \textit{Normal} (54 registros, 13,0\% anormais); Peso $\leq$ 8,85~kg e idade $\leq$ 14~dias e Altura $\leq$ 50,5~cm e Peso $\leq$ 3,55~kg e SEXO = F $\Rightarrow$ \textit{Anormal} (53 registros, 69,8\% anormais)}
 \newcommand{\sopAusN}{5{.}814}
 \newcommand{\sopAusPct}{10,1}
 \newcommand{\sopSisN}{3{.}483}
@@ -215,6 +280,9 @@
 \newcommand{\tStrictMajSens}{0,0}
 \newcommand{\tStrictMajTN}{1{.}350}
 \newcommand{\tStrictMajTP}{0}
+\newcommand{\todasZeroClin}{todas}
+\newcommand{\todasZeroFisio}{nem todas}
+\newcommand{\todasZeroStrict}{todas}
 \newcommand{\vClinArvAP}{91,4}
 \newcommand{\vClinArvAUC}{92,3}
 \newcommand{\vClinArvAcc}{92,6}

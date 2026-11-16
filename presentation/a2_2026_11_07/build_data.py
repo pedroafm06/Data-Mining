@@ -3,7 +3,7 @@
 Todo número dos slides e do roteiro vem daqui; nada é digitado no gerador do deck.
 """
 from pathlib import Path
-import json, hashlib
+import json, hashlib, re
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -29,8 +29,29 @@ cat = {(c['variable'], c['value']): c for c in eda['categories']}
 n_dev, n_test = R['n_development'], R['n_historical_test']
 spread = max(by[P, f]['balanced_accuracy'] for f in ['tree', 'logistic', 'forest']) - min(by[P, f]['balanced_accuracy'] for f in ['tree', 'logistic', 'forest'])
 
+# Incerteza (bootstrap pareado por grupo) e regras da árvore final
+U = R['uncertainty']; diffs = {(d['a'], d['b']): d for d in U['differences']}
+def ci(lo, hi, d=1): return f'[{pt(100 * lo, d)}; {pt(100 * hi, d)}]'
+d_tl, d_tf = diffs['CLINICO/tree', 'CLINICO/logistic'], diffs['CLINICO/tree', 'CLINICO/forest']
+UNIT = {'Peso': 'kg', 'Altura': 'cm', 'IMC': 'kg/m²', 'IDADE': 'anos', 'FC': 'bpm', 'PA SISTOLICA': 'mmHg', 'PA DIASTOLICA': 'mmHg'}
+def condition(c):
+    m = re.fullmatch(r'(.+) (≤|>) ([-0-9.e]+)', c)
+    if m:
+        var, op, val = m.groups(); c = f"{var} {op} {f'{float(val):.3g}'.replace('.', ',')} {UNIT.get(var, '')}".strip()
+    for raw, nice in [('SOPRO = Ausente', 'sem sopro'), ('SOPRO ≠ Ausente', 'com sopro'), ('B2 = Normal', 'B2 normal'), ('B2 ≠ Normal', 'B2 alterada'),
+                      ('HDA 1 ≠ ausente', 'HDA1 registrada'), ('HDA 1 = ausente', 'sem HDA1'), ('IDADE', 'idade')]:
+        c = c.replace(raw, nice)
+    return c
+def rule_text(r):
+    cond = ' e '.join(condition(c) for c in r['conditions'])
+    return f"{cond} → {r['predicted']} ({pt(100 * r['anormal_rate'], 0)}% anormais, n={integer(r['n'])})"
+rules_clin = sorted(R['knowledge'][P]['rules'], key=lambda r: -r['n'])
+
 # Valores formatados usados nos slides (o deck só posiciona strings)
 V = {
+    'ci_clin': ci(*U['models'][f'{P}/{best[P]}']['ci95']), 'ci_tl': ci(*d_tl['ci95'], 2), 'ci_tf': ci(*d_tf['ci95'], 2),
+    'ci_zero_clin': all(diffs[k]['ci_contains_zero'] for k in diffs if k[0].startswith(P + '/') and k[1].startswith(P + '/')),
+    'rules_clin': '\n'.join(rule_text(r) for r in rules_clin), 'n_rules_clin': len(rules_clin),
     'n_source': integer(rec['n_source']), 'n_labelled': integer(rec['n_labelled_a2']), 'n_unlabelled': integer(rec['n_unlabelled']),
     'n_dev': integer(n_dev), 'n_test': integer(n_test), 'n_removed': integer(rec['n_labelled_a2'] - n_dev - n_test),
     'n_normal': integer(eda['class_counts']['Normal']), 'n_anormal': integer(eda['class_counts']['Anormal']), 'pct_anormal': pt(eda['anormal_percent']) + '%',
@@ -120,13 +141,14 @@ note('Modelos e métricas', 50, M,
      f'O baseline simples é a classe majoritária, que sempre diz Normal. Comparamos com três modelos: árvore de decisão, regressão logística e floresta aleatória, com {V["n_configs"]} configurações por cenário. A métrica principal é a acurácia balanceada, média de sensibilidade e especificidade.',
      [('Por que não acurácia comum?', f'A classe majoritária já teria {V["acc_dummy"]} de acurácia sem reconhecer nenhum anormal.')])
 note('Resultado principal', 70, P_,
-     f'No CLINICO, árvore, logística e floresta ficam a {V["spread_clin"]} ponto uma da outra: é um empate. Pelo critério fixado antes, a árvore tem a maior BA, {V["ba_clin"]}, com sensibilidade de {V["sens_clin"]} e especificidade de {V["spec_clin"]}. A floresta ordena melhor as probabilidades, com ROC-AUC de {V["auc_clin_flo"]}.',
-     [('Se empatam, qual vocês usariam?', 'A árvore, por ser a mais simples de explicar; a floresta, se o limiar for ajustado, porque ordena melhor.')])
+     f'No CLINICO, árvore, logística e floresta ficam a {V["spread_clin"]} ponto uma da outra: é um empate, e o bootstrap pareado confirma, porque os intervalos de 95% das diferenças contêm zero. Pelo critério fixado antes, a árvore tem a maior BA, {V["ba_clin"]}, com sensibilidade de {V["sens_clin"]} e especificidade de {V["spec_clin"]}. A floresta ordena melhor as probabilidades, com ROC-AUC de {V["auc_clin_flo"]}.',
+     [('A diferença entre os modelos é significativa?', f'Não. Pelo bootstrap pareado por grupo, árvore menos logística tem IC95% de {V["ci_tl"]} ponto e árvore menos floresta, {V["ci_tf"]}; ambos contêm zero. O IC da BA da árvore é {V["ci_clin"]}.'),
+      ('Se empatam, qual vocês usariam?', 'A árvore, por ser a mais simples de explicar; a floresta, se o limiar for ajustado, porque ordena melhor.')])
 note('De onde vem a informação', 60, P_,
      f'Tirando o exame físico, a melhor BA cai {V["gain_cf"]} pontos, para {V["ba_fisio"]}. Tirando também os sinais vitais, cai mais {V["gain_fs"]} pontos, para {V["ba_strict"]}. Quase toda a informação está na ausculta. No teste histórico a ordem se mantém: {V["t_clin"]}, {V["t_fisio"]} e {V["t_strict"]}.',
      [('O teste histórico confirma o resultado?', 'Mostra estabilidade dentro da mesma coorte. Como ele já tinha sido examinado, não substitui validação externa.')])
-note('Importância dos atributos', 50, P_,
-     f'Embaralhar o SOPRO derruba a BA em {V["imp_sopro"]} pontos; B2, em {V["imp_b2"]}. Os outros não mudam nada. Sem o exame, o modelo passa a usar FC ({V["imp_fc_fisio"]}) e peso ({V["imp_peso_fisio"]}), que acompanham a idade.',
+note('Importância e regras extraídas', 50, P_,
+     f'Embaralhar o SOPRO derruba a BA em {V["imp_sopro"]} pontos; B2, em {V["imp_b2"]}. Os outros não mudam nada. Sem o exame, o modelo passa a usar FC ({V["imp_fc_fisio"]}) e peso ({V["imp_peso_fisio"]}), que acompanham a idade. Embaixo está o conhecimento extraído: a árvore final tem {V["n_rules_clin"]} folhas, que viram regras legíveis com seu suporte, e reproduzem o fluxo da ausculta.',
      [('Importância é causa?', 'Não. É a perda de desempenho do modelo quando o atributo é embaralhado.')])
 note('Análise de erros', 70, P_,
      f'São {V["fn"]} falsos negativos, {V["fn_pct_anormal"]} dos anormais, e todos ({V["fn_sem_sopro"]}) são crianças sem sopro. Entre os {V["fp"]} falsos positivos, {V["fp_com_sopro"]} têm sopro, o que é compatível com sopros inocentes. Numa triagem, o falso negativo é o erro caro: pode atrasar um diagnóstico. Por isso o próximo passo é ajustar o limiar para aumentar a sensibilidade.',

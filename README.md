@@ -18,6 +18,7 @@ Nenhum número do artigo ou dos slides é digitado à mão. Todos vêm de [`revi
 |---|---|
 | Experimentos (3 cenários × 4 famílias, validação aninhada, teste histórico) | [`src/kdd_revision/rubric_audit.py`](src/kdd_revision/rubric_audit.py), executado por [`tools/run_rubric_audit.py`](tools/run_rubric_audit.py) |
 | `reviewed_results.json`, análise de erros, reconciliação A1/A2, agregados da EDA | [`tools/export_rubric_audit.py`](tools/export_rubric_audit.py) |
+| Intervalos de 95% (bootstrap pareado por grupo) e regras da árvore final | [`src/kdd_revision/evaluation_stats.py`](src/kdd_revision/evaluation_stats.py), chamado pelo export |
 | Fig. 1 (alvo, achados de exame, idade e FC) e Fig. 2 (importância) | [`paper/.../tools/figura_eda.py`](paper/a2_ieee_2026_11_07/tools/figura_eda.py) |
 | Tabelas II, III e IV e todos os números do texto | [`paper/.../tools/gerar_numeros.py`](paper/a2_ieee_2026_11_07/tools/gerar_numeros.py) → `generated/*.tex` |
 | Tabela I (decisão por atributo) | lista de atributos em `rubric_audit.py` (`CLINICO`, `EXCLUDED_REASONS`) |
@@ -44,7 +45,7 @@ O primeiro comando reconstrói a partição de desenvolvimento e confere seu SHA
 
 ## 5. Sementes
 
-`random_state=42` nos estimadores; 743 nos 5 *folds* externos; 811+k nos 3 *folds* internos do *fold* externo k; 43 na escolha do modelo final; 1700+k na importância por permutação; 911 e 914 no controle com rótulos embaralhados.
+`random_state=42` nos estimadores; 743 nos 5 *folds* externos; 811+k nos 3 *folds* internos do *fold* externo k; 43 na escolha do modelo final; 1700+k na importância por permutação; 911 e 914 no controle com rótulos embaralhados; 2026 no *bootstrap* dos intervalos (2.000 reamostragens).
 
 ## 6. Resultados
 
@@ -56,10 +57,12 @@ Validação cruzada aninhada no desenvolvimento (9.361 registros), melhor famíl
 | FISIO8 (sensibilidade) | 8: medidas, sinais vitais, sexo | Floresta | 62,91% | 58,91% | 66,91% | 65,23% |
 | STRICT4 (sensibilidade) | 4: peso, altura, idade, sexo | Logística | 59,74% | 52,03% | 67,45% | 60,33% |
 
-No CLINICO, árvore, logística e floresta diferem menos de 0,05 ponto de BA, porque o sopro concentra a informação. Ficam fora dos preditores: ID, datas brutas, Convênio, MOTIVO1, MOTIVO2 e HDA2. A justificativa está no artigo.
+No CLINICO, árvore, logística e floresta diferem menos de 0,05 ponto de BA, porque o sopro concentra a informação; no *bootstrap* pareado por grupo, os intervalos de 95% dessas diferenças contêm zero, e o da BA da árvore é [91,3%; 92,6%]. A queda de CLINICO para FISIO8 é de 29,0 pontos (IC [27,8; 30,1]). Em FISIO8 a floresta supera a logística (IC da diferença [0,4; 2,0] ponto); em STRICT4 nenhuma diferença entre famílias se distingue de zero. A árvore final de CLINICO vira quatro regras legíveis (sem sopro e B2 normal → Normal; com sopro → Anormal), apresentadas no artigo. Ficam fora dos preditores: ID, datas brutas, Convênio, MOTIVO1, MOTIVO2 e HDA2. A justificativa está no artigo.
 
 Esta execução foi feita no Windows com o `requirements.lock`. Árvore, logística e referência reproduzem exatamente a execução anterior em macOS; a floresta aleatória mostra pequenas diferenças entre plataformas com as mesmas sementes (por exemplo, BA de FISIO8 62,87% → 62,91%).
 
 ---
+
+A conferência item a item com a rubrica está em [`docs/a2/Conformidade_Rubrica_Final.md`](docs/a2/Conformidade_Rubrica_Final.md).
 
 O desenvolvimento anterior da A2 e a comparação histórica de cenários estão em [`docs/historico/`](docs/historico/README.md). A [A1 entregue](docs/a1_entregue/README.md) permanece preservada byte a byte.

@@ -15,4 +15,4 @@ node build_deck.mjs           # gera output/Apresentacao_A2_UCMF.pptx
 soffice --headless --convert-to pdf --outdir output output/Apresentacao_A2_UCMF.pptx
 ```
 
-O PDF é exportado pelo LibreOffice Impress, que omite os slides ocultos.
+O PDF é exportado pelo LibreOffice Impress ou pelo PowerPoint (Salvar como PDF); ambos omitem os slides ocultos.

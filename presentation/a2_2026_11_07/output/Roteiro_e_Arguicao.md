@@ -129,7 +129,11 @@ O baseline simples é a classe majoritária, que sempre diz Normal. Comparamos c
 
 Responsável: Pedro Augusto Ferreira Matos. Tempo: 1:10.
 
-No CLINICO, árvore, logística e floresta ficam a 0,04 ponto uma da outra: é um empate. Pelo critério fixado antes, a árvore tem a maior BA, 91,9%, com sensibilidade de 87,5% e especificidade de 96,4%. A floresta ordena melhor as probabilidades, com ROC-AUC de 94,7%.
+No CLINICO, árvore, logística e floresta ficam a 0,04 ponto uma da outra: é um empate, e o bootstrap pareado confirma, porque os intervalos de 95% das diferenças contêm zero. Pelo critério fixado antes, a árvore tem a maior BA, 91,9%, com sensibilidade de 87,5% e especificidade de 96,4%. A floresta ordena melhor as probabilidades, com ROC-AUC de 94,7%.
+
+**Pergunta provável:** A diferença entre os modelos é significativa?
+
+**Resposta:** Não. Pelo bootstrap pareado por grupo, árvore menos logística tem IC95% de [-0,10; 0,19] ponto e árvore menos floresta, [-0,03; 0,10]; ambos contêm zero. O IC da BA da árvore é [91,3; 92,6].
 
 **Pergunta provável:** Se empatam, qual vocês usariam?
 
@@ -147,11 +151,11 @@ Tirando o exame físico, a melhor BA cai 29,0 pontos, para 62,9%. Tirando també
 **Resposta:** Mostra estabilidade dentro da mesma coorte. Como ele já tinha sido examinado, não substitui validação externa.
 
 
-## 13. Importância dos atributos
+## 13. Importância e regras extraídas
 
 Responsável: Pedro Augusto Ferreira Matos. Tempo: 0:50.
 
-Embaralhar o SOPRO derruba a BA em 38,6 pontos; B2, em 3,1. Os outros não mudam nada. Sem o exame, o modelo passa a usar FC (4,9) e peso (2,5), que acompanham a idade.
+Embaralhar o SOPRO derruba a BA em 38,6 pontos; B2, em 3,1. Os outros não mudam nada. Sem o exame, o modelo passa a usar FC (4,9) e peso (2,5), que acompanham a idade. Embaixo está o conhecimento extraído: a árvore final tem 4 folhas, que viram regras legíveis com seu suporte, e reproduzem o fluxo da ausculta.
 
 **Pergunta provável:** Importância é causa?
 

@@ -1,5 +1,7 @@
 # Parecer metodológico da revisão da A2
 
+> **Documento histórico (07–11/11/2026).** Registra a política conservadora em que FISIO8 era o cenário principal e SOPRO, B2, PULSOS, PPA e HDA1 ficavam fora. Em 12/11/2026 o grupo adotou o critério de disponibilidade no momento da previsão: o cenário principal passou a ser CLINICO, e FISIO8 e STRICT4 viraram análises de sensibilidade. A entrega final e sua conferência com a rubrica estão no [README](../../../README.md) e em [Conformidade_Rubrica_Final.md](../Conformidade_Rubrica_Final.md).
+
 > **Fechamento em 11/11/2026.** A reprodução integral em pasta separada reconstruiu a partição por código e repetiu a busca sem pontuar o teste histórico. A verificação dos hashes, das 40 escolhas externas e das métricas recalculadas a partir das previsões está em [Verificacao_Experimental.json](Verificacao_Experimental.json). Isso encerra REP-01, REP-02 e VAL-01. As seções a seguir registram o parecer técnico e o estado no momento da auditoria inicial.
 
 Data: 7 de novembro de 2026. Referência histórica: commit `c8c86e333468cc3cbb1307288f409065166d8d6c`. Este parecer é um documento suplementar de auditoria; não substitui o artigo IEEE de até cinco páginas exigido para a entrega.

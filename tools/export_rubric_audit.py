@@ -16,6 +16,8 @@ from matplotlib.cbook import boxplot_stats
 from kdd_revision.rubric_audit import load_development, SCENARIOS_AUDIT, EXCLUDED_REASONS
 from kdd_revision.schema import SOURCE_DEFAULT, TARGET, SCENARIOS
 from kdd_revision.preprocessing.preparation import prepare_final, model_frame
+from kdd_revision.evaluation_stats import paired_cluster_bootstrap, tree_rules
+import joblib
 
 OUT = ROOT / 'resultados/a2/auditoria_2026_11_07'
 PAPER_RESULTS = ROOT / 'paper/a2_ieee_2026_11_07/results/reviewed_results.json'
@@ -113,6 +115,31 @@ def error_analysis(a, data, best):
     return result
 
 
+def uncertainty(a, best):
+    """Paired group bootstrap of the saved out-of-fold predictions (no refit, no selection)."""
+    frames = {(pool, kind): pd.read_csv(a / f'oof_{pool}_{kind}.csv', dtype={'ID': str})
+              for pool in SCENARIOS_AUDIT for kind in ['tree', 'logistic', 'forest']}
+    ref = next(iter(frames.values()))
+    for f in frames.values():
+        if not (f.ID.equals(ref.ID) and f.y.equals(ref.y) and f.group.equals(ref.group)):
+            raise ValueError('Out-of-fold files are not aligned')
+    preds = {f'{pool}/{kind}': f.p.to_numpy() for (pool, kind), f in frames.items()}
+    comparisons = [(f'{pool}/{a}', f'{pool}/{b}') for pool in SCENARIOS_AUDIT
+                   for a, b in [('tree', 'logistic'), ('tree', 'forest'), ('logistic', 'forest')]]
+    comparisons += [(f'CLINICO/{best["CLINICO"]}', f'FISIO8/{best["FISIO8"]}'), (f'FISIO8/{best["FISIO8"]}', f'STRICT4/{best["STRICT4"]}')]
+    return paired_cluster_bootstrap(ref.y.to_numpy(), preds, ref.group, comparisons)
+
+
+def knowledge(a, data, y):
+    """Rules of the final (whole-development) decision tree of each scenario, with development support."""
+    out = {}
+    for pool, features in SCENARIOS_AUDIT.items():
+        fitted = joblib.load(a / f'final_model_{pool}_tree.joblib')
+        out[pool] = {'model': 'final tree refitted on all development rows; support is descriptive (training rows)',
+                     'rules': tree_rules(fitted, data[['ID'] + features], y)}
+    return out
+
+
 def figures(metrics, ranking, best):
     figdir = OUT / 'figures'; figdir.mkdir(exist_ok=True)
     for old in figdir.glob('*'):
@@ -157,6 +184,7 @@ def export(source=SOURCE_DEFAULT):
     summary_errors = error_analysis(a, data, best)
     summary = {
         'error_analysis': summary_errors,
+        'uncertainty': uncertainty(a, best), 'knowledge': knowledge(a, data, y),
         'run_date': '2026-11-12', 'dataset': 'UCMF, disponibilizado na disciplina INF0414; origem descrita como Real Hospital Português, Recife',
         'source_sha256': sourcehash, 'protocol_sha256': check['protocol_sha256'],
         'n_original': 12873, 'n_original_variables': 21, 'n_development': int(len(y)), 'n_historical_test': 2342,

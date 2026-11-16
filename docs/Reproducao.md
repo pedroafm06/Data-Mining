@@ -1,5 +1,7 @@
 # Reprodução da A2 completa
 
+> **Guia histórico.** Reproduz a execução anterior da A2 (81 configurações, cenários A, B e B_contexto). A entrega final (artigo, slides e cenários CLINICO, FISIO8 e STRICT4) se reproduz pelos comandos do [README](../README.md#4-como-reproduzir).
+
 A execução segue: entendimento e seleção documentados -> preparação revisada -> busca de modelos -> avaliação -> interpretação -> aplicação com verificação de cobertura -> relatório. Os comandos usam as mesmas funções dos notebooks, sem uma segunda implementação estatística.
 
 ## Entrada e ambiente

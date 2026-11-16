@@ -1,5 +1,7 @@
 # Parecer semântico e decisões sobre os atributos UCMF
 
+> **Documento histórico (07–11/11/2026).** Registra a política conservadora em que FISIO8 era o cenário principal e SOPRO, B2, PULSOS, PPA e HDA1 ficavam fora. Em 12/11/2026 o grupo adotou o critério de disponibilidade no momento da previsão: o cenário principal passou a ser CLINICO, e FISIO8 e STRICT4 viraram análises de sensibilidade. A entrega final e sua conferência com a rubrica estão no [README](../../../README.md) e em [Conformidade_Rubrica_Final.md](../Conformidade_Rubrica_Final.md).
+
 **Data da revisão:** 7 de novembro de 2026. **Escopo:** as 21 variáveis originais, suas derivações e os mecanismos de seleção e preenchimento que podem influenciar a análise. Este parecer fixa a política de atributos; as métricas da nova execução devem ser obtidas dos resultados estatísticos, sem preencher este documento com resultados previstos.
 
 ## 1. Decisão principal e alcance da conclusão

@@ -1,37 +1,35 @@
 {
   "mode": "final",
-  "created_utc": "2026-11-12T19:27:46.733210+00:00",
+  "created_utc": "2026-11-16T20:54:55.307284+00:00",
   "pdf": "output\\pdf\\Artigo_A2_IEEE.pdf",
-  "pdf_sha256": "9779ff8bf10ad86122b38941da2ac43c8fcbf69ef404b08b2688f51f597cebce",
+  "pdf_sha256": "c7f9d1bea675662078f995e32b5277f9bf2040d1fed10007784b864a9f91f560",
   "tectonic_sha256": "99ffcfdbf1ebf8bdda9e791942e3d06aedb12463fddc33f07de6f5211c8bf08d",
-  "provenance_lock_sha256": "0a5334f8211120788ef9d0a3b19785b3601ced0536996fb87b6a40b5e2aa39ac",
+  "provenance_lock_sha256": "83ca88c4f82be59a811b5763d1118bd11d68d25d79c4f213213c9cc6f094b7eb",
   "source_sha256": {
-    "main.tex": "97e3ee838d54a63f6f619a349fc5345cb97a04a96bfdb05960db52c707be3909",
-    "references.bib": "663d58ab417b7c2d1cc73e4be4fd59de0975acfcbb8c02647f5f4e40c9555f70",
-    "submission_config.json": "ba6bf55866dfbbce634fd3439333dbabd1c3680ad7a14c2acebf92b200ab7013",
-    "sections\\01_introducao.tex": "0e5280efdbf77a2a360d84431e9e84ac3a7b0a6a8d6a382e9298610a573f4ddf",
-    "sections\\02_dados.tex": "6d640e18376da173c3e419cec0e5616b135ad64c3467bcda7583652e2337b14e",
-    "sections\\03_metodologia.tex": "0e0f98990cafdbd2d4325036b0d6166f8655118cd448eef0935afe6ba4e95f4c",
-    "sections\\04_resultados.tex": "3681c2abef0c536cba971def0fa027fe57954c4b7e680ac0c6d536cc5b399df0",
-    "sections\\05_conclusao.tex": "779b1c4b130b6da0007e01cc8afb83f69599cf8f8e9aa40e7dee7e77d0241d51",
-    "sections\\06_ia.tex": "7611818618db5cf53638068c1af206243f1e22500490cbbbd881c28906a647e6",
-    "sections\\abstract.tex": "73d8b27438a24ba92238b6a8252f67dd8ade4f1d6ae13e60edd34666c44326b3",
-    "figures\\disponibilidade.pdf": "287530ae583c9114c91300a2a6e5381e0b4b1b292767e09865c49fb70301b8a7",
-    "figures\\eda_alvo_achados.pdf": "4384efb5131d094ff72f6aa82f20e10289849f55b1c94a37ecb2b65f75222a40",
-    "figures\\importancia.pdf": "dde2f17bebe57de96dfa647b247ba19b5b1fa2876b02e924481b12465a6ade88",
-    "tools\\bootstrap.py": "1c1fcec546a329fd1d05b1317b09487e7c4cdb2123176a4792408b4e1e372e83",
+    "main.tex": "f518ede332d78f941dcc280078391e66ef677391efd120b471edf7e1bce547bb",
+    "references.bib": "76f353d1135461a84cf657f439db321c819a5a8a24bc378725527a5a095aaa79",
+    "submission_config.json": "9fdea765df7635b5855050554d74bafa579121f484bf2802a13062c2df4fe2c6",
+    "sections\\01_introducao.tex": "70b96a88fcd43204b1863ea30bbc7565e2b20e293dd6f2a71fd396abb6526fe3",
+    "sections\\02_dados.tex": "efff9954198501fbbf58b8c65917ff67072ec3bbec9de7129118551d01a5ac7b",
+    "sections\\03_metodologia.tex": "5511f3d31d567371d1e62c0d451da26b837ab2a05111038ce77d29ac4ab2f06e",
+    "sections\\04_resultados.tex": "6177fa8241b8ebb3650884c1fed4442e1866bb4c4dcf40e7d379a9e265fbebd2",
+    "sections\\05_conclusao.tex": "a383f7f323ff3a616d8fb8d727acae0eb4d6d94eddf9f1c02046861831b1daa4",
+    "sections\\06_ia.tex": "d64924f9f0a79da098fd09720a17b9722b17e91a77ce7db9c803612f905da4e9",
+    "sections\\abstract.tex": "ca4938908f5714c61af0e08749a807304ec06ffb02586a3828c40755373ec1cc",
+    "figures\\eda_alvo_achados.pdf": "a3fe3646267e03cb4e98da5ae6bbfb36d32f396c0e6c6b1569c52c2b4746e030",
+    "figures\\importancia.pdf": "a2e7751aac6c7f58c499fd5ac3153049fa59eed7392b62c5c68c8520ee0555c2",
+    "tools\\bootstrap.py": "89cd239ff3b4771deb3b237d6523c601aac856523cb014dd521b7aa4452fc4f8",
     "tools\\build.py": "a4aee73154340c299d93e3863518af720e81a4ffedf3c93dd36e870d28d81fdb",
-    "tools\\figura_disponibilidade.py": "73ff72688c780c4b3417d560e258967535cd477f6185ca6d390ad971187088d8",
     "tools\\figura_eda.py": "62a38a769a439b893cf33cb6ee4eb7447f87f816ddbbec0f4ce461d5ab4519f1",
-    "tools\\gerar_numeros.py": "c3b090a40811aaa5b8afa86dfd3c8b905f22d5cb98f16e1c06b28c3dcf79d36a"
+    "tools\\gerar_numeros.py": "823b121eef05d166c01b7266637948f661a0127b6d4a9bea027d2f5469c776f2"
   },
   "tex_bundle_content_digest": "6ffe055852f8faf66c0acbe1a7fb27f87b869a90bad1204f3bf4d9683f597c7c",
   "source_date_epoch": "1794009600",
   "config": {
     "public_repository_url": "https://github.com/pedroafm06/Data-Mining",
-    "public_repository_checked_utc": "2026-11-11T19:24:03.069293+00:00",
+    "public_repository_checked_utc": "2026-11-16T20:54:49.619894+00:00",
     "results_file": "results/reviewed_results.json",
-    "results_sha256": "83296934c02cb2749c2e4ffa3ee3df849635dd884152532aab6b6be243f1ba71",
+    "results_sha256": "32c463cc3826c773b38d859835db7442794d3d993239f602862fec5ec48a49c9",
     "results_reviewed": true,
     "manuscript_ready": true,
     "random_state": 42
@@ -40,11 +38,11 @@
     "requested_url": "https://github.com/pedroafm06/Data-Mining",
     "checked_url": "https://api.github.com/repos/pedroafm06/Data-Mining",
     "status": 200,
-    "checked_utc": "2026-11-12T19:27:45.136505+00:00"
+    "checked_utc": "2026-11-16T20:54:50.517599+00:00"
   },
   "qa": {
     "pages": 5,
     "layout_reference_warnings": [],
-    "abstract_words": 136
+    "abstract_words": 145
   }
 }
