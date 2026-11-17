@@ -1,15 +1,15 @@
 {
   "mode": "final",
-  "created_utc": "2026-11-17T18:14:20.540513+00:00",
+  "created_utc": "2026-11-17T19:14:49.046612+00:00",
   "pdf": "output/pdf/Artigo_A2_IEEE.pdf",
-  "pdf_sha256": "323827c785827ebf72b89c9894a7875eeb92f937069332e9a898916d56bd86fc",
+  "pdf_sha256": "c063d66722e65dd95eeb98cecbbf73d31093a6cf9fe1f1ab4c238927187241aa",
   "tectonic_sha256": "b52b5a730e2b0b33087304f7720f649603953f270a6b1c88bb031e1ae01f7f9c",
   "provenance_lock_sha256": "83ca88c4f82be59a811b5763d1118bd11d68d25d79c4f213213c9cc6f094b7eb",
   "source_sha256": {
     "main.tex": "1fd7cbb8d54ad92f98ad158dd3073533800548aa6b5a0696f752d35c28bc695c",
     "sections/01_introducao.tex": "66def98855b5a9b9334aa7b9ace81f38358ea0a5b6d736168f8a375754a0d642",
     "sections/02_dados.tex": "84713fa887bbdf6ed2585276b77888cd435519f3ef7bbfbb69b8c656ceca770d",
-    "sections/03_metodologia.tex": "659be395662feed2ef0caf99c384af47b606d7904a46669bc15e253aa84791d9",
+    "sections/03_metodologia.tex": "28abdd6c6b5e4a626a9aef548f59bc5a082855adc772c5f53f3f66264d40ce44",
     "sections/04_resultados.tex": "40b55ef00c7e52eb958ea73c98e8409dd8592aaef42bbc97d781bed67cea1bdd",
     "sections/05_conclusao.tex": "16b136beddbd1e1e3a63bf622fcde9cb307ad9f942cb23267ac69bdd22151d2b",
     "sections/06_ia.tex": "7c946e9c94baedebce100aec8e6fa5948431ab4d871b977d3c594698c2288760",
@@ -40,12 +40,12 @@
   },
   "public_repository_check": {
     "requested_url": "https://github.com/pedroafm06/Data-Mining",
-    "checked_url": "https://raw.githubusercontent.com/pedroafm06/Data-Mining/HEAD/README.md",
+    "checked_url": "https://api.github.com/repos/pedroafm06/Data-Mining",
     "status": 200,
-    "method": "anonymous_public_readme_after_api_rate_limit",
-    "api_status": 403,
-    "response_sha256": "12dd4fbc1eededf4756866ea96d5c599e54590e16f6e624be5062bb43cc44db3",
-    "checked_utc": "2026-11-17T18:14:17.156925+00:00"
+    "method": "anonymous_repository_api",
+    "api_status": null,
+    "response_sha256": "97682a827cbcc8b877a38f55c744d658d0a89b82211543668a05fa23d75d752a",
+    "checked_utc": "2026-11-17T19:14:48.265685+00:00"
   },
   "qa": {
     "pages": 4,

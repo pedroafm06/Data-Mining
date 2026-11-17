@@ -1,131 +1,190 @@
 # Roteiro da apresentação da A2
 
-Tempo de fala previsto de 13 min 55 s, mais 35 s para pausas e transições. Total planejado de 14 min 30 s, com 30 s de margem até o limite de 15 minutos. Confirmar em ensaio.
+22 slides, todos apresentados. Fala com 1889 palavras. A estimativa adota 135 palavras/min, com 45 s de pausas e transições. Duração calculada: 14:46. O tempo real depende de ensaio. As notas técnicas e a arguição são material de estudo, fora da fala planejada.
 
-- Antônio Henrique · 2:45
-- João Vitor · 4:05
-- Mateus Nery · 3:45
-- Pedro Matos · 3:20
+- Antônio Henrique · 3:35
+- João Vitor · 3:56
+- Mateus Nery · 3:12
+- Pedro Matos · 3:18
 
 ## 1. Classificação de registros cardíacos pediátricos
 
-Antônio Henrique · 0:00 a 0:15
+Antônio Henrique · 0:00 a 0:23
 
-Boa tarde. Somos o grupo 3, Antônio, João, Mateus e Pedro. Investigamos como as informações de atendimentos cardíacos pediátricos ajudam a prever a classificação registrada na ficha. Vamos mostrar como preparamos os dados, comparamos os modelos e interpretamos seus acertos e erros.
+Boa tarde. Somos o grupo 3: Antônio Henrique, João Vitor, Mateus Nery e Pedro Matos, do INF da UFG. Apresentamos a segunda avaliação de Mineração de Dados, com o professor Rogério Salvini, neste semestre. O estudo de registros cardíacos pediátricos percorre seleção, limpeza, transformação, comparação dos modelos e interpretação dos resultados.
 
 Notas de apoio, para consulta e arguição
 
 - A resposta prevista é o rótulo registrado NORMAL X ANORMAL. A tarefa não estabelece diagnóstico clínico independente nem prediz desfecho futuro.
 - A A2 apresenta o KDD completo: seleção, limpeza, transformação, mineração e interpretação. As melhorias pertencem à A2; a A1 entregue permanece preservada.
 
-## 2. A base e o objetivo
+## 2. Problema e dados
 
-Antônio Henrique · 0:15 a 1:05
+Antônio Henrique · 0:23 a 1:01
 
-A base vem de atendimentos no Real Hospital Português, em Recife. Cada linha reúne informações como peso, idade e frequência cardíaca. O arquivo original tem 12.873 registros e 21 campos. Em 11.704, a classificação Normal ou Anormal está preenchida. Separamos 2.342 fichas do teste histórico já examinado e uma por equivalência. Nossa avaliação final usa 9.361 fichas: 5.394 Normal e 3.967 Anormal. No treinamento, o modelo recebe as medidas e o rótulo de exemplos conhecidos. Para avaliar, escondemos o rótulo de outras fichas e verificamos se a previsão coincide com ele. A pergunta é quanto as informações escolhidas ajudam a reproduzir essa classificação registrada.
-
-Notas de apoio, para consulta e arguição
-
-- Contagem exata: 12.873 originais = 11.704 rotulados + 1.169 sem rótulo. Entre os rotulados, 11.704 = 9.361 desenvolvimento + 2.342 teste histórico + 1 retirado por equivalência candidata com o teste.
-- As 2.342 fichas do teste histórico já foram examinadas em etapas anteriores e não entram nos números comparativos finais desta apresentação. Uma linha foi retirada por equivalência candidata com esse teste.
-- As unidades comprovadas são registros ou fichas. A base não permite afirmar que cada linha corresponde a um paciente distinto.
-- Anormal representa 42,38% do desenvolvimento. A referência sempre Normal acerta 57,62% no total, mas não reconhece nenhum Anormal.
-- A A1 removeu 987 cópias exatas ao ignorar ID, incluindo 235 linhas rotuladas. A A2 preserva as linhas e trata sua dependência por agrupamento: 11.469 rotulados na A1 e 11.704 na A2.
-
-## 3. Seleção das entradas
-
-Antônio Henrique · 1:05 a 1:55
-
-Escolhemos oito entradas principais: idade, sexo, peso, altura, IMC, pressão sistólica e diastólica e frequência cardíaca. ID só identifica o registro e convênio é administrativo, por isso ficaram fora. As datas ajudam a conferir a idade. Também excluímos os motivos de encaminhamento: um deles já informa cardiopatia estabelecida e pode antecipar o rótulo. Esse risco é vazamento de informação. Para testar a dependência das entradas, comparamos ainda quatro campos básicos e um cenário exploratório com treze, cujos resultados veremos depois.
+A base UCMF reúne 12.873 fichas de cardiologia pediátrica do Real Hospital Português, em Recife, com 21 atributos. A pergunta é se as medidas registradas ajudam a prever a classificação Normal ou Anormal. É uma tarefa de classificação supervisionada: aprendemos com fichas cuja resposta já está registrada. Consideramos Anormal a classe positiva, que queremos reconhecer. Estamos prevendo esse registro, sem afirmar que o modelo confirme um diagnóstico independente. Também falamos em fichas, pois a base não comprova que cada linha corresponda a uma criança diferente.
 
 Notas de apoio, para consulta e arguição
 
-- FISIO8: Peso, Altura, IMC, IDADE, PA SISTOLICA, PA DIASTOLICA, FC e SEXO. É o cenário principal sob hipótese de disponibilidade dessas informações e de que não tenham definido o rótulo de maneira que invalide a previsão pretendida; não está comprovadamente livre de vazamento.
-- STRICT4: Peso, Altura, IDADE e SEXO. Reduz a dependência de medidas cardiovasculares e retira a redundância do IMC com peso e altura.
-- CLINICO: FISIO8 mais PPA, HDA1, SOPRO, B2 e PULSOS. PPA é uma classificação derivada da pressão; HDA1 registra sintomas. É exploratório pela incerteza sobre coleta e participação no rótulo.
-- MOTIVO1 e MOTIVO2 ficam fora dos três cenários por conteúdo diagnóstico explícito. Na origem, MOTIVO1 contém 1.158 ocorrências de Cardiopatia já estabelecida. A decisão considera proveniência, não apenas uma pontuação de associação.
-- ID serve à rastreabilidade. Convênio pode refletir acesso e encaminhamento. Atendimento e DN auxiliam a idade e ficam fora das entradas. HDA2 fica fora por baixa cobertura e origem incerta.
-- Mesmo um achado coletado antes do laudo pode integrar o critério que define o rótulo. A base não esclarece essa construção.
+- A base contém 12.873 registros e 21 atributos originais. Não confundir registros, atendimentos e pacientes; a identidade longitudinal não foi confirmada.
+- Classificação supervisionada usa um alvo conhecido no treino. Normal=0 e Anormal=1; positivo é a convenção da classe, não um juízo de valor.
+- KDD significa descoberta de conhecimento em bases de dados: a mineração é a etapa dos modelos, inserida em seleção, limpeza, transformação e interpretação.
 
-## 4. Limpeza dos dados
+## 3. Quais fichas entraram na avaliação
 
-Antônio Henrique · 1:55 a 2:45
+Antônio Henrique · 1:01 a 1:38
 
-Na limpeza, preservamos a fonte e registramos as alterações. Padronizamos grafias e formatos numéricos. Conferimos datas, idade e coerência entre medidas. Este é um exemplo real: uma ficha traz frequência cardíaca de 1.120 batimentos por minuto. Pela regra de curadoria adotada, valores acima de 500 são marcados como suspeitos e tratados como ausentes. Não tentamos adivinhar qual dígito estaria errado. Mantemos as outras informações aproveitáveis da ficha. Também verificamos contradições entre as pressões e entre peso e altura. Depois da limpeza, cada medida de pressão estava indisponível em aproximadamente 56% das fichas.
+Preservamos a fonte original. Das 12.873 fichas, 11.704 têm rótulo; as outras 1.169 não permitem calcular acertos e erros. Retiramos da nova comparação as 2.342 do teste histórico, já examinado antes, e uma ficha com possível equivalência com esse teste. Restaram 9.361: 5.394 Normal e 3.967 Anormal. As repetições foram preservadas e reunidas em 9.166 grupos candidatos. O objetivo é impedir que entradas idênticas apareçam dos dois lados da avaliação. Esses grupos aproximam dependências entre registros, mas não são identidades de pacientes confirmadas.
 
 Notas de apoio, para consulta e arguição
 
-- Exemplo rastreável local: ID 248 em dados/raw/UCMF_raw.csv, pertencente ao desenvolvimento em artifacts/a2_mining/particoes_modelagem.csv. FC bruta 1120, Peso 5,9 kg e Altura 59 cm. Não exibir ID nem datas no slide.
-- A leitura numérica inicial preserva FC=1120. A máscara posterior, em model_frame/quality_masks, produz ausência para FC>500. Interpretação do texto e máscara de modelagem são etapas distintas.
-- 500 é uma hipótese explícita de curadoria desta base, não um máximo fisiológico estabelecido. A ficha não foi descartada e não afirmamos que o valor verdadeiro seria 112.
-- Outras regras: Peso<1 kg; altura fora do envelope com exceção para comprimentos curtos compatíveis com idade inicial; pares de Peso/Altura que implicam IMC fora de 5 a 100; pressão sistólica não superior à diastólica. São hipóteses de qualidade, não faixas diagnósticas.
-- Idade usa diferenças de datas quando a interpretação é coerente com a coorte. Séculos absolutos ambíguos não recebem uma escolha inventada. Procedência e incerteza são mantidas.
-- Indisponibilidades após limpeza no desenvolvimento: pressão sistólica 55,96% e diastólica 56,03%, antes do preenchimento.
+- 12.873=11.704 rotulados+1.169 sem rótulo. 11.704−2.342−1=9.361 registros de desenvolvimento. 5.394 Normal+3.967 Anormal=9.361. A proporção Anormal é 42,37795%.
+- O teste histórico já havia sido inspecionado e não foi reavaliado na comparação final. Não o chamar de teste final independente.
+- Os 9.166 grupos são componentes candidatos. A união incorpora coincidências em campos brutos, excluindo ID e alvo. Nenhuma assinatura exata atravessa os folds externos finais, mas isso não prova separação perfeita por paciente.
+- A linha em quarentena foi retirada por equivalência candidata com o teste histórico. As 1.169 linhas sem rótulo não compõem o treino/avaliação supervisionados, mas não foram destruídas na fonte.
 
-## 5. Preenchimento e atributos derivados
+## 4. Seleção das variáveis
 
-João Vitor · 2:45 a 3:40
+Antônio Henrique · 1:38 a 2:21
 
-Depois da limpeza, precisamos preparar os valores que faltam. Comparamos a mediana geral com medianas por faixa etária. Mediana é o valor central entre as medidas conhecidas. No ajuste final da floresta, foi selecionada a geral. Para frequência cardíaca, ela vale 92. Assim, a ausência do exemplo recebe 92, acompanhada de um indicador de preenchimento igual a um. Isso distingue um valor estimado de uma medida observada. Também derivamos o IMC quando peso e altura observados são utilizáveis. Nesta outra ficha real, dividimos os cinco quilos pela altura em metros ao quadrado: 0,51 ao quadrado. O IMC resultante é 19,22.
+O conjunto principal tem oito entradas: idade, sexo, peso, altura, índice de massa corporal, pressões sistólica e diastólica e frequência cardíaca. Excluímos os motivos do encaminhamento porque antecipam a resposta, como uma cardiopatia já estabelecida: esse é o risco de vazamento. HDA2, o segundo campo de histórico da doença, sai pela baixa cobertura e origem temporal incerta. ID e convênio não descrevem o estado fisiológico; as datas servem para calcular idade, sem entrar diretamente. Sopro, segundo som cardíaco, pulsos, classificação da pressão e sintomas ficam em uma comparação exploratória, pois sua relação com a rotulagem é incerta.
 
 Notas de apoio, para consulta e arguição
 
-- 92 bpm é a mediana de FC aprendida no ajuste final da floresta FISIO8 nas 9.361 linhas de desenvolvimento. É exemplo da transformação final, não uma mediana única aplicada antes da validação. Cada treino externo/interno aprende sua própria mediana.
-- O exemplo continua o campo FC do registro 248: 1120 bruto → ausente pela curadoria → 92 no ajuste final, com FC__imputado=1. Medida originalmente aproveitável mantém indicador 0.
-- A configuração final da floresta usa imputation=global. Não afirmar que todos os modelos ou todos os folds selecionaram a mediana global.
-- A alternativa por idade usa faixas fixas e exige pelo menos 30 valores observados no treino. Na falta de suporte ou de idade, recorre à global. A opção é escolhida na validação interna.
-- Exemplo IMC, ID 1 do desenvolvimento: Peso=5 kg, Altura=51 cm; 5/(0,51²)=19,223375624759708. O histórico é 19,0; a diferença pode envolver arredondamento e não é um erro comprovado.
-- IMC é recalculado apenas com insumos observados utilizáveis. Não recalculamos depois de preencher peso ou altura. Quando a recomposição é inviável, há preservação controlada do histórico ou ausência.
+- FISIO8 contém Peso, Altura, IMC, IDADE, PA SISTOLICA, PA DIASTOLICA, FC e SEXO. O alvo NORMAL X ANORMAL nunca é preditor.
+- MOTIVO1/MOTIVO2 têm conteúdo que pode antecipar o laudo; ficam fora de todos os cenários. HDA2 fica fora pela incerteza temporal e escassa cobertura: 12.466 das 12.873 linhas estão vazias na origem. Baixa cobertura, sozinha, não prova vazamento.
+- HDA significa histórico da doença no dicionário fornecido. Não inventar a expansão história da doença atual.
+- ID identifica o registro, convênio é administrativo e datas brutas podem refletir coleta ou funcionar como quase identificadores. O contexto/tempo da obtenção das variáveis é parte da seleção, não apenas a associação estatística.
+- PPA, SOPRO, B2, PULSOS e HDA1 são adicionados somente no cenário exploratório CLINICO. FISIO8 não é comprovadamente livre de qualquer incorporação no rótulo.
 
-## 6. Representação para os modelos
+## 5. Limpeza: regras e exemplos
 
-João Vitor · 3:40 a 4:25
+Antônio Henrique · 2:21 a 2:58
 
-Também transformamos a representação, conforme o modelo. Para sexo, usamos colunas de zero e um: F ativa a coluna F com um e deixa M com zero. Para M, fazemos o contrário. Essa codificação evita criar uma ordem numérica entre categorias. Na regressão logística, padronizamos as medidas para expressar quanto cada valor se afasta da média do treino. Comparamos ainda aplicar um logaritmo ao peso antes da padronização, para comprimir valores altos. Na árvore e na floresta, mantivemos as unidades originais. Essas transformações são aprendidas no treinamento e depois aplicadas às fichas avaliadas.
-
-Notas de apoio, para consulta e arguição
-
-- O vocabulário de SEXO no ajuste final tem F, M, __AUSENTE__ e __DESCONHECIDO__. Há uma coluna one-hot para cada categoria. Não se trata de codificar F=0 e M=1 em uma única coluna ordinal.
-- A ficha real do ID 248 tem M: SEXO__000=0 para F e SEXO__001=1 para M; os marcadores de ausência e desconhecido também ficam em 0.
-- Z-score=(valor−média do treino)/desvio-padrão do treino. Padronizar coloca as medidas em escalas comparáveis antes da combinação por pesos da logística regularizada, evitando que a unidade domine a penalização.
-- A alternativa usa log(1+Peso), seguido de padronização. Comprime a cauda de valores altos do peso; não é aplicada a todos os atributos.
-- Indicadores de preenchimento e colunas one-hot permanecem binários, sem padronização. Média, desvio, medianas e vocabulário vêm exclusivamente de cada treino. A floresta final utiliza representation=units.
-
-## 7. Três maneiras de classificar
-
-João Vitor · 4:25 a 5:30
-
-Comparamos uma árvore para acompanhar as decisões, uma logística como referência mais simples e uma floresta para permitir relações mais variadas. A árvore separa as fichas com perguntas. No ajuste final, começa com peso até 8,85 quilos. O critério Gini prefere grupos menos misturados. A logística aprende contribuições de cada entrada para estimar a chance de Anormal. A floresta faz a média das estimativas de 150 árvores, treinadas com amostras sorteadas e parte das entradas. Para transformar a estimativa em classe, fixamos o corte de 0,5. Também comparamos uma referência que responde Normal para todas as fichas.
+Primeiro padronizamos grafias, números e marcadores de ausência. Depois conferimos datas, coerência entre medidas e valores suspeitos. Na pressão, sistólica menor ou igual à diastólica leva a marcar ambas como indisponíveis, sem presumir que foram trocadas. Neste exemplo real, a frequência cardíaca 1.120 supera a regra de suspeita de 500 batimentos por minuto. Marcamos a célula como ausente e conservamos o restante da ficha. Não corrigimos para 112 porque não sabemos o valor verdadeiro. São regras de curadoria declaradas, não limites clínicos universais.
 
 Notas de apoio, para consulta e arguição
 
-- Peso≤8,85 kg vem da árvore final FISIO8 ajustada ao desenvolvimento completo. O ramo de menor peso examina em seguida IDADE≤0,03830376 ano, aproximadamente 14 dias; o outro ramo examina FC≤98,5 bpm. São ilustrações, não critérios clínicos nem validação de uma regra isolada.
-- A floresta usa 150 árvores em todas as configurações. Combina suas probabilidades por média. O limiar de classificação é 0,5, fixado para a comparação e não escolhido na avaliação externa.
-- A grade compara pesos uniformes com class_weight=balanced, que aumenta a contribuição relativa da classe menos frequente no treino. Não cria fichas novas nem iguala contagens.
-- A logística é regularizada: a busca compara a intensidade da restrição para limitar coeficientes excessivos. Na árvore e na floresta variam ajustes como profundidade e folha mínima.
-- Gini mede a mistura das classes num grupo. Uma divisão útil reduz a impureza ponderada dos grupos filhos. O exemplo de corte é descritivo do ajuste final, sem validade como regra clínica.
+- As regras são determinísticas por registro; não aprendem medianas. O arquivo bruto é preservado e cada mudança tem origem/regra documentadas.
+- FC 1.120 é um exemplo real no desenvolvimento. O gatilho FC>500 é uma hipótese de curadoria, não um máximo fisiológico demonstrado. Não afirmar que o verdadeiro valor era 112.
+- Quando PAS≤PAD, ambas são mascaradas. Não inverter automaticamente as colunas porque não se conhece a origem da inconsistência.
+- A política mantém extremos potencialmente reais: pesos altos não são automaticamente excluídos; alturas de 30 a menos de 40 cm podem ser preservadas em idade menor que três meses ou desconhecida; PAD positiva baixa não é descartada só por ser baixa.
+- Nenhuma conclusão de diagnóstico pode ser extraída das máscaras de qualidade. Seu objetivo é evitar alimentar os modelos com medidas cuja interpretação não pode ser sustentada.
 
-## 8. Escolha dos ajustes e avaliação
+## 6. Dados ausentes e preenchimento
 
-João Vitor · 5:30 a 6:50
+Antônio Henrique · 2:58 a 3:35
 
-Precisamos separar escolher os ajustes de medir como o procedimento funciona em outras fichas. Dividimos o desenvolvimento em cinco partes. Em cada rodada, reservamos uma para avaliar e usamos quatro para treinar. Dentro dessas quatro, fazemos outra divisão em três partes para escolher a configuração de cada família. A grade tem 105 configurações por cenário, contando modelos e referência. Depois de escolher, treinamos novamente nas quatro partes e prevemos a quinta. Repetimos até cada ficha ser avaliada uma vez, sempre quando estava reservada. Os modelos usam as mesmas divisões. Fichas com entradas brutas idênticas ficam juntas para evitar cópias nos dois lados. Medianas, categorias e escalas também são aprendidas só no treino. Assim, a informação das fichas avaliadas não decide esses ajustes.
+Depois da limpeza, cerca de 56% das pressões e 34,6% dos índices de massa corporal estavam indisponíveis. Apagar fichas incompletas perderia muita informação. Comparamos a mediana global, valor central menos influenciado por extremos, com a mediana da faixa etária, para considerar o crescimento. Exigimos 30 observações por faixa; sem suporte, usamos a global. No ajuste final da floresta, frequência ausente recebe 92 e indicador de preenchimento um. Essa mediana vem do treino; cada divisão da validação aprende a sua, sem usar as fichas avaliadas.
 
 Notas de apoio, para consulta e arguição
 
-- Validação cruzada aninhada: cinco folds externos e três internos por rodada externa; estratificada por rótulo e agrupada por componentes candidatos. A seleção interna é pela média de BA, separadamente por família. Empate numérico segue a ordem fixa da grade.
-- 105 configurações por cenário = 48 árvores + 32 logísticas + 24 florestas + 1 referência majoritária. A imputação integra a busca. Não são 105 ajustes apenas da floresta nem escolhidos nas fichas externas.
-- Os grupos unem agrupamentos históricos quando as linhas brutas coincidem em todos os campos, excluindo ID e alvo. Há 9.166 componentes candidatos para 9.361 registros; a base não confirma identidade longitudinal de pacientes.
-- A revisão corrigiu seis conjuntos de entradas idênticas, somando 118 registros, que cruzavam folds no desenho anterior. Nenhum desses conjuntos cruza os folds externos da nova execução.
-- As 2.342 fichas do teste histórico já foram examinadas e ficam fora da comparação final. Apresentamos previsões externas da validação cruzada no desenvolvimento.
-- O desenho separa a seleção de parâmetros das previsões externas, mas não desfaz decisões exploratórias anteriores sobre a base. A avaliação permanece interna e depende dos grupos adotados.
-- Sementes: estimadores estocásticos 42; cortes externos 743; cortes internos 811+k para k de 0 a 4; ajuste final 43. Transformações aprendidas são reajustadas dentro de cada treino.
+- Após limpeza e antes de preencher, PAS=55,9556%, PAD=56,0303% e IMC=34,5690% indisponíveis no desenvolvimento. Arredondamento apresentado: 56%, 56% e 34,6%.
+- Mediana global e por faixa etária foram comparadas. Faixas fixas: 0, 0,25, 0,5, 1, 2, 5, 10, 15 e 20 anos; idade no limite inferior pertence à faixa que começa nele. A faixa exige pelo menos 30 valores observados de treino por variável.
+- Sem suporte suficiente ou idade disponível, a imputação por idade retorna à mediana global. Ela se aplica a Peso, Altura, IMC e FC, quando esses atributos pertencem ao cenário.
+- 92 é a mediana de FC no ajuste final da floresta sobre todo o desenvolvimento. Cada fold aprende sua própria mediana. Indicador1 significa ausente ou mascarado; uma FC observada92 recebe indicador0.
+- A mediana resiste melhor a extremos do que a média, mas reduz variação. Indicadores preservam a distinção estimado/observado e podem também carregar padrões da coleta; isso foi investigado, sem prova de inocuidade.
 
-## 9. Acurácia balanceada
+## 7. Idade e IMC: atributos derivados
 
-Mateus Nery · 6:50 a 7:40
+João Vitor · 3:35 a 4:16
 
-Para comparar, usamos a acurácia balanceada. A ideia é dar a mesma importância às duas classes. A especificidade mede quanto acertamos entre os registros Normal. A sensibilidade mede quanto reconhecemos entre os Anormal. Tiramos a média desses dois percentuais. Vejam a referência que sempre responde Normal: ela acerta todos os Normal e nenhum Anormal. A média de cem e zero é 50%. No total de fichas, essa mesma referência já acerta 57,62%, porque há mais Normal. Por isso, olhar somente o acerto total esconderia a falha completa em reconhecer Anormal.
+Para idade, usamos a diferença entre nascimento e atendimento quando a interpretação é coerente; datas ambíguas exigem analisar as durações possíveis e a informação original. Mantivemos a idade contínua para preservar diferenças importantes no primeiro ano. Para o índice de massa corporal, ou IMC, usamos peso dividido pela altura em metros ao quadrado. Nesta ficha real, cinco quilos e 51 centímetros, ou 0,51 metro, produzem 19,22 quilos por metro quadrado. A reconstrução usa medidas observadas aproveitáveis, nunca peso e altura preenchidos. Assim, não apresentamos uma razão entre estimativas como se fosse observada.
+
+Notas de apoio, para consulta e arguição
+
+- A idade é calculada por calendário na data do atendimento, não na data atual. Anos com dois dígitos preservam a ambiguidade do século: a idade relativa pode ser resolvida sob 0≤idade<20 quando durações candidatas diferem no máximo um dia.
+- Prioridade: duração de datas coerentes; idade literal explícita em DN; idade numérica original válida como fallback não verificado; caso contrário, ausente. As origens são registradas.
+- IMC=Peso/(Altura/100)². Exemplo real: 5/(51/100)²=19,2233756 kg/m². O valor histórico19,0 pode refletir arredondamento; não foi provado ser erro de digitação.
+- A reconstrução usa pais observados e retidos. Há preservação controlada do IMC histórico quando reconstruir é inviável. O IMC não é recalculado após imputar Peso e Altura.
+- Idade contínua evita perder resolução no início da vida. As faixas da imputação não substituem IDADE contínua nos modelos.
+
+## 8. Representação para os modelos
+
+João Vitor · 4:16 a 4:55
+
+Transformamos categorias em colunas indicadoras, a codificação one-hot. Para sexo F, a coluna F recebe um e M recebe zero; para M, ocorre o inverso. Isso evita impor uma ordem numérica às categorias. Na logística, comparamos padronizar as medidas, subtraindo a média e dividindo pelo desvio-padrão, com aplicar antes o logaritmo de um mais o peso. A padronização torna as escalas comparáveis para a penalização; o logaritmo comprime diferenças entre pesos altos. Árvore e floresta mantêm unidades originais, pois decidem por cortes. Tudo é aprendido somente no treino.
+
+Notas de apoio, para consulta e arguição
+
+- One-hot mantém categorias separadas sem supor ordenação ou distâncias numéricas. Além de F/M, o transformador reserva colunas distintas para ausência e categoria não vista no treino.
+- Padronização z=(x−média do treino)/desvio-padrão do treino, com ddof0. Se o desvio for zero, o divisor usado é1. Aplica-se somente a medidas contínuas; indicadores e one-hot continuam0/1.
+- O logaritmo testado é log(1+Peso), não o logaritmo de todas as variáveis. Depois são padronizadas as medidas contínuas. A compressão da cauda pode ajudar a forma da relação; não é necessária por uma exigência de normalidade da logística.
+- Na logística regularizada, escala afeta a penalização dos coeficientes; padronizar torna essa comparação mais coerente. Árvores dependem da ordenação/cortes e usam unidades originais.
+- A logística final selecionou log do Peso e padronização, com imputação por faixa. A floresta final selecionou unidades e mediana global. Não transferir automaticamente essa escolha a todos os folds.
+
+## 9. Por que comparar três modelos
+
+João Vitor · 4:55 a 5:33
+
+Comparamos três modelos porque eles representam relações de maneiras diferentes. A árvore faz perguntas sucessivas e permite acompanhar o caminho da decisão. A regressão logística combina contribuições das variáveis em uma relação mais simples. A floresta combina muitas árvores e consegue representar interações mais variadas. Essa diversidade permite avaliar se maior complexidade traz ganho, em vez de escolher o modelo mais sofisticado por princípio. Acrescentamos uma referência que sempre prevê a classe majoritária, Normal: um modelo precisa superar essa estratégia para mostrar utilidade na comparação.
+
+Notas de apoio, para consulta e arguição
+
+- Árvore oferece uma sequência inspecionável; logística regularizada fornece uma relação aditiva no escore; floresta combina árvores e pode captar interações e não linearidades. Isso justifica a diversidade de famílias testadas.
+- A referência majoritária é DummyClassifier(strategy=most_frequent). Normal é a classe mais frequente nos treinos usados. A referência não usa as medidas para escolher a classe.
+- A complexidade não garante melhor generalização. A comparação usa as mesmas partições e métricas; o ganho observado da floresta sobre a logística é pequeno.
+
+## 10. Como a árvore decide
+
+João Vitor · 5:33 a 6:11
+
+A árvore final começa perguntando se o peso é menor ou igual a 8,85 quilos. No ramo dos menores pesos, aparece um corte de idade próximo de 14 dias; no outro, um corte de frequência cardíaca em 98,5 batimentos por minuto. São perguntas aprendidas dos dados, não regras clínicas. O critério Gini procura separar grupos menos misturados entre Normal e Anormal. Limitar profundidade e exigir um número mínimo de fichas por folha, o grupo final da árvore, restringe divisões muito específicas que poderiam memorizar o treino.
+
+Notas de apoio, para consulta e arguição
+
+- A árvore FISIO8 ajustada ao desenvolvimento escolheu Gini, max_depth6, min_samples_leaf50, pesos balanceados e imputação por idade. Os primeiros cortes são exemplos desse ajuste final, não o modelo de todas as rodadas.
+- Primeiro corte Peso≤8,85kg. Nesse ramo, IDADE≤0,03830376ano, aproximadamente14dias. No ramo Peso>8,85kg, FC≤98,5bpm. Os caminhos continuam: não atribuir classe definitiva só por essas primeiras perguntas.
+- Gini=1−Σp_classe²; as proporções respeitam os pesos usados no ajuste. Um nó só de uma classe tem impureza0. A escolha da divisão busca reduzir a impureza ponderada dos grupos.
+- Profundidade máxima e mínimo de amostras por folha são controles prévios de complexidade. A grade final compara esses controles; não dizer que usou poda posterior por custo-complexidade nessa execução.
+
+## 11. Como a logística e a floresta preveem
+
+João Vitor · 6:11 a 6:51
+
+Na logística, cada entrada contribui para um escore, convertido em uma probabilidade estimada de Anormal. A regularização reduz coeficientes excessivos, ajudando a controlar ajustes muito específicos. Na floresta, 150 árvores são treinadas com amostras e escolhas de atributos variadas; suas probabilidades são combinadas pela média. Isso reduz a dependência de uma única árvore. Nos dois casos usamos o mesmo corte fixo: probabilidade a partir de 0,5 vira Anormal, abaixo disso vira Normal. A comparação avalia os erros gerados por esse corte; ele não foi escolhido para uma aplicação clínica.
+
+Notas de apoio, para consulta e arguição
+
+- A logística calcula um escore linear nas entradas transformadas e aplica a função logística, produzindo um valor entre0e1. A penalizaçãoL2 restringe coeficientes; C menor significa penalização mais forte.
+- RandomForestClassifier usa bootstrap por árvore e subconjuntos de atributos nas divisões; a previsão de probabilidade é a média das probabilidades das árvores. Não resumir o comportamento deste código como voto majoritário de rótulos.
+- 150 árvores é um valor fixo na grade; não foi demonstrado ser o ótimo. Limiar0,5 também é fixo: p≥0,5→Anormal, p<0,5→Normal.
+- Os escores não foram demonstrados como probabilidades clínicas calibradas fora da amostra. Pesos balanceados e possíveis alterações de prevalência importam para essa interpretação.
+
+## 12. Validação sem misturar treino e avaliação
+
+João Vitor · 6:51 a 7:31
+
+Usamos validação cruzada aninhada. Dividimos os registros em cinco partes e repetimos cinco rodadas: quatro partes servem para treinar e uma para avaliar. Dentro do treino, outras três divisões escolhem os ajustes. Depois, o procedimento escolhido prevê a parte externa, que não participou dessa escolha. Assim, cada ficha recebe uma previsão externa. As divisões são iguais para comparar os modelos e preservam aproximadamente as proporções das classes. Fichas do mesmo grupo ficam juntas. Preenchimento, categorias e escalas também são aprendidos dentro de cada treino, evitando usar a avaliação na preparação.
+
+Notas de apoio, para consulta e arguição
+
+- Cinco folds externos e três internos. A seleção ocorre por família e cenário dentro de cada treino externo, usando média de BA interna. O vencedor é reajustado no treino externo para prever o fold reservado.
+- Toda ficha recebe uma previsão externa. As métricas finais agregam essas previsões; não são o desempenho de treino do modelo final ajustado ao desenvolvimento inteiro.
+- Grupos candidatos ficam indivisíveis e a estratificação aproxima a proporção das classes. Comparações usam os mesmos cortes. A validação aninhada separa ajuste de avaliação interna, mas não substitui nova coorte.
+- Sementes:42 nos estimadores,743 nas divisões externas,811+k nas internas do foldk e43 na seleção final. Fixar sementes torna a execução reproduzível, não prova estabilidade sob todo sorteio.
+- As regras fixas de curadoria têm histórico de exploração da coorte. Mesmo com parâmetros aprendidos só no treino, não se deve chamar todo o desenvolvimento de independente de qualquer decisão anterior.
+
+## 13. Quais alternativas foram comparadas
+
+Mateus Nery · 7:31 a 8:09
+
+Foram 105 configurações por cenário: 48 árvores, 32 logísticas, 24 florestas e uma referência. Variamos critério, profundidade, mínimo de fichas por folha, pesos das classes e preenchimento; na logística também regularização e representação. Pesos balanceados aumentam a contribuição da classe menos frequente. A escolha usa a melhor acurácia balanceada interna por família. No ajuste final da floresta, ficaram 150 árvores, mínimo de 30 fichas por folha, pesos balanceados, mediana global e unidades originais. Esses parâmetros finais não precisam ser os escolhidos em todas as rodadas externas.
+
+Notas de apoio, para consulta e arguição
+
+- 48 árvores=2 critérios(Gini/entropia)×3 profundidades(2/4/6)×2 folhas(20/50)×2 pesos×2 imputações.
+- 32 logísticas=4 valoresC(0,01/0,1/1/10)×2 pesos×2 imputações×2 representações(padronizada/logPeso+padronizada).
+- 24 florestas=3 profundidades(4/8/sem limite)×2 folhas(10/30)×2 pesos×2 imputações;150 árvores fixas. Soma com referência1:105 por cenário.
+- Ajuste final FISIO8/floresta:150 árvores, profundidade sem limite explícito, folha mínima30, class_weightbalanced, imputação global e unidades. A folha mínima restringe crescimento mesmo sem teto explícito de profundidade.
+- Pesos balanced são inversamente proporcionais à frequência de classe do treino. Não é duplicação de linhas nem aplicação de SMOTE; essa grade não inclui reamostragem.
+- Em empate numérico na média interna de BA, prevalece a ordem fixa da grade. A busca é finita e não demonstra ótimo universal.
+
+## 14. Por que usar acurácia balanceada
+
+Mateus Nery · 8:09 a 8:47
+
+A acurácia comum é a proporção total de acertos. Como Normal é mais frequente, prever sempre Normal já acerta 57,62% das fichas, mas não reconhece nenhum Anormal. Por isso usamos acurácia balanceada: a média entre especificidade, a proporção de Normal reconhecidos, e sensibilidade, a proporção de Anormal reconhecidos. Para essa referência, temos 100% de especificidade e zero de sensibilidade. A média é 50%. Assim, as duas classes têm o mesmo peso na comparação, e uma pontuação aparentemente razoável não esconde o abandono completo de uma delas.
 
 Notas de apoio, para consulta e arguição
 
@@ -133,11 +192,11 @@ Notas de apoio, para consulta e arguição
 - A referência é majoritária: 5.394/9.361=57,622% de acurácia total; sensibilidade 0%, especificidade 100%, BA 50%.
 - A BA não resume todo o impacto de erros. Por isso mostramos a matriz e taxas separadas. O trabalho relata ainda precisão, F1, precisão média e outras métricas.
 
-## 10. Comparação dos modelos
+## 15. Comparação dos modelos
 
-Mateus Nery · 7:40 a 8:40
+Mateus Nery · 8:47 a 9:24
 
-Com as oito entradas principais, a referência fica em 50% de acurácia balanceada. A árvore chega a 61,69%; a logística, a 62,03%; e a floresta, a 63,27%. Os três modelos superam a referência. A floresta tem a maior pontuação, mas a vantagem sobre a logística é pequena: 1,24 ponto percentual. No ajuste final, exigimos pelo menos trinta fichas em cada folha, para limitar divisões muito específicas. Essa configuração foi escolhida na avaliação interna. Os números desta tabela vêm das previsões externas, quando cada ficha estava reservada. Para entender os 63,27%, vamos separar os acertos e erros por classe.
+Com as oito entradas principais, a referência alcançou 50% de acurácia balanceada; a árvore, 61,69%; a logística, 62,03%; e a floresta, 63,27%. A floresta teve o melhor resultado observado, mas o ganho sobre a logística foi pequeno: 1,24 ponto percentual. Reamostramos os grupos e recalculamos essa diferença, obtendo um intervalo descritivo de 95% entre 0,43 e 2,01 pontos. Isso considera as previsões já produzidas; não inclui treinar tudo novamente nem testar outra população. Portanto, há ganho interno, sem demonstrar uma vantagem universal da floresta.
 
 Notas de apoio, para consulta e arguição
 
@@ -148,11 +207,11 @@ Notas de apoio, para consulta e arguição
 - A configuração final é escolhida por validação interna no desenvolvimento. As métricas das barras vêm dos modelos das rodadas externas, não do modelo final treinado em todo o desenvolvimento. Não usar training_metrics_descriptive como desempenho de avaliação.
 - Não afirmar que todas as famílias são estatisticamente diferentes entre si. A comparação destacada é floresta versus logística, com vantagem pequena nesta avaliação.
 
-## 11. Acertos e erros da floresta
+## 16. Acertos e erros da floresta
 
-Mateus Nery · 8:40 a 9:50
+Mateus Nery · 9:24 a 10:03
 
-Nesta tabela, as linhas mostram o rótulo registrado e as colunas mostram a previsão. Começando pelos Normal: a floresta reconhece 3.687 e classifica 1.707 como Anormal. Entre os Anormal, reconhece 2.308, mas classifica 1.659 como Normal. Em uma escala de cem, significa reconhecer cerca de 58 de cada cem Anormal e deixar aproximadamente 42 passarem. Entre os Normal, cerca de 32 de cada cem recebem previsão Anormal. A média dos acertos nas duas classes, 58,18% e 68,35%, produz os 63,27% de acurácia balanceada. A floresta melhora a referência, mas ainda perde uma parcela grande dos registros Anormal. Essa é a principal limitação do desempenho observado.
+A matriz mostra os acertos e erros das previsões externas. Entre as fichas Normal, a floresta acertou 3.687 e chamou 1.707 de Anormal. Entre as Anormal, reconheceu 2.308 e deixou passar 1.659 como Normal. Estes últimos são falsos negativos. A sensibilidade foi 58,18%, e a especificidade, 68,35%. Em linguagem direta, aproximadamente 42 de cada cem Anormal passaram como Normal. A média balanceada resume o desempenho, mas essas quantidades deixam claro que muitos erros permanecem e que o resultado não sustenta apresentar o modelo como uma triagem validada.
 
 Notas de apoio, para consulta e arguição
 
@@ -162,11 +221,11 @@ Notas de apoio, para consulta e arguição
 - Entre Anormal com idade conhecida, a mediana é 6,51 anos nos falsos negativos e 0,59 ano nos verdadeiros positivos. É comparação descritiva, não taxa de erro por faixa etária nem causalidade.
 - Falso negativo significa Anormal no rótulo e Normal na previsão. Não conhecemos a gravidade clínica ou o desfecho desses registros.
 
-## 12. Métricas que complementam a comparação
+## 17. O que as outras métricas acrescentam
 
-Mateus Nery · 9:50 a 10:35
+Mateus Nery · 10:03 a 10:43
 
-A matriz também permite calcular a precisão. Entre as fichas previstas como Anormal, 57,48% tinham esse rótulo. Isso usa um denominador diferente da sensibilidade, que olha todos os Anormal reais. O F1 combina precisão e sensibilidade em uma média que penaliza o desequilíbrio entre elas, chegando a 57,83%. Já a precisão média, ou AP, avalia os escores ao variar o ponto de corte e tentar recuperar mais Anormais. Ela foi de 59,51%. Essas métricas complementam a acurácia balanceada e ajudam a explicar diferentes aspectos dos erros.
+Precisão e sensibilidade respondem a perguntas diferentes. A precisão olha as previsões Anormal: 57,48% delas tinham esse rótulo. A sensibilidade, que vimos antes, olha todos os registros com rótulo Anormal. O F1 combina precisão e sensibilidade em uma média que penaliza o desequilíbrio entre elas; ficou em 57,83%. Já a precisão média, AP, resume a relação entre precisão e recuperação ao variar o ponto de corte dos escores; foi 59,51%. Usamos essas métricas juntas porque nenhuma, isoladamente, descreve a quantidade de alarmes falsos, as omissões e a qualidade da ordenação.
 
 Notas de apoio, para consulta e arguição
 
@@ -175,11 +234,24 @@ Notas de apoio, para consulta e arguição
 - A execução também calcula acurácia total64,04%,ROC-AUC0,671838eBrier0,227378. O guia de defesa explica seus papéis.
 - Os percentuais do slide vêm de FISIO8/forest, com as mesmas previsões externas da matriz.
 
-## 13. Quais medidas a floresta mais usou
+## 18. O que aprendemos com os erros
 
-Pedro Matos · 10:35 a 11:20
+Pedro Matos · 10:43 a 11:22
 
-Para entender a previsão, trocamos os valores de uma medida entre as fichas e avaliamos novamente, mantendo as outras entradas. Isso conserva os valores, mas desfaz a ligação deles com a ficha original. Ao embaralhar a frequência cardíaca, a acurácia balanceada cai 4,80 pontos percentuais. Para peso, a queda é de 2,76; para idade, de 1,40. Quanto maior a queda, maior a dependência do modelo nesse teste. Isso não demonstra que uma medida cause o rótulo: descreve como a floresta utiliza a informação disponível.
+Também investigamos quem aparece nos erros. Entre Anormal com idade conhecida, os previstos como Normal tinham mediana de 6,51 anos; os reconhecidos tinham mediana de 0,59 ano. Isso sugere examinar melhor o desempenho ao longo da idade, mas não demonstra que ser mais velho cause o erro. Comparar medianas não é calcular taxas por faixa: precisamos saber quantas fichas de cada faixa estavam disponíveis. O próximo aprofundamento deve comparar taxas, ausência de medidas e incerteza nos subgrupos, e verificar se esses padrões aparecem em uma amostra independente.
+
+Notas de apoio, para consulta e arguição
+
+- Para FISIO8/floresta, entre os registros Anormal com idade conhecida, mediana dos falsos negativos=6,5123288 anos; dos verdadeiros positivos=0,5945205ano.
+- Esses números descrevem a idade entre tipos de resultado. Não são sensibilidade por faixa, não têm todos os registros de cada faixa no denominador e não provam que idade cause o erro.
+- Comparar taxas por faixa exige denominadores e incerteza próprios. Ausência de medidas e composição do atendimento podem contribuir; são hipóteses para investigação, não causas demonstradas.
+- O próximo exame de subgrupos não foi executado como nova validação independente nesta revisão dos slides. Não apresentar uma proposta como resultado já observado.
+
+## 19. Quais medidas a floresta mais usou
+
+Pedro Matos · 11:22 a 12:01
+
+Para investigar quais medidas sustentam as previsões, embaralhamos uma variável entre as fichas e avaliamos novamente. Seus valores continuam presentes, mas perdem a ligação com a ficha original. Ao embaralhar frequência cardíaca, a acurácia balanceada caiu 4,80 pontos percentuais; para peso, 2,76; para idade, 1,40. Quanto maior a queda, maior a dependência nesse teste. Isso é importância por permutação, não efeito causal. Variáveis correlacionadas podem compensar umas às outras, e o embaralhamento pode criar combinações pouco realistas. A interpretação descreve o uso da informação por esse procedimento.
 
 Notas de apoio, para consulta e arguição
 
@@ -188,11 +260,11 @@ Notas de apoio, para consulta e arguição
 - Atributos correlacionados podem se compensar. O embaralhamento pode criar combinações pouco realistas. Não interpretar as quedas como efeito causal nem ranking universal de relevância clínica.
 - Ponto percentual expressa diferença entre percentuais, não porcentagem relativa de queda.
 
-## 14. O resultado muda com as entradas
+## 20. O resultado muda com as entradas
 
-Pedro Matos · 11:20 a 12:20
+Pedro Matos · 12:01 a 12:41
 
-Voltando às alternativas de entrada: com peso, altura, idade e sexo, o melhor resultado foi 59,55%, com a árvore. Com as oito entradas principais, a floresta chegou a 63,27%. Ao incluir mais cinco campos, o melhor resultado passou a 91,92%, com a árvore. Esses cinco são sopro, B2, o segundo som do coração, pulsos, classificação da pressão e sintomas registrados. Cada número é o melhor resultado observado naquele cenário. Essa mudança mostra que escolher o que entra importa muito. O último cenário é exploratório: os achados podem ter participado da própria classificação registrada. Precisamos olhar essa possibilidade antes de interpretar a pontuação alta.
+Também mudamos quais informações entram. Só com peso, altura, idade e sexo, o melhor resultado foi 59,55%, da árvore. Com as oito entradas principais, a floresta chegou a 63,27%. Com treze entradas, acrescentando sopro, segundo som cardíaco, pulsos, classificação da pressão e sintomas registrados, a árvore chegou a 91,92%. Cada número corresponde à melhor família observada no cenário, nas mesmas fichas e divisões. Esse salto mostra dependência das entradas, não apenas do algoritmo. O último cenário é exploratório: esses achados podem ter participado da própria classificação que tentamos prever.
 
 Notas de apoio, para consulta e arguição
 
@@ -203,11 +275,11 @@ Notas de apoio, para consulta e arguição
 - Em STRICT4 as diferenças entre famílias são pequenas e os intervalos pareados cruzam zero. Não apresentar a árvore como vencedora comprovada para população externa.
 - FISIO8 também depende da hipótese de disponibilidade e da relação das medidas com a rotulagem. STRICT4 oferece análise mais restrita dessa dependência.
 
-## 15. O papel do sopro
+## 21. O papel do sopro
 
-Pedro Matos · 12:20 a 13:05
+Pedro Matos · 12:41 a 13:19
 
-Sopro é um som que pode ser ouvido durante o exame do coração. Nas fichas com ausência de sopro explicitamente registrada, 10,1% tinham rótulo Anormal. Nas fichas com sopro presente, eram 95,6%. Há uma associação muito forte na base. A árvore que recebeu os achados também depende bastante desse campo. Mas não sabemos se o sopro foi usado para definir o rótulo nem como a coleta se organizou. Ele pode carregar informação útil e, ao mesmo tempo, aproximar a entrada do próprio critério de classificação. Por isso, os 91,92% não são nosso resultado principal.
+O sopro é um som identificado no exame do coração. Quando sua ausência estava explicitamente registrada, 10,1% das fichas eram Anormal; com presença registrada, eram 95,6%. Campo vazio não foi tratado como ausência de sopro. A associação é forte, e embaralhar esse campo reduz a acurácia balanceada da árvore exploratória em 38,57 pontos. Isso mostra dependência, sem provar sua origem. Falta esclarecer quando o achado foi registrado e se integrou a definição do rótulo. Por isso, a pontuação de 91,92% não substitui nosso resultado principal.
 
 Notas de apoio, para consulta e arguição
 
@@ -218,11 +290,11 @@ Notas de apoio, para consulta e arguição
 - Cronologia e incorporação no rótulo são questões distintas. Mesmo um exame anterior ao laudo pode integrar o critério que define a classe; é necessário esclarecer ambas.
 - 95,6% é a proporção de rótulo Anormal nesse subconjunto da base, não uma probabilidade universal de doença em crianças com sopro.
 
-## 16. Conclusões do trabalho
+## 22. Conclusões e próximos passos
 
-Pedro Matos · 13:05 a 13:55
+Pedro Matos · 13:19 a 14:01
 
-O processo completo mostrou que preparar a base, definir as entradas e avaliar sem misturar as fichas são decisões centrais do resultado. Com as oito medidas principais, a floresta foi a melhor alternativa observada: 63,27% de acurácia balanceada, reconhecendo cerca de 58 de cada cem Anormal. É um ganho sobre a referência, com muitos erros restantes. A pontuação alta com achados depende de informações cuja participação no rótulo ainda precisa ser esclarecida. O próximo passo é confirmar como e quando a classificação foi construída e avaliar o procedimento em novas fichas independentes. Obrigado.
+Concluímos o processo completo: selecionamos entradas, limpamos e transformamos a base, comparamos modelos e interpretamos erros e dependências. A floresta alcançou 63,27% de acurácia balanceada no cenário principal, reconhecendo 58% dos Anormal, superando a referência, com ganho pequeno sobre a logística e muitos Anormal não reconhecidos. As pontuações altas com achados dependem de informações próximas da rotulagem. Antes de propor uso, precisamos documentar paciente e atendimento, ordem de coleta e critério de Normal ou Anormal, e avaliar em novos registros independentes. O conhecimento obtido inclui tanto o desempenho quanto as condições e limitações para interpretá-lo.
 
 Notas de apoio, para consulta e arguição
 
@@ -328,3 +400,31 @@ Não. Mostram a maior BA observada entre famílias em cada conjunto, nas mesmas 
 **O que é necessário para avançar?**
 
 Documentar paciente versus atendimento, ordem de coleta e critério de Normal/Anormal; definir momento e finalidade da previsão; avaliar em nova amostra independente. O trabalho conclui o KDD e torna as decisões rastreáveis, mas esses próximos passos dependem de informações que a fonte atual não fornece.
+
+**Por que não apagar todas as fichas com algum valor ausente?**
+
+As ausências são numerosas: cerca de56% em cada pressão e34,6% no IMC após limpeza. Exigir completude de todos os campos perderia dados e poderia alterar a composição da amostra. Comparamos imputações dentro do treino, mantemos indicadores e examinamos padrões de coleta. Isso não torna a imputação equivalente a observar a medida real.
+
+**Por que as duas pressões são mascaradas quando a sistólica é menor ou igual à diastólica?**
+
+O par viola a relação esperada entre essas medidas. Sem acesso à ficha original, não sabemos se os campos foram trocados ou qual deles está errado. Mascarar o par evita uma correção inventada, preservando os outros campos e o registro da regra.
+
+**O que significa Gini e por que restringir a árvore?**
+
+Gini mede a mistura de classes num nó:1−Σp². Um grupo de uma única classe tem impureza0. Divisões que reduzem a mistura podem também memorizar grupos muito pequenos; limitar profundidade e folha mínima controla essa especificidade. Comparamos Gini e entropia e diferentes restrições dentro da validação.
+
+**A floresta vota ou faz média?**
+
+Neste RandomForestClassifier, cada árvore produz probabilidades por classe e a floresta usa sua média. O rótulo é então obtido com corte0,5 para a probabilidade de Anormal. Dizer apenas que150rótulos votam não descreve exatamente o cálculo utilizado.
+
+**Por que padronizar a logística e não as árvores?**
+
+A logística regularizada penaliza os coeficientes; diferenças de unidade afetam os tamanhos necessários desses coeficientes. A padronização coloca as medidas contínuas em escalas comparáveis para essa penalização. Árvores usam cortes na ordenação dos valores e não exigem essa equalização.
+
+**O logaritmo foi usado para tornar a logística válida?**
+
+Não. A logística não exige preditores normalmente distribuídos. Comparamos log(1+Peso) porque comprime a cauda dos pesos altos e pode representar melhor a relação com o escore. A escolha veio da validação interna e só o Peso recebe log; as medidas contínuas depois são padronizadas.
+
+**O que é regularização e o que faz o parâmetro C?**
+
+A regularização penaliza coeficientes grandes para limitar ajustes excessivos. Em LogisticRegression,C é inverso da força dessa penalização: menores valores significam maior regularização. A grade comparou0,01;0,1;1;10, e o ajuste final escolheu1. Isso não significa que toda rodada externa escolheu1.

@@ -22,8 +22,12 @@ O resumo tem 121 palavras pelo método documentado no manifesto, que conta palav
 
 O PDF foi recompilado e as quatro páginas foram renderizadas e inspecionadas. Não há avisos de excesso de largura ou referências indefinidas. O link anotado na página 1 aponta para o repositório correto. Esta é uma verificação local. O arquivo não foi enviado ao serviço IEEE PDF eXpress e esta revisão não certifica aceitação por esse serviço.
 
-SHA256 do PDF final: `323827c785827ebf72b89c9894a7875eeb92f937069332e9a898916d56bd86fc`.
+SHA256 do PDF final, após reforçar as justificativas: `c063d66722e65dd95eeb98cecbbf73d31093a6cf9fe1f1ab4c238927187241aa`.
 
 Fontes de conferência: Verificacao_Artigo.json, main.tex, seções do artigo, scripts das figuras, references.bib e o parecer bibliográfico em Revisao_Final_A2.md. Os originais IEEEtran permanecem protegidos pelos hashes de provenance.lock.json.
 
 O bloqueio automático de fontes também foi testado contra o PDF anterior, que continha Type 3: a validação o rejeitou. O PDF corrigido passou pela mesma validação. Artigo, apresentação e materiais de estudo publicados no commit 65c1ce9 foram baixados anonimamente e comparados com os locais, com hashes iguais.
+
+## Reconferência direta da descrição da A2
+
+A nova leitura do DOCX original confirmou o template IEEE, duas colunas, limite de cinco páginas, resumo de 100–150 palavras, seções, um ou dois gráficos EDA e link público no rodapé da primeira página. O artigo de quatro páginas atende a esses itens objetivos. As extensões aproximadas por seção não são quotas rígidas. Foram reforçadas, no próprio artigo, as razões da mediana, faixas etárias, suporte mínimo, one-hot, padronização e logaritmo na logística, unidades originais nas árvores e escolha das famílias. Dados e resultados permanecem iguais. O manifesto e as quatro páginas renderizadas correspondem ao novo hash. A apresentação complementar foi ampliada para 22 slides, sem páginas de reserva.

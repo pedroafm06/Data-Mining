@@ -24,6 +24,7 @@ const bodyFont = 'Open Sans';
 const tableOwners = [];
 const slideCount = script.slides.length;
 const allNotes = script.slides;
+const visibleSlides = [];
 const totalSlideCount = slideCount;
 const metric = (pool, family) => results.metrics.find(m => m.pool === pool && m.family === family);
 const percent = (x, decimals=2) => (100*x).toFixed(decimals).replace('.',',')+'%';
@@ -41,6 +42,7 @@ const pulseLimit = Number(treePaths.find(([branch]) => branch.includes('>'))[1].
 const decimal = (x, decimals=2) => x.toFixed(decimals).replace('.',',');
 
 function text(s, value, x, y, w, h, opt={}) {
+  visibleSlides.at(-1)?.content.push(value);
   const box = s.shapes.add({geometry:'textbox', name:opt.name||'texto',
     position:{left:x,top:y,width:w,height:h},fill:'none',line:{fill:'none',width:0}});
   box.text = value;
@@ -53,6 +55,7 @@ function rect(s, x, y, w, h, fill, name='destaque') {
   return s.shapes.add({geometry:'rect',name,position:{left:x,top:y,width:w,height:h},fill,line:{fill:'none',width:0}});
 }
 function slide(n, title) {
+  visibleSlides.push({number:n,title,content:[]});
   const s = presentation.slides.add();
   s.background.fill = palette.white;
   s.images.add({blob:background,contentType:'image/jpeg',alt:'Fundo institucional da UFG usado no Canva da A1',
@@ -71,6 +74,7 @@ const H = {size:32,bold:true,color:palette.blue};
 const m = {size:27,color:palette.muted};
 const center = {align:'center'};
 function table(s, values, x, y, widths, heights, {emphasis, errorCell=false, bodySize=29, labelSize=27, headerSize=26}={}) {
+  visibleSlides.at(-1)?.content.push(...values.map(row=>row.join(' | ')));
   const t = s.tables.add({rows:values.length,columns:values[0].length,left:x,top:y,
     width:widths.reduce((a,b)=>a+b,0),height:heights.reduce((a,b)=>a+b,0),columnWidths:widths,values});
   t.borders.assign({fill:palette.line,width:1,style:'solid'});
@@ -89,155 +93,228 @@ function table(s, values, x, y, widths, heights, {emphasis, errorCell=false, bod
 
 {
   const s=slide(1,'');
-  text(s,'Classificação de registros\ncardíacos pediátricos',120,111,1040,164,
-    {size:58,bold:true,align:'center',name:'título de capa'});
+  text(s,'Classificação de registros\ncardíacos pediátricos',120,111,1040,164,{size:58,bold:true,align:'center',name:'título de capa'});
   text(s,'Mineração de Dados · Avaliação 2',140,274,1000,54,{...H,...center});
   text(s,'Antônio Henrique · João Vitor · Mateus Nery · Pedro Matos',105,347,1070,47,{size:27,...center});
   text(s,'Grupo 3 · INF/UFG · Prof. Rogério Lopes Salvini · 2026/2',125,408,1030,42,{...m,...center});
 }
 {
-  const s=slide(2,'A base e o objetivo');
-  text(s,'As medidas ajudam a prever o rótulo Normal ou Anormal?',90,146,1100,68,{size:32,bold:true,...center});
-  text(s,number(results.n_original),100,227,490,84,{size:69,bold:true,color:palette.blue,...center});
-  text(s,'fichas na base original',100,310,490,48,{size:30,...center});
-  text(s,number(results.n_labelled)+' com rótulo',100,363,490,47,{...m,...center});
-  text(s,number(results.n_development),671,227,510,84,{size:69,bold:true,color:palette.blue,...center});
-  text(s,'fichas na avaliação final',671,310,510,48,{size:30,...center});
-  text(s,number(results.class_counts.Normal)+' Normal e '+number(results.class_counts.Anormal)+' Anormal',649,363,552,47,{...m,...center});
-  text(s,'Atendimentos de cardiologia pediátrica no Real Hospital Português, Recife',83,443,1114,47,{size:26,color:palette.muted,...center});
+  const s=slide(2,'Problema e dados');
+  text(s,'As medidas ajudam a prever o rótulo Normal ou Anormal?',85,146,1110,58,{size:32,bold:true,...center});
+  text(s,number(results.n_original)+' fichas',90,220,525,70,{size:53,bold:true,color:palette.blue});
+  text(s,'21 campos por registro\nCardiologia pediátrica\nReal Hospital Português · Recife',90,303,560,150,{size:28});
+  text(s,'Classificação supervisionada',704,222,490,51,{size:30,bold:true,color:palette.blue});
+  text(s,'Entradas: medidas da ficha\nResposta: rótulo já registrado\nAnormal é a classe positiva',704,287,495,153,{size:28});
+  text(s,'Prever a classificação da ficha não equivale a confirmar um diagnóstico.',90,454,1100,51,{size:27,bold:true});
 }
 {
-  const s=slide(3,'Seleção das entradas');
-  text(s,'8 entradas principais',96,160,560,51,H);
-  text(s,'Idade e sexo\nPeso, altura e IMC\nPressão sistólica e diastólica\nFrequência cardíaca',96,225,585,221,{size:31});
-  text(s,'Campos excluídos',745,160,450,51,H);
-  text(s,'Motivo do encaminhamento\npode antecipar o rótulo.',745,229,450,104,{size:29});
-  text(s,'ID e convênio não medem\no estado do paciente.',745,358,450,95,{size:29});
+  const s=slide(3,'Quais fichas entraram na avaliação');
+  table(s,[['Etapa de seleção','Registros','Decisão'],
+    ['Base original',number(results.n_original),'Conservar a fonte original'],
+    ['Com rótulo',number(results.n_labelled),'1.169 sem rótulo ficam fora do treino'],
+    ['Separação histórica','2.342 + 1','Teste já examinado + 1 ficha em quarentena'],
+    ['Desenvolvimento',number(results.n_development),'5.394 Normal e 3.967 Anormal']],
+    80,154,[365,220,535],[48,58,58,58,58],{emphasis:4,bodySize:26,labelSize:27,headerSize:26});
+  text(s,'Fichas equivalentes ficam juntas: 9.166 grupos para a validação.',88,459,1104,52,{size:28,bold:true});
 }
 {
-  const s=slide(4,'Limpeza dos dados');
-  text(s,'Exemplo real de frequência cardíaca',96,148,1088,49,{...H,size:31});
-  table(s,[['Campo','Registro original','Após a limpeza'],['Batimentos por minuto','1.120','Ausente']],
-    96,216,[420,335,335],[51,72],{bodySize:37,labelSize:28});
-  text(s,'O valor supera a regra de suspeita de 500 batimentos/min.',96,354,1092,49,{size:29});
-  text(s,'Também padronizamos números, conferimos datas e marcamos inconsistências.',96,419,1092,75,{size:29});
+  const s=slide(4,'Seleção das variáveis');
+  table(s,[['Decisão','Variáveis','Justificativa'],
+    ['8 principais','Idade, sexo, peso, altura, IMC,\npressões e frequência cardíaca','Disponibilidade das medidas\na confirmar para uso futuro'],
+    ['Excluir','MOTIVO1/2 e HDA2','Indícios diagnósticos ou\nbaixa cobertura e incerteza'],
+    ['Excluir','ID, convênio e datas brutas','Identificação e cadastro;\ndatas entram só na idade'],
+    ['Explorar à parte','Sopro, B2, pulsos, pressão\nclassificada e sintomas','Possível participação\nna definição do rótulo']],
+    68,155,[238,490,416],[48,75,75,75,75],{emphasis:1,bodySize:25,labelSize:27,headerSize:26});
 }
 {
-  const s=slide(5,'Preenchimento e atributos derivados');
-  text(s,'Preenchimento da frequência cardíaca',96,151,1088,46,{...H,size:31});
-  table(s,[['Após a limpeza','Mediana do treino*','Indicador de preenchimento'],['Ausente','92 batimentos/min','1']],
-    96,211,[310,370,410],[52,66],{bodySize:34});
-  text(s,'*92 é a mediana no ajuste final da floresta.',96,335,1088,46,{...m});
-  text(s,'IMC de outra ficha real',96,398,415,65,{size:29,bold:true,color:palette.blue});
-  text(s,'5 kg ÷ (0,51 m)² = 19,22 kg/m²',510,396,680,68,{size:35,bold:true});
+  const s=slide(5,'Limpeza: regras e exemplos');
+  table(s,[['O que verificamos','Tratamento','Por quê'],
+    ['Grafias e números','Uniformizar categorias e decimais','Evitar valores iguais com formas distintas'],
+    ['Datas e idade','Conferir formato, século e coerência','Evitar uma idade derivada contraditória'],
+    ['Pressões incoerentes','Mascarar o par se sistólica ≤ diastólica','Não escolher arbitrariamente qual está certa'],
+    ['Frequência cardíaca: 1.120','Ausente se > 500 batimentos/min','Não supor que o valor correto era 112']],
+    65,159,[322,410,418],[49,61,61,61,61],{emphasis:4,bodySize:24,labelSize:26,headerSize:26});
+  text(s,'Preservamos a ficha e registramos a regra; os limites são hipóteses de curadoria.',78,476,1126,51,{size:25,bold:true});
 }
 {
-  const s=slide(6,'Representação para os modelos');
-  text(s,'Categorias em colunas de 0 ou 1',96,149,1088,50,H);
-  table(s,[['Sexo registrado','Coluna F','Coluna M'],['F','1','0'],['M','0','1']],
-    96,210,[410,340,340],[45,48,48],{bodySize:33});
-  text(s,'Logística',96,374,265,47,{size:30,bold:true,color:palette.blue});
-  text(s,'Testamos padronização e logaritmo do peso.',367,374,825,47,{size:29});
-  text(s,'Floresta final',96,437,265,47,{size:30,bold:true,color:palette.blue});
-  text(s,'Manteve as medidas nas unidades originais.',367,437,825,47,{size:29});
+  const s=slide(6,'Dados ausentes e preenchimento');
+  text(s,'Após a limpeza: pressões ≈ 56% ausentes; IMC 34,6%.',85,149,1110,53,{size:30,bold:true,...center});
+  table(s,[['Alternativa testada','Como funciona','Motivo'],
+    ['Mediana global','Valor central aprendido no treino','Menor influência de extremos'],
+    ['Mediana por idade','Faixa com pelo menos 30 observações;\nsenão, usar a global','Considerar diferenças do crescimento']],
+    82,221,[282,494,340],[46,63,76],{bodySize:25,labelSize:27});
+  text(s,'Exemplo: FC ausente → 92 batimentos/min + indicador de preenchimento = 1',85,415,1110,60,{size:28,bold:true});
+  text(s,'92 vem do ajuste final da floresta; cada treino da validação aprende sua mediana.',85,472,1110,37,{size:24,color:palette.muted});
 }
 {
-  const s=slide(7,'Três maneiras de classificar');
-  table(s,[['Modelo','Como faz a previsão','Por que comparar'],
-    ['Árvore de decisão','Perguntas em sequência\nEx.: peso até 8,85 kg?','Permite acompanhar\nas decisões.'],
-    ['Regressão logística','Combina contribuições\npara estimar uma chance.','Testa uma relação\nmais simples.'],
-    ['Floresta aleatória','Faz a média das chances\nde 150 árvores.','Capta relações\nmais variadas.']],
-    80,163,[320,430,370],[49,83,83,83],{bodySize:27,labelSize:28});
+  const s=slide(7,'Idade e IMC: atributos derivados');
+  text(s,'Idade contínua',89,156,500,49,H);
+  text(s,'Nascimento → atendimento\nDiferença entre datas coerentes\nInformação original ajuda na ambiguidade',89,224,527,164,{size:27});
+  text(s,'Preserva diferenças dentro\ndo primeiro ano de vida.',89,403,527,80,{size:28,bold:true});
+  text(s,'IMC de uma ficha real',696,156,500,49,H);
+  text(s,'5 kg e 51 cm observados\n51 cm = 0,51 m',696,225,500,96,{size:30});
+  text(s,'5 ÷ (0,51)² = 19,22 kg/m²',670,326,535,74,{size:34,bold:true,color:palette.blue});
+  text(s,'Reconstruir com medidas utilizáveis;\nnão com peso e altura preenchidos.',670,417,535,84,{size:27});
 }
 {
-  const s=slide(8,'Escolha dos ajustes e avaliação');
-  text(s,'Cinco partes, com as mesmas divisões para todos os modelos',96,147,1090,53,{size:30,bold:true});
+  const s=slide(8,'Representação para os modelos');
+  table(s,[['Sexo nominal','Coluna F','Coluna M'],['F','1','0'],['M','0','1']],
+    84,159,[280,142,142],[46,53,53],{bodySize:32,labelSize:28});
+  text(s,'One-hot: colunas 0/1,\nsem impor uma ordem às categorias.',84,337,555,97,{size:28,bold:true});
+  text(s,'Regressão logística',705,157,490,52,H);
+  text(s,'Padronizar = subtrair a média\ne dividir pelo desvio do treino.\nComparamos com log(1 + Peso)\nantes da padronização.',705,216,490,181,{size:27});
+  text(s,'Árvores e floresta',705,404,490,45,{size:29,bold:true,color:palette.blue});
+  text(s,'Unidades originais: cortes usam\na ordenação dos valores.',705,455,490,72,{size:27});
+}
+{
+  const s=slide(9,'Por que comparar três modelos');
+  table(s,[['Modelo','Como aprende','O que queríamos comparar'],
+    ['Árvore de decisão','Faz perguntas em sequência\ne separa grupos de fichas','Regras fáceis de acompanhar'],
+    ['Regressão logística','Combina as medidas em um escore\ne o transforma em chance','Uma relação mais simples\ncom controle de complexidade'],
+    ['Floresta aleatória','Combina muitas árvores diferentes','Relações não lineares\ne interações entre medidas']],
+    75,165,[298,420,412],[48,79,89,79],{bodySize:26,labelSize:27});
+  text(s,'Referência mínima: sempre prever a classe mais frequente, Normal.',87,475,1106,49,{size:28,bold:true});
+}
+{
+  const s=slide(10,'Como a árvore decide');
+  text(s,'Critério Gini: buscar divisões com classes menos misturadas.',89,146,1100,48,{size:29,...center});
+  rect(s,346,216,588,61,palette.light,'pergunta raiz da árvore');
+  text(s,'Peso até '+decimal(weightLimit)+' kg?',346,217,588,59,{size:35,bold:true,color:palette.blue,...center});
+  text(s,'SIM → examina a idade',93,315,505,54,{size:30,bold:true,...center});
+  text(s,'Corte de aproximadamente '+Math.round(ageLimit*365)+' dias',93,379,505,47,{size:28,...center});
+  text(s,'NÃO → examina a frequência',673,315,520,54,{size:30,bold:true,...center});
+  text(s,'Corte de '+decimal(pulseLimit,1)+' batimentos/min',673,379,520,47,{size:28,...center});
+  text(s,'Primeiras perguntas da árvore final. Há outros cortes até a previsão.',89,448,1100,49,{size:28,bold:true,...center});
+  text(s,'Os limites foram aprendidos nesta base; não são regras clínicas.',89,495,1100,36,{size:25,color:palette.muted,...center});
+}
+{
+  const s=slide(11,'Como a logística e a floresta preveem');
+  text(s,'Regressão logística',87,157,520,51,H);
+  text(s,'Medidas × pesos aprendidos\n→ soma das contribuições\n→ chance entre 0 e 1',87,224,525,150,{size:31});
+  text(s,'Regularização limita pesos extremos\ne reduz ajustes excessivos ao treino.',87,398,530,98,{size:27});
+  text(s,'Floresta aleatória',709,157,495,51,H);
+  text(s,'150 árvores com amostras\ne escolhas de atributos diferentes\n→ média das chances',709,224,495,150,{size:30});
+  text(s,'Combinar árvores reduz a dependência\nde uma única sequência de cortes.',709,398,495,98,{size:27});
+  text(s,'Corte fixo: chance ≥ 0,5 recebe previsão Anormal.',87,490,1116,43,{size:29,bold:true,...center});
+}
+{
+  const s=slide(12,'Validação sem misturar treino e avaliação');
+  text(s,'5 partes externas: cada ficha é avaliada uma vez fora do seu treino.',87,146,1106,51,{size:28,bold:true});
   for(let i=0;i<5;i++){
-    rect(s,98+i*220,222,204,61,i===4?palette.blue:palette.light,'parte da validação '+(i+1));
-    text(s,String(i+1),98+i*220,223,204,58,{size:31,bold:true,color:i===4?palette.white:palette.blue,...center});
+    rect(s,89+i*222,215,204,57,i===4?palette.blue:palette.light,'parte externa '+(i+1));
+    text(s,String(i+1),89+i*222,215,204,57,{size:30,bold:true,color:i===4?palette.white:palette.blue,...center});
   }
-  text(s,'Treino e escolha dos ajustes',98,293,870,47,{size:29,bold:true});
-  text(s,'Avaliação',978,293,204,47,{size:28,bold:true,color:palette.blue,...center});
-  text(s,'Dentro do treino, 3 divisões comparam 105 configurações por cenário.',98,354,1084,65,{size:28});
-  text(s,'Calculamos o preenchimento só no treino. Fichas idênticas ficam juntas.',98,430,1084,65,{size:28});
+  text(s,'4 partes: treino + escolha dos ajustes',89,286,860,46,{size:29,bold:true});
+  text(s,'1: avaliação',977,286,204,46,{size:27,bold:true,color:palette.blue,...center});
+  text(s,'Dentro do treino: 3 divisões internas escolhem a configuração.',89,348,1104,47,{size:28});
+  text(s,'Medianas, categorias e escalas são aprendidas somente no treino.',89,410,1104,47,{size:28});
+  text(s,'Fichas equivalentes no mesmo grupo; mesmos cortes para comparar modelos.',89,472,1104,51,{size:26,bold:true});
 }
 {
-  const s=slide(9,'Acurácia balanceada');
-  text(s,'Referência simples que prevê Normal para todas as fichas',96,147,1088,60,{size:30,...center});
-  text(s,'100%',118,222,472,93,{size:73,bold:true,color:palette.blue,...center});
-  text(s,'Especificidade\nNormais reconhecidos',100,311,508,76,{size:28,...center});
-  text(s,'0%',690,222,472,93,{size:73,bold:true,color:palette.red,...center});
-  text(s,'Sensibilidade\nAnormais reconhecidos',666,311,520,76,{size:28,...center});
-  text(s,'Média dos acertos de cada classe = 50%',104,396,1072,67,{size:38,bold:true,...center});
+  const s=slide(13,'Quais alternativas foram comparadas');
+  table(s,[['Família','Configurações','O que variou'],
+    ['Árvore','48','Critério, profundidade, folha, pesos e preenchimento'],
+    ['Logística','32','Regularização, escala/log, pesos e preenchimento'],
+    ['Floresta','24','Profundidade, folha, pesos e preenchimento'],
+    ['Sempre Normal','1','Referência sem ajuste de hiperparâmetros']],
+    76,153,[268,231,629],[48,51,51,51,51],{bodySize:24,labelSize:27,headerSize:26});
+  text(s,'105 por cenário. Ajustes escolhidos pela acurácia balanceada interna.',84,424,1110,46,{size:27,bold:true});
+  text(s,'Floresta final: 150 árvores, folha mínima 30, pesos balanceados, mediana global.',84,474,1110,53,{size:26});
 }
 {
-  const s=slide(10,'Comparação dos modelos');
-  text(s,'Acurácia balanceada nas oito entradas principais',96,146,1088,52,{...m,...center,size:29});
+  const s=slide(14,'Por que usar acurácia balanceada');
+  text(s,'Sempre prever Normal acerta 57,62% das fichas, mas perde todos os Anormal.',83,147,1114,67,{size:28,bold:true,...center});
+  text(s,'100%',104,234,510,83,{size:65,bold:true,color:palette.blue,...center});
+  text(s,'Especificidade\nNormais reconhecidos',104,320,510,83,{size:28,...center});
+  text(s,'0%',674,234,510,83,{size:65,bold:true,color:palette.red,...center});
+  text(s,'Sensibilidade\nAnormais reconhecidos',674,320,510,83,{size:28,...center});
+  text(s,'BA = (sensibilidade + especificidade) ÷ 2 = 50%',89,430,1100,65,{size:34,bold:true,...center});
+  text(s,'Cada classe recebe o mesmo peso; também olhamos os erros separadamente.',89,497,1100,39,{size:25,...center});
+}
+{
+  const s=slide(15,'Comparação dos modelos');
   const scores=['dummy','tree','logistic','forest'].map((fam,i)=>[
     ['Sempre Normal','Árvore de decisão','Regressão logística','Floresta aleatória'][i],percent(metric('FISIO8',fam).balanced_accuracy)]);
-  table(s,[['Modelo','Pontuação'],...scores],112,215,[574,482],[48,46,46,46,46],{emphasis:4,bodySize:33,labelSize:29,headerSize:28});
-  text(s,'Ajuste final da floresta com pelo menos 30 fichas por folha.',112,459,1056,51,{size:27,color:palette.muted});
+  table(s,[['8 entradas principais','Acurácia balanceada'],...scores],92,158,[618,478],[49,49,49,49,49],{emphasis:4,bodySize:32,labelSize:29,headerSize:27});
+  text(s,'Floresta − logística: +'+points(famDiff.diff)+' pontos percentuais.',92,421,1096,48,{size:29,bold:true});
+  text(s,'Intervalo de 95%: +0,43 a +2,01 p.p. · Ganho pequeno nesta avaliação.',92,474,1096,52,{size:26});
 }
 {
-  const s=slide(11,'Acertos e erros da floresta');
-  table(s,[['Rótulo registrado','Previu Normal','Previu Anormal'],['Normal',number(fisio.tn),number(fisio.fp)],
-    ['Anormal',number(fisio.fn),number(fisio.tp)]],87,169,[308,231,231],[58,77,77],{errorCell:true,headerSize:26,labelSize:29});
-  text(s,'42 em 100',891,186,312,79,{size:51,bold:true,color:palette.red,...center});
-  text(s,'registros Anormal\npassaram como Normal',873,270,334,96,{size:28,...center});
-  text(s,'Reconheceu 58% dos Anormais e 68% dos Normais.',96,422,1088,63,{size:31,bold:true,...center});
+  const s=slide(16,'Acertos e erros da floresta');
+  table(s,[['Rótulo registrado','Previu Normal','Previu Anormal'],['Normal',number(fisio.tn),number(fisio.fp)],['Anormal',number(fisio.fn),number(fisio.tp)]],
+    80,171,[316,239,239],[57,80,80],{errorCell:true,headerSize:25,labelSize:28});
+  text(s,'42 em 100',906,194,290,73,{size:49,bold:true,color:palette.red,...center});
+  text(s,'registros Anormal\npassaram como Normal',889,283,308,100,{size:27,...center});
+  text(s,'Sensibilidade: '+percent(fisio.recall)+'     Especificidade: '+percent(fisio.specificity),89,430,1100,51,{size:30,bold:true,...center});
+  text(s,'São previsões externas da validação; não são acertos no próprio treino.',89,490,1100,38,{size:25,...center});
 }
 {
-  const s=slide(12,'Métricas que complementam a comparação');
-  table(s,[['Métrica','Floresta','O que acrescenta'],
-    ['Precisão',percent(fisio.precision),'Acertos entre previsões Anormal'],
-    ['F1',percent(fisio.f1),'Combina precisão e sensibilidade'],
-    ['Precisão média (AP)',percent(fisio.average_precision),'Precisão ao recuperar mais Anormais']],
-    78,178,[326,250,550],[53,77,77,77],{bodySize:28,labelSize:29,headerSize:26});
+  const s=slide(17,'O que as outras métricas acrescentam');
+  table(s,[['Métrica','Floresta','Interpretação'],
+    ['Precisão',percent(fisio.precision),'Entre as previsões Anormal,\nquantas tinham esse rótulo?'],
+    ['F1',percent(fisio.f1),'Combina precisão e sensibilidade;\npenaliza desequilíbrio entre elas.'],
+    ['Precisão média (AP)',percent(fisio.average_precision),'Resume a precisão ao variar o corte\ne recuperar mais Anormais.']],
+    76,157,[330,210,588],[50,85,85,85],{bodySize:27,labelSize:28,headerSize:27});
+  text(s,'Precisão: previsões Anormal. Sensibilidade: todos os registros com rótulo Anormal.',83,475,1114,46,{size:25,bold:true});
 }
 {
-  const s=slide(13,'Quais medidas a floresta mais usou');
-  text(s,'Embaralhamos uma medida entre as fichas e medimos a queda.',96,147,1088,73,{size:29,...center});
+  const s=slide(18,'O que aprendemos com os erros');
+  text(s,'Entre os registros Anormal com idade conhecida',89,151,1100,49,{size:30,...center});
+  table(s,[['Resultado da floresta','Idade mediana'],['Previu Normal: falsos negativos',decimal(results.errors.FISIO8.median_age_fn)+' anos'],['Reconheceu Anormal: verdadeiros positivos',decimal(results.errors.FISIO8.median_age_tp)+' anos']],
+    91,220,[773,325],[49,67,67],{bodySize:34,labelSize:28});
+  text(s,'Os grupos têm perfis diferentes. Isso não mede a taxa de erro em cada idade.',91,412,1098,63,{size:28,bold:true});
+  text(s,'Para investigar: comparar acertos e totais por faixa, ausências e incerteza.',91,477,1098,42,{size:26});
+}
+{
+  const s=slide(19,'Quais medidas a floresta mais usou');
+  text(s,'Permutação: embaralhar uma medida entre fichas e medir a queda da BA.',89,148,1100,68,{size:28,bold:true,...center});
   const features=[['Frequência cardíaca','FC'],['Peso','Peso'],['Idade','IDADE']];
   features.forEach(([label,key],i)=>{
     const x=82+i*376;
-    text(s,points(importance('FISIO8','forest',key))+' p.p.',x,242,364,96,{size:61,bold:true,color:palette.blue,...center});
-    text(s,label,x,342,364,65,{size:29,bold:true,...center});
+    text(s,points(importance('FISIO8','forest',key))+' p.p.',x,248,364,82,{size:57,bold:true,color:palette.blue,...center});
+    text(s,label,x,345,364,61,{size:29,bold:true,...center});
   });
-  text(s,'Uma queda maior indica maior dependência daquela medida.',96,433,1088,55,{...m,...center});
+  text(s,'Queda maior → maior dependência do modelo nesse teste.',89,426,1100,49,{size:29,bold:true,...center});
+  text(s,'Não é efeito causal; medidas relacionadas podem compensar umas às outras.',89,477,1100,40,{size:25,...center});
 }
 {
-  const s=slide(14,'O resultado muda com as entradas');
-  table(s,[['Cenário','Informações disponíveis','Melhor pontuação'],
-    ['4 entradas','Idade, sexo, peso e altura',percent(strict.balanced_accuracy)],
-    ['8 entradas\nPrincipal','As 4 básicas, IMC, duas\npressões e frequência cardíaca',percent(fisio.balanced_accuracy)],
-    ['13 entradas\nExploratório','As 8 principais, sopro, B2, pulsos,\npressão classificada e sintomas',percent(clin.balanced_accuracy)]],
-    64,166,[249,632,271],[51,65,86,86],{emphasis:2,bodySize:27,labelSize:27,headerSize:26});
-  text(s,'Achados do exame podem ter participado da definição do rótulo.',80,451,1120,52,{size:28,bold:true,...center});
+  const s=slide(20,'O resultado muda com as entradas');
+  table(s,[['Cenário','Entradas','Melhor BA observada'],
+    ['4 · restrito','Peso, altura, idade e sexo',percent(strict.balanced_accuracy)+' · árvore'],
+    ['8 · principal','As 4 + IMC, duas pressões\ne frequência cardíaca',percent(fisio.balanced_accuracy)+' · floresta'],
+    ['13 · exploratório','As 8 + sopro, B2, pulsos,\npressão classificada e sintomas',percent(clin.balanced_accuracy)+' · árvore']],
+    68,149,[270,535,339],[48,65,80,87],{emphasis:2,bodySize:26,labelSize:27,headerSize:26});
+  text(s,'Mesmas fichas e cortes. Cada número usa a melhor família daquele cenário.',80,446,1120,44,{size:25,bold:true});
+  text(s,'Os cinco campos adicionais podem participar da definição do próprio rótulo.',80,484,1120,37,{size:25});
 }
 {
-  const s=slide(15,'O papel do sopro');
-  text(s,'Fichas com rótulo Anormal em cada grupo',96,146,1088,53,{size:31,...center});
+  const s=slide(21,'O papel do sopro');
+  text(s,'Sopro é um som ouvido no exame. Proporção com rótulo Anormal:',89,147,1100,53,{size:29,...center});
   const groups=results.eda.sopro_by_status;
   for(const [i,key] of ['Ausência registrada','Presença registrada'].entries()){
-    const row=groups[key], x=105+i*565;
-    text(s,percent(row.n_anormal/row.n,1),x,214,500,89,{size:73,bold:true,color:palette.blue,...center});
-    text(s,i===0?'Sopro registrado como ausente':'Com sopro registrado',x,309,500,62,{size:28,bold:true,...center});
+    const row=groups[key], x=94+i*568;
+    text(s,percent(row.n_anormal/row.n,1),x,221,523,86,{size:67,bold:true,color:palette.blue,...center});
+    text(s,i===0?'Sopro explicitamente ausente':'Sopro presente',x,317,523,57,{size:29,bold:true,...center});
   }
-  text(s,'Ainda falta confirmar quando o achado e o rótulo foram registrados.',88,448,1104,54,{size:28,bold:true,...center});
+  text(s,'Campo não preenchido é diferente de ausência de sopro.',89,399,1100,47,{size:28,bold:true,...center});
+  text(s,'Associação forte não prova vazamento. Falta conhecer a ordem da coleta\ne se o achado ajudou a definir a classe: 91,92% permanece exploratório.',89,456,1100,81,{size:27,...center});
 }
 {
-  const s=slide(16,'Conclusões do trabalho');
-  text(s,percent(fisio.balanced_accuracy),100,161,418,106,{size:83,bold:true,color:palette.blue,...center});
-  text(s,'acurácia balanceada\ncom 8 entradas',98,278,422,102,{size:30,...center});
-  text(s,'A floresta superou a referência,\ncom muitos Anormais ainda perdidos.',606,162,587,112,{size:31,bold:true});
-  text(s,'Próximo passo',606,303,587,49,{...H,size:30});
-  text(s,'Confirmar a origem do rótulo\ne avaliar em novas fichas.',606,357,587,100,{size:30});
+  const s=slide(22,'Conclusões e próximos passos');
+  text(s,percent(fisio.balanced_accuracy),87,161,421,93,{size:72,bold:true,color:palette.blue,...center});
+  text(s,'BA com 8 entradas\n58% dos Anormal reconhecidos',87,270,421,101,{size:29,bold:true,...center});
+  text(s,'Ganho sobre a referência,\ncom muitos erros restantes.',87,403,421,92,{size:29,...center});
+  text(s,'O KDD completo',659,158,540,51,H);
+  text(s,'Selecionar → limpar → transformar\n→ modelar → avaliar e interpretar',659,225,540,98,{size:29});
+  text(s,'Para avançar',659,352,540,48,H);
+  text(s,'Confirmar como o rótulo foi definido\ne avaliar em nova amostra independente.',659,417,540,93,{size:28});
 }
 
 
 const seconds=script.slides.reduce((sum,item)=>sum+item.seconds,0);
-if(presentation.slides.items.length!==totalSlideCount||slideCount!==16||seconds!==835) throw new Error('Temporização e número de slides divergentes');
-const candidate=path.join(work,'candidate.pptx');
+if(presentation.slides.items.length!==totalSlideCount||slideCount!==22||seconds!==script.timing.speech_seconds) throw new Error('Temporização e número de slides divergentes');
+await fs.writeFile(path.join(work,'revisao_22','conteudo_visivel.json'),JSON.stringify(visibleSlides,null,2));
+const candidate=path.join(work,'revisao_22','candidate.pptx');
 await (await PresentationFile.exportPptx(presentation)).save(candidate);
 
 const out=path.join(dir,'output');
@@ -258,7 +335,8 @@ await fs.copyFile(finalPath,path.join(out,name+'.pptx'));
 
 const totals = new Map();
 let elapsed = 0;
-let talk = '# Roteiro da apresentação da A2\n\nTempo de fala previsto de 13 min 55 s, mais 35 s para pausas e transições. Total planejado de 14 min 30 s, com 30 s de margem até o limite de 15 minutos. Confirmar em ensaio.\n\n';
+const wordCount=script.slides.reduce((sum,item)=>sum+item.text.trim().split(/\s+/u).length,0);
+let talk = '# Roteiro da apresentação da A2\n\n22 slides, todos apresentados. Fala com '+wordCount+' palavras. A estimativa adota '+script.timing.assumed_words_per_minute+' palavras/min, com '+script.timing.pauses_and_transitions_seconds+' s de pausas e transições. Duração calculada: '+clock(script.timing.planned_total_seconds)+'. O tempo real depende de ensaio. As notas técnicas e a arguição são material de estudo, fora da fala planejada.\n\n';
 for(const n of script.slides) totals.set(n.author,(totals.get(n.author)||0)+n.seconds);
 for(const [author, duration] of totals) talk += '- '+author+' · '+clock(duration)+'\n';
 for(const n of script.slides){
