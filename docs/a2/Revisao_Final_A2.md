@@ -9,7 +9,7 @@ A revisão compara as duas propostas com a rubrica do SIGAA, o relatório entreg
 | Antônio, [8055f1e](https://github.com/pedroafm06/Data-Mining/commit/8055f1e) | Perfil de erros por sopro e idade | Recalculado nas previsões externas. A presença, a ausência explícita e a falta de preenchimento de SOPRO têm significados distintos. |
 | Antônio, [81c867a](https://github.com/pedroafm06/Data-Mining/commit/81c867a) e [6a5d947](https://github.com/pedroafm06/Data-Mining/commit/6a5d947) | Redação, tabelas geradas da execução, leitura dos resultados e organização do README | Incorporadas a separação dos cenários, a geração de tabelas e a ligação entre artigo, dados, código e relatório. O resultado principal permanece FISIO8 porque a fonte não estabelece a cronologia nem a participação dos achados na rotulagem. |
 | Antônio, [ee1115d](https://github.com/pedroafm06/Data-Mining/commit/ee1115d) | Slides e roteiro com 15 slides principais | Material para a etapa de apresentação. O conteúdo precisa acompanhar o protocolo e os números do artigo final. |
-| João, [c4efa0b](https://github.com/pedroafm06/Data-Mining/commit/c4efa0b) | Bootstrap pareado, regras da árvore, reconciliação A1–A2, revisão de rubrica e dos slides | Incorporados ao relatório com os números da execução final. Os intervalos condicionam aos ajustes existentes. As regras são descritivas do treino. As mudanças dos slides ficam para a revisão da apresentação. |
+| João, [c4efa0b](https://github.com/pedroafm06/Data-Mining/commit/c4efa0b) | Bootstrap pareado, regras da árvore, reconciliação A1–A2, revisão de rubrica e dos slides | Incorporados ao relatório com os números da execução final. Os intervalos condicionam aos ajustes existentes. As regras são descritivas do treino. Os resultados e a discussão orientaram a apresentação final. |
 
 ## Agrupamento, seleção e escopo dos resultados
 
@@ -44,4 +44,4 @@ O [artigo IEEE](../../paper/a2_ieee_2026_11_07/output/pdf/Artigo_A2_IEEE.pdf) é
 | Reprodutibilidade | Rodapé clicável na primeira página, código e resultados no GitHub e sementes na seção III. |
 | Uso de IA generativa | Declaração após a conclusão. |
 
-O relatório fica pronto para envio pelo SIGAA no prazo da rubrica. A apresentação é uma etapa separada, com revisão do grupo a partir do artigo e das versões já existentes.
+O relatório fica pronto para envio pelo SIGAA no prazo da rubrica. A apresentação final usa o template da A1 e os dados da revisão de 16/11. [Slides e roteiro](../../presentation/a2_inf/README.md)
