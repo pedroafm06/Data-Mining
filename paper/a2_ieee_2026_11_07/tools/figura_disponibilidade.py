@@ -5,13 +5,23 @@ from pathlib import Path
 import matplotlib
 
 matplotlib.use("Agg")
+from matplotlib import font_manager
+
+# Use an installed serif font and embed TrueType outlines in vector PDFs.
+font_manager.findfont("STIXGeneral", fallback_to_default=False)
+matplotlib.rcParams.update({
+    "font.family": "serif",
+    "font.serif": ["STIXGeneral"],
+    "pdf.fonttype": 42,
+    "ps.fonttype": 42,
+})
 import matplotlib.pyplot as plt
 
 ROOT = Path(__file__).resolve().parents[1]
 summary = json.loads((ROOT / "results/reviewed_results.json").read_text())
 missing = summary["missing_percent_by_fisio_variable"]
 columns = ["Peso", "Altura", "IMC", "IDADE", "PA SISTOLICA", "PA DIASTOLICA", "FC", "SEXO"]
-labels = ["Peso", "Altura", "IMC", "Idade", "PAS", "PAD", "FC", "Sexo"]
+labels = ["Peso", "Altura", "IMC", "IDADE", "PAS", "PAD", "FC", "SEXO"]
 values = [missing[column] for column in columns]
 
 fig, ax = plt.subplots(figsize=(3.46, 1.92), layout="constrained")

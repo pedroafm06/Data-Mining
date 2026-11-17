@@ -1,29 +1,29 @@
 {
-  "mode": "sopro_rotulo.pdf",
-  "created_utc": "2026-11-16T21:49:11.179090+00:00",
+  "mode": "final",
+  "created_utc": "2026-11-17T18:14:20.540513+00:00",
   "pdf": "output/pdf/Artigo_A2_IEEE.pdf",
-  "pdf_sha256": "098234f78793f56018b2475eb192280f944f0e9d3bfa3d25c051a6b93b3999df",
+  "pdf_sha256": "323827c785827ebf72b89c9894a7875eeb92f937069332e9a898916d56bd86fc",
   "tectonic_sha256": "b52b5a730e2b0b33087304f7720f649603953f270a6b1c88bb031e1ae01f7f9c",
   "provenance_lock_sha256": "83ca88c4f82be59a811b5763d1118bd11d68d25d79c4f213213c9cc6f094b7eb",
   "source_sha256": {
-    "main.tex": "0145298d5bb53cde4871dcbd18e888f410f9503ab91c6e1dde4d9db735c5cab8",
-    "sections/01_introducao.tex": "8e6574302c894c0a9c3dc36b20259117705b28a5d2967da2ff003ca1261da95a",
-    "sections/02_dados.tex": "7960bf1e3a901ec749a756340752cab425f124a48c24874f7b171f4709bb2ebc",
-    "sections/03_metodologia.tex": "fe0e85a29011af055d33420b6c97ee9bb78b37ca93652b3a68c605594b7ce5a7",
-    "sections/04_resultados.tex": "57394ff9ec8f1a3c7667ea81a4432375805423f9889b884c29c08e757351e89a",
+    "main.tex": "1fd7cbb8d54ad92f98ad158dd3073533800548aa6b5a0696f752d35c28bc695c",
+    "sections/01_introducao.tex": "66def98855b5a9b9334aa7b9ace81f38358ea0a5b6d736168f8a375754a0d642",
+    "sections/02_dados.tex": "84713fa887bbdf6ed2585276b77888cd435519f3ef7bbfbb69b8c656ceca770d",
+    "sections/03_metodologia.tex": "659be395662feed2ef0caf99c384af47b606d7904a46669bc15e253aa84791d9",
+    "sections/04_resultados.tex": "40b55ef00c7e52eb958ea73c98e8409dd8592aaef42bbc97d781bed67cea1bdd",
     "sections/05_conclusao.tex": "16b136beddbd1e1e3a63bf622fcde9cb307ad9f942cb23267ac69bdd22151d2b",
     "sections/06_ia.tex": "7c946e9c94baedebce100aec8e6fa5948431ab4d871b977d3c594698c2288760",
-    "sections/abstract.tex": "4ace6630d36d9e90196136bc3fd38adb5569df019e60f16123b9b305248bba74",
+    "sections/abstract.tex": "28df4df9de0086ed08c8d9124272b4bc13e07bb45006a427d92c0924044f79ba",
     "generated/numeros.tex": "e16f5902f2149ed783df386bc4a6075b739171d90ea63c47e3f0e02aab1b6499",
     "generated/tab_resultados.tex": "ad260fc4bed032dbabcc135acfc86819c85a03dbcacbf6263e67bbbd88ca4fc6",
-    "references.bib": "d3a91b2f6239574d840b22e8fe0f270f9a78dbf5c9dc876c627487d10adb392a",
+    "references.bib": "0d89697ac3909d333c61413bfe50616191fc09e567f1881a3366216ac00e0bb9",
     "submission_config.json": "3adb030c19a5955aa2ee001eaadd95a726e29c79dffbcb57a2f8ace7cba4afda",
-    "figures/disponibilidade.pdf": "287530ae583c9114c91300a2a6e5381e0b4b1b292767e09865c49fb70301b8a7",
-    "figures/sopro_rotulo.pdf": "c75ae933a27d6bb913bf063ce38a21205d9a2ac45841160a38594c4e2ef472c6",
+    "figures/disponibilidade.pdf": "8a4d7fd504b9a0074e4ed7e34b69522d12e9f951e9557cdefa66e291b2cabbf5",
+    "figures/sopro_rotulo.pdf": "a262abf8fc6ebdb8c0a2b1a0c56e43651935b88c7ffd58e978df91dec79f19c8",
     "tools/bootstrap.py": "cb0397b2eb6c38c27f6bc4caf558537a49a4da2a02409afc9be13e3cb38bbb4d",
-    "tools/build.py": "60eea5f37497bd539c6b3a279f4116ac46945ed964fe90d7fd8c5ac5c6f8276c",
-    "tools/figura_disponibilidade.py": "73ff72688c780c4b3417d560e258967535cd477f6185ca6d390ad971187088d8",
-    "tools/figura_sopro.py": "b3638fabee6ae9f0c0b194eb4a8eaac80f2f6c892dee91773a4dc1a9933ff554",
+    "tools/build.py": "f474e913e29f318cba998f0e5ea9daa96cd2fe5d063ca12aa9547c10bdd1e48a",
+    "tools/figura_disponibilidade.py": "1985fcbbd4ca992d1cc3a2654da355fbd79efa6a922cdb4a14bbb131a85e9d67",
+    "tools/figura_sopro.py": "7388ac44e98c45804990c1416af63d39bc2395084da64968385e9c697d41bc06",
     "tools/gerar_numeros.py": "c05daf793768e2485e661f982dffa8a87aabfda3f1630a1f38af09c78e1267d5",
     "results/reviewed_results.json": "b08b3a73419581d0cc20157500fc8bee0758ddc4025d4fe3c4fa0d804f40dfb3"
   },
@@ -40,13 +40,23 @@
   },
   "public_repository_check": {
     "requested_url": "https://github.com/pedroafm06/Data-Mining",
-    "checked_url": "https://api.github.com/repos/pedroafm06/Data-Mining",
+    "checked_url": "https://raw.githubusercontent.com/pedroafm06/Data-Mining/HEAD/README.md",
     "status": 200,
-    "checked_utc": "2026-11-16T21:49:10.393794+00:00"
+    "method": "anonymous_public_readme_after_api_rate_limit",
+    "api_status": 403,
+    "response_sha256": "12dd4fbc1eededf4756866ea96d5c599e54590e16f6e624be5062bb43cc44db3",
+    "checked_utc": "2026-11-17T18:14:17.156925+00:00"
   },
   "qa": {
     "pages": 4,
     "layout_reference_warnings": [],
-    "abstract_words": 120
+    "abstract_words": 121,
+    "abstract_word_count_method": "alphabetic_words_in_tex_with_commands_removed",
+    "fonts": {
+      "checked": true,
+      "font_count": 15,
+      "type3_count": 0,
+      "unembedded_count": 0
+    }
   }
 }

@@ -6,11 +6,15 @@
 \usepackage[brazil]{babel}
 \usepackage{graphicx}
 \usepackage{booktabs}
+\usepackage{placeins}
+\usepackage{flushend}
+\usepackage{needspace}
 \usepackage{amsmath}
 \usepackage{cite}
-\usepackage[hidelinks]{hyperref}
+\usepackage[unicode,hidelinks]{hyperref}
 \usepackage{url}
 \graphicspath{{figures/}}
+\renewcommand{\IEEEkeywordsname}{Palavras-chave}
 
 \ifdefined\AiiDraft
   \providecommand{\PublicRepositoryURL}{ENDERECO-PUBLICO-PENDENTE}
@@ -24,11 +28,11 @@
 \newcommand{\strict}{\textsc{Strict4}}
 \newcommand{\clin}{\textsc{Clinico}}
 \input{generated/numeros.tex}
-\hypersetup{pdftitle={Classificacao de registros clinicos com auditoria de vazamento},
-  pdfauthor={Antonio Henrique Queiroz Villar Lopes; Joao Vitor Fernandes Ferreira; Mateus Nery Bailao; Pedro Augusto Ferreira Matos},
+\hypersetup{pdftitle={Classificação de registros clínicos com auditoria de vazamento de informação},
+  pdfauthor={Antônio Henrique Queiroz Villar Lopes; João Vitor Fernandes Ferreira; Mateus Nery Bailão; Pedro Augusto Ferreira Matos},
   pdflang={pt-BR}}
 
-\title{Classificação de registros clínicos com auditoria de vazamento de informação\thanks{Repositório público e código reprodutível: \expandafter\url\expandafter{\PublicRepositoryURL}.}}
+\title{Classificação de registros clínicos com auditoria de vazamento de informação\thanks{Repositório público e código reprodutível: \newline\mbox{\expandafter\url\expandafter{\PublicRepositoryURL}}.}}
 \author{\IEEEauthorblockN{Antônio Henrique Queiroz Villar Lopes, João Vitor Fernandes Ferreira\\
 Mateus Nery Bailão, Pedro Augusto Ferreira Matos}
 \IEEEauthorblockA{Instituto de Informática, Universidade Federal de Goiás (UFG)\\Mineração de Dados (2026/2), Goiânia, Brasil}}
@@ -56,7 +60,6 @@ classificação, dados clínicos, validação cruzada, vazamento de informação
 \section{Conclusão}
 \input{sections/05_conclusao.tex}
 
-\newpage
 \section*{Declaração de uso de inteligência artificial}
 \input{sections/06_ia.tex}
 \bibliographystyle{vendor/IEEEtran/bibtex/IEEEtran}

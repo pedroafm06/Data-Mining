@@ -1,11 +1,6 @@
 Os dados foram coletados no Real Hospital Português, em Recife, e disponibilizados para o estudo de caso da disciplina \cite{tema}. A fonte contém 12.873 registros e 21 atributos. Há 1.169 linhas sem rótulo. A A1 havia descartado 987 cópias exatas quando se ignorava o ID, das quais 235 eram rotuladas. Mantivemos essas cópias na contagem de rotulados da A2, o que explica a passagem de 11.469 para 11.704 linhas rotuladas. Dessas, 9.361 compõem o desenvolvimento, 2.342 pertencem ao teste histórico e uma linha foi retirada por equivalência candidata com o teste. No desenvolvimento há 5.394 registros \textit{Normal} e 3.967 \textit{Anormal} (42,38\%).
 
-\subsection{Proveniência e risco de vazamento}
-Revisamos a origem, a disponibilidade e as dependências dos 21 atributos (Tabela~\ref{tab:policy}). A A1 já havia identificado MOTIVO1 e MOTIVO2 como candidatos a vazamento. Na fonte bruta, 1.158 registros trazem \textit{Cardiopatia já estabelecida} em MOTIVO1 e 1.041 trazem \textit{Cardiopatia congenica} em MOTIVO2. O conteúdo diagnóstico explícito motivou a retirada dos dois campos em todos os cenários.
-
-SOPRO, B2 e PULSOS aparecem no roteiro de investigação diagnóstica \cite{guideline}. Mesmo que o exame anteceda o laudo, seus achados podem ter participado da definição do rótulo. A relação entre esse roteiro e a rotulagem da UCMF é desconhecida. PPA deriva das pressões e das referências pediátricas \cite{ppa}. HDA1 e HDA2 registram sintomas com cronologia incerta e HDA2 tem cobertura muito baixa. \fisio{} e \strict{} retiram esses campos por precaução. A inclusão de cinco deles em \clin{} é uma sonda exploratória de dependência do bloco diagnóstico.
-
-\begin{table}[!t]
+\begin{table}[!htbp]
 \centering
 \caption{Decisão sobre os 21 atributos originais}
 \label{tab:policy}
@@ -16,32 +11,42 @@ Atributos & Decisão nos experimentos \\
 \midrule
 \textit{NORMAL X ANORMAL} & Resposta binária. \\
 ID & Rastreabilidade e agrupamento candidato. \\
-Atendimento, DN & Insumos para conferir ou derivar IDADE. Datas brutas fora de $X$. \\
+Atendimento, DN (data de nascimento) & Insumos para conferir ou derivar IDADE. Datas brutas não entram nos preditores. \\
 Convênio & Excluído. Pode refletir acesso e encaminhamento. \\
 MOTIVO1, MOTIVO2 & Excluídos. Conteúdo diagnóstico explícito. \\
-SOPRO, B2, PULSOS & Apenas em \clin{}. Podem integrar o critério do rótulo. \\
-PPA & Apenas em \clin{}. Derivada da pressão. \\
-HDA1, HDA2 & HDA1 só em \clin{}. HDA2 fora por baixa cobertura e origem incerta. \\
+SOPRO, B2, PULSOS & Segunda bulha (B2), sopro e pulsos. Apenas em \clin{}. Podem integrar o critério do rótulo. \\
+PPA & Classificação histórica derivada da pressão. Apenas em \clin{}. \\
+HDA1, HDA2 & Históricos da doença 1 e 2. HDA1 só em \clin{}. HDA2 fora por baixa cobertura e origem incerta. \\
 Peso, Altura, IDADE, SEXO & Incluídos nos três cenários. \\
-IMC, PAS, PAD, FC & Incluídos em \fisio{} e \clin{} sob hipótese de disponibilidade. \\
+IMC, PAS, PAD, FC & Índice de massa corporal, pressões arteriais sistólica e diastólica e frequência cardíaca. Em \fisio{} e \clin{} sob hipótese de disponibilidade. \\
 \bottomrule
 \end{tabular}
 \end{table}
 
+\subsection{Proveniência e risco de vazamento}
+Revisamos a origem, a disponibilidade e as dependências dos 21 atributos (Tabela~\ref{tab:policy}). A A1 já havia identificado MOTIVO1 e MOTIVO2 como candidatos a vazamento. Na fonte bruta, 1.158 registros trazem \textit{Cardiopatia já estabelecida} em MOTIVO1 e 1.041 trazem \textit{Cardiopatia congenica} em MOTIVO2. O conteúdo diagnóstico explícito motivou a retirada dos dois campos em todos os cenários.
+
+Os achados de ausculta SOPRO e B2 e o exame de PULSOS por palpação aparecem no roteiro de investigação diagnóstica \cite{guideline}. Mesmo que o exame anteceda o laudo, seus achados podem ter participado da definição do rótulo. A relação entre esse roteiro e a rotulagem da UCMF é desconhecida. PPA deriva das pressões e das referências pediátricas \cite{ppa}. HDA1 e HDA2 registram sintomas com cronologia incerta e HDA2 tem cobertura muito baixa. \fisio{} e \strict{} retiram esses campos por precaução. A inclusão de cinco deles em \clin{} é uma sonda exploratória de dependência do bloco diagnóstico.
+
+
+
+% Keep the subsection opening together without an unconditional column break.
+\Needspace{12\baselineskip}
 \subsection{Associação e qualidade de dados}
-Ensaios em cinco folds com árvore fixa e um atributo por vez deram BA de \ProbeSopro\% para SOPRO, \ProbeBtwo\% para B2, \ProbeMotivoUm\% para MOTIVO1 e \ProbeMotivoDois\% para MOTIVO2. A intensidade da associação orienta a investigação, e a proveniência orienta a exclusão. Uma pontuação baixa pode coexistir com informação diagnóstica em parte dos registros. A Fig.~\ref{fig:sopro} mostra a associação entre o status de SOPRO e o rótulo.
+Ensaios em cinco partições de validação (folds) com árvore fixa e um atributo por vez deram BA de \ProbeSopro\% para SOPRO, \ProbeBtwo\% para B2, \ProbeMotivoUm\% para MOTIVO1 e \ProbeMotivoDois\% para MOTIVO2. A intensidade da associação orienta a investigação, e a proveniência orienta a exclusão. Uma pontuação baixa pode coexistir com informação diagnóstica em parte dos registros. A Figura~\ref{fig:sopro} mostra a associação entre o status de SOPRO e o rótulo.
 
-Após a limpeza, cada medida de pressão estava indisponível em 56,0\% dos registros (Fig.~\ref{fig:eda}). Entre idades válidas, a mediana foi \MedianAgeAnormal{} anos em \textit{Anormal} e \MedianAgeNormal{} em \textit{Normal}. As medianas de FC foram, respectivamente, \MedianFCAnormal{} e \MedianFCNormal{} bpm, com sobreposição dos intervalos interquartis. Idade e frequência cardíaca podem refletir diferenças na composição das classes e na coleta.
-\begin{figure}[!t]
-\centering
-\includegraphics[width=\columnwidth]{disponibilidade.pdf}
-\caption{Percentual de ausências ou valores mascarados no desenvolvimento, após a limpeza e antes da imputação.}
-\label{fig:eda}
-\end{figure}
-
-\begin{figure}[!t]
+\begin{figure}[!htbp]
 \centering
 \includegraphics[width=\columnwidth]{sopro_rotulo.pdf}
 \caption{Proporção de rótulos \textit{Anormal} por status registrado de SOPRO no desenvolvimento. A figura usa os registros com status conhecido.}
 \label{fig:sopro}
+\end{figure}
+
+Após a limpeza, cada medida de pressão estava indisponível em 56,0\% dos registros (Figura~\ref{fig:eda}). Entre idades válidas, a mediana foi \MedianAgeAnormal{} anos em \textit{Anormal} e \MedianAgeNormal{} em \textit{Normal}. As medianas de FC foram, respectivamente, \MedianFCAnormal{} e \MedianFCNormal{} bpm, com sobreposição dos intervalos interquartis. Idade e frequência cardíaca podem refletir diferenças na composição das classes e na coleta.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=\columnwidth]{disponibilidade.pdf}
+\caption{Percentual de ausências ou valores mascarados no desenvolvimento, após a limpeza e antes da imputação.}
+\label{fig:eda}
 \end{figure}

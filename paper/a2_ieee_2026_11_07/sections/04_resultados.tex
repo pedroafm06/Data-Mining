@@ -1,4 +1,7 @@
-\begin{table}[!t]
+\subsection{Desempenho com entradas conservadoras}
+Em \fisio{}, a floresta obteve a maior BA, \FisioForestBA\% (IC \FisioForestCI\%). A logística atingiu \FisioLogisticBA\% (Tabela~\ref{tab:results}). A diferença floresta menos logística foi de \FisioDiffBA{} pontos percentuais (IC \FisioDiffCI{} pontos). A referência majoritária tem BA de 50\%, pois prevê todos os registros como \textit{Normal}. Em \strict{}, a maior BA foi de \StrictBestBA\% com a \StrictBestFamily{}. Os três intervalos pareados entre famílias em \strict{} incluem zero. A ordem numérica, portanto, não sustenta preferência clara entre elas sob esse desenho. Remover IMC, PAS, PAD e FC em conjunto altera a comparação de famílias e deixa indeterminado o efeito isolado de cada medida.
+
+\begin{table}[!htbp]
 \centering
 \caption{Métricas das previsões externas da validação aninhada (\%)}
 \label{tab:results}
@@ -14,10 +17,11 @@ Cenário & Família & BA & Sens. & Esp. & Prec. & \(F_1\) & AP \\
 \raggedright\scriptsize Sens.\ = sensibilidade, Esp.\ = especificidade, Prec.\ = precisão e AP = precisão média. Maioria tem precisão e \(F_1\) iguais a zero pela convenção da avaliação.
 \end{table}
 
-\subsection{Desempenho com entradas conservadoras}
-Em \fisio{}, a floresta obteve a maior BA, \FisioForestBA\% (IC \FisioForestCI\%). A logística atingiu \FisioLogisticBA\% (Tabela~\ref{tab:results}). A diferença floresta menos logística foi de \FisioDiffBA{} pontos percentuais (IC \FisioDiffCI{} pontos). A referência majoritária tem BA de 50\%, pois prevê todos os registros como \textit{Normal}. Em \strict{}, a maior BA foi de \StrictBestBA\% com a \StrictBestFamily{}. Os três intervalos pareados entre famílias em \strict{} incluem zero. A ordem numérica, portanto, não sustenta preferência clara entre elas sob esse desenho. Remover IMC, PAS, PAD e FC em conjunto altera a comparação de famílias e deixa indeterminado o efeito isolado de cada medida.
 
-\begin{table}[!t]
+
+Em \fisio{}, a floresta previu \textit{Normal} para \FisioForestFN{} registros \textit{Anormal}, com sensibilidade de \FisioForestSens\%. A Tabela~\ref{tab:confusion} também registra \FisioForestFP{} positivos entre os rotulados \textit{Normal}. Entre os positivos com idade válida, a mediana foi de \FisioMedianAgeFN{} anos nos falsos negativos e \FisioMedianAgeTP{} nos verdadeiros positivos da floresta. Essa distribuição sugere examinar o erro por idade em outra coorte. Aqui, os erros medem desacordo com o rótulo registrado.
+
+\begin{table}[!htbp]
 \centering
 \caption{Matrizes de confusão das previsões externas}
 \label{tab:confusion}
@@ -36,8 +40,8 @@ Anormal & \FisioForestFN & \FisioForestTP & \ClinTreeFN & \ClinTreeTP \\
 \raggedright\scriptsize As linhas indicam o rótulo registrado. As colunas indicam a previsão.
 \end{table}
 
-Em \fisio{}, a floresta previu \textit{Normal} para \FisioForestFN{} registros \textit{Anormal}, com sensibilidade de \FisioForestSens\%. A Tabela~\ref{tab:confusion} também registra \FisioForestFP{} positivos entre os rotulados \textit{Normal}. Entre os positivos com idade válida, a mediana foi de \FisioMedianAgeFN{} anos nos falsos negativos e \FisioMedianAgeTP{} nos verdadeiros positivos da floresta. Essa distribuição sugere examinar o erro por idade em outra coorte. Aqui, os erros medem desacordo com o rótulo registrado.
-
+% Complete the two result tables before starting the next discussion.
+\FloatBarrier
 \subsection{Dependência dos achados e das medidas}
 A árvore em \clin{} obteve BA de \ClinTreeBA\% (IC \ClinTreeCI\%) e sensibilidade de \ClinTreeSens\%. Na comparação entre árvores, a BA subiu \ClinVsFisio{} pontos ao incluir os cinco campos simultaneamente. A matriz mostra \ClinTreeFN{} falsos negativos no ensaio com achados. Entre eles, \ClinNoMurmurFN{} tinham SOPRO explicitamente ausente. Ao todo, \AnormalSemSopro{} registros \textit{Anormal} tinham essa marcação. O material clínico e a dependência forte de SOPRO tornam essa diferença compatível com incorporação de informação ao alvo. A definição do rótulo também admite que os achados sejam informativos por associação com a condição registrada. A avaliação interna deixa essas explicações em aberto.
 

@@ -7,7 +7,7 @@ Trabalho da disciplina INF0414, UFG, 2026/2. Base UCMF: 12.873 registros e 21 va
 ## Entrega da A2
 
 - **Submissão no SIGAA em 18/11.** Artigo de quatro páginas no formato IEEE. [Artigo_A2_IEEE.pdf](paper/a2_ieee_2026_11_07/output/pdf/Artigo_A2_IEEE.pdf)
-- **Apresentação oral.** 16 slides no modelo institucional usado na A1 e roteiro de 14 min 35 s para os quatro integrantes. [PPTX editável](presentation/a2_inf/output/Apresentacao_A2_INF.pptx) · [PDF dos slides](presentation/a2_inf/output/Apresentacao_A2_INF.pdf) · [Roteiro e arguição](presentation/a2_inf/output/Roteiro_A2_INF.md)
+- **Apresentação oral.** 16 slides, todos apresentados, no modelo institucional usado na A1, com 14 min 30 s planejados para os quatro integrantes. [PPTX editável](presentation/a2_inf/output/Apresentacao_A2_INF.pptx) · [PDF dos slides](presentation/a2_inf/output/Apresentacao_A2_INF.pdf) · [Roteiro e arguição](presentation/a2_inf/output/Roteiro_A2_INF.md) · [Guia de estudo e defesa](presentation/a2_inf/output/Guia_Defesa_A2.md)
 - [Auditoria das 21 variáveis](docs/a2/auditoria_2026_11_07/Parecer_Semantico_e_Decisoes.md), [verificação experimental](docs/a2/auditoria_2026_11_07/Verificacao_Experimental.json) e [conferência da rubrica da entrega](docs/a2/Revisao_Final_A2.md#conferência-da-rubrica).
 - As contribuições do Antônio e do João (Petas) foram incorporadas seletivamente em [c99f812](https://github.com/pedroafm06/Data-Mining/commit/c99f812). [Parecer por contribuição](docs/a2/Revisao_Final_A2.md)
 - [Código e instruções de reprodução da A2](#reproduzir-a-revisão-da-a2).

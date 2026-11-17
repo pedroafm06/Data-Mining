@@ -45,3 +45,31 @@ O [artigo IEEE](../../paper/a2_ieee_2026_11_07/output/pdf/Artigo_A2_IEEE.pdf) é
 | Uso de IA generativa | Declaração após a conclusão. |
 
 O relatório fica pronto para envio pelo SIGAA no prazo da rubrica. A apresentação final usa o template da A1 e os dados da revisão de 16/11. [Slides e roteiro](../../presentation/a2_inf/README.md)
+
+## Errata factual sobre unidades · 17/11/2026
+
+A conferência da seção III-A com `numeric_value` e `prepare_final` mostrou que a redação anterior atribuía ao código uma correção da escala da altura que ele não executa. O texto agora registra a padronização de grafias, separadores decimais e códigos de ausência, declara as unidades adotadas e explicita a conversão de centímetros para metros apenas na fórmula do IMC. Esta correção descreve com precisão o procedimento já executado. A base, as regras de curadoria, os modelos e os resultados permanecem iguais.
+
+## Revisão bibliográfica das referências 3, 4, 5 e 7 · 17/11/2026
+
+A conferência separou metadados bibliográficos comprovados de informações sobre o fornecimento dos materiais na disciplina. Foram examinados os PDFs originais locais, inclusive todas as suas páginas, os metadados do pacote complementar e o estilo `IEEEtran.bst` efetivamente usado pelo artigo. As fontes editoriais de Breiman e Varma/Simon foram consultadas diretamente nos sites dos periódicos.
+
+| Referência | Evidência confirmada | Correção e limite |
+|---|---|---|
+| [3], `guideline` | `Guideline for diagnostic.pdf`, uma página, no material complementar do trabalho. Não apresenta título editorial, autoria, ano editorial ou URL impressos. O título citado é o nome do arquivo. | A referência identifica o Instituto de Informática/UFG como fornecedor no SIGAA, na oferta INF0414 de 2026/2, sem atribuí-lo como autor original. Declara autoria e data editoriais não identificadas. Não inventa ano original nem URL individual. |
+| [4], `ppa` | `Explanation about the PPA variable.pdf`, quatro páginas. O texto começa com “Então vamos começar.” e não credita autor, ano editorial ou URL. O título citado é o nome do arquivo. | Mesma distinção entre fornecedor e autoria original. A oferta 2026/2 identifica o contexto da disciplina, não a publicação do texto. Não usa o nome `Pedro` dos metadados do PDF como autoria bibliográfica. |
+| [5], `breiman2001` | Leo Breiman, *Random Forests*, *Machine Learning*, volume 45, número 1, páginas 5–32, outubro de 2001; DOI `10.1023/A:1010933404324`. O [sumário oficial do fascículo 45(1)](https://link.springer.com/journal/10994/volumes-and-issues/45-1) confirma número, mês e paginação; a [página editorial do artigo](https://link.springer.com/article/10.1023/A:1010933404324) confirma DOI e autoria. | Acrescentados `number=1`, mês e URL DOI clicável, mantendo o DOI como metadado. |
+| [7], `varma2006` | Sudhir Varma e Richard Simon, *Bias in error estimation when using cross-validation for model selection*, *BMC Bioinformatics*, volume 7, artigo 91, publicado em 23/02/2006. A [página editorial oficial](https://bmcbioinformatics.biomedcentral.com/articles/10.1186/1471-2105-7-91) identifica explicitamente “article number 91” e o DOI. | Retirado `pages=91`, que representava incorretamente uma página. O identificador passou para `note={Art. no. 91}`; acrescentados mês e URL DOI clicável. Não se confundiu número de artigo com número de fascículo. |
+
+Os dois PDFs originais estão em `Atividades Praticas/trabalho pratico (material complementar)/`, na pasta da disciplina, um nível acima da raiz deste repositório. Seus hashes são:
+
+- `Guideline for diagnostic.pdf`: `cec38e5da5dc8501dff90b4b57dcc01b2f6ec48acfb4e4c9d470a8fa7b2d00a3`.
+- `Explanation about the PPA variable.pdf`: `5b7fbd347584e9c5c7041daf39995253299f65dc97b6fa5e2e3c3485573c4cad`.
+
+As datas de criação dos PDFs, em 2013 e 2012, e as datas de arquivos do ZIP, em 2017, não demonstram datas editoriais. O campo de autor do segundo PDF contém apenas `Pedro` e seu título automático do Word não é um crédito de autoria nem título de publicação. Esses dados foram preservados como observações de procedência e não convertidos em autoria ou ano nas referências.
+
+O metadado local de origem do ZIP registra o fornecimento do pacote pelo Google Drive. O endereço de download temporário não é reproduzido neste documento público. Ele se refere ao pacote inteiro, e o acesso remoto atual não foi comprovado. Por isso, não foi usado como URL pública individual das referências. Os documentos da auditoria semântica em `docs/a2/auditoria_2026_11_07/` também identificam os dois PDFs como material complementar sem autor original creditado.
+
+A inspeção de `vendor/IEEEtran/bibtex/IEEEtran.bst` mostrou que a lista `ENTRY` não inclui `eid`, `articleno` ou `doi`. A função de artigos formata `pages` com o prefixo de página, portanto `pages=91` produziria “p. 91”. A alternativa aplicada usa `note`, suportado pelo estilo, para explicitar “Art. no. 91”. As URLs DOI foram colocadas no campo `url`, que o estilo efetivamente imprime; o campo `doi` permanece útil como metadado, mas não é a única forma de tornar o identificador visível no PDF.
+
+Não foram alterados dados, experimentos ou métricas. Esta etapa modificou somente a bibliografia e este registro. A compilação conjunta foi realizada após integrar as correções. As quatro páginas finais foram renderizadas e inspecionadas. O [fechamento IEEE](Fechamento_IEEE_2026_11_17.md) registra a verificação consolidada.

@@ -12,6 +12,7 @@ import re
 import shutil
 import subprocess
 import sys
+import urllib.error
 import urllib.parse
 import urllib.request
 
@@ -49,17 +50,38 @@ def public_repository(url: str) -> dict:
     elif parsed.netloc.lower() != "colab.research.google.com":
         raise ValueError("The rubric requires public GitHub or Google Colab.")
     request = urllib.request.Request(request_url, headers={"User-Agent": "A2-IEEE-reproducibility-check", "Accept": "application/vnd.github+json" if github else "text/html"})
-    with urllib.request.urlopen(request, timeout=30) as response:
+    method = "anonymous_repository_api" if github else "anonymous_public_page"
+    api_status = None
+    try:
+        response = urllib.request.urlopen(request, timeout=30)
+    except urllib.error.HTTPError as exc:
+        limited = exc.code == 429 or (exc.code == 403 and
+                  (exc.headers.get("X-RateLimit-Remaining") == "0" or
+                   b"rate limit" in exc.read().lower()))
+        if not github or not limited:
+            raise
+        # A rate-limited metadata endpoint does not decide public file access.
+        # Verify a real repository file anonymously, without credentials.
+        api_status = exc.code
+        request_url = "https://raw.githubusercontent.com/" + "/".join(parts[:2]) + "/HEAD/README.md"
+        request = urllib.request.Request(request_url, headers={"User-Agent": "A2-IEEE-reproducibility-check"})
+        response = urllib.request.urlopen(request, timeout=30)
+        method = "anonymous_public_readme_after_api_rate_limit"
+    with response:
         body = response.read()
         final_url = response.geturl()
         status = response.status
-    if status != 200:
-        raise ValueError(f"Public URL returned HTTP {status}.")
-    if github and json.loads(body).get("private") is not False:
+    if status != 200 or not body.strip():
+        raise ValueError(f"Public URL returned HTTP {status} or empty content.")
+    if github and method == "anonymous_repository_api" and json.loads(body).get("private") is not False:
         raise ValueError("The GitHub API did not confirm a public repository.")
     if not github and "accounts.google.com" in final_url:
         raise ValueError("Colab redirected anonymous access to login.")
-    return {"requested_url": url, "checked_url": request_url, "status": status, "checked_utc": datetime.now(timezone.utc).isoformat()}
+    return {"requested_url": url, "checked_url": request_url, "status": status,
+            "method": method, "api_status": api_status,
+            "response_sha256": hashlib.sha256(body).hexdigest(),
+            "checked_utc": datetime.now(timezone.utc).isoformat()}
+
 
 
 def final_config() -> tuple[dict, dict]:
@@ -109,7 +131,26 @@ def validate_pdf(path: Path, log_path: Path, *, final: bool) -> dict:
     problems = [line.strip() for line in log.splitlines() if re.search(r"Overfull \\hbox|Missing character|undefined references|Citation .* undefined|Reference .* undefined", line)]
     if final and problems:
         raise ValueError("Final blocked: layout or reference defects: " + "; ".join(problems))
-    return {"pages": pages, "layout_reference_warnings": problems, "abstract_words": word_count((ROOT / "sections/abstract.tex").read_text(encoding="utf-8"))}
+    font_check = {"checked": False}
+    if shutil.which("pdffonts"):
+        listing = subprocess.run(["pdffonts", str(path)], capture_output=True,
+                                 text=True, check=True).stdout
+        rows = [line for line in listing.splitlines()[2:] if line.strip()]
+        type3 = [line for line in rows if re.search(r"\bType\s+3\b", line)]
+        unembedded = []
+        for line in rows:
+            match = re.search(r"\s(yes|no)\s+(yes|no)\s+(yes|no)\s+\d+\s+\d+\s*$", line)
+            if match and match.group(1) == "no":
+                unembedded.append(line)
+        font_check = {"checked": True, "font_count": len(rows),
+                      "type3_count": len(type3), "unembedded_count": len(unembedded)}
+        if final and (type3 or unembedded):
+            raise ValueError("Final blocked: Type 3 or unembedded fonts remain in the PDF.")
+    return {"pages": pages, "layout_reference_warnings": problems,
+            "abstract_words": word_count((ROOT / "sections/abstract.tex").read_text(encoding="utf-8")),
+            "abstract_word_count_method": "alphabetic_words_in_tex_with_commands_removed",
+            "fonts": font_check}
+
 
 
 def main() -> None:
@@ -179,10 +220,10 @@ def main() -> None:
     ]
     source_text = "\n".join(uncomment(path.read_text(encoding="utf-8")) for path in tex_sources)
     assets = set()
-    for name in re.findall(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]+)\}", source_text):
-        asset = ROOT / "figures" / name
+    for asset_name in re.findall(r"\\includegraphics(?:\[[^\]]*\])?\{([^}]+)\}", source_text):
+        asset = ROOT / "figures" / asset_name
         if not asset.is_file():
-            asset = ROOT / name
+            asset = ROOT / asset_name
         if asset.is_file():
             assets.add(asset)
     sources = [

@@ -23,6 +23,8 @@ const headFont = 'Caladea';
 const bodyFont = 'Open Sans';
 const tableOwners = [];
 const slideCount = script.slides.length;
+const allNotes = script.slides;
+const totalSlideCount = slideCount;
 const metric = (pool, family) => results.metrics.find(m => m.pool === pool && m.family === family);
 const percent = (x, decimals=2) => (100*x).toFixed(decimals).replace('.',',')+'%';
 const number = n => n.toLocaleString('pt-BR');
@@ -56,19 +58,19 @@ function slide(n, title) {
   s.images.add({blob:background,contentType:'image/jpeg',alt:'Fundo institucional da UFG usado no Canva da A1',
     fit:'contain',position:{left:0,top:0,width:1280,height:720}});
   if (title) text(s,title,51,59,1178,73,{font:headFont,size:49,bold:true,color:palette.blue,align:'center',name:'slide-title'});
-  text(s,String(n).padStart(2,'0')+' / '+slideCount,42,659,190,36,{size:21,color:palette.white,italic:true,name:'número do slide'});
-  const note = script.slides[n-1];
+  text(s,n<=slideCount?String(n).padStart(2,'0')+' / '+slideCount:'Apoio '+(n-slideCount),42,659,190,36,{size:21,color:palette.white,italic:true,name:'número do slide'});
+  const note = allNotes[n-1];
   if (note.number !== n || (title && note.title !== title)) throw new Error('Nomes dos slides e roteiro divergem no slide '+n);
-  s.speakerNotes.text = note.author+'  ·  '+clock(note.seconds)+'\n\n'+note.text+'\n\nFontes\n'+note.sources.join('\n');
+  s.speakerNotes.text = (note.author||'Consulta durante a arguição')+(note.seconds?'  ·  '+clock(note.seconds):'')+'\n\n'+note.text+'\n\nNotas de apoio\n'+(note.technical_notes||[]).join('\n')+'\n\nFontes\n'+note.sources.join('\n');
   return s;
 }
 function clock(seconds) {
   return Math.floor(seconds / 60)+':'+String(seconds % 60).padStart(2,'0');
 }
 const H = {size:32,bold:true,color:palette.blue};
-const m = {size:24,color:palette.muted};
+const m = {size:27,color:palette.muted};
 const center = {align:'center'};
-function table(s, values, x, y, widths, heights, {emphasis, errorCell=false}={}) {
+function table(s, values, x, y, widths, heights, {emphasis, errorCell=false, bodySize=29, labelSize=27, headerSize=26}={}) {
   const t = s.tables.add({rows:values.length,columns:values[0].length,left:x,top:y,
     width:widths.reduce((a,b)=>a+b,0),height:heights.reduce((a,b)=>a+b,0),columnWidths:widths,values});
   t.borders.assign({fill:palette.line,width:1,style:'solid'});
@@ -78,7 +80,7 @@ function table(s, values, x, y, widths, heights, {emphasis, errorCell=false}={})
       const cell=t.getCell(row,col);
       const isError=errorCell && row===2 && col===1;
       cell.fill=row===0?palette.blue:isError?palette.warm:row===emphasis?palette.light:col===0?palette.faint:palette.white;
-      cell.text.style={typeface:bodyFont,fontSize:row===0||col===0?23:errorCell?38:30,color:row===0?palette.white:isError?palette.red:palette.ink,
+      cell.text.style={typeface:bodyFont,fontSize:row===0?headerSize:col===0?labelSize:errorCell?38:bodySize,color:row===0?palette.white:isError?palette.red:palette.ink,
         bold:true,alignment:col===0?'left':'center',verticalAlignment:'middle',autoFit:'none',insets:{left:15,right:12,top:6,bottom:6}};
     }
   }
@@ -87,183 +89,154 @@ function table(s, values, x, y, widths, heights, {emphasis, errorCell=false}={})
 
 {
   const s=slide(1,'');
-  text(s,'Classificação de registros\ncardíacos pediátricos',135,115,1010,158,
+  text(s,'Classificação de registros\ncardíacos pediátricos',120,111,1040,164,
     {size:58,bold:true,align:'center',name:'título de capa'});
   text(s,'Mineração de Dados · Avaliação 2',140,274,1000,54,{...H,...center});
-  text(s,'Grupo 3 · Antônio Henrique · João Vitor · Mateus Nery · Pedro Matos',125,341,1030,48,{size:25,...center});
-  text(s,'INF0414 · Prof. Rogério Lopes Salvini · UFG · 2026/2',155,394,970,42,{...m,...center});
+  text(s,'Antônio Henrique · João Vitor · Mateus Nery · Pedro Matos',105,347,1070,47,{size:27,...center});
+  text(s,'Grupo 3 · INF/UFG · Prof. Rogério Lopes Salvini · 2026/2',125,408,1030,42,{...m,...center});
 }
 {
-  const s=slide(2,'O que o modelo tenta prever');
-  text(s,'Uma ficha fictícia',118,156,550,53,H);
-  rect(s,118,219,514,184,palette.light,'campos da ficha fictícia');
-  text(s,'Idade  6 anos\nPeso  20 kg\nFrequência cardíaca  90 bpm',147,235,455,149,{size:29});
-  text(s,'A entrada muda conforme o cenário.',118,411,514,48,m);
-  text(s,'Rótulo registrado',747,180,430,55,H);
-  text(s,'Normal ou Anormal',747,249,445,70,{size:44,bold:true,color:palette.ink});
-  text(s,'O modelo aprende com fichas\nem que o rótulo já é conhecido.',747,328,443,86,{size:25,color:palette.muted});
+  const s=slide(2,'A base e o objetivo');
+  text(s,'As medidas ajudam a prever o rótulo Normal ou Anormal?',90,146,1100,68,{size:32,bold:true,...center});
+  text(s,number(results.n_original),100,227,490,84,{size:69,bold:true,color:palette.blue,...center});
+  text(s,'fichas na base original',100,310,490,48,{size:30,...center});
+  text(s,number(results.n_labelled)+' com rótulo',100,363,490,47,{...m,...center});
+  text(s,number(results.n_development),671,227,510,84,{size:69,bold:true,color:palette.blue,...center});
+  text(s,'fichas na avaliação final',671,310,510,48,{size:30,...center});
+  text(s,number(results.class_counts.Normal)+' Normal e '+number(results.class_counts.Anormal)+' Anormal',649,363,552,47,{...m,...center});
+  text(s,'Atendimentos de cardiologia pediátrica no Real Hospital Português, Recife',83,443,1114,47,{size:26,color:palette.muted,...center});
 }
 {
-  const s=slide(3,'De onde vêm os dados');
-  text(s,'Real Hospital Português · Recife',120,148,1040,54,{...m,...center,size:28});
-  text(s,number(results.n_original),124,214,452,90,{size:70,bold:true,color:palette.blue,...center});
-  text(s,'fichas na base original',124,299,452,52,{size:30,...center});
-  text(s,number(results.n_development),675,214,480,90,{size:70,bold:true,color:palette.blue,...center});
-  text(s,'fichas na avaliação final',675,299,480,52,{size:30,...center});
-  text(s,number(results.n_labelled)+' com rótulo na base original',124,359,452,43,{...m,...center,size:22});
-  text(s,number(results.class_counts.Normal)+' Normal  ·  '+number(results.class_counts.Anormal)+' Anormal',
-    647,359,536,43,{...m,...center,size:23});
-  text(s,number(results.n_historical_test_not_rescored)+' fichas do teste histórico ficaram fora desta avaliação.',130,431,1020,41,{...m,...center,size:21});
+  const s=slide(3,'Seleção das entradas');
+  text(s,'8 entradas principais',96,160,560,51,H);
+  text(s,'Idade e sexo\nPeso, altura e IMC\nPressão sistólica e diastólica\nFrequência cardíaca',96,225,585,221,{size:31});
+  text(s,'Campos excluídos',745,160,450,51,H);
+  text(s,'Motivo do encaminhamento\npode antecipar o rótulo.',745,229,450,104,{size:29});
+  text(s,'ID e convênio não medem\no estado do paciente.',745,358,450,95,{size:29});
 }
 {
-  const s=slide(4,'Limpeza e transformação');
-  text(s,'Limpeza',116,163,470,62,H);
-  text(s,'Unificamos unidades e marcamos\nvalores suspeitos como ausentes.',116,226,500,98,{size:28});
-  text(s,'Exemplo fictício · altura de 0 cm',116,342,490,46,{...m,size:23});
-  text(s,'Transformação',686,163,487,62,H);
-  text(s,'Preenchemos ausências com\nvalores aprendidos no treino.',686,226,487,98,{size:28});
-  text(s,'Testamos a mediana geral e a mediana por faixa etária.',686,329,488,75,{...m,size:23});
-  const missingPressure=results.missing_percent_by_fisio_variable['PA SISTOLICA'];
-  text(s,Math.round(missingPressure)+'% das fichas sem valor aproveitável para cada medida de pressão',116,431,1057,49,{...m,size:22});
+  const s=slide(4,'Limpeza dos dados');
+  text(s,'Exemplo real de frequência cardíaca',96,148,1088,49,{...H,size:31});
+  table(s,[['Campo','Registro original','Após a limpeza'],['Batimentos por minuto','1.120','Ausente']],
+    96,216,[420,335,335],[51,72],{bodySize:37,labelSize:28});
+  text(s,'O valor supera a regra de suspeita de 500 batimentos/min.',96,354,1092,49,{size:29});
+  text(s,'Também padronizamos números, conferimos datas e marcamos inconsistências.',96,419,1092,75,{size:29});
 }
 {
-  const s=slide(5,'Quando uma entrada já traz a resposta');
-  text(s,'Motivo do encaminhamento',132,165,1016,51,{...H,...center});
-  rect(s,170,225,940,86,palette.light,'exemplo de encaminhamento');
-  text(s,'“Cardiopatia já estabelecida”',182,232,916,68,{size:41,bold:true,...center});
-  text(s,'Isso pode antecipar o rótulo e inflar a avaliação.',128,326,1024,57,{size:31,...center});
-  text(s,'MOTIVO1 e MOTIVO2 ficaram fora dos três cenários.',130,403,1020,52,{...m,...center});
+  const s=slide(5,'Preenchimento e atributos derivados');
+  text(s,'Preenchimento da frequência cardíaca',96,151,1088,46,{...H,size:31});
+  table(s,[['Após a limpeza','Mediana do treino*','Indicador de preenchimento'],['Ausente','92 batimentos/min','1']],
+    96,211,[310,370,410],[52,66],{bodySize:34});
+  text(s,'*92 é a mediana no ajuste final da floresta.',96,335,1088,46,{...m});
+  text(s,'IMC de outra ficha real',96,398,415,65,{size:29,bold:true,color:palette.blue});
+  text(s,'5 kg ÷ (0,51 m)² = 19,22 kg/m²',510,396,680,68,{size:35,bold:true});
 }
 {
-  const s=slide(6,'Três maneiras de classificar');
-  const blocks=[
-    ['Árvore de decisão','Faz perguntas em sequência.','A frequência cardíaca ultrapassa um limite?'],
-    ['Regressão logística','Combina as medidas em uma estimativa.','Cada medida contribui para a chance de Anormal.'],
-    ['Floresta aleatória','Combina as probabilidades de 150 árvores.','As árvores aprendem com amostras distintas dos dados.'],
-  ];
-  blocks.forEach(([name,detail,example],i)=>{
-    const y=153+i*102;
-    text(s,name,106,y,381,45,{...H,size:29});
-    text(s,detail,494,y,674,43,{size:27,bold:true});
-    text(s,example,494,y+37,674,40,m);
-    if(i<2)rect(s,109,y+87,1060,1,palette.line,'linha de leitura');
-  });
+  const s=slide(6,'Representação para os modelos');
+  text(s,'Categorias em colunas de 0 ou 1',96,149,1088,50,H);
+  table(s,[['Sexo registrado','Coluna F','Coluna M'],['F','1','0'],['M','0','1']],
+    96,210,[410,340,340],[45,48,48],{bodySize:33});
+  text(s,'Logística',96,374,265,47,{size:30,bold:true,color:palette.blue});
+  text(s,'Testamos padronização e logaritmo do peso.',367,374,825,47,{size:29});
+  text(s,'Floresta final',96,437,265,47,{size:30,bold:true,color:palette.blue});
+  text(s,'Manteve as medidas nas unidades originais.',367,437,825,47,{size:29});
 }
 {
-  const s=slide(7,'Uma regra que a árvore aprendeu');
-  rect(s,352,158,576,63,palette.light,'primeira pergunta da árvore');
-  text(s,'Peso de até '+decimal(weightLimit)+' kg?',352,160,576,56,{...H,...center});
-  text(s,'Se sim',141,254,470,44,{...m,...center,bold:true});
-  text(s,'Se não',664,254,470,44,{...m,...center,bold:true});
-  text(s,'A árvore examina a idade',110,299,527,52,{size:30,bold:true,...center});
-  text(s,'A árvore examina a frequência cardíaca',650,289,519,73,{size:28,bold:true,...center});
-  text(s,'Corte de cerca de '+Math.round(ageLimit*365)+' dias',136,365,481,49,{...m,...center});
-  text(s,'Corte de '+decimal(pulseLimit,1)+' batimentos por minuto',656,365,510,49,{...m,...center});
-  text(s,'Primeiras decisões da árvore ajustada às fichas do estudo.',113,445,1054,43,{...m,...center,size:21});
+  const s=slide(7,'Três maneiras de classificar');
+  table(s,[['Modelo','Como faz a previsão','Por que comparar'],
+    ['Árvore de decisão','Perguntas em sequência\nEx.: peso até 8,85 kg?','Permite acompanhar\nas decisões.'],
+    ['Regressão logística','Combina contribuições\npara estimar uma chance.','Testa uma relação\nmais simples.'],
+    ['Floresta aleatória','Faz a média das chances\nde 150 árvores.','Capta relações\nmais variadas.']],
+    80,163,[320,430,370],[49,83,83,83],{bodySize:27,labelSize:28});
 }
 {
-  const s=slide(8,'Como avaliamos os modelos');
-  text(s,'Dividimos as fichas em cinco partes.',117,151,1035,46,{size:29});
+  const s=slide(8,'Escolha dos ajustes e avaliação');
+  text(s,'Cinco partes, com as mesmas divisões para todos os modelos',96,147,1090,53,{size:30,bold:true});
   for(let i=0;i<5;i++){
-    rect(s,119+i*211,225,193,63,i===4?palette.blue:palette.light,'parte '+(i+1));
-    text(s,String(i+1),119+i*211,226,193,59,{size:28,bold:true,color:i===4?palette.white:palette.blue,...center});
+    rect(s,98+i*220,222,204,61,i===4?palette.blue:palette.light,'parte da validação '+(i+1));
+    text(s,String(i+1),98+i*220,223,204,58,{size:31,bold:true,color:i===4?palette.white:palette.blue,...center});
   }
-  text(s,'Quatro partes para escolher ajustes e treinar',119,303,819,49,{size:27,bold:true});
-  text(s,'Uma para avaliar',957,303,218,52,{size:23,bold:true,color:palette.blue,...center});
-  text(s,'Dentro do treino, três divisões ajudam a escolher os ajustes.',119,357,1036,46,m);
-  text(s,'105 configurações por cenário · fichas idênticas ficam juntas',119,416,1060,46,{...m,bold:true});
+  text(s,'Treino e escolha dos ajustes',98,293,870,47,{size:29,bold:true});
+  text(s,'Avaliação',978,293,204,47,{size:28,bold:true,color:palette.blue,...center});
+  text(s,'Dentro do treino, 3 divisões comparam 105 configurações por cenário.',98,354,1084,65,{size:28});
+  text(s,'Calculamos o preenchimento só no treino. Fichas idênticas ficam juntas.',98,430,1084,65,{size:28});
 }
 {
   const s=slide(9,'Acurácia balanceada');
-  text(s,'Se o modelo previsse sempre Normal',135,150,1010,55,{size:31,...center});
-  text(s,'100% dos Normais',111,228,500,73,{size:43,color:palette.blue,bold:true,...center});
-  text(s,'reconhecidos',111,300,500,44,{...m,...center});
-  text(s,'0% dos Anormais',669,228,500,73,{size:43,color:palette.red,bold:true,...center});
-  text(s,'reconhecidos',669,300,500,44,{...m,...center});
-  text(s,'Média dos dois acertos = 50%',129,378,1022,71,{size:41,bold:true,...center});
-  text(s,'A mesma previsão tem '+percent(results.class_counts.Normal/results.n_development)+' de acertos no total.',134,445,1012,42,{...m,...center,size:21});
+  text(s,'Referência simples que prevê Normal para todas as fichas',96,147,1088,60,{size:30,...center});
+  text(s,'100%',118,222,472,93,{size:73,bold:true,color:palette.blue,...center});
+  text(s,'Especificidade\nNormais reconhecidos',100,311,508,76,{size:28,...center});
+  text(s,'0%',690,222,472,93,{size:73,bold:true,color:palette.red,...center});
+  text(s,'Sensibilidade\nAnormais reconhecidos',666,311,520,76,{size:28,...center});
+  text(s,'Média dos acertos de cada classe = 50%',104,396,1072,67,{size:38,bold:true,...center});
 }
 {
-  const s=slide(10,'A floresta teve o melhor resultado');
-  text(s,'Cenário principal com oito entradas por ficha',115,134,1050,42,{...m,...center});
-  const scores = ['dummy','tree','logistic','forest'].map((fam,i) => [
-    ['Sempre Normal','Árvore de decisão','Regressão logística','Floresta aleatória'][i], percent(metric('FISIO8',fam).balanced_accuracy)
-  ]);
-  table(s,[['Modelo','Acurácia balanceada'],...scores],139,191,[411,293],[52,47,47,47,47],{emphasis:4});
-  text(s,'+'+points(famDiff.diff)+' p.p.',948,215,257,73,{size:48,bold:true,color:palette.blue});
-  text(s,'da floresta sobre\na logística',948,288,252,76,{size:27,color:palette.muted});
-  text(s,'Intervalo de 95%\n'+points(famDiff.ci95[0])+' a '+points(famDiff.ci95[1])+' p.p.',948,372,253,66,{...m,size:21});
+  const s=slide(10,'Comparação dos modelos');
+  text(s,'Acurácia balanceada nas oito entradas principais',96,146,1088,52,{...m,...center,size:29});
+  const scores=['dummy','tree','logistic','forest'].map((fam,i)=>[
+    ['Sempre Normal','Árvore de decisão','Regressão logística','Floresta aleatória'][i],percent(metric('FISIO8',fam).balanced_accuracy)]);
+  table(s,[['Modelo','Pontuação'],...scores],112,215,[574,482],[48,46,46,46,46],{emphasis:4,bodySize:33,labelSize:29,headerSize:28});
+  text(s,'Ajuste final da floresta com pelo menos 30 fichas por folha.',112,459,1056,51,{size:27,color:palette.muted});
 }
 {
-  const s=slide(11,'Os erros da floresta');
+  const s=slide(11,'Acertos e erros da floresta');
   table(s,[['Rótulo registrado','Previu Normal','Previu Anormal'],['Normal',number(fisio.tn),number(fisio.fp)],
-    ['Anormal',number(fisio.fn),number(fisio.tp)]],95,192,[276,208,217],[54,72,72],{errorCell:true});
-  text(s,'42 de cada 100',835,201,367,70,{size:46,bold:true,color:palette.red});
-  text(s,'registros Anormal receberam\nprevisão Normal.',835,278,375,95,{size:27,color:palette.ink});
-  const age = results.errors.FISIO8;
-  text(s,'Idade mediana entre registros Anormal com idade válida',98,412,1080,46,{...m,size:23});
-  text(s,decimal(age.median_age_fn)+' anos nos erros   ·   '+decimal(age.median_age_tp)+' ano nos acertos',98,458,1080,41,
-    {size:23,bold:true,color:palette.blue});
+    ['Anormal',number(fisio.fn),number(fisio.tp)]],87,169,[308,231,231],[58,77,77],{errorCell:true,headerSize:26,labelSize:29});
+  text(s,'42 em 100',891,186,312,79,{size:51,bold:true,color:palette.red,...center});
+  text(s,'registros Anormal\npassaram como Normal',873,270,334,96,{size:28,...center});
+  text(s,'Reconheceu 58% dos Anormais e 68% dos Normais.',96,422,1088,63,{size:31,bold:true,...center});
 }
 {
-  const s=slide(12,'Quais medidas a floresta mais usou');
-  text(s,'Embaralhamos uma medida entre as fichas e medimos a queda.',99,148,1082,58,{size:27,...center});
-  const feature=[['Frequência cardíaca','FC'],['Peso','Peso'],['Idade','IDADE']];
-  feature.forEach(([label,key],i)=>{
-    const x=91+i*373;
-    text(s,points(importance('FISIO8','forest',key))+' p.p.',x,235,352,88,{size:56,bold:true,color:palette.blue,...center});
-    text(s,label,x,324,352,58,{size:28,bold:true,...center});
+  const s=slide(12,'Métricas que complementam a comparação');
+  table(s,[['Métrica','Floresta','O que acrescenta'],
+    ['Precisão',percent(fisio.precision),'Acertos entre previsões Anormal'],
+    ['F1',percent(fisio.f1),'Combina precisão e sensibilidade'],
+    ['Precisão média (AP)',percent(fisio.average_precision),'Precisão ao recuperar mais Anormais']],
+    78,178,[326,250,550],[53,77,77,77],{bodySize:28,labelSize:29,headerSize:26});
+}
+{
+  const s=slide(13,'Quais medidas a floresta mais usou');
+  text(s,'Embaralhamos uma medida entre as fichas e medimos a queda.',96,147,1088,73,{size:29,...center});
+  const features=[['Frequência cardíaca','FC'],['Peso','Peso'],['Idade','IDADE']];
+  features.forEach(([label,key],i)=>{
+    const x=82+i*376;
+    text(s,points(importance('FISIO8','forest',key))+' p.p.',x,242,364,96,{size:61,bold:true,color:palette.blue,...center});
+    text(s,label,x,342,364,65,{size:29,bold:true,...center});
   });
-  text(s,'Queda média na pontuação ao embaralhar cada entrada',110,415,1060,44,{...m,...center});
+  text(s,'Uma queda maior indica maior dependência daquela medida.',96,433,1088,55,{...m,...center});
 }
 {
-  const s=slide(13,'O resultado muda com as entradas');
-  text(s,'Melhor resultado em cada conjunto de informações',113,136,1054,42,{...m,...center});
-  const scenarios=[
-    ['4 entradas básicas',strict,'Árvore','Idade, sexo, peso e altura'],
-    ['8 entradas principais',fisio,'Floresta','Acrescentam IMC, pressões\ne frequência cardíaca'],
-    ['13 entradas com achados',clin,'Árvore · exploratório','Acrescentam sopro, segunda bulha,\npulsos, pressão classificada e sintomas'],
-  ];
-  scenarios.forEach(([label,result,model,inputs],i)=>{
-    const x=73+i*378, emphasized=i===1;
-    text(s,label,x,187,378,48,{...center,size:25,bold:true});
-    text(s,percent(result.balanced_accuracy),x,239,378,90,{...center,size:66,bold:true,color:emphasized?palette.blue:palette.muted});
-    text(s,model,x,326,378,42,{...m,...center});
-    text(s,inputs,x+4,381,370,71,{...m,...center,size:i===2?20:22});
-  });
+  const s=slide(14,'O resultado muda com as entradas');
+  table(s,[['Cenário','Informações disponíveis','Melhor pontuação'],
+    ['4 entradas','Idade, sexo, peso e altura',percent(strict.balanced_accuracy)],
+    ['8 entradas\nPrincipal','As 4 básicas, IMC, duas\npressões e frequência cardíaca',percent(fisio.balanced_accuracy)],
+    ['13 entradas\nExploratório','As 8 principais, sopro, B2, pulsos,\npressão classificada e sintomas',percent(clin.balanced_accuracy)]],
+    64,166,[249,632,271],[51,65,86,86],{emphasis:2,bodySize:27,labelSize:27,headerSize:26});
+  text(s,'Achados do exame podem ter participado da definição do rótulo.',80,451,1120,52,{size:28,bold:true,...center});
 }
 {
-  const s=slide(14,'O papel do sopro');
-  text(s,'Proporção de fichas com rótulo Anormal',105,147,1070,53,{size:29,...center});
+  const s=slide(15,'O papel do sopro');
+  text(s,'Fichas com rótulo Anormal em cada grupo',96,146,1088,53,{size:31,...center});
   const groups=results.eda.sopro_by_status;
   for(const [i,key] of ['Ausência registrada','Presença registrada'].entries()){
-    const row=groups[key], x=146+i*543;
-    text(s,percent(row.n_anormal/row.n,1),x,212,440,90,{size:74,bold:true,color:palette.blue,...center});
-    text(s,i===0?'Sopro marcado como ausente':'Com sopro registrado',x,304,440,56,{size:25,...center});
-    text(s,number(row.n_anormal)+' de '+number(row.n)+' fichas',x,364,440,42,{...m,...center,size:22});
+    const row=groups[key], x=105+i*565;
+    text(s,percent(row.n_anormal/row.n,1),x,214,500,89,{size:73,bold:true,color:palette.blue,...center});
+    text(s,i===0?'Sopro registrado como ausente':'Com sopro registrado',x,309,500,62,{size:28,bold:true,...center});
   }
-  text(s,'Proporções entre fichas com status do sopro conhecido.',105,434,1070,46,{...m,...center,size:21});
+  text(s,'Ainda falta confirmar quando o achado e o rótulo foram registrados.',88,448,1104,54,{size:28,bold:true,...center});
 }
 {
-  const s=slide(15,'Quanto a árvore depende do sopro');
-  text(s,'Queda na acurácia balanceada ao embaralhar cada achado',106,146,1068,49,{size:28,...center});
-  text(s,points(importance('CLINICO','tree','SOPRO'))+' p.p.',116,211,483,91,{size:62,bold:true,color:palette.blue,...center});
-  text(s,points(importance('CLINICO','tree','B2'))+' p.p.',673,211,483,91,{size:62,bold:true,color:palette.blue,...center});
-  text(s,'Sopro',116,306,483,47,{size:30,bold:true,...center});
-  text(s,'B2, o segundo som do coração',659,306,511,47,{size:27,bold:true,...center});
-  text(s,'Esses achados podem ter ajudado a definir o próprio rótulo.',101,405,1078,61,{size:28,bold:true,...center});
-}
-{
-  const s=slide(16,'O que os resultados permitem concluir');
-  text(s,percent(fisio.balanced_accuracy),112,150,376,125,{size:83,bold:true,color:palette.blue});
-  text(s,'acurácia balanceada\ncom as oito entradas principais',116,282,426,88,{size:29});
-  text(s,'As medidas trazem informação\nsobre o rótulo registrado.',602,157,577,94,{size:32,bold:true});
-  text(s,'Confirmar como o rótulo foi criado\ne avaliar em novas fichas.',602,277,577,94,{size:28,color:palette.muted});
-  text(s,'github.com/pedroafm06/Data-Mining',121,419,1047,43,{size:23,color:palette.blue,...center});
+  const s=slide(16,'Conclusões do trabalho');
+  text(s,percent(fisio.balanced_accuracy),100,161,418,106,{size:83,bold:true,color:palette.blue,...center});
+  text(s,'acurácia balanceada\ncom 8 entradas',98,278,422,102,{size:30,...center});
+  text(s,'A floresta superou a referência,\ncom muitos Anormais ainda perdidos.',606,162,587,112,{size:31,bold:true});
+  text(s,'Próximo passo',606,303,587,49,{...H,size:30});
+  text(s,'Confirmar a origem do rótulo\ne avaliar em novas fichas.',606,357,587,100,{size:30});
 }
 
+
 const seconds=script.slides.reduce((sum,item)=>sum+item.seconds,0);
-if(presentation.slides.items.length!==slideCount||slideCount!==16||seconds!==875) throw new Error('Temporização e número de slides divergentes');
+if(presentation.slides.items.length!==totalSlideCount||slideCount!==16||seconds!==835) throw new Error('Temporização e número de slides divergentes');
 const candidate=path.join(work,'candidate.pptx');
 await (await PresentationFile.exportPptx(presentation)).save(candidate);
 
@@ -277,19 +250,20 @@ await finalizePresentation({workspaceDir:work,candidatePath:candidate,finalPath,
   integrityValidatorPath:path.join(skill,'container_tools/inspect_presentation_package_integrity.py'),
   layoutValidatorPath:path.join(skill,'container_tools/inspect_presentation_layout_geometry.py'),
   layoutArgs:['--expected-slide-size-emu','12192000,6858000','--validate-heading-fit',...tableOwners.flatMap(n=>['--require-native-table-slide',String(n)])],
-  explicitTotalSlideCount:slideCount,requiredNativeTableOwnerSlides:tableOwners,
+  explicitTotalSlideCount:totalSlideCount,requiredNativeTableOwnerSlides:tableOwners,
   fontPolicy:{basis:'design',families:[headFont,bodyFont]},
-  verifyArtifactToolImport:true,receiptPath:path.join(work,name+'.validation.json')});
+  verifyArtifactToolImport:true,receiptPath:path.join(work,name+'.'+path.basename(validated)+'.validation.json')});
 
 await fs.copyFile(finalPath,path.join(out,name+'.pptx'));
 
 const totals = new Map();
 let elapsed = 0;
-let talk = '# Roteiro da apresentação da A2\n\nTempo planejado de 14 min 35 s, com 25 s de margem até o limite de 15 minutos.\n\n';
+let talk = '# Roteiro da apresentação da A2\n\nTempo de fala previsto de 13 min 55 s, mais 35 s para pausas e transições. Total planejado de 14 min 30 s, com 30 s de margem até o limite de 15 minutos. Confirmar em ensaio.\n\n';
 for(const n of script.slides) totals.set(n.author,(totals.get(n.author)||0)+n.seconds);
 for(const [author, duration] of totals) talk += '- '+author+' · '+clock(duration)+'\n';
 for(const n of script.slides){
   talk+='\n## '+n.number+'. '+n.title+'\n\n'+n.author+' · '+clock(elapsed)+' a '+clock(elapsed+n.seconds)+'\n\n'+n.text+'\n';
+  if(n.technical_notes?.length) talk+='\nNotas de apoio, para consulta e arguição\n\n'+n.technical_notes.map(x=>'- '+x).join('\n')+'\n';
   elapsed+=n.seconds;
 }
 talk+='\n## Arguição\n';

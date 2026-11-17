@@ -18,3 +18,5 @@ python tools/build.py --final
 As duas figuras vetoriais podem ser recriadas do mesmo JSON com `python tools/figura_disponibilidade.py` e `python tools/figura_sopro.py`, em um ambiente com Matplotlib.
 
 A primeira compilação pode buscar recursos no servidor TeX. Com o cache preenchido, acrescente `--offline` para usar os recursos locais. O comando final verifica o hash do JSON, o endereço público, a classe IEEEtran de conferências, a extensão do resumo e o limite de cinco páginas.
+
+A revisão de 17/11 mantém quatro páginas, fontes incorporadas sem Type 3 e palavras-chave em português. Os gráficos usam STIXGeneral serifada com incorporação TrueType. Com Poppler disponível, a compilação final bloqueia Type 3 e fontes não incorporadas. O manifesto explicita o método de contagem do resumo e o tipo de verificação de acesso público. A conferência local não representa submissão ao IEEE PDF eXpress.

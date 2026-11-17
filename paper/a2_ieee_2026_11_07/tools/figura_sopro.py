@@ -4,6 +4,16 @@ from pathlib import Path
 
 import matplotlib
 matplotlib.use('Agg')
+from matplotlib import font_manager
+
+# Use an installed serif font and embed TrueType outlines in vector PDFs.
+font_manager.findfont("STIXGeneral", fallback_to_default=False)
+matplotlib.rcParams.update({
+    "font.family": "serif",
+    "font.serif": ["STIXGeneral"],
+    "pdf.fonttype": 42,
+    "ps.fonttype": 42,
+})
 import matplotlib.pyplot as plt
 
 ROOT = Path(__file__).resolve().parents[1]
