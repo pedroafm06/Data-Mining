@@ -31,3 +31,5 @@ O bloqueio automático de fontes também foi testado contra o PDF anterior, que 
 ## Reconferência direta da descrição da A2
 
 A nova leitura do DOCX original confirmou o template IEEE, duas colunas, limite de cinco páginas, resumo de 100–150 palavras, seções, um ou dois gráficos EDA e link público no rodapé da primeira página. O artigo de quatro páginas atende a esses itens objetivos. As extensões aproximadas por seção não são quotas rígidas. Foram reforçadas, no próprio artigo, as razões da mediana, faixas etárias, suporte mínimo, one-hot, padronização e logaritmo na logística, unidades originais nas árvores e escolha das famílias. Dados e resultados permanecem iguais. O manifesto e as quatro páginas renderizadas correspondem ao novo hash. A apresentação complementar foi ampliada para 22 slides, sem páginas de reserva.
+
+A revisão ampliada foi publicada no commit ae50f8a; os downloads públicos do novo artigo, PPTX, PDF dos slides, roteiro, guia e README conferiram com os locais. O PDF atual mantém o hash c063d66722e65dd95eeb98cecbbf73d31093a6cf9fe1f1ab4c238927187241aa.
