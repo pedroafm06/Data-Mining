@@ -5,122 +5,185 @@
       "title": "Classificação de registros cardíacos pediátricos",
       "author": "Antônio Henrique",
       "seconds": 25,
-      "text": "Boa tarde. Somos Antônio, João, Mateus e Pedro. Nosso trabalho começa com uma pergunta. Quanto conseguimos prever sobre um registro de cardiologia pediátrica a partir das medidas que ele contém? Vamos mostrar como comparamos os modelos e o que mudou quando acrescentamos achados do exame.",
-      "sources": ["Artigo A2, resumo e seção I"]
+      "text": "Boa tarde. Somos Antônio, João, Mateus e Pedro. Investigamos quanto as medidas de um atendimento de cardiologia pediátrica ajudam a prever o rótulo que ficou na ficha. Vamos acompanhar uma ficha de exemplo, ver como os modelos foram avaliados e interpretar onde eles acertaram e erraram.",
+      "sources": [
+        "Artigo A2, resumo e seção I"
+      ]
     },
     {
       "number": 2,
       "title": "O que o modelo tenta prever",
       "author": "Antônio Henrique",
-      "seconds": 50,
-      "text": "Imaginem uma ficha como a do slide. Nela há informações como a idade e a frequência cardíaca. Cada ficha também tem um rótulo, Normal ou Anormal, já registrado na base. Para treinar, o modelo recebe exemplos em que conhecemos as medidas e o rótulo. Quando vamos avaliar, entregamos apenas as medidas da ficha. O modelo escolhe um dos dois rótulos e depois conferimos se bateu com o que estava registrado. Essa é uma tarefa de classificação. O que medimos é a capacidade de reproduzir o rótulo da base.",
-      "sources": ["Artigo A2, seção I", "Dicionário da base UCMF"]
+      "seconds": 45,
+      "text": "Imaginem uma ficha com idade, peso e frequência cardíaca. Na base, cada ficha rotulada traz também uma classe registrada, Normal ou Anormal. No treino, o modelo vê as medidas e a classe de cada exemplo. Na avaliação, recebe só as informações definidas como entrada. Ele produz uma previsão e nós a comparamos com o rótulo registrado. Esse é o sentido de classificação aqui. O acerto mede a concordância com o registro da base.",
+      "sources": [
+        "Artigo A2, seção I",
+        "Dicionário da base UCMF"
+      ]
     },
     {
       "number": 3,
       "title": "De onde vêm os dados",
       "author": "Antônio Henrique",
-      "seconds": 45,
-      "text": "Os dados vieram de atendimentos no Real Hospital Português, em Recife. O arquivo tinha 12.873 registros. Na avaliação final usamos 9.361 registros com rótulo, dos quais 5.394 eram Normal e 3.967 eram Anormal. Essa diferença importa. Se eu sempre disser Normal, vou acertar mais da metade das fichas, mas vou perder todas as da outra classe. Daqui a pouco o Mateus explica como a métrica leva isso em conta. Antes dos modelos, fizemos um preparo rápido dessas medidas.",
-      "sources": ["Artigo A2, seção II", "Resultados da revisão final, contagens por classe"]
+      "seconds": 55,
+      "text": "A base reúne atendimentos no Real Hospital Português, em Recife. O arquivo original tinha 12.873 registros. Desses, 11.704 tinham rótulo. Reservamos 2.342 para o teste histórico e separamos um por equivalência, chegando a 9.361 fichas de desenvolvimento, as que usamos na nossa comparação. Elas incluem 5.394 Normal e 3.967 Anormal. Essa distribuição importa para a avaliação. Uma regra que sempre responda Normal já fica perto de 58% de acerto no total, embora deixe passar todos os registros Anormal. O Mateus vai mostrar como a métrica trata essa diferença.",
+      "sources": [
+        "Artigo A2, seção II",
+        "Resultados da revisão final, contagens e partições"
+      ]
     },
     {
       "number": 4,
       "title": "Limpeza e transformação",
       "author": "Antônio Henrique",
-      "seconds": 50,
-      "text": "Na limpeza, padronizamos unidades e marcamos valores suspeitos como ausentes. Assim, se uma medida estiver inutilizável, ainda podemos usar as outras informações da ficha. Depois da limpeza, cada medida de pressão estava ausente em 56% dos registros. Para preencher uma medida que falta, testamos usar o valor central de todo o treino ou da faixa etária. Marcamos que aquele valor foi preenchido. Na regressão logística, ajustamos também a escala das medidas. Aprendemos esses valores só com a parte de treino. Agora o João vai explicar o que escolhemos deixar fora das entradas.",
-      "sources": ["Artigo A2, seções II-B e III-A", "Figura 1 do artigo"]
+      "seconds": 45,
+      "text": "Padronizamos as unidades e marcamos medidas suspeitas como ausentes para aproveitar o restante da ficha. Na amostra analisada, cada uma das duas medidas de pressão ficou ausente ou foi mascarada em cerca de 56% dos registros. Testamos preencher lacunas com a mediana, que é o valor central entre as medidas conhecidas no treino, ou com a mediana da faixa etária. Guardamos um indicador do preenchimento. Agora o João mostra quais campos entraram na comparação.",
+      "sources": [
+        "Artigo A2, seções II-B e III-A",
+        "Figura 1 do artigo"
+      ]
     },
     {
       "number": 5,
       "title": "Quando uma entrada já traz a resposta",
       "author": "João Vitor",
-      "seconds": 60,
-      "text": "Pensem numa ficha cujo motivo do encaminhamento diz que a cardiopatia já está estabelecida. Esse texto pode antecipar o rótulo que queremos prever. Chamamos de vazamento de informação quando o modelo recebe algo que entrega a resposta ou que não estaria disponível na hora da previsão. Por isso, os dois campos de motivo de encaminhamento ficaram fora dos três cenários. Sopro, segunda bulha e pulsos também pedem cuidado, porque podem ter ajudado a determinar o próprio rótulo. Como a base não esclarece essa origem, nosso cenário principal usa oito medidas e características, como idade, peso e frequência cardíaca. Testamos os achados separadamente para entender o efeito de incluí-los.",
-      "sources": ["Artigo A2, seção II-A e Tabela I", "Revisão final da A2, decisão sobre os cenários"]
+      "seconds": 55,
+      "text": "Imaginem que o encaminhamento diz que a cardiopatia já está estabelecida. Se a frase entra no modelo, ele pode se apoiar em uma informação que antecipa o rótulo. Isso é um exemplo de vazamento. Tiramos os dois campos de motivo de encaminhamento dos três cenários. Sopro, segunda bulha e pulsos também pedem cuidado, porque podem ter participado da decisão registrada. Por isso, a comparação principal parte de medidas como idade, peso e frequência cardíaca. Depois medimos quanto a pontuação muda quando o modelo recebe também achados do exame.",
+      "sources": [
+        "Artigo A2, seção II-A e Tabela I",
+        "Revisão final da A2, decisão sobre os cenários"
+      ]
     },
     {
       "number": 6,
       "title": "Três maneiras de classificar",
       "author": "João Vitor",
-      "seconds": 80,
-      "text": "Primeiro montamos uma referência bem simples. Como Normal é o rótulo mais frequente, ela responde Normal para todas as fichas. Em seguida testamos três modelos. A árvore de decisão faz uma sequência de perguntas. Ela pode perguntar se o peso está acima de certo valor, seguir por um ramo e então consultar outra medida. A árvore aprende quais perguntas fazer. A regressão logística combina as medidas e seus pesos para estimar uma probabilidade de o rótulo ser Anormal. Usamos a mesma regra de corte para todos os modelos que produzem esse tipo de pontuação. A floresta aleatória reúne muitas árvores. Cada uma aprende com uma amostra e considera subconjuntos de medidas ao decidir. A floresta combina as estimativas delas. Essas abordagens têm jeitos diferentes de aprender. Para a comparação ser justa, todas recebem os mesmos dados em cada rodada.",
-      "sources": ["Artigo A2, seção III-B", "Resultados da revisão final, procedimentos avaliados"]
+      "seconds": 60,
+      "text": "Primeiro usamos uma referência bem simples. Ela responde Normal para todas as fichas porque essa é a classe mais frequente. A árvore de decisão aprende uma sequência de perguntas. A logística combina as medidas, atribui pesos e estima a probabilidade de Anormal. Já a floresta aleatória reúne 150 árvores por configuração. Cada uma aprende com uma amostra sorteada e considera parte das medidas em suas perguntas. A floresta combina as estimativas delas para chegar a uma previsão. Para comparar as famílias, usamos as mesmas fichas e divisões. Vamos ver duas perguntas que a árvore de fato aprendeu.",
+      "sources": [
+        "Artigo A2, seção III-B",
+        "Resultados da revisão final, procedimentos avaliados"
+      ]
     },
     {
       "number": 7,
-      "title": "Como avaliamos os modelos",
+      "title": "Uma regra que a árvore aprendeu",
       "author": "João Vitor",
-      "seconds": 85,
-      "text": "Avaliar na mesma ficha que o modelo usou para aprender pode inflar o resultado. Então dividimos os registros em cinco partes. Em cada rodada, quatro partes ficam disponíveis para treino e uma fica reservada para avaliar a previsão. Dentro da parte de treino, fazemos cortes menores para escolher os ajustes, por exemplo o tamanho de uma árvore. Depois treinamos com o ajuste escolhido e fazemos as previsões na parte reservada. Repetimos a rodada até que cada uma das cinco partes tenha servido para avaliar. No fim, cada ficha tem uma previsão feita quando estava de fora do treino. Também mantivemos juntas as fichas com entradas brutas idênticas, para evitar que uma cópia servisse de atalho na avaliação. Os modelos foram comparados nas mesmas fichas e nos mesmos cortes. Com as previsões em mãos, o Mateus mostra como transformamos os acertos em uma pontuação.",
-      "sources": ["Artigo A2, seção III-B", "Revisão final da A2, agrupamento e seleção"]
+      "seconds": 50,
+      "text": "Aqui estão os primeiros passos da árvore ajustada com todo o conjunto de desenvolvimento do cenário principal. Primeiro ela pergunta se o peso é de até 8,85 quilos. Nesse ramo, a próxima pergunta usa um corte de idade de cerca de 14 dias. No ramo acima de 8,85 quilos, ela pergunta se a frequência cardíaca é de até 98,5 batimentos por minuto. A árvore segue com outras perguntas até chegar a uma previsão. Esses cortes foram aprendidos nesta base. Eles descrevem como o modelo organiza as fichas.",
+      "sources": [
+        "Resultados da revisão final, caminhos da árvore em FISIO8",
+        "Artigo A2, seção IV-B"
+      ]
     },
     {
       "number": 8,
-      "title": "Acurácia balanceada",
-      "author": "Mateus Nery",
-      "seconds": 65,
-      "text": "Lembram da regra que responde Normal em todas as fichas? Vamos imaginar um exemplo com cem fichas Normal e cem Anormal. Nessa regra, acertamos todas as cem Normal e deixamos passar todas as cem Anormal. Ou seja, temos cem por cento de acerto dentro de uma classe e zero dentro da outra. A acurácia balanceada faz a média desses dois percentuais. Nesse exemplo, ela vale cinquenta por cento. Para a nossa base, fazemos a mesma conta dentro de cada classe, mesmo tendo quantidades diferentes de fichas. Assim, Normal e Anormal pesam igualmente na comparação.",
-      "sources": ["Artigo A2, seção III-B e Tabela II", "Exemplo didático com contagens fictícias"]
+      "title": "Como avaliamos os modelos",
+      "author": "João Vitor",
+      "seconds": 75,
+      "text": "Dividimos as fichas em cinco partes. Em cada rodada, separamos quatro para ajuste e uma para avaliação. Dentro das quatro partes de ajuste, fazemos novas divisões para escolher configurações, como a profundidade máxima da árvore. Ao todo, havia 105 configurações por cenário, contando a referência majoritária. Escolhemos a melhor configuração de cada família usando apenas as divisões internas, treinamos novamente com as quatro partes e avaliamos na quinta. Repetimos até que cada parte tenha servido uma vez para avaliação. Isso é validação cruzada aninhada. Além disso, mantivemos no mesmo grupo as fichas com entradas brutas idênticas, para a cópia de uma ficha ficar junto da original. Agora o Mateus mostra como pontuamos essas previsões.",
+      "sources": [
+        "Artigo A2, seção III-B",
+        "Revisão final da A2, agrupamento e seleção"
+      ]
     },
     {
       "number": 9,
-      "title": "A floresta teve o melhor resultado",
+      "title": "Acurácia balanceada",
       "author": "Mateus Nery",
-      "seconds": 70,
-      "text": "Aqui todos os modelos recebem as mesmas oito entradas do cenário principal. A referência de responder sempre Normal fica em 50%. A árvore chega a 61,69%, a regressão logística a 62,03% e a floresta a 63,27%. A floresta teve a maior pontuação nessa avaliação e ficou 1,24 ponto percentual acima da logística. Para entender a variação dessa diferença, repetimos a comparação sorteando os grupos de fichas. O intervalo de 95% que obtivemos, com essas previsões já produzidas, vai de 0,43 a 2,01 pontos. A vantagem observada é pequena. Para entender o que a pontuação de 63,27% representa, precisamos olhar também para onde a floresta errou.",
-      "sources": ["Artigo A2, seção IV-A e Tabela II", "Resultados da revisão final, intervalos pareados"]
+      "seconds": 60,
+      "text": "Vamos imaginar cem fichas Normal e cem Anormal. A referência responde sempre Normal. Ela acerta cem por cento das Normal e zero por cento das Anormal. A acurácia balanceada é a média dos dois percentuais, então vale cinquenta por cento nesse exemplo. Usamos a mesma lógica na base real. A sensibilidade é a fração de fichas Anormal que o modelo reconhece, e a especificidade é a fração de fichas Normal que ele reconhece. Cada taxa conta com o mesmo peso na média, mesmo quando temos mais fichas de uma classe.",
+      "sources": [
+        "Artigo A2, seção III-B e Tabela II",
+        "Exemplo didático com contagens fictícias"
+      ]
     },
     {
       "number": 10,
-      "title": "Os erros da floresta",
+      "title": "A floresta teve o melhor resultado",
       "author": "Mateus Nery",
-      "seconds": 80,
-      "text": "Na tabela, cada linha mostra o rótulo que estava registrado. Cada coluna mostra o que a floresta previu. Olhem a linha Anormal. Dos 3.967 registros dessa classe, a floresta reconheceu 2.308. Isso dá 58,18%. Os outros 1.659 receberam previsão Normal. Em números redondos, de cada cem registros Anormal, a floresta reconheceu 58 e deixou passar 42. Agora olhem a linha Normal. A floresta reconheceu 3.687 e marcou 1.707 como Anormal. O acerto dentro da classe Normal foi de 68,35%. A média de 58,18 e 68,35 é aproximadamente os 63,27% do gráfico anterior. Essas discordâncias são com o rótulo da ficha. O Pedro vai mostrar quais medidas mais influenciaram a pontuação e o que acontece quando mudamos as entradas.",
-      "sources": ["Artigo A2, seção IV-A e Tabela III", "Resultados da revisão final, matriz da floresta em FISIO8"]
+      "seconds": 70,
+      "text": "No cenário principal, todos os modelos receberam as mesmas oito entradas. A referência ficou em 50%, a árvore em 61,69%, a logística em 62,03% e a floresta em 63,27%. A vantagem da floresta sobre a logística foi de 1,24 ponto percentual. Para ver como a diferença variava, sorteamos grupos de fichas e recalculamos a comparação nas previsões que já tínhamos. O intervalo de 95% ficou entre 0,43 e 2,01 pontos. Essa vantagem foi pequena dentro desta avaliação. A média também esconde quais fichas o modelo teve mais dificuldade de reconhecer. Vamos abrir a pontuação olhando os acertos e erros por classe.",
+      "sources": [
+        "Artigo A2, seção IV-A e Tabela II",
+        "Resultados da revisão final, intervalos pareados"
+      ]
     },
     {
       "number": 11,
-      "title": "Quais medidas a floresta mais usou",
-      "author": "Pedro Matos",
-      "seconds": 45,
-      "text": "Para entender de quais medidas a floresta dependeu, experimentamos embaralhar uma por vez entre as fichas da avaliação. Por exemplo, trocamos os valores de frequência cardíaca entre as fichas e deixamos os demais campos como estavam. A pontuação caiu 4,80 pontos. Quando embaralhamos o peso, a queda foi de 2,76 pontos. Isso mostra o quanto essas medidas ajudaram a floresta nesta avaliação. O teste mede a dependência do modelo, e a relação entre as próprias medidas também pode influenciar essa queda.",
-      "sources": ["Artigo A2, seção IV-B", "Resultados da revisão final, importância por permutação"]
+      "title": "Os erros da floresta",
+      "author": "Mateus Nery",
+      "seconds": 85,
+      "text": "Cada linha da tabela é o rótulo registrado e cada coluna é a previsão. Dos 3.967 registros Anormal, a floresta reconheceu 2.308, ou 58,18%. Os outros 1.659 receberam previsão Normal. Isso dá cerca de 42 por cem. Na classe Normal ela acertou 3.687, ou 68,35%, e marcou 1.707 como Anormal. A média de 58,18% e 68,35% explica o resultado de 63,27%. Também comparamos idades nos registros Anormal com idade conhecida. A mediana foi 6,51 anos entre os que a floresta deixou passar e 0,59 ano entre os reconhecidos. Essa diferença descreve grupos desta base. Ela ajuda a identificar onde vale investigar o desempenho com mais cuidado. O Pedro mostra quais medidas influenciam a pontuação.",
+      "sources": [
+        "Artigo A2, seção IV-A e Tabela III",
+        "Resultados da revisão final, matriz da floresta e idade dos erros em FISIO8"
+      ]
     },
     {
       "number": 12,
-      "title": "O resultado muda com as entradas",
+      "title": "Quais medidas a floresta mais usou",
       "author": "Pedro Matos",
-      "seconds": 60,
-      "text": "O que acontece se mudarmos as informações mostradas aos modelos? Com apenas peso, altura, idade e sexo, o melhor resultado observado foi 59,55%, com a árvore. Com oito entradas, incluindo as medidas de pressão e a frequência cardíaca, a floresta chegou aos 63,27% que já vimos. Quando acrescentamos cinco campos, entre eles achados do exame como sopro, a árvore chegou a 91,92%. Aqui cada barra mostra a maior pontuação observada naquele conjunto de entradas. Se mantivermos a árvore para comparar diretamente, incluir o bloco de cinco campos elevou a pontuação em 30,23 pontos. Esse último resultado é exploratório. Vamos olhar mais de perto o que há por trás dele.",
-      "sources": ["Artigo A2, seções III-B e IV-B e Tabela II", "Resultados da revisão final, três cenários"]
+      "seconds": 45,
+      "text": "Trocamos entre as fichas os valores de uma medida por vez e mantivemos as outras entradas como estavam. Assim, os valores ainda existem, mas deixam de estar ligados às fichas originais. Quando fizemos isso com a frequência cardíaca, a acurácia balanceada caiu 4,80 pontos. Para peso, caiu 2,76, e para idade, 1,40. Esse teste mede quanto a floresta se apoia nessas medidas. Se dois campos carregam informações parecidas, um pode compensar parte da troca no outro.",
+      "sources": [
+        "Artigo A2, seção IV-B",
+        "Resultados da revisão final, importância por permutação em FISIO8"
+      ]
     },
     {
       "number": 13,
-      "title": "O papel do sopro",
+      "title": "O resultado muda com as entradas",
       "author": "Pedro Matos",
-      "seconds": 75,
-      "text": "O sopro é um som que pode ser ouvido durante o exame do coração. Entre as fichas que registram ausência de sopro, cerca de 10% têm rótulo Anormal. Entre as que registram presença, cerca de 96% têm esse rótulo. Estamos olhando apenas para as fichas em que o status do sopro era conhecido. Ao embaralhar essa informação entre as fichas, a pontuação da árvore do cenário exploratório caiu 38,57 pontos. Isso mostra uma forte dependência desse campo. A questão é de onde vem essa relação. O achado pode estar associado à condição registrada e também pode ter influenciado a decisão que produziu o rótulo. Como a base não informa a ordem da coleta e os critérios usados para dar o rótulo, não dá para separar essas explicações aqui.",
-      "sources": ["Artigo A2, Figura 2 e seção IV-B", "Resultados da revisão final, proporções por SOPRO e importância por permutação"]
+      "seconds": 65,
+      "text": "Com quatro informações, peso, altura, idade e sexo, a melhor acurácia balanceada foi 59,55%, com a árvore. No cenário principal, acrescentamos o índice de massa corporal, as duas medidas de pressão e a frequência cardíaca. A floresta chegou a 63,27%. Quando adicionamos mais cinco campos, entre eles achados como sopro e pulsos, a árvore chegou a 91,92%. Cada número do slide é o melhor resultado observado naquele conjunto. Se usarmos a árvore nos dois casos para comparar diretamente, a passagem de oito para treze entradas aumentou a pontuação em 30,23 pontos. O cenário com achados é exploratório. Vamos ver por que o sopro chama atenção.",
+      "sources": [
+        "Artigo A2, seções III-B e IV-B e Tabela II",
+        "Resultados da revisão final, três cenários"
+      ]
     },
     {
       "number": 14,
+      "title": "O papel do sopro",
+      "author": "Pedro Matos",
+      "seconds": 45,
+      "text": "Sopro é um som que pode ser ouvido durante o exame do coração. Considerando as fichas em que o campo estava preenchido, em 5.814 havia ausência registrada e 587 tinham rótulo Anormal, ou 10,1%. Nas outras 3.529, o sopro estava presente. Dessas, 3.375 tinham rótulo Anormal, ou 95,6%. A comparação mostra uma associação forte na base. No próximo slide vemos o quanto a própria árvore dependeu dessa informação para prever.",
+      "sources": [
+        "Artigo A2, Figura 2",
+        "Resultados da revisão final, contagens por registro de sopro"
+      ]
+    },
+    {
+      "number": 15,
+      "title": "Quanto a árvore depende do sopro",
+      "author": "Pedro Matos",
+      "seconds": 55,
+      "text": "Na árvore que recebeu os achados do exame, repetimos o teste de embaralhar os valores entre fichas. Trocar o sopro fez a acurácia balanceada cair 38,57 pontos, mantendo os outros campos como estavam. Repetir o teste só com B2, que é a segunda bulha cardíaca, produziu uma queda de 3,21 pontos. A diferença mostra o quanto a árvore depende do sopro. A base registra o achado e o rótulo, mas a ordem da coleta e o critério de rotulagem seguem incertos. O sopro pode ter ajudado a definir esse mesmo rótulo.",
+      "sources": [
+        "Artigo A2, seção IV-B",
+        "Resultados da revisão final, permutação de SOPRO e B2 em CLINICO"
+      ]
+    },
+    {
+      "number": 16,
       "title": "O que os resultados permitem concluir",
       "author": "Pedro Matos",
-      "seconds": 60,
-      "text": "Na comparação principal, a floresta teve a maior acurácia balanceada, com 63,27%. Vimos também que ela reconhece cerca de 58 em cada cem registros rotulados Anormal. Quando damos ao modelo os achados do exame, a pontuação sobe muito e passa a depender bastante do sopro. O trabalho mostra duas coisas que precisamos saber antes de interpretar uma pontuação. Quais informações estavam disponíveis para prever? Como foi definido o próprio rótulo? Para avaliar o uso em novos atendimentos, o próximo passo é documentar esses dois pontos e testar em um conjunto independente de registros. Obrigado. Podemos responder às perguntas.",
-      "sources": ["Artigo A2, seção V", "Resultados da revisão final, acurácia balanceada e sensibilidade"]
+      "seconds": 40,
+      "text": "No cenário principal, a floresta chegou a 63,27% de acurácia balanceada e reconheceu cerca de 58 de cada cem fichas rotuladas Anormal. A comparação exploratória mostrou o peso do sopro quando incluímos os achados. Para levar a avaliação a novos atendimentos, precisamos documentar a ordem da coleta, confirmar como o rótulo é definido e testar o procedimento em uma amostra independente. Obrigado. Podemos responder às perguntas.",
+      "sources": [
+        "Artigo A2, seção V",
+        "Resultados da revisão final, acurácia balanceada e sensibilidade"
+      ]
     }
   ],
   "qa": [
     {
-      "question": "Por que o cenário CLINICO não é o principal se chegou a 91,92%?",
-      "answer": "A base não esclarece quando os achados ficaram disponíveis nem se eles participaram da definição do rótulo. O cenário com achados mede como a comparação muda quando esses campos entram. A interpretação depende da origem deles."
+      "question": "Por que usamos o cenário CLINICO como exploratório?",
+      "answer": "A origem dos achados e seu possível uso no rótulo seguem incertos. O resultado de 91,92% mostra quanto a comparação muda quando esses campos entram e precisa ser interpretado à luz dessa incerteza."
     },
     {
       "question": "A análise provou que SOPRO vaza o rótulo?",
-      "answer": "A proporção de rótulos Anormal muda muito com SOPRO e a árvore perde 38,57 pontos quando permutamos esse campo. Isso comprova dependência da previsão neste experimento. A origem dessa associação exige conhecer a coleta e a rotulagem."
+      "answer": "A fração de fichas Anormal varia com o registro do sopro e a árvore perde 38,57 pontos quando embaralhamos esse campo. Isso demonstra quanto a árvore depende do sopro. Para confirmar a origem dessa associação precisamos conhecer a coleta e a construção do rótulo."
     },
     {
       "question": "Por que a contagem rotulada da A2 é maior que a da A1?",
@@ -139,8 +202,16 @@
       "answer": "Usamos 2.000 reamostragens de grupos de fichas. Em cada uma, comparamos os modelos sobre os mesmos grupos e recalculamos a pontuação. Os intervalos descrevem a variação possível sobre as previsões existentes e dependem dos cortes e treinamentos já feitos."
     },
     {
-      "question": "Por que não usar o teste histórico para confirmar o resultado?",
-      "answer": "Ele já havia sido examinado e ainda compartilha padrões brutos de entrada com o desenvolvimento. A avaliação final usa previsões externas da validação cruzada. Uma verificação independente exige uma nova amostra com coleta e rotulagem documentadas."
+      "question": "Qual foi o papel do teste histórico?",
+      "answer": "O teste histórico foi reservado antes da análise e já havia sido examinado em fases anteriores. Ele compartilha padrões brutos de entrada com o desenvolvimento. A avaliação final usa as previsões feitas nas partes reservadas da validação cruzada. Uma confirmação independente exige nova amostra com coleta e rotulagem documentadas."
+    },
+    {
+      "question": "Os cortes da árvore servem como referência clínica?",
+      "answer": "Os cortes de peso, idade e frequência cardíaca foram aprendidos pela árvore ajustada às fichas de desenvolvimento. Eles descrevem os primeiros passos daquele modelo e dependem da amostra e do treinamento. A adoção de critérios clínicos exige evidência própria."
+    },
+    {
+      "question": "O que explica a diferença de idade nos erros?",
+      "answer": "Entre as fichas Anormal com idade conhecida, a mediana dos casos previstos como Normal foi 6,51 anos, e a dos reconhecidos foi 0,59 ano. A diferença é descritiva. Avaliar em que idades a floresta de fato erra mais exige medir a taxa de erro por faixa etária e investigar a composição de cada faixa."
     }
   ]
 }

@@ -6,7 +6,7 @@ A apresentação acompanha o [artigo IEEE final](../../paper/a2_ieee_2026_11_07/
 - [Slides em PDF](output/Apresentacao_A2_INF.pdf)
 - [Roteiro e perguntas de arguição](output/Roteiro_A2_INF.md)
 
-São 14 slides e 14 min 10 s planejados entre os quatro integrantes. O slide de limpeza e transformação soma 50 s. As falas também aparecem nas notas do PowerPoint.
+São 16 slides e 14 min 35 s planejados entre os quatro integrantes. O slide de limpeza e transformação soma 45 s. As falas também aparecem nas notas do PowerPoint.
 
 ## Recriar o PowerPoint
 
