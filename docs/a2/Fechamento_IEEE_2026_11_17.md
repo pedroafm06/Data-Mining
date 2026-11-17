@@ -25,3 +25,5 @@ O PDF foi recompilado e as quatro páginas foram renderizadas e inspecionadas. N
 SHA256 do PDF final: `323827c785827ebf72b89c9894a7875eeb92f937069332e9a898916d56bd86fc`.
 
 Fontes de conferência: Verificacao_Artigo.json, main.tex, seções do artigo, scripts das figuras, references.bib e o parecer bibliográfico em Revisao_Final_A2.md. Os originais IEEEtran permanecem protegidos pelos hashes de provenance.lock.json.
+
+O bloqueio automático de fontes também foi testado contra o PDF anterior, que continha Type 3: a validação o rejeitou. O PDF corrigido passou pela mesma validação. Artigo, apresentação e materiais de estudo publicados no commit 65c1ce9 foram baixados anonimamente e comparados com os locais, com hashes iguais.
