@@ -28,3 +28,8 @@ artifacts/
 
 # Base clínica original, inclusive fora da pasta padrão
 UCMF_raw.csv
+
+# Materiais pessoais de estudo: manter somente localmente
+presentation/a2_inf/output/Guia_Defesa_A2.*
+presentation/a2_inf/output/Guia_Apresentacao_Pedro.*
+tools/build_study_guides.py

@@ -15,4 +15,4 @@ Tempos estimados a 135 palavras/minuto, somando 14min01s de fala. Com 45s gerais
 
 Todos os slides devem ser apresentados. Todos precisam conhecer o trabalho inteiro para responder às perguntas do professor.
 
-[Roteiro completo](Roteiro_A2_INF.md) · [Slides em PDF](Apresentacao_A2_INF.pdf) · [Guia de defesa](Guia_Defesa_A2.md)
+[Roteiro completo](Roteiro_A2_INF.md) · [Slides em PDF](Apresentacao_A2_INF.pdf)

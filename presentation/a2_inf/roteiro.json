@@ -67,7 +67,7 @@
       ],
       "sources": [
         "src/kdd_revision/rubric_audit.py — SCENARIOS_AUDIT, EXPLORATORY_FIELDS e validate_features",
-        "presentation/a2_inf/output/Guia_Defesa_A2.md — decisões por variável"
+        "docs/a2/Decisoes_KDD_Completo.md — decisões por variável"
       ]
     },
     {
@@ -86,7 +86,7 @@
       "sources": [
         "src/kdd_revision/prepare.py — preparação semântica e flag_pas_le_pad",
         "src/kdd_revision/preprocessing/preparation.py — quality_masks",
-        "presentation/a2_inf/output/Guia_Defesa_A2.md — exemplo real FC1.120 e exceções de curadoria"
+        "docs/a2/Decisoes_KDD_Completo.md — exemplo real FC1.120 e exceções de curadoria"
       ]
     },
     {
@@ -123,7 +123,7 @@
       ],
       "sources": [
         "src/kdd_revision/preprocessing/preparation.py — relative_age e IMC",
-        "presentation/a2_inf/output/Guia_Defesa_A2.md — exemplo5kg/51cm e origem das idades"
+        "docs/a2/Decisoes_KDD_Completo.md — exemplo5kg/51cm e origem das idades"
       ]
     },
     {
@@ -158,7 +158,7 @@
       "sources": [
         "src/kdd_revision/mining.py — estimator",
         "src/kdd_revision/rubric_audit.py — famílias e grade",
-        "presentation/a2_inf/output/Guia_Defesa_A2.md — justificativas das famílias"
+        "docs/a2/Decisoes_KDD_Completo.md — justificativas das famílias"
       ]
     },
     {
@@ -193,7 +193,7 @@
       "sources": [
         "src/kdd_revision/mining.py — estimator e FittedModel.proba",
         "src/kdd_revision/rubric_audit.py — grade e limiar",
-        "presentation/a2_inf/output/Guia_Defesa_A2.md — logística, floresta e limiar"
+        "docs/a2/Decisoes_KDD_Completo.md — logística, floresta e limiar"
       ]
     },
     {
