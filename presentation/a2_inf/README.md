@@ -2,11 +2,14 @@
 
 A apresentação acompanha o [artigo IEEE final](../../paper/a2_ieee_2026_11_07/output/pdf/Artigo_A2_IEEE.pdf) e os [resultados agregados de 16/11](../../resultados/a2/revisao_final_2026_11_16/reviewed_results.json). O fundo e a tipografia seguem a apresentação da A1 no Canva.
 
-- [Editar no Canva](https://www.canva.com/d/P4jcMbLDQsVhYjO)
+- [Editar no Canva](https://www.canva.com/d/U42sgvNqoAIU4z6)
 - [Apresentação editável](output/Apresentacao_A2_INF.pptx)
 - [Slides em PDF](output/Apresentacao_A2_INF.pdf)
 - [Roteiro, notas técnicas e perguntas de arguição](output/Roteiro_A2_INF.md)
 - [Guia de estudo e defesa do trabalho](output/Guia_Defesa_A2.md)
+- [Divisão entre os quatro apresentadores](output/Divisao_Apresentacao_A2.md)
+
+Ordem de fala: Pedro, slides 1–6; Antônio, 7–11; Petas (João Vitor), 12–17; Mateus, 18–22. O roteiro e as notas do PowerPoint/Canva identificam os responsáveis.
 
 São 22 slides, todos apresentados. O roteiro contém 1.889 palavras, aproximadamente 27% a mais que a versão de 16 slides. A duração usa 135 palavras por minuto: 14 min 01 s de fala (soma dos tempos arredondados por slide), mais 45 s de pausas e transições, totalizando 14 min 46 s. A 140 palavras/min, a estimativa global é cerca de 14 min 15 s; a 130, cerca de 15 min 17 s. São hipóteses de planejamento, não ensaio aferido. Números pronunciados e explicações espontâneas podem alongar a fala. Não há slides de reserva ou destinados a ser pulados.
 
