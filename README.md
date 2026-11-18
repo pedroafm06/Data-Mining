@@ -11,6 +11,7 @@ Trabalho da disciplina INF0414, UFG, 2026/2. Base UCMF: 12.873 registros e 21 va
 - [Auditoria das 21 variáveis](docs/a2/auditoria_2026_11_07/Parecer_Semantico_e_Decisoes.md), [verificação experimental](docs/a2/auditoria_2026_11_07/Verificacao_Experimental.json) e [conferência da rubrica da entrega](docs/a2/Revisao_Final_A2.md#conferência-da-rubrica).
 - As contribuições do Antônio e do João (Petas) foram incorporadas seletivamente em [c99f812](https://github.com/pedroafm06/Data-Mining/commit/c99f812). [Parecer por contribuição](docs/a2/Revisao_Final_A2.md)
 - [Divisão da apresentação: Pedro → Antônio → Petas → Mateus](presentation/a2_inf/output/Divisao_Apresentacao_A2.md).
+- **Para estudar e responder ao professor:** [guia completo em PDF — 21 variáveis e 44 perguntas](presentation/a2_inf/output/Guia_Defesa_A2.pdf) · [guia do Pedro — explicações, falas e ensaio dos slides 1–6](presentation/a2_inf/output/Guia_Apresentacao_Pedro.pdf).
 - [Código e instruções de reprodução da A2](#reproduzir-a-revisão-da-a2).
 
 ### Resultados da revisão final

@@ -6,10 +6,13 @@ A apresentação acompanha o [artigo IEEE final](../../paper/a2_ieee_2026_11_07/
 - [Apresentação editável](output/Apresentacao_A2_INF.pptx)
 - [Slides em PDF](output/Apresentacao_A2_INF.pdf)
 - [Roteiro, notas técnicas e perguntas de arguição](output/Roteiro_A2_INF.md)
-- [Guia de estudo e defesa do trabalho](output/Guia_Defesa_A2.md)
+- [Guia completo de estudo e defesa — PDF](output/Guia_Defesa_A2.pdf) · [versão em texto](output/Guia_Defesa_A2.md)
+- [Pedro: estudo e apresentação dos slides 1 a 6 — PDF](output/Guia_Apresentacao_Pedro.pdf) · [versão em texto](output/Guia_Apresentacao_Pedro.md)
 - [Divisão entre os quatro apresentadores](output/Divisao_Apresentacao_A2.md)
 
 Ordem de fala: Pedro, slides 1–6; Antônio, 7–11; Petas (João Vitor), 12–17; Mateus, 18–22. O roteiro e as notas do PowerPoint/Canva identificam os responsáveis.
+
+Para estudar, comece pelo guia da sua parte: ele explica cada slide, reproduz a fala do roteiro, orienta a exposição e traz perguntas e um ensaio em três rodadas. O guia completo tem as decisões das 21 variáveis e 44 perguntas de defesa, cobrindo também modelos, validação e métricas. Ambos têm sumário navegável. As explicações extensas são para estudo e arguição; a fala planejada continua sendo a do roteiro.
 
 São 22 slides, todos apresentados. O roteiro contém 1.889 palavras, aproximadamente 27% a mais que a versão de 16 slides. A duração usa 135 palavras por minuto: 14 min 01 s de fala (soma dos tempos arredondados por slide), mais 45 s de pausas e transições, totalizando 14 min 46 s. A 140 palavras/min, a estimativa global é cerca de 14 min 15 s; a 130, cerca de 15 min 17 s. São hipóteses de planejamento, não ensaio aferido. Números pronunciados e explicações espontâneas podem alongar a fala. Não há slides de reserva ou destinados a ser pulados.
 
@@ -28,3 +31,7 @@ node presentation/a2_inf/build_deck.mjs
 ~~~
 
 Defina RUNTIME_NODE_MODULES, CODEX_PRESENTATIONS_SKILL e CODEX_PRESENTATIONS_PYTHON com os caminhos do runtime de apresentações e da pasta de suas ferramentas. As verificações recebem nomes exclusivos em cada execução. O PDF é exportado do PowerPoint pelo LibreOffice Impress.
+
+## Recriar os guias de estudo
+
+O comando `python tools/build_study_guides.py` exporta os dois arquivos Markdown em PDFs navegáveis, usando ReportLab e pypdf. Defina `STUDY_FONT_DIR` para a pasta das fontes DejaVu Serif, Sans e Sans Mono; o padrão procura as fontes do runtime local. Esse comando não altera a apresentação nem os experimentos.
